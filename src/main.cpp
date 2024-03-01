@@ -5,7 +5,7 @@
 int main(int, char**) {
     auto context = Core::Context::GetInstance();
     App app;
-
+    std::cout << "Hello World\n";
     while (!context->GetExit()) {
         switch (app.GetCurrentState()) {
             case App::State::START:
