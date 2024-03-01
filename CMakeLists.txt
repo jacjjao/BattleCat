@@ -19,6 +19,11 @@ add_executable(${PROJECT_NAME}
     ${SRC_DIR}/main.cpp
     ${SRC_FILES}
     ${HEADER_FILES}
+        include/Scene.hpp
+        include/MenuScene.hpp
+        src/MenuScene.cpp
+        include/GameObjectEx.hpp
+        src/GameObjectEx.cpp
 )
 
 if(MSVC)

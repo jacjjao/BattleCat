@@ -5,15 +5,18 @@
 #include "Util/Keycode.hpp"
 #include "Util/Logger.hpp"
 
+#include "MenuScene.hpp"
+
 void App::Start() {
     LOG_TRACE("Start");
     m_CurrentState = State::UPDATE;
+    m_Scene = std::unique_ptr<Scene>(static_cast<Scene*>(new MenuScene()));
 }
 
 void App::Update() {
     
     //TODO: do your things here and delete this line <3
-    
+    m_Scene->Update();
     /*
      * Do not touch the code below as they serve the purpose for
      * closing the window.
