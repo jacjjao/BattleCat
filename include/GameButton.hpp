@@ -5,6 +5,9 @@
 
 class GameButton : public GameObjectEx{
 public:
+    //GameButton() = default;
+    //GameButton(const std::string &btn_path,std::initializer_list<std::string> border_paths);
+
     void AddOnClickCallBack(const std::function<void()>& func);
 
     void Update();
@@ -20,6 +23,7 @@ private:
 
     std::vector<std::function<void()>> m_OnClickCallBacks;
     std::shared_ptr<AnimatedGameObject> m_HoverBorder;
+    std::shared_ptr<GameObjectEx> m_button;
 };
 
 std::shared_ptr<GameButton>
