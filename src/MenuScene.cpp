@@ -16,13 +16,16 @@ MenuScene::MenuScene() {
     logo->SetPosition(0.0f, 150.0f);
     m_Root.AddChild(logo);
 
-    m_StartButton = std::make_shared<GameButton>();
-    m_StartButton->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/scene/startButton.png"));
+    m_StartButton =
+        CreateGameYellowButton(RESOURCE_DIR "/scene/startButton.png",
+                               {RESOURCE_DIR "/scene/hover_yellow.png",
+                                RESOURCE_DIR "/scene/hover_purple.png"});
     m_StartButton->SetZIndex(0.6);
     m_StartButton->SetPosition(0.0f, -75.0f);
     m_StartButton->AddOnClickCallBack([] { 
         printf("Button clicked!\n");
     });
+
     m_Root.AddChild(m_StartButton);
 }
 
