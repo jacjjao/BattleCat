@@ -2,6 +2,7 @@
 #include "MenuScene.hpp"
 #include "Util/Image.hpp"
 #include "GameObjectEx.hpp"
+#include "GameButton.hpp"
 
 MenuScene::MenuScene() {
     auto background = std::make_shared<GameObjectEx>();
@@ -16,10 +17,13 @@ MenuScene::MenuScene() {
     logo->SetPosition(0.0f, 150.0f);
     m_Root.AddChild(logo);
 
-    m_StartButton =
-        CreateGameYellowButton(RESOURCE_DIR "/scene/startButton.png",
-                               {RESOURCE_DIR "/scene/hover_yellow.png",
-                                RESOURCE_DIR "/scene/hover_purple.png"});
+    /*m_StartButton = std::make_shared<GameButton>(RESOURCE_DIR"/scene/YellowButton.png",
+                                                 {RESOURCE_DIR"/scene/YellowButton_p.png",
+                                                  RESOURCE_DIR"/scene/YellowButton_y.png"});*/
+    
+    m_StartButton = CreateGameYellowButton(RESOURCE_DIR"/buttons/YellowButton.png",
+                                           {RESOURCE_DIR"/buttons/YellowButton_p.png",
+                                            RESOURCE_DIR"/buttons/YellowButton_y.png"});
     m_StartButton->SetZIndex(0.6);
     m_StartButton->SetPosition(0.0f, -75.0f);
     m_StartButton->AddOnClickCallBack([] { 
