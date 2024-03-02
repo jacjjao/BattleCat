@@ -6,17 +6,20 @@
 #include "Util/Logger.hpp"
 
 #include "MenuScene.hpp"
+#include "CatBase.hpp"
 
 void App::Start() {
     LOG_TRACE("Start");
     m_CurrentState = State::UPDATE;
-    m_Scene = std::unique_ptr<Scene>(static_cast<Scene*>(new MenuScene()));
+    m_MenuScene = std::unique_ptr<Scene>(static_cast<Scene*>(new MenuScene(*this)));
+    m_CatBaseScene = std::unique_ptr<Scene>(static_cast<Scene*>(new CatBaseScene(*this)));
+    m_CurScene = m_MenuScene.get();
 }
 
 void App::Update() {
     
     //TODO: do your things here and delete this line <3
-    m_Scene->Update();
+    m_CurScene->Update();
     /*
      * Do not touch the code below as they serve the purpose for
      * closing the window.
@@ -29,4 +32,15 @@ void App::Update() {
 
 void App::End() { // NOLINT(this method will mutate members in the future)
     LOG_TRACE("End");
+}
+
+void App::SwitchScene(SceneType type) {
+    switch (type) { 
+    case SceneType::MENU:
+        m_CurScene = m_MenuScene.get();
+        break;
+
+    case SceneType::CAT_BASE:
+        m_CurScene = m_CatBaseScene.get();
+    }
 }

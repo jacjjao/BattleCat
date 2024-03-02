@@ -77,6 +77,7 @@ CreateGameYellowButton(const std::string &btn_path,
     border->SetLooping(true);
     border->SetInterval(67);
 
+
     const auto button_size = button->GetScaledSize();
     const auto border_size = border->GetScaledSize();
     border->SetScale(button_size.x / border_size.x,
