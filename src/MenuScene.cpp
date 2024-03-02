@@ -5,8 +5,7 @@
 #include "App.hpp"
 #include "CatBase.hpp"
 
-MenuScene::MenuScene(App &app)
-    : m_App(app) {
+MenuScene::MenuScene(App &app) : m_App(app) {
     auto background = std::make_shared<GameObjectEx>();
     background->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/scene/Menu.png"));
     background->SetZIndex(0.0f);
@@ -16,7 +15,7 @@ MenuScene::MenuScene(App &app)
     logo->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/scene/logo.png"));
     logo->SetZIndex(0.5f);
     logo->SetScale(0.85f, 0.85f);
-    logo->SetPosition(0.0f, 150.0f);
+    logo->SetPosition(0.0f, 200.0f);
     m_Root.AddChild(logo);
 
     /*m_StartButton = std::make_shared<GameButton>(RESOURCE_DIR"/scene/YellowButton.png",
