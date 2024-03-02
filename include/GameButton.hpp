@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObjectEx.hpp"
+#include "AnimatedGameObject.hpp"
 
 class GameButton : public GameObjectEx{
 public:
@@ -8,8 +9,19 @@ public:
 
     void Update();
 
+    void SetHoverBorder(std::shared_ptr<AnimatedGameObject> border);
+
+    void SetPosition(float x, float y);
+
+    void SetZIndex(float index);
+
 private:
-    bool IsClicked();
+    bool IsMouseHovering();
 
     std::vector<std::function<void()>> m_OnClickCallBacks;
+    std::shared_ptr<AnimatedGameObject> m_HoverBorder;
 };
+
+std::shared_ptr<GameButton>
+CreateGameYellowButton(const std::string &btn_path,
+                       std::initializer_list<std::string> border_paths);
