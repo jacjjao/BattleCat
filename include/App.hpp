@@ -12,6 +12,11 @@ public:
         END,
     };
 
+    enum class SceneType {
+        MENU,
+        CAT_BASE
+    };
+
     State GetCurrentState() const { return m_CurrentState; }
 
     void Start();
@@ -20,12 +25,16 @@ public:
 
     void End(); // NOLINT(readability-convert-member-functions-to-static)
 
+    void SwitchScene(SceneType type);
+
 private:
     void ValidTask();
 
 private:
     State m_CurrentState = State::START;
-    std::unique_ptr<Scene> m_Scene;
+    Scene* m_CurScene = nullptr;
+    std::unique_ptr<Scene> m_MenuScene;
+    std::unique_ptr<Scene> m_CatBaseScene;
 };
 
 #endif

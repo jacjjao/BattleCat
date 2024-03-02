@@ -5,6 +5,7 @@ set(SRC_FILES
     GameButton.cpp
     AnimatedGameObject.cpp
     Utility.cpp
+    CatBase.cpp
 )
 
 set(INCLUDE_FILES
@@ -15,6 +16,7 @@ set(INCLUDE_FILES
     GameButton.hpp
     AnimatedGameObject.hpp
     Utility.hpp
+    CatBase.hpp
 )
 
 set(TEST_FILES
