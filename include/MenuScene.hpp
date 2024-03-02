@@ -7,6 +7,7 @@
 
 #include "Scene.hpp"
 #include "Util/Root.hpp"
+#include "GameButton.hpp"
 
 class MenuScene : public Scene{
 public:
@@ -16,6 +17,7 @@ public:
 
 private:
     Util::Root m_Root;
+    std::shared_ptr<GameButton> m_StartButton;
 };
 
 #endif //BATTLECAT_MENUSCENE_HPP
