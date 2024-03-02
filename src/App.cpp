@@ -10,10 +10,12 @@
 
 void App::Start() {
     LOG_TRACE("Start");
+    //std::make_shared<Util::BGM>(RESOURCE_DIR"/bgm/start.mp3")->Play();
     m_CurrentState = State::UPDATE;
     m_MenuScene = std::unique_ptr<Scene>(static_cast<Scene*>(new MenuScene(*this)));
     m_CatBaseScene = std::unique_ptr<Scene>(static_cast<Scene*>(new CatBaseScene(*this)));
     m_CurScene = m_MenuScene.get();
+
 }
 
 void App::Update() {
@@ -42,5 +44,6 @@ void App::SwitchScene(SceneType type) {
 
     case SceneType::CAT_BASE:
         m_CurScene = m_CatBaseScene.get();
+        break;
     }
 }
