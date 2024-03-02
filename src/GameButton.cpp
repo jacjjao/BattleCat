@@ -53,11 +53,11 @@ std::shared_ptr<GameButton>
 CreateGameYellowButton(const std::string &btn_path,
                        std::initializer_list<std::string> border_paths) {
     auto button = std::make_unique<GameButton>();
-    button->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR "/scene/startButton.png"));
+    button->SetDrawable(std::make_shared<Util::Image>(btn_path));
 
     auto border = std::make_shared<AnimatedGameObject>(border_paths);
     border->SetLooping(true);
-    border->SetInterval(100);
+    border->SetInterval(150);
 
     const auto button_size = button->GetScaledSize();
     const auto border_size = border->GetScaledSize();
