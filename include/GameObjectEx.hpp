@@ -9,6 +9,7 @@
 
 class GameObjectEx : public Util::GameObject{
 public:
+    GameObjectEx();
     void SetScale(float x, float y);
     void SetPosition(float x, float y);
 };

@@ -1,27 +1,30 @@
 #include "GameButton.hpp"
 #include "Util/Input.hpp"
 #include "Utility.hpp"
+#include "Util/BGM.hpp"
 
 void GameButton::AddOnClickCallBack(const std::function<void()>& func) {
     m_OnClickCallBacks.push_back(func);
 }
 
 void GameButton::Update() {
+    if(!m_HoverBorder){
+        return;
+    }
+
     if (IsMouseHovering()) {
-        if (m_HoverBorder) {
-            m_HoverBorder->SetVisible(true);
-            m_HoverBorder->Play();
-        }
+        m_HoverBorder->SetVisible(true);
+        m_HoverBorder->Play();
+        m_sound->Play(1);
         if (Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB)) {
             for (const auto &callback : m_OnClickCallBacks) {
                 callback();
             }
         }
-    } else {
-        if (m_HoverBorder) {
-            m_HoverBorder->SetVisible(false);
-            m_HoverBorder->Pause();
-        }
+    }
+    else{
+        m_HoverBorder->SetVisible(false);
+        m_HoverBorder->Pause();
     }
 }
 
@@ -43,6 +46,10 @@ void GameButton::SetZIndex(const float index) {
     m_HoverBorder->SetZIndex(index + 0.001f);
 }
 
+void GameButton::SetClickSound(const std::string &sound_path) {
+    m_sound = std::make_shared<Util::BGM>(sound_path);
+}
+
 bool GameButton::IsMouseHovering() {
     const auto size = GetScaledSize();
     const auto top_left_pos = GetTransform().translation - size / 2.0f;
@@ -51,13 +58,15 @@ bool GameButton::IsMouseHovering() {
 
 std::shared_ptr<GameButton>
 CreateGameYellowButton(const std::string &btn_path,
-                       std::initializer_list<std::string> border_paths) {
+                       std::initializer_list<std::string> border_paths,
+                       const std::string &sound_path) {
     auto button = std::make_unique<GameButton>();
     button->SetDrawable(std::make_shared<Util::Image>(btn_path));
 
     auto border = std::make_shared<AnimatedGameObject>(border_paths);
     border->SetLooping(true);
-    border->SetInterval(150);
+    border->SetInterval(67);
+
 
     const auto button_size = button->GetScaledSize();
     const auto border_size = border->GetScaledSize();
@@ -66,6 +75,7 @@ CreateGameYellowButton(const std::string &btn_path,
 
 
     button->SetHoverBorder(border);
+    button->SetClickSound(sound_path);
 
     return button;
 }

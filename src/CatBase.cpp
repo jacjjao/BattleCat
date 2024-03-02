@@ -11,20 +11,21 @@ CatBaseScene::CatBaseScene(App &app)
     auto background = std::make_shared<GameObjectEx>();
     background->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR "/cat_base/background.png"));
     background->SetZIndex(0.0f);
-    background->SetPosition(70.0f, 0.0f); // background¹Ï¤ù¬O¬nªº
+    background->SetPosition(0.0f, 0.0f); // backgroundï¿½Ï¤ï¿½ï¿½Oï¿½nï¿½ï¿½
     
     const auto bg_size = background->GetScaledSize();
     const auto app_w = Core::Context::GetInstance()->GetWindowWidth();
     const auto app_h = Core::Context::GetInstance()->GetWindowHeight();
-    background->SetScale(app_w / bg_size.x, app_h / bg_size.y); 
+    background->SetScale(float(app_w) / bg_size.x, float(app_h) / bg_size.y);
 
     m_Root.AddChild(background);
 
     
     m_BackBotton = CreateGameYellowButton(
-        RESOURCE_DIR "/cat_base/button_back_ipad.png",
-        {RESOURCE_DIR "/cat_base/button_back_yellow.png",
-         RESOURCE_DIR "/cat_base/button_back_purple.png"});
+        RESOURCE_DIR "/buttons/button_back_ipad.png",
+        {RESOURCE_DIR "/buttons/button_back_yellow.png",
+         RESOURCE_DIR "/buttons/button_back_purple.png"},
+        RESOURCE_DIR"/sounds/click.mp3");
     m_BackBotton->SetZIndex(0.5f);
     m_BackBotton->SetPosition(-200.0f, -200.0f);
     m_BackBotton->AddOnClickCallBack([this] { 
