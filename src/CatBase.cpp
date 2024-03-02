@@ -24,7 +24,8 @@ CatBaseScene::CatBaseScene(App &app)
     m_BackBotton = CreateGameYellowButton(
         RESOURCE_DIR "/buttons/button_back_ipad.png",
         {RESOURCE_DIR "/buttons/button_back_yellow.png",
-         RESOURCE_DIR "/buttons/button_back_purple.png"});
+         RESOURCE_DIR "/buttons/button_back_purple.png"},
+        RESOURCE_DIR"/sounds/click.mp3");
     m_BackBotton->SetZIndex(0.5f);
     m_BackBotton->SetPosition(-200.0f, -200.0f);
     m_BackBotton->AddOnClickCallBack([this] { 

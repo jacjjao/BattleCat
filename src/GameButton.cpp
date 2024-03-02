@@ -1,23 +1,7 @@
 #include "GameButton.hpp"
 #include "Util/Input.hpp"
 #include "Utility.hpp"
-
-/*GameButton::GameButton(const std::string &btn_path,std::initializer_list<std::string> border_paths) : GameObjectEx(){
-    m_button = std::make_shared<GameObjectEx>();
-    m_button->SetDrawable(std::make_shared<Util::Image>(btn_path));
-
-    m_HoverBorder = std::make_shared<AnimatedGameObject>(border_paths);
-    m_HoverBorder->SetLooping(true);
-    m_HoverBorder->SetInterval(67);
-
-    const auto button_size = m_button->GetScaledSize();
-    const auto border_size =  m_HoverBorder->GetScaledSize();
-    m_HoverBorder->SetScale(button_size.x / border_size.x,
-                     button_size.y / border_size.y);
-
-
-    //button->SetHoverBorder(border);
-}*/
+#include "Util/BGM.hpp"
 
 void GameButton::AddOnClickCallBack(const std::function<void()>& func) {
     m_OnClickCallBacks.push_back(func);
@@ -31,6 +15,7 @@ void GameButton::Update() {
     if (IsMouseHovering()) {
         m_HoverBorder->SetVisible(true);
         m_HoverBorder->Play();
+        m_sound->Play(1);
         if (Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB)) {
             for (const auto &callback : m_OnClickCallBacks) {
                 callback();
@@ -61,6 +46,10 @@ void GameButton::SetZIndex(const float index) {
     m_HoverBorder->SetZIndex(index + 0.001f);
 }
 
+void GameButton::SetClickSound(const std::string &sound_path) {
+    m_sound = std::make_shared<Util::BGM>(sound_path);
+}
+
 bool GameButton::IsMouseHovering() {
     const auto size = GetScaledSize();
     const auto top_left_pos = GetTransform().translation - size / 2.0f;
@@ -69,7 +58,8 @@ bool GameButton::IsMouseHovering() {
 
 std::shared_ptr<GameButton>
 CreateGameYellowButton(const std::string &btn_path,
-                       std::initializer_list<std::string> border_paths) {
+                       std::initializer_list<std::string> border_paths,
+                       const std::string &sound_path) {
     auto button = std::make_unique<GameButton>();
     button->SetDrawable(std::make_shared<Util::Image>(btn_path));
 
@@ -85,6 +75,7 @@ CreateGameYellowButton(const std::string &btn_path,
 
 
     button->SetHoverBorder(border);
+    button->SetClickSound(sound_path);
 
     return button;
 }
