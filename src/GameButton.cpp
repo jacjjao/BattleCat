@@ -61,6 +61,11 @@ void GameButton::SetZIndex(const float index) {
     m_HoverBorder->SetZIndex(index + 0.001f);
 }
 
+void GameButton::SetScale(float x, float y) {
+    GameObjectEx::SetScale(x,y);
+    m_HoverBorder->SetScale(x,y);
+}
+
 bool GameButton::IsMouseHovering() const {
     const auto size = GetScaledSize();
     const auto top_left_pos = GetTransform().translation - size / 2.0f;
@@ -77,12 +82,10 @@ CreateGameYellowButton(const std::string &btn_path,
     border->SetLooping(true);
     border->SetInterval(67);
 
-
     /*const auto button_size = button->GetScaledSize();
     const auto border_size = border->GetScaledSize();
     border->SetScale(button_size.x / border_size.x,
                      button_size.y / border_size.y);*/
-
 
     button->SetHoverBorder(border);
 
