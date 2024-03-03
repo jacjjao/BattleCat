@@ -18,8 +18,6 @@ MenuScene::MenuScene(App &app) : m_App(app) {
     logo->SetPosition(0.0f, 200.0f);
     m_Root.AddChild(logo);
 
-    m_NextSceneBGM = std::make_shared<Util::BGM>(RESOURCE_DIR"/bgm/base.mp3");
-
     m_StartButton = CreateGameYellowButton(RESOURCE_DIR"/buttons/YellowButton.png",
                                            {RESOURCE_DIR"/buttons/YellowButton_p.png",
                                             RESOURCE_DIR"/buttons/YellowButton_y.png"},
@@ -28,7 +26,7 @@ MenuScene::MenuScene(App &app) : m_App(app) {
     m_StartButton->SetPosition(0.0f, -75.0f);
     m_StartButton->AddOnClickCallBack([this] { 
         m_App.SwitchScene(App::SceneType::CAT_BASE);
-        m_NextSceneBGM->Play();
+        m_App.SwitchBGM(App::BGMType::CAT_BASE);
     });
 
     m_Root.AddChild(m_StartButton);

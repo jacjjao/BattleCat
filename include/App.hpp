@@ -3,6 +3,7 @@
 
 #include "pch.hpp" // IWYU pragma: export
 #include "Scene.hpp"
+#include "Util/BGM.hpp"
 
 class App {
 public:
@@ -12,10 +13,17 @@ public:
         END,
     };
 
-    enum class SceneType {
-        MENU,
+    enum class SceneType : size_t { 
+        MENU = 0,
         CAT_BASE
     };
+    static_assert(std::is_same_v<std::underlying_type_t<SceneType>, size_t>); // Do not change the underlying type
+
+    enum class BGMType : size_t {
+        MENU = 0,
+        CAT_BASE
+    };
+    static_assert(std::is_same_v<std::underlying_type_t<BGMType>, size_t>); // Do not change the underlying type
 
     State GetCurrentState() const { return m_CurrentState; }
 
@@ -27,14 +35,16 @@ public:
 
     void SwitchScene(SceneType type);
 
-private:
-    void ValidTask();
+    void SwitchBGM(BGMType type);
 
 private:
     State m_CurrentState = State::START;
+
+    std::vector<std::unique_ptr<Scene>> m_Scenes;
     Scene* m_CurScene = nullptr;
-    std::unique_ptr<Scene> m_MenuScene;
-    std::unique_ptr<Scene> m_CatBaseScene;
+
+    std::vector<std::unique_ptr<Util::BGM>> m_BGMs;
+    Util::BGM* m_CurBGM = nullptr;
 };
 
 #endif

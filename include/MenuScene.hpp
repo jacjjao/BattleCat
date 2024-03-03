@@ -20,7 +20,6 @@ public:
 private:
     Util::Root m_Root;
     std::shared_ptr<GameButton> m_StartButton;
-    std::shared_ptr<Util::BGM> m_NextSceneBGM;
 
     App &m_App;
 };

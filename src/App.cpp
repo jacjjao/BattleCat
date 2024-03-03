@@ -10,12 +10,15 @@
 
 void App::Start() {
     LOG_TRACE("Start");
-    //std::make_shared<Util::BGM>(RESOURCE_DIR"/bgm/start.mp3")->Play();
     m_CurrentState = State::UPDATE;
-    m_MenuScene = std::unique_ptr<Scene>(static_cast<Scene*>(new MenuScene(*this)));
-    m_CatBaseScene = std::unique_ptr<Scene>(static_cast<Scene*>(new CatBaseScene(*this)));
-    m_CurScene = m_MenuScene.get();
 
+    m_Scenes.emplace_back(static_cast<Scene*>(new MenuScene(*this)));
+    m_Scenes.emplace_back(static_cast<Scene*>(new CatBaseScene(*this)));
+    SwitchScene(SceneType::MENU);
+
+    m_BGMs.push_back(std::make_unique<Util::BGM>(RESOURCE_DIR "/bgm/start.mp3"));
+    m_BGMs.push_back(std::make_unique<Util::BGM>(RESOURCE_DIR "/bgm/base.mp3"));
+    SwitchBGM(BGMType::MENU);
 }
 
 void App::Update() {
@@ -36,14 +39,22 @@ void App::End() { // NOLINT(this method will mutate members in the future)
     LOG_TRACE("End");
 }
 
-void App::SwitchScene(SceneType type) {
-    switch (type) { 
-    case SceneType::MENU:
-        m_CurScene = m_MenuScene.get();
-        break;
-
-    case SceneType::CAT_BASE:
-        m_CurScene = m_CatBaseScene.get();
-        break;
+void App::SwitchScene(const SceneType type) {
+    const auto index = static_cast<size_t>(type);
+    if (index >= m_Scenes.size()) {
+        throw std::invalid_argument("Invalid SceneType");
     }
+    m_CurScene = m_Scenes[index].get();
+}
+
+void App::SwitchBGM(const BGMType type) {
+    if (m_CurBGM) {
+        m_CurBGM->Pause();
+    }
+    const auto index = static_cast<size_t>(type);
+    if (index >= m_BGMs.size()) {
+        throw std::invalid_argument("Invalid BGMType");
+    }
+    m_CurBGM = m_BGMs[index].get();
+    m_CurBGM->Play();
 }

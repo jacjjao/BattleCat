@@ -16,7 +16,7 @@ void GameButton::Update() {
         m_HoverBorder->SetVisible(true);
         m_HoverBorder->Play();
         if (Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB)) {
-            m_sound->Play();
+            m_Sound->Play();
             for (const auto &callback : m_OnClickCallBacks) {
                 callback();
             }
@@ -47,7 +47,7 @@ void GameButton::SetZIndex(const float index) {
 }
 
 void GameButton::SetClickSound(const std::string &sound_path) {
-    m_sound = std::make_shared<Util::SFX>(sound_path);
+    m_Sound = std::make_unique<Util::SFX>(sound_path);
 }
 
 bool GameButton::IsMouseHovering() {
