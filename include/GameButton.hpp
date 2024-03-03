@@ -14,6 +14,8 @@ public:
 
     void SetPosition(float x, float y);
 
+    void SetScale(float x, float y);
+
     void SetZIndex(float index);
 
     void SetClickSound(const std::string &sound_path);

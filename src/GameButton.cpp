@@ -50,6 +50,11 @@ void GameButton::SetClickSound(const std::string &sound_path) {
     m_Sound = std::make_unique<Util::SFX>(sound_path);
 }
 
+void GameButton::SetScale(float x, float y) {
+    GameObjectEx::SetScale(x,y);
+    m_HoverBorder->SetScale(x,y);
+}
+
 bool GameButton::IsMouseHovering() {
     const auto size = GetScaledSize();
     const auto top_left_pos = GetTransform().translation - size / 2.0f;
@@ -68,10 +73,10 @@ CreateGameYellowButton(const std::string &btn_path,
     border->SetInterval(67);
 
 
-    const auto button_size = button->GetScaledSize();
+    /*const auto button_size = button->GetScaledSize();
     const auto border_size = border->GetScaledSize();
     border->SetScale(button_size.x / border_size.x,
-                     button_size.y / border_size.y);
+                     button_size.y / border_size.y);*/
 
 
     button->SetHoverBorder(border);
