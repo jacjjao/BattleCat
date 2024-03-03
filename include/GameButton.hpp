@@ -23,7 +23,7 @@ private:
 
     std::vector<std::function<void()>> m_OnClickCallBacks;
     std::shared_ptr<AnimatedGameObject> m_HoverBorder;
-    std::shared_ptr<Util::SFX> m_Sound;
+    std::unique_ptr<Util::SFX> m_Sound;
 };
 
 std::shared_ptr<GameButton>
