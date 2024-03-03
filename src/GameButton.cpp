@@ -61,10 +61,15 @@ void GameButton::SetZIndex(const float index) {
     m_HoverBorder->SetZIndex(index + 0.001f);
 }
 
-void GameButton::SetScale(float x, float y) {
-    GameObjectEx::SetScale(x,y);
-    m_HoverBorder->SetScale(x,y);
+void GameButton::SetScale(float scale) {
+    GameObjectEx::SetScale(scale,scale);
+    m_HoverBorder->SetScale(scale,scale);
 }
+
+void GameButton::SetWidthScale(float scale){
+    GameObjectEx::SetScale(scale,1);
+    m_HoverBorder->SetScale(scale,1);
+};
 
 bool GameButton::IsMouseHovering() const {
     const auto size = GetScaledSize();

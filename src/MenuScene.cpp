@@ -23,7 +23,7 @@ MenuScene::MenuScene(App &app) : m_App(app) {
                                             RESOURCE_DIR"/buttons/hover_yellow.png"});
 
     m_StartButton->SetZIndex(0.6);
-    //m_StartButton->SetScale(1,1);
+    m_StartButton->SetScale(1.2f);
     m_StartButton->SetPosition(0.0f, -75.0f);
     m_StartButton->AddOnClickCallBack([this] { 
         m_App.SwitchScene(App::SceneType::CAT_BASE);
