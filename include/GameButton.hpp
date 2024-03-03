@@ -18,7 +18,9 @@ public:
 
     void SetPosition(float x, float y);
 
-    void SetScale(float x, float y);
+    void SetScale(float scale);
+
+    void SetWidthScale(float scale);
 
     void SetZIndex(float index);
 
