@@ -2,7 +2,7 @@
 
 #include "GameObjectEx.hpp"
 #include "AnimatedGameObject.hpp"
-#include "Util/BGM.hpp"
+#include "Util/SFX.hpp"
 
 class GameButton : public GameObjectEx{
 public:
@@ -27,7 +27,7 @@ private:
     std::vector<std::function<void()>> m_OnClickCallBacks;
     std::shared_ptr<AnimatedGameObject> m_HoverBorder;
     std::shared_ptr<GameObjectEx> m_button;
-    std::shared_ptr<Util::BGM> m_sound;
+    std::shared_ptr<Util::SFX> m_sound;
 };
 
 std::shared_ptr<GameButton>
