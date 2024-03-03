@@ -9,7 +9,6 @@
 #include "Util/BGM.hpp"
 
 class Scene{
-
 public:
     virtual ~Scene() = default;
     virtual void Update() = 0;
