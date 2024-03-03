@@ -20,8 +20,7 @@ MenuScene::MenuScene(App &app) : m_App(app) {
 
     m_StartButton = CreateGameYellowButton(RESOURCE_DIR"/buttons/YellowButton.png",
                                            {RESOURCE_DIR"/buttons/YellowButton_p.png",
-                                            RESOURCE_DIR"/buttons/YellowButton_y.png"},
-                                           RESOURCE_DIR"/sounds/click.mp3");
+                                            RESOURCE_DIR"/buttons/YellowButton_y.png"});
     m_StartButton->SetZIndex(0.6);
     m_StartButton->SetPosition(0.0f, -75.0f);
     m_StartButton->AddOnClickCallBack([this] { 
