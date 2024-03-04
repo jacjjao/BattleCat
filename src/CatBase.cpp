@@ -57,19 +57,19 @@ CatBaseScene::CatBaseScene(App &app)
 
     m_Root.AddChild(door);
 
-    m_BackButton = CreateGameYellowButton(
-        RESOURCE_DIR "/buttons/button_back_ipad.png",
-        {RESOURCE_DIR "/buttons/button_back_yellow.png",
-         RESOURCE_DIR "/buttons/button_back_purple.png"});
+    m_BackButton = std::make_shared<GameButton>(RESOURCE_DIR "/buttons/button_back_ipad.png",
+                                                std::initializer_list<std::string>({RESOURCE_DIR "/buttons/button_back_yellow.png",
+                                                                                    RESOURCE_DIR "/buttons/button_back_purple.png"}));
     m_BackButton->SetZIndex(0.5f);
     m_BackButton->SetPosition(float(app_w)/-2.0f + m_BackButton->GetScaledSize().x/2.0f + 74,
                               float(app_h)/-2.0f + m_BackButton->GetScaledSize().y/2.0f);
-    m_BackButton->AddOnClickCallBack([this] {
+    m_BackButton->AddButtonEvent([this] {
         m_App.SwitchScene(App::SceneType::MENU);
         m_App.SwitchBGM(App::BGMType::MENU);
     });
 
     m_Root.AddChild(m_BackButton);
+
 }
 
 void CatBaseScene::Update() {

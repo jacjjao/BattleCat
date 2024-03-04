@@ -3,24 +3,33 @@
 #include "Utility.hpp"
 #include "Util/BGM.hpp"
 
-GameButton::GameButton() {
+GameButton::GameButton(const std::string &btn_path) {
+    SetDrawable(std::make_shared<Util::Image>(btn_path));
     if (!s_ClickSound) {
-        s_ClickSound = std::make_unique<Util::SFX>(RESOURCE_DIR "/sounds/click.mp3");
-    }
-
-    AddOnClickCallBack([] { 
-        s_ClickSound->Play(); 
-    });
-}
-
-GameButton::GameButton(const std::function<void()>& click_sound) {
-    if (click_sound) {
-        AddOnClickCallBack(click_sound);
+        SetClickSound(RESOURCE_DIR "/sounds/click.mp3");
     }
 }
 
-void GameButton::AddOnClickCallBack(const std::function<void()> &func) {
-    m_OnClickCallBacks.push_back(func);
+GameButton::GameButton(const std::string &btn_path,
+                       std::initializer_list<std::string> border_paths) {
+    SetDrawable(std::make_shared<Util::Image>(btn_path));
+
+    auto border = std::make_shared<AnimatedGameObject>(border_paths);
+    border->SetLooping(true);
+    border->SetInterval(67);
+    SetHoverBorder(border);
+
+    if (!s_ClickSound) {
+        SetClickSound(RESOURCE_DIR "/sounds/click.mp3");
+    }
+}
+
+void GameButton::SetClickSound(const std::string &sound_path) {
+    s_ClickSound = std::make_unique<Util::SFX>(sound_path);
+}
+
+void GameButton::AddButtonEvent(const std::function<void()> &func) {
+    m_ButtonEvents.push_back(func);
 }
 
 void GameButton::Update() {
@@ -32,7 +41,7 @@ void GameButton::Update() {
         m_HoverBorder->SetVisible(true);
         m_HoverBorder->Play();
         if (Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB)) {
-            for (const auto &callback : m_OnClickCallBacks) {
+            for (const auto &callback : m_ButtonEvents) {
                 callback();
             }
         }
@@ -54,21 +63,37 @@ void GameButton::SetHoverBorder(std::shared_ptr<AnimatedGameObject> border) {
 void GameButton::SetPosition(const float x, const float y) {
     GameObjectEx::SetPosition(x, y);
     m_HoverBorder->SetPosition(x, y);
+    //m_text->SetPosition(x,y);
 }
 
 void GameButton::SetZIndex(const float index) {
     GameObjectEx::SetZIndex(index);
     m_HoverBorder->SetZIndex(index + 0.001f);
+    //m_text->SetZIndex(index + 0.001f);
 }
 
 void GameButton::SetScale(float scale) {
     GameObjectEx::SetScale(scale,scale);
     m_HoverBorder->SetScale(scale,scale);
+    //m_text->SetScale(m_text->GetScale().x * scale,m_text->GetScale().y * scale);
 }
 
 void GameButton::SetWidthScale(float scale){
     GameObjectEx::SetScale(scale, GameObjectEx::GetScale().y);
     m_HoverBorder->SetScale(scale, GameObjectEx::GetScale().y);
+};
+
+void GameButton::SetText(const std::string &txt_img_path,float scale){
+    if (m_text) {
+        RemoveChild(m_text);
+    }
+    auto text = std::make_shared<GameObjectEx>();
+    text->SetDrawable(std::make_shared<Util::Image>(txt_img_path));
+    text->SetScale(scale,scale);
+    text->SetPosition(this->GetPosition());
+    text->SetZIndex(this->GetZIndex() + 0.001f);
+    m_text = std::move(text);
+    AddChild(m_text);
 };
 
 bool GameButton::IsMouseHovering() const {
@@ -77,7 +102,7 @@ bool GameButton::IsMouseHovering() const {
     return PointInRect(top_left_pos, size, Util::Input::GetCursorPosition());
 }
 
-std::shared_ptr<GameButton>
+/*std::shared_ptr<GameButton>
 CreateGameYellowButton(const std::string &btn_path,
                        std::initializer_list<std::string> border_paths) {
     auto button = std::make_unique<GameButton>();
@@ -87,12 +112,7 @@ CreateGameYellowButton(const std::string &btn_path,
     border->SetLooping(true);
     border->SetInterval(67);
 
-    /*const auto button_size = button->GetScaledSize();
-    const auto border_size = border->GetScaledSize();
-    border->SetScale(button_size.x / border_size.x,
-                     button_size.y / border_size.y);*/
-
     button->SetHoverBorder(border);
 
     return button;
-}
+}*/

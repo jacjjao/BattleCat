@@ -18,15 +18,16 @@ MenuScene::MenuScene(App &app) : m_App(app) {
     logo->SetPosition(0.0f, 200.0f);
     m_Root.AddChild(logo);
 
-    m_StartButton = CreateGameYellowButton(RESOURCE_DIR"/buttons/YellowButton.png",
-                                           {RESOURCE_DIR"/buttons/hover_purple.png",
-                                            RESOURCE_DIR"/buttons/hover_yellow.png"});
+    m_StartButton = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/YellowButton.png",
+                                                 std::initializer_list<std::string>({RESOURCE_DIR"/buttons/hover_purple.png",
+                                                  RESOURCE_DIR"/buttons/hover_yellow.png"}));
 
     m_StartButton->SetZIndex(0.6);
     m_StartButton->SetScale(1.0f);
     m_StartButton->SetWidthScale(1.0f);
     m_StartButton->SetPosition(0.0f, -75.0f);
-    m_StartButton->AddOnClickCallBack([this] { 
+    m_StartButton->SetText(RESOURCE_DIR"/scene/txt_option.png");
+    m_StartButton->AddButtonEvent([this] {
         m_App.SwitchScene(App::SceneType::CAT_BASE);
         m_App.SwitchBGM(App::BGMType::CAT_BASE);
     });

@@ -16,6 +16,10 @@ void GameObjectEx::SetPosition(float x, float y){
     m_Transform.translation = glm::vec2(x,y);
 }
 
+void GameObjectEx::SetPosition(glm::vec2 pos){
+    m_Transform.translation = pos;
+}
+
 glm::vec2 GameObjectEx::GetPosition(){
     return m_Transform.translation;
 }

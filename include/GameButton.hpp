@@ -6,17 +6,18 @@
 
 class GameButton : public GameObjectEx{
 public:
-    explicit GameButton();
+    //explicit GameButton() = default;
+    explicit GameButton(const std::string &btn_path);
 
-    explicit GameButton(const std::function<void()>& click_sound);
+    explicit GameButton(const std::string &btn_path,std::initializer_list<std::string> border_paths);
 
-    void AddOnClickCallBack(const std::function<void()>& func);
+    void SetClickSound(const std::string &sound_path);
+
+    void AddButtonEvent(const std::function<void()>& func);
 
     void Update();
 
-    void SetHoverBorder(std::shared_ptr<AnimatedGameObject> border);
-
-    void SetPosition(float x, float y);
+    void SetPosition(float x, float y) override;
 
     void SetScale(float scale);
 
@@ -24,15 +25,22 @@ public:
 
     void SetZIndex(float index);
 
+    void SetText(const std::string &txt_img_path,float scale=1.0f);
+
 private:
     static inline std::unique_ptr<Util::SFX> s_ClickSound = nullptr;
 
-    bool IsMouseHovering() const;
+    std::vector<std::function<void()>> m_ButtonEvents = {
+        []{s_ClickSound->Play();}
+    };
 
-    std::vector<std::function<void()>> m_OnClickCallBacks;
-    std::shared_ptr<AnimatedGameObject> m_HoverBorder;
+    std::shared_ptr<AnimatedGameObject> m_HoverBorder = nullptr;
+    std::shared_ptr<GameObjectEx> m_text = nullptr;
+
+    bool IsMouseHovering() const;
+    void SetHoverBorder(std::shared_ptr<AnimatedGameObject> border);
 };
 
-std::shared_ptr<GameButton>
+/*std::shared_ptr<GameButton>
 CreateGameYellowButton(const std::string &btn_path,
-                       std::initializer_list<std::string> border_paths);
+                       std::initializer_list<std::string> border_paths);*/
