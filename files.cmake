@@ -17,6 +17,9 @@ set(INCLUDE_FILES
     AnimatedGameObject.hpp
     Utility.hpp
     CatBase.hpp
+    Entity.hpp
+    Enemy.hpp
+    BaseCat.hpp
 )
 
 set(TEST_FILES
