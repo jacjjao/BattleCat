@@ -67,8 +67,8 @@ void GameButton::SetScale(float scale) {
 }
 
 void GameButton::SetWidthScale(float scale){
-    GameObjectEx::SetScale(scale,1);
-    m_HoverBorder->SetScale(scale,1);
+    GameObjectEx::SetScale(scale, GameObjectEx::GetScale().y);
+    m_HoverBorder->SetScale(scale, GameObjectEx::GetScale().y);
 };
 
 bool GameButton::IsMouseHovering() const {

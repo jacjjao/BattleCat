@@ -12,6 +12,9 @@ public:
     GameObjectEx();
     void SetScale(float x, float y);
     void SetPosition(float x, float y);
+    glm::vec2 GetScale();
+    glm::vec2 GetPosition();
+
 };
 
 #endif //BATTLECAT_GAMEOBJECTEX_HPP
