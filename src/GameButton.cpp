@@ -5,27 +5,26 @@
 
 GameButton::GameButton(const std::string &btn_path) {
     SetDrawable(std::make_shared<Util::Image>(btn_path));
-    if (!s_ClickSound) {
-        SetClickSound(RESOURCE_DIR "/sounds/click.mp3");
-    }
 }
 
 GameButton::GameButton(const std::string &btn_path,
-                       std::initializer_list<std::string> border_paths) {
+                       std::initializer_list<std::string> border_paths){
     SetDrawable(std::make_shared<Util::Image>(btn_path));
 
     auto border = std::make_shared<AnimatedGameObject>(border_paths);
     border->SetLooping(true);
     border->SetInterval(67);
     SetHoverBorder(border);
-
     if (!s_ClickSound) {
-        SetClickSound(RESOURCE_DIR "/sounds/click.mp3");
+        s_ClickSound = std::make_unique<Util::SFX>(RESOURCE_DIR "/sounds/click.mp3");
     }
+    SetClickSound([]{s_ClickSound->Play();});
 }
 
-void GameButton::SetClickSound(const std::string &sound_path) {
-    s_ClickSound = std::make_unique<Util::SFX>(sound_path);
+void GameButton::SetClickSound(const std::function<void()>& click_sound) {
+    if (click_sound) {
+        AddButtonEvent(click_sound);
+    }
 }
 
 void GameButton::AddButtonEvent(const std::function<void()> &func) {

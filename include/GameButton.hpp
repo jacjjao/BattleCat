@@ -11,7 +11,7 @@ public:
 
     explicit GameButton(const std::string &btn_path,std::initializer_list<std::string> border_paths);
 
-    void SetClickSound(const std::string &sound_path);
+    void SetClickSound(const std::function<void()>& click_sound);
 
     void AddButtonEvent(const std::function<void()>& func);
 
@@ -30,9 +30,7 @@ public:
 private:
     static inline std::unique_ptr<Util::SFX> s_ClickSound = nullptr;
 
-    std::vector<std::function<void()>> m_ButtonEvents = {
-        []{s_ClickSound->Play();}
-    };
+    std::vector<std::function<void()>> m_ButtonEvents;
 
     std::shared_ptr<AnimatedGameObject> m_HoverBorder = nullptr;
     std::shared_ptr<GameObjectEx> m_text = nullptr;
