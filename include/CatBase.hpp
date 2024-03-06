@@ -3,6 +3,7 @@
 #include "Scene.hpp"
 #include "Util/Root.hpp"
 #include "GameButton.hpp"
+#include <vector>
 
 class CatBaseScene : public Scene {
 public:
@@ -14,9 +15,5 @@ private:
     Util::Root m_Root;
     App &m_App;
 
-    std::shared_ptr<GameButton> m_BackButton;
-    std::shared_ptr<GameButton> m_StartButton;
-    std::shared_ptr<GameButton> m_UpgradeButton;
-    std::shared_ptr<GameButton> m_EquipButton;
-
+    std::vector<std::shared_ptr<GameButton>> m_Buttons;
 };
