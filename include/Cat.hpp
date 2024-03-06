@@ -9,6 +9,11 @@ enum class CatType {
 };
 static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
 
+struct CatStatsMat {
+    std::array<int, 10> health;
+    std::array<int, 10> damage;
+};
+
 class Cat {
 public:
     Cat(const EntityStats &stats, CatType type, int level);
@@ -22,6 +27,7 @@ public:
     void Update();
 
 private:
+    CatType m_Type;
     EntityStats m_Stats;
     EntityState m_State = EntityState::WALK;
 };
