@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 enum EnemyAttr : uint16_t {
     WHITE = 0x01,
     RED = 0x02,
