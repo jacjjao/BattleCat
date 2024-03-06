@@ -15,4 +15,8 @@ private:
     App &m_App;
 
     std::shared_ptr<GameButton> m_BackButton;
+    std::shared_ptr<GameButton> m_StartButton;
+    std::shared_ptr<GameButton> m_UpgradeButton;
+    std::shared_ptr<GameButton> m_EquipButton;
+
 };
