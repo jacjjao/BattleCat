@@ -61,25 +61,33 @@ void GameButton::SetHoverBorder(std::shared_ptr<AnimatedGameObject> border) {
 
 void GameButton::SetPosition(const float x, const float y) {
     GameObjectEx::SetPosition(x, y);
-    m_HoverBorder->SetPosition(x, y);
+    if (m_HoverBorder) {
+        m_HoverBorder->SetPosition(x, y);
+    }
     //m_text->SetPosition(x,y);
 }
 
 void GameButton::SetZIndex(const float index) {
     GameObjectEx::SetZIndex(index);
-    m_HoverBorder->SetZIndex(index + 0.001f);
+    if (m_HoverBorder) {
+        m_HoverBorder->SetZIndex(index + 0.001f);
+    }
     //m_text->SetZIndex(index + 0.001f);
 }
 
 void GameButton::SetScale(float scale) {
     GameObjectEx::SetScale(scale,scale);
-    m_HoverBorder->SetScale(scale,scale);
+    if (m_HoverBorder) {
+        m_HoverBorder->SetScale(scale, scale);
+    }
     //m_text->SetScale(m_text->GetScale().x * scale,m_text->GetScale().y * scale);
 }
 
 void GameButton::SetWidthScale(float scale){
     GameObjectEx::SetScale(scale, GameObjectEx::GetScale().y);
-    m_HoverBorder->SetScale(scale, GameObjectEx::GetScale().y);
+    if (m_HoverBorder) {
+        m_HoverBorder->SetScale(scale, GameObjectEx::GetScale().y);
+    }
 };
 
 void GameButton::SetText(const std::string &txt_img_path,float scale){
