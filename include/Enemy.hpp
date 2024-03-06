@@ -1,16 +1,24 @@
 #pragma once
 
 #include "EnemyAttr.hpp"
-#include "Entity.hpp"
+#include "EntityStats.hpp"
 #include <functional>
+
+enum class EnemyType : size_t {
+    DOGE = 0
+};
+static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
 
 class Enemy {
 public:
-    virtual void StartAttack(std::function<void(const Enemy&)> hit_callback) = 0;
+    Enemy(const EntityStats &stats, EnemyType type, float stats_modifier);
 
-    virtual void GetHit(int damage) = 0;
+    void StartAttack(std::function<void(const Enemy&)> hit_callback);
 
-protected:
+    void GetHit(int damage);
+
+private:
     EnemyAttr m_Attr;
-    Entity m_Stat;
+    EntityState m_State = EntityState::WALK;
+    EntityStats m_Stats;
 };
