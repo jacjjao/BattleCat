@@ -9,13 +9,7 @@
 
 class GameObjectEx : public Util::GameObject{
 public:
-    GameObjectEx() = default;
-    GameObjectEx(std::unique_ptr<Core::Drawable> drawable, const float zIndex,
-                 const bool visible = true,
-                 const std::vector<std::shared_ptr<GameObject>> &children =
-                     std::vector<std::shared_ptr<GameObject>>())
-        : Util::GameObject(std::move(drawable),zIndex,visible,children){};
-
+    using Util::GameObject::GameObject;
 
     virtual void SetScale(float x, float y);
     virtual void SetScale(glm::vec2 scale);
@@ -31,7 +25,7 @@ public:
     [[nodiscard]]
     float GetRotation() const;
 
-    ~GameObjectEx() override = default;
+    virtual ~GameObjectEx() override = default;
 
 };
 
