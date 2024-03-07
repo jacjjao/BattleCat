@@ -5,6 +5,8 @@
 #include "App.hpp"
 #include "CatBase.hpp"
 
+#include "Util/Input.hpp"
+
 MenuScene::MenuScene(App &app) : m_App(app) {
     auto background = std::make_shared<GameObjectEx>
         (std::make_unique<Util::Image>(RESOURCE_DIR"/scene/Menu.png"),0);
@@ -39,6 +41,23 @@ MenuScene::MenuScene(App &app) : m_App(app) {
 }
 
 void MenuScene::Update() {
+    //TODO: This just test,you can delete it.
+    /**
+    if (Util::Input::IsKeyDown(Util::Keycode::UP)){
+        m_SettingsButton->MovePosition(0,10);
+    }
+    if (Util::Input::IsKeyDown(Util::Keycode::DOWN)){
+        m_SettingsButton->MovePosition(0,-10);
+    }
+    if (Util::Input::IsKeyDown(Util::Keycode::LEFT)){
+        m_SettingsButton->MovePosition(-10,0);
+    }
+    if (Util::Input::IsKeyDown(Util::Keycode::RIGHT)){
+        m_SettingsButton->MovePosition(10,0);
+    }
+    if (Util::Input::IsKeyDown(Util::Keycode::BACKSPACE)){
+        m_SettingsButton->AddRotation(1);
+    }**/
     m_PlayButton->Update();
     m_SettingsButton->Update();
     m_Root.Update();

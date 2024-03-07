@@ -16,15 +16,20 @@ struct CatStatsMat {
 
 class Cat {
 public:
-    Cat(const EntityStats &stats, CatType type, int level);
+    Cat(const EntityStats &stats, CatType type, int level,
+        std::function<void(const Cat&)> hit_callback);
 
-    void StartAttack(std::function<void(const Cat&, EnemyAttr)>);
+    void StartAttack();
 
     void GetHit(int damage, EnemyAttr attr);
 
-    float GetAtkModifier(EnemyAttr attr) const;
-
     void Update();
+
+    int GetDamage(EnemyAttr attr) const;
+
+    CatType GetCatType() const;
+
+    HitBox GetHitBox() const;
 
 private:
     CatType m_Type;
@@ -34,18 +39,17 @@ private:
 
 namespace CatStats {
 
-    inline constexpr EntityStats Cat = {
-        .health = 250,
-        .damage = 20,
-        .range = 140,
-        .kb = 3,
-        .speed = 10,
-        .single_target = true,
-        .atk_prep_time = 270,
-        .atk_cool_down = 1230,
-        .recharge_time = 2000,
-        .cost = 75,
-        .attr = std::nullopt
-    };
+    inline constexpr EntityStats Cat = {.health = 250,
+                                    .damage = 20,
+                                    .range = 140,
+                                    .kb = 3,
+                                    .speed = 10,
+                                    .single_target = true,
+                                    .atk_prep_time = 270,
+                                    .atk_cool_down = 1230,
+                                    .recharge_time = 2000,
+                                    .cost = 75,
+                                    .det_box = {.low = 0, .high = 10},
+                                    .attr = std::nullopt};
 
 } // CatStats

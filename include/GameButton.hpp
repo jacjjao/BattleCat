@@ -17,7 +17,7 @@ public:
 
     void Update();
 
-    void SetPosition(float x, float y) override;
+    void SetPosition(float x, float y);
 
     void SetScale(float scale);
 
