@@ -15,7 +15,10 @@ public:
     virtual void SetScale(glm::vec2 scale);
     virtual void SetPosition(float x, float y);
     virtual void SetPosition(glm::vec2 position);
+    virtual void MovePosition(float x, float y);
+    virtual void MovePosition(glm::vec2 position);
     virtual void SetRotation(float r);
+    virtual void AddRotation(float r);
     virtual void SetTransform(Util::Transform transform);
 
     [[nodiscard]]
