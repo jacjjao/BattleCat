@@ -4,37 +4,15 @@
 #include "EntityStats.hpp"
 #include <functional>
 
-enum class CatType {
-    CAT = 0
+enum class CatType : size_t {
+    CAT = 0,
+    CAT_TYPE_COUNT
 };
 static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
 
 struct CatStatsMat {
     std::array<int, 10> health;
     std::array<int, 10> damage;
-};
-
-class Cat {
-public:
-    Cat(const EntityStats &stats, CatType type, int level,
-        std::function<void(const Cat&)> hit_callback);
-
-    void StartAttack();
-
-    void GetHit(int damage, EnemyAttr attr);
-
-    void Update();
-
-    int GetDamage(EnemyAttr attr) const;
-
-    CatType GetCatType() const;
-
-    HitBox GetHitBox() const;
-
-private:
-    CatType m_Type;
-    EntityStats m_Stats;
-    EntityState m_State = EntityState::WALK;
 };
 
 namespace CatStats {

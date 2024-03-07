@@ -4,21 +4,17 @@
 #include "Cat.hpp"
 #include "Util/Image.hpp"
 
-enum class EntityType : size_t {
-    CAT = 0,
-    DOGE,
-    TYPE_COUNT
-};
-
+template<typename EntityType>
 class Entity {
 public:
-    static Entity CreateCat(const EntityStats &stats, EntityType type,
-                            const CatStatsMat &mat, int level,
-                            std::function<void(const Cat &)> hit_callback);
+    static Entity<CatType>
+    CreateCat(const EntityStats &stats, CatType type, const CatStatsMat &mat,
+              int level,
+              std::function<void(const Entity<CatType> &)> hit_callback);
 
-    static Entity CreateEnemy(const EntityStats &stats, EntityType type,
-                              float stats_modifier,
-                              std::function<void(const Enemy &)> hit_callback);
+    static Entity<EnemyType>
+    CreateEnemy(const EntityStats &stats, EnemyType type, float stats_modifier,
+                std::function<void(const Entity<EnemyType> &)> hit_callback);
 
     void StartAttack();
 
