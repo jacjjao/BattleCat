@@ -57,44 +57,55 @@ CatBaseScene::CatBaseScene(App &app)
 
     m_Root.AddChild(door);
 
-    m_BackButton = std::make_shared<GameButton>(RESOURCE_DIR "/buttons/button_back_ipad.png",
-                                                std::initializer_list<std::string>({RESOURCE_DIR "/buttons/button_back_yellow.png",
-                                                                                    RESOURCE_DIR "/buttons/button_back_purple.png"}));
-    m_BackButton->SetZIndex(0.5f);
-    m_BackButton->SetPosition(float(app_w)/-2.0f + m_BackButton->GetScaledSize().x/2.0f + 74,
-                              float(app_h)/-2.0f + m_BackButton->GetScaledSize().y/2.0f);
-    m_BackButton->AddButtonEvent([this] {
+    auto back_button = std::make_shared<GameButton>(
+        RESOURCE_DIR "/buttons/button_back_ipad.png",
+        std::initializer_list<std::string>(
+            {RESOURCE_DIR "/buttons/button_back_yellow.png",
+             RESOURCE_DIR "/buttons/button_back_purple.png"}));
+    back_button->SetZIndex(0.5f);
+    back_button->SetPosition(float(app_w)/-2.0f + back_button->GetScaledSize().x/2.0f + 74,
+                              float(app_h)/-2.0f + back_button->GetScaledSize().y/2.0f);
+    back_button->AddButtonEvent([this] {
         m_App.SwitchScene(App::SceneType::MENU);
         m_App.SwitchBGM(App::BGMType::MENU);
     });
+    m_Buttons.push_back(back_button);
+    m_Root.AddChild(back_button);
 
-    m_Root.AddChild(m_BackButton);
-    m_StartButton = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/YellowButton.png",
-                                 std::initializer_list<std::string>({RESOURCE_DIR"/buttons/hover_purple.png",
-                                                                     RESOURCE_DIR"/buttons/hover_yellow.png"}));
-    m_StartButton->SetZIndex(0.5f);
-    m_StartButton->SetPosition(-400.0f,150.0f);
-    m_Root.AddChild(m_StartButton);
+    auto start_button = std::make_shared<GameButton>(
+        RESOURCE_DIR "/buttons/YellowButton.png",
+        std::initializer_list<std::string>(
+            {RESOURCE_DIR "/buttons/hover_purple.png",
+             RESOURCE_DIR "/buttons/hover_yellow.png"}));
+    start_button->SetZIndex(0.5f);
+    start_button->SetPosition(-400.0f,150.0f);
+    m_Buttons.push_back(start_button);
+    m_Root.AddChild(start_button);
 
-    m_UpgradeButton = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/YellowButton.png",
-                                                   std::initializer_list<std::string>({RESOURCE_DIR"/buttons/hover_purple.png",
-                                                                                       RESOURCE_DIR"/buttons/hover_yellow.png"}));
-    m_UpgradeButton->SetZIndex(0.5f);
-    m_UpgradeButton->SetPosition(-400.0f,50.0f);
-    m_Root.AddChild(m_UpgradeButton);
+    auto upgrade_button = std::make_shared<GameButton>(
+        RESOURCE_DIR "/buttons/YellowButton.png",
+        std::initializer_list<std::string>(
+            {RESOURCE_DIR "/buttons/hover_purple.png",
+             RESOURCE_DIR "/buttons/hover_yellow.png"}));
+    upgrade_button->SetZIndex(0.5f);
+    upgrade_button->SetPosition(-400.0f,50.0f);
+    m_Buttons.push_back(upgrade_button);
+    m_Root.AddChild(upgrade_button);
 
-    m_EquipButton = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/YellowButton.png",
-                                                 std::initializer_list<std::string>({RESOURCE_DIR"/buttons/hover_purple.png",
-                                                                                     RESOURCE_DIR"/buttons/hover_yellow.png"}));
-    m_EquipButton->SetZIndex(0.5f);
-    m_EquipButton->SetPosition(-400.0f,-50.0f);
-    m_Root.AddChild(m_EquipButton);
+    auto equip_button = std::make_shared<GameButton>(
+        RESOURCE_DIR "/buttons/YellowButton.png",
+        std::initializer_list<std::string>(
+            {RESOURCE_DIR "/buttons/hover_purple.png",
+             RESOURCE_DIR "/buttons/hover_yellow.png"}));
+    equip_button->SetZIndex(0.5f);
+    equip_button->SetPosition(-400.0f,-50.0f);
+    m_Buttons.push_back(equip_button);
+    m_Root.AddChild(equip_button);
 }
 
 void CatBaseScene::Update() {
-    m_BackButton->Update();
-    m_StartButton->Update();
-    m_UpgradeButton->Update();
-    m_EquipButton->Update();
+    for (const auto &btn : m_Buttons) {
+        btn->Update();
+    }
     m_Root.Update();
 }
