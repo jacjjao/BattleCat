@@ -5,6 +5,11 @@
 
 enum class EntityState { WALK, ON_ATTACK, ATTACK_COOLDOWN, KNOCK_BACK };
 
+struct HitBox {
+    int low;
+    int high;
+};
+
 struct EntityStats {
     int health = 0;
     int damage = 0;
@@ -17,5 +22,6 @@ struct EntityStats {
     int last_atk_time = 0;
     int recharge_time = 0;
     int cost = 0;
+    HitBox det_box;
     std::optional<EnemyAttr> attr;
 };
