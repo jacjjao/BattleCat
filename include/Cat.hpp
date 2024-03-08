@@ -2,7 +2,6 @@
 
 #include "EnemyAttr.hpp"
 #include "EntityStats.hpp"
-#include <functional>
 
 enum class CatType : size_t {
     CAT = 0,
@@ -17,17 +16,21 @@ struct CatStatsMat {
 
 namespace CatStats {
 
-    inline constexpr EntityStats Cat = {.health = 250,
-                                    .damage = 20,
-                                    .range = 140,
-                                    .kb = 3,
-                                    .speed = 10,
-                                    .single_target = true,
-                                    .atk_prep_time = 270,
-                                    .atk_cool_down = 1230,
-                                    .recharge_time = 2000,
-                                    .cost = 75,
-                                    .det_box = {.low = 0, .high = 10},
-                                    .attr = std::nullopt};
+    inline const EntityStats Cat = [] {
+    EntityStats stats;
+    stats.damage = 20;
+    stats.range = 140;
+    stats.kb = 3;
+    stats.speed = 10;
+    stats.single_target = true;
+    stats.atk_prep_time = 270;
+    stats.atk_cool_down = 1230;
+    stats.recharge_time = 2000;
+    stats.cost = 75;
+    stats.det_box = {0, 10};
+    stats.hit_box = {0, 10};
+    stats.attr = EnemyAttr::NIL;
+    return stats;
+}();
 
 } // CatStats

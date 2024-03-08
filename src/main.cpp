@@ -2,10 +2,13 @@
 
 #include "Core/Context.hpp"
 
+#include "Entity.hpp"
+
 int main(int, char**) {
     auto context = Core::Context::GetInstance();
     App app;
-    
+    auto cat = Entity<CatType>::CreateCat(CatStats::Cat, CatType::CAT, {}, 1,
+                                          [](const Entity<CatType> &) {});
     while (!context->GetExit()) {
         switch (app.GetCurrentState()) {
             case App::State::START:
