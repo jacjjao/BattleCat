@@ -35,7 +35,7 @@ else()
 endif()
 
 option(BATTLE_LOG "Enable battle log(Debug purpose)" ON)
-if (BATTLE_LOG)
+if (${BATTLE_LOG})
     target_compile_definitions(${PROJECT_NAME} PRIVATE ENABLE_BATTLE_LOG)
 endif()
 
