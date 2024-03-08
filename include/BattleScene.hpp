@@ -17,6 +17,7 @@ public:
 private:
     void StartAttack();
     void Draw();
+    void CatAttack(Cat &cat);
 
     std::vector<Util::Image> m_CatImage;
     std::vector<Util::Image> m_EnemyImage;

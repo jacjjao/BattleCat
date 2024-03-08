@@ -18,15 +18,14 @@ struct EntityStats {
     int kb = 0;
     bool single_target = true;
     int speed = 0;
-    int atk_prep_time = 0;
-    int atk_cool_down = 0;
-    int last_atk_time = 0;
+    double atk_prep_time = 0; // seconds
+    double atk_cool_down = 0; // seconds
     int recharge_time = 0;
     int cost = 0;
-    HitBox det_box;
+    HitBox det_box; // detect or hurt box
     HitBox hit_box;
     std::optional<EnemyAttr> attr;
 #ifdef ENABLE_BATTLE_LOG
-    std::string name;
+    std::string name = "Unknow";
 #endif
 };

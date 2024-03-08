@@ -10,6 +10,7 @@ set(SRC_FILES
     Entity.cpp
     Cat.cpp
     Enemy.cpp
+    Timer.cpp
 )
 
 set(INCLUDE_FILES
@@ -26,6 +27,7 @@ set(INCLUDE_FILES
     Cat.hpp
     BattleScene.hpp
     Entity.hpp
+    Timer.hpp
 )
 
 set(TEST_FILES

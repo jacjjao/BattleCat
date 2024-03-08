@@ -2,6 +2,7 @@
 
 #include "EntityStats.hpp"
 #include "Util/Image.hpp"
+#include "Timer.hpp"
 #include <cassert>
 
 class Entity {
@@ -32,11 +33,21 @@ public:
 
     float SetPosX(float x);
 
+    bool IsSingleTarget() const;
+
+#ifdef ENABLE_BATTLE_LOG
+    const std::string& GetName() const {
+        return m_Stats.name;
+    }
+#endif // ENABLE_BATTLE_LOG
+
 protected:
+    void OnUpdate();
     virtual HitBox ToWorldSpace(HitBox hitbox) const = 0;
 
     EntityState m_State = EntityState::WALK;
     EntityStats m_Stats;
     float m_PosX = 0;
     bool m_IsEnemy = false;
+    Timer m_AtkPrepTimer;
 };

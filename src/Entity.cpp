@@ -2,6 +2,7 @@
 
 void Entity::StartAttack() {
     m_State = EntityState::ON_ATTACK;
+    m_AtkPrepTimer.Start();
 #ifdef ENABLE_BATTLE_LOG
     printf("%s StarAttack at position: %.2f\n", m_Stats.name.c_str(), m_PosX);
 #endif
@@ -9,6 +10,7 @@ void Entity::StartAttack() {
 
 void Entity::SetStats(const EntityStats &stats) {
     m_Stats = stats;
+    m_AtkPrepTimer.SetTimeOutDur(m_Stats.atk_prep_time);
 }
 
 void Entity::GetHit(int damage, std::optional<EnemyAttr> attr) {
@@ -24,11 +26,11 @@ std::optional<EnemyAttr> Entity::GetEnemyAttr() const {
 }
 
 HitBox Entity::GetHitBox() const {
-    return {};
+    return ToWorldSpace(m_Stats.hit_box);
 }
 
 HitBox Entity::GetHurtBox() const {
-    return {};
+    return ToWorldSpace(m_Stats.det_box);
 }
 
 EntityState Entity::GetState() const {
@@ -48,4 +50,12 @@ float Entity::GetPosX() const {
 
 float Entity::SetPosX(float x) {
     return m_PosX = x;
+}
+
+bool Entity::IsSingleTarget() const {
+    return m_Stats.single_target;
+}
+
+void Entity::OnUpdate() {
+    m_AtkPrepTimer.Update();
 }
