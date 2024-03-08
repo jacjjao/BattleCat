@@ -11,9 +11,6 @@ public:
 
     void Update() override;
 
-    void AddCat(Cat cat);
-    void AddEnemy(Enemy enemy);
-
 private:
     void StartAttack();
     void Draw();

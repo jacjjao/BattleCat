@@ -7,15 +7,13 @@ BattleScene::BattleScene() {
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
     // tmp
-    Cat cat([this](Cat &cat) { CatAttack(cat); });
+    auto &cat = m_Cats.emplace_back([this](Cat &cat) { CatAttack(cat); });
     cat.SetStats(CatStats::Cat);
     cat.SetPosX(50.f);
-    AddCat(std::move(cat));
 
-    Enemy doge;
+    auto &doge = m_Enemies.emplace_back();
     doge.SetStats(EnemyStats::Doge);
     doge.SetPosX(-50.f);
-    AddEnemy(std::move(doge));
 }
 
 void BattleScene::Update() {
@@ -30,14 +28,6 @@ void BattleScene::Update() {
     StartAttack();
 
     Draw();
-}
-
-void BattleScene::AddCat(Cat cat) {
-    m_Cats.push_back(std::move(cat));
-}
-
-void BattleScene::AddEnemy(Enemy enemy) {
-    m_Enemies.push_back(std::move(enemy));
 }
 
 void BattleScene::StartAttack() {
@@ -81,7 +71,7 @@ void BattleScene::CatAttack(Cat &cat) {
             if (!is_overlapped(hitbox, enemy.GetHurtBox())) {
                 continue;
             }
-            if (target && target->GetPosX() < enemy.GetPosX()) {
+            if (!target || target->GetPosX() < enemy.GetPosX()) {
                 target = std::addressof(enemy);
             }
         }
