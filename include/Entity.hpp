@@ -22,6 +22,12 @@ public:
 
     virtual void Draw(Util::Image &image) const = 0;
 
+    EntityState GetState() const;
+
+    bool CanAttack(float pos) const;
+
+    float GetPosX() const;
+
 protected:
     EntityState m_State = EntityState::WALK;
     EntityStats m_Stats;

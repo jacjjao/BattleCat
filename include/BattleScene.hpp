@@ -15,6 +15,9 @@ public:
     void AddEnemy(Enemy enemy);
 
 private:
+    void StartAttack();
+    void Draw();
+
     std::vector<Util::Image> m_CatImage;
     std::vector<Util::Image> m_EnemyImage;
 

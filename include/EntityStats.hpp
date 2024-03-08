@@ -6,8 +6,8 @@
 enum class EntityState { WALK, ON_ATTACK, ATTACK_COOLDOWN, KNOCK_BACK };
 
 struct HitBox {
-    int low;
-    int high;
+    float low;
+    float high;
 };
 
 struct EntityStats {

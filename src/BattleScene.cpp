@@ -16,14 +16,17 @@ BattleScene::BattleScene() {
 }
 
 void BattleScene::Update() {
+    constexpr float dt = 1.0f / 60.0f; // tmp for now
     for (auto &cat : m_Cats) {
-        cat.Update(1.0 / 60.0);
-        cat.Draw(m_CatImage[0]);
+        cat.Update(dt);
     }
     for (auto &enemy : m_Enemies) {
-        enemy.Update(1.0 / 60.0);
-        enemy.Draw(m_EnemyImage[0]);
+        enemy.Update(dt);
     }
+
+    StartAttack();
+
+    Draw();
 }
 
 void BattleScene::AddCat(Cat cat) {
@@ -32,4 +35,33 @@ void BattleScene::AddCat(Cat cat) {
 
 void BattleScene::AddEnemy(Enemy enemy) {
     m_Enemies.push_back(std::move(enemy));
+}
+
+void BattleScene::StartAttack() {
+    for (auto &cat : m_Cats) {
+        for (const auto &enemy : m_Enemies) {
+            if (cat.CanAttack(enemy.GetPosX())) {
+                cat.StartAttack();
+                break;
+            }
+        }
+    }
+
+    for (auto &enemy : m_Enemies) {
+        for (const auto & cat: m_Cats) {
+            if (enemy.CanAttack(cat.GetPosX())) {
+                enemy.StartAttack();
+                break;
+            }
+        }
+    }
+}
+
+void BattleScene::Draw() {
+    for (const auto &cat : m_Cats) {
+        cat.Draw(m_CatImage[0]);
+    }
+    for (const auto &enemy : m_Enemies) {
+        enemy.Draw(m_EnemyImage[0]);
+    }
 }

@@ -7,5 +7,7 @@ void Enemy::Draw(Util::Image &image) const {
 }
 
 void Enemy::Update(const float dt) {
-    m_PosX += m_Stats.speed * dt;
+    if (m_State == EntityState::WALK) {
+        m_PosX += m_Stats.speed * dt;
+    }
 }

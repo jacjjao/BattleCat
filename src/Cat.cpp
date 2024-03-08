@@ -7,5 +7,7 @@ void Cat::Draw(Util::Image &image) const {
 }
 
 void Cat::Update(float dt) {
-    m_PosX -= m_Stats.speed * dt;
+    if (m_State == EntityState::WALK) {
+        m_PosX -= m_Stats.speed * dt;
+    }
 }

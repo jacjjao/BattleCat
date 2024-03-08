@@ -23,3 +23,19 @@ std::optional<EnemyAttr> Entity::GetEnemyAttr() const {
 HitBox Entity::GetHitBox() const {
     return {};
 }
+
+EntityState Entity::GetState() const {
+    return m_State;
+}
+
+bool Entity::CanAttack(float pos) const {
+    auto det_box_pos = m_Stats.det_box;
+    det_box_pos.low += m_PosX;
+    det_box_pos.high += m_PosX;
+    return m_State == EntityState::WALK &&
+           (det_box_pos.low <= pos && pos <= det_box_pos.high);
+}
+
+float Entity::GetPosX() const {
+    return m_PosX;
+}
