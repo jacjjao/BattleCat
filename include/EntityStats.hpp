@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <string>
 #include "EnemyAttr.hpp"
 
 enum class EntityState { WALK, ON_ATTACK, ATTACK_COOLDOWN, KNOCK_BACK };
@@ -25,4 +26,7 @@ struct EntityStats {
     HitBox det_box;
     HitBox hit_box;
     std::optional<EnemyAttr> attr;
+#ifdef ENABLE_BATTLE_LOG
+    std::string name;
+#endif
 };

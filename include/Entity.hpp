@@ -18,17 +18,23 @@ public:
 
     std::optional<EnemyAttr> GetEnemyAttr() const;
 
-    HitBox GetHitBox() const;
+    HitBox GetHitBox() const; // when attacking
+
+    HitBox GetHurtBox() const; // when being attacked
 
     virtual void Draw(Util::Image &image) const = 0;
 
     EntityState GetState() const;
 
-    bool CanAttack(float pos) const;
+    bool CanAttack(const Entity &e) const;
 
     float GetPosX() const;
 
+    float SetPosX(float x);
+
 protected:
+    virtual HitBox ToWorldSpace(HitBox hitbox) const = 0;
+
     EntityState m_State = EntityState::WALK;
     EntityStats m_Stats;
     float m_PosX = 0;

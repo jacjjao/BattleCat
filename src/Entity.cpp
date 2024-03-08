@@ -2,6 +2,9 @@
 
 void Entity::StartAttack() {
     m_State = EntityState::ON_ATTACK;
+#ifdef ENABLE_BATTLE_LOG
+    printf("%s StarAttack at position: %.2f\n", m_Stats.name.c_str(), m_PosX);
+#endif
 }
 
 void Entity::SetStats(const EntityStats &stats) {
@@ -24,18 +27,25 @@ HitBox Entity::GetHitBox() const {
     return {};
 }
 
+HitBox Entity::GetHurtBox() const {
+    return {};
+}
+
 EntityState Entity::GetState() const {
     return m_State;
 }
 
-bool Entity::CanAttack(float pos) const {
-    auto det_box_pos = m_Stats.det_box;
-    det_box_pos.low += m_PosX;
-    det_box_pos.high += m_PosX;
+bool Entity::CanAttack(const Entity &e) const {
+    const auto det_box_pos = ToWorldSpace(m_Stats.det_box);
+    const auto pos = e.GetPosX();
     return m_State == EntityState::WALK &&
            (det_box_pos.low <= pos && pos <= det_box_pos.high);
 }
 
 float Entity::GetPosX() const {
     return m_PosX;
+}
+
+float Entity::SetPosX(float x) {
+    return m_PosX = x;
 }

@@ -11,3 +11,10 @@ void Enemy::Update(const float dt) {
         m_PosX += m_Stats.speed * dt;
     }
 }
+
+HitBox Enemy::ToWorldSpace(HitBox hitbox) const {
+    const auto len = hitbox.high - hitbox.low;
+    hitbox.high = m_PosX + len;
+    hitbox.low = m_PosX;
+    return hitbox;
+}

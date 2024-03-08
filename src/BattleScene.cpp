@@ -8,15 +8,17 @@ BattleScene::BattleScene() {
     // tmp
     Cat cat;
     cat.SetStats(CatStats::Cat);
+    cat.SetPosX(50.f);
     AddCat(std::move(cat));
 
     Enemy doge;
     doge.SetStats(EnemyStats::Doge);
+    doge.SetPosX(-50.f);
     AddEnemy(std::move(doge));
 }
 
 void BattleScene::Update() {
-    constexpr float dt = 1.0f / 60.0f; // tmp for now
+    const auto dt = Util::Time::GetDeltaTime(); 
     for (auto &cat : m_Cats) {
         cat.Update(dt);
     }
@@ -39,20 +41,20 @@ void BattleScene::AddEnemy(Enemy enemy) {
 
 void BattleScene::StartAttack() {
     for (auto &cat : m_Cats) {
-        for (const auto &enemy : m_Enemies) {
-            if (cat.CanAttack(enemy.GetPosX())) {
-                cat.StartAttack();
-                break;
-            }
+        if (std::any_of(m_Enemies.cbegin(), m_Enemies.cend(),
+                        [&cat](auto &e) -> bool {
+                            return cat.CanAttack(e);
+                        })) {
+            cat.StartAttack();
         }
     }
 
     for (auto &enemy : m_Enemies) {
-        for (const auto & cat: m_Cats) {
-            if (enemy.CanAttack(cat.GetPosX())) {
-                enemy.StartAttack();
-                break;
-            }
+        if (std::any_of(m_Cats.cbegin(), m_Cats.cend(),
+                        [&enemy](auto &cat) -> bool {
+                            return enemy.CanAttack(cat);
+                        })) {
+            enemy.StartAttack();
         }
     }
 }

@@ -11,3 +11,10 @@ void Cat::Update(float dt) {
         m_PosX -= m_Stats.speed * dt;
     }
 }
+
+HitBox Cat::ToWorldSpace(HitBox hitbox) const {
+    const auto len = hitbox.high - hitbox.low;
+    hitbox.high = m_PosX;
+    hitbox.low = m_PosX - len;
+    return hitbox;
+}

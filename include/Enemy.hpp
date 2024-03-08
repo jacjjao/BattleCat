@@ -15,6 +15,9 @@ public:
     void Draw(Util::Image &image) const override;
 
     void Update(float dt);
+
+private:
+    HitBox ToWorldSpace(HitBox hitbox) const override;
 };
 
 namespace EnemyStats {
@@ -33,6 +36,9 @@ namespace EnemyStats {
     stats.det_box = {0, 10};
     stats.hit_box = {0, 10};
     stats.attr = std::nullopt;
+#ifdef ENABLE_BATTLE_LOG
+    stats.name = "Doge";
+#endif
     return stats;
 }();
 
