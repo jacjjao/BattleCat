@@ -1,7 +1,8 @@
 #pragma once
 
 #include "EnemyAttr.hpp"
-#include "EntityStats.hpp"
+#include "Entity.hpp"
+#include <array>
 
 enum class CatType : size_t {
     CAT = 0,
@@ -12,6 +13,13 @@ static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
 struct CatStatsMat {
     std::array<int, 10> health;
     std::array<int, 10> damage;
+};
+
+class Cat : public Entity {
+public:
+    void Draw(Util::Image &image) const override;
+
+    void Update(float dt);
 };
 
 namespace CatStats {
@@ -29,7 +37,7 @@ namespace CatStats {
     stats.cost = 75;
     stats.det_box = {0, 10};
     stats.hit_box = {0, 10};
-    stats.attr = EnemyAttr::NIL;
+    stats.attr = std::nullopt;
     return stats;
 }();
 

@@ -7,6 +7,7 @@
 
 #include "MenuScene.hpp"
 #include "CatBase.hpp"
+#include "BattleScene.hpp"
 
 void App::Start() {
     LOG_TRACE("Start");
@@ -14,6 +15,7 @@ void App::Start() {
 
     m_Scenes.emplace_back(static_cast<Scene*>(new MenuScene(*this)));
     m_Scenes.emplace_back(static_cast<Scene*>(new CatBaseScene(*this)));
+    m_Scenes.emplace_back(static_cast<Scene*>(new BattleScene()));
     SwitchScene(SceneType::MENU);
 
     m_BGMs.push_back(std::make_unique<Util::BGM>(RESOURCE_DIR "/bgm/start.mp3"));

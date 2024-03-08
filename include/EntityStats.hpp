@@ -24,5 +24,5 @@ struct EntityStats {
     int cost = 0;
     HitBox det_box;
     HitBox hit_box;
-    EnemyAttr attr;
+    std::optional<EnemyAttr> attr;
 };

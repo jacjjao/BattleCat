@@ -79,6 +79,9 @@ CatBaseScene::CatBaseScene(App &app)
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
     start_button->SetZIndex(0.5f);
     start_button->SetPosition(-400.0f,150.0f);
+    start_button->AddButtonEvent(
+        [this] { m_App.SwitchScene(App::SceneType::BATTLE_SCENE);
+    });
     m_Buttons.push_back(start_button);
     m_Root.AddChild(start_button);
 
