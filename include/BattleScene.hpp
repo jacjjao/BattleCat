@@ -5,6 +5,11 @@
 #include "Enemy.hpp"
 #include <vector>
 
+struct DamageInfo {
+    Entity *attacker;
+    Entity *victim;
+};
+
 class BattleScene : public Scene {
 public:
     BattleScene();
@@ -12,7 +17,7 @@ public:
     void Update() override;
 
 private:
-    void StartAttack();
+    void StartAttacks();
     void Draw();
     void CatAttack(Cat &cat);
     void EnemyAttack(Enemy &enemy);
@@ -23,4 +28,5 @@ private:
     size_t m_TotalTime = 0;
     std::vector<Cat> m_Cats;
     std::vector<Enemy> m_Enemies;
+    std::vector<DamageInfo> m_DmgInfos;
 };

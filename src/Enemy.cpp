@@ -1,4 +1,5 @@
 #include "Enemy.hpp"
+#include "DebugUtil/BattleLog.hpp"
 
 Enemy::Enemy(std::function<void(Enemy &)> atk_callback)
     : m_AtkCallback(atk_callback) {
@@ -12,16 +13,22 @@ void Enemy::Draw(Util::Image &image) const {
     image.Draw(trans, 1.0f);
 }
 
-void Enemy::Update(const float dt) {
+void Enemy::Update() {
+    Entity::OnUpdate();
+}
+
+void Enemy::Walk(float dt) {
     if (GetState() == EntityState::WALK) {
         m_PosX += m_Stats.speed * dt;
+    } else if (GetState() == EntityState::KNOCK_BACK) {
+        m_PosX -= 10 * dt; // tmp
     }
-    Entity::OnUpdate();
 }
 
 void Enemy::DealDamage(Entity &e) {
 #ifdef ENABLE_BATTLE_LOG
-    printf("%s deals damage %d to %s!\n", m_Stats.name.c_str(), m_Stats.damage,
+    printBattleLog("%s deals damage %d to %s!\n", m_Stats.name.c_str(),
+                   m_Stats.damage,
            e.GetName().c_str());
 #endif // ENABLE_BATTLE_LOG
     e.GetHit(m_Stats.damage, std::nullopt);
@@ -44,13 +51,19 @@ void Enemy::SetCallbacks() {
 }
 
 void Enemy::Attack() {
+    if (GetState() == EntityState::KNOCK_BACK) {
+        return;
+    }
+    assert(GetState() == EntityState::ON_ATTACK);
     m_AtkCallback(*this);
     SetState(EntityState::ATTACK_COOLDOWN);
     m_AtkCoolDownTimer.Start();
 }
 
 void Enemy::CoolDownComplete() {
-    SetState(EntityState::WALK);
+    if (GetState() == EntityState::ATTACK_COOLDOWN) {
+        SetState(EntityState::WALK);
+    }
 }
 
 HitBox Enemy::ToWorldSpace(HitBox hitbox) const {

@@ -1,6 +1,7 @@
 #include "BattleScene.hpp"
 #include "Util/Time.hpp"
 #include <cassert>
+#include <algorithm>
 
 BattleScene::BattleScene() {
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
@@ -17,22 +18,41 @@ BattleScene::BattleScene() {
 }
 
 void BattleScene::Update() {
-    StartAttack();
+    StartAttacks();
 
     const auto dt = Util::Time::GetDeltaTime(); 
     for (auto &cat : m_Cats) {
-        cat.Update(dt);
+        cat.Walk(dt);
     }
     for (auto &enemy : m_Enemies) {
-        enemy.Update(dt);
+        enemy.Walk(dt);
     }
 
-    StartAttack();
+    StartAttacks();
+
+    for (auto &cat : m_Cats) {
+        cat.Update();
+    }
+    for (auto &enemy : m_Enemies) {
+        enemy.Update();
+    }
+
+    for (auto &dmg_info : m_DmgInfos) {
+        dmg_info.attacker->DealDamage(*dmg_info.victim);
+    }
+    m_DmgInfos.clear();
+
+    const auto IsDead = [](auto &e) -> bool { return e.IsDead(); };
+    m_Cats.erase(std::remove_if(m_Cats.begin(), m_Cats.end(), IsDead),
+                 m_Cats.end());
+
+    m_Enemies.erase(std::remove_if(m_Enemies.begin(), m_Enemies.end(), IsDead),
+                    m_Enemies.end());
 
     Draw();
 }
 
-void BattleScene::StartAttack() {
+void BattleScene::StartAttacks() {
     for (auto &cat : m_Cats) {
         if (cat.GetState() != EntityState::WALK) {
             continue;
@@ -82,12 +102,13 @@ void BattleScene::CatAttack(Cat &cat) {
             }
         }
         if (target) {
-            cat.DealDamage(*target);
+            m_DmgInfos.push_back(DamageInfo{std::addressof(cat), target});
         }
     } else {
         for (auto &enemy : m_Enemies) {
             if (IsInRange(hitbox, enemy.GetPosX())) {
-                cat.DealDamage(enemy);
+                m_DmgInfos.push_back(
+                    DamageInfo{std::addressof(cat), std::addressof(enemy)});
             }
         }
     }
@@ -109,12 +130,13 @@ void BattleScene::EnemyAttack(Enemy &enemy) {
             }
         }
         if (target) {
-            enemy.DealDamage(*target);
+            m_DmgInfos.push_back(DamageInfo{std::addressof(enemy), target});
         }
     } else {
         for (auto &cat : m_Cats) {
             if (IsInRange(hitbox, cat.GetPosX())) {
-                enemy.DealDamage(cat);
+                m_DmgInfos.push_back(
+                    DamageInfo{std::addressof(enemy), std::addressof(cat)});
             }
         }
     }

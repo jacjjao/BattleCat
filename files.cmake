@@ -28,6 +28,7 @@ set(INCLUDE_FILES
     BattleScene.hpp
     Entity.hpp
     Timer.hpp
+    DebugUtil/BattleLog.hpp
 )
 
 set(TEST_FILES

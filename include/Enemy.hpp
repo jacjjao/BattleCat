@@ -16,9 +16,11 @@ public:
 
     void Draw(Util::Image &image) const override;
 
-    void Update(float dt);
+    void Update();
 
-    void DealDamage(Entity &e);
+    void Walk(float dt);
+
+    void DealDamage(Entity &e) override;
 
     Enemy(Enemy &&other) noexcept;
     Enemy &operator=(Enemy &&other) noexcept;
@@ -36,23 +38,24 @@ private:
 namespace EnemyStats {
 
     inline const EntityStats Doge = [] { // tmp
-    EntityStats stats;
-    stats.damage = 20;
-    stats.range = 140;
-    stats.kb = 3;
-    stats.speed = 10;
-    stats.single_target = true;
-    stats.atk_prep_time = 0.27;
-    stats.atk_cool_down = 1.23;
-    stats.recharge_time = 2000;
-    stats.cost = 75;
-    stats.det_box = {0, 10};
-    stats.hit_box = {0, 10};
-    stats.attr = std::nullopt;
+        EntityStats stats;
+        stats.health = 100;
+        stats.damage = 20;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 10;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 1.23;
+        stats.recharge_time = 2000;
+        stats.cost = 75;
+        stats.det_box = {0, 10};
+        stats.hit_box = {0, 10};
+        stats.attr = std::nullopt;
 #ifdef ENABLE_BATTLE_LOG
-    stats.name = "Doge";
+        stats.name = "Doge";
 #endif
-    return stats;
-}();
+        return stats;
+    }();
 
 }

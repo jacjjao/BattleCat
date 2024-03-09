@@ -33,6 +33,10 @@ public:
 
     bool IsSingleTarget() const;
 
+    virtual void DealDamage(Entity &e) = 0;
+
+    bool IsDead() const;
+
 #ifdef ENABLE_BATTLE_LOG
     const std::string& GetName() const {
         return m_Stats.name;
@@ -49,7 +53,12 @@ protected:
     bool m_IsEnemy = false;
     Timer m_AtkPrepTimer;
     Timer m_AtkCoolDownTimer;
+    Timer m_KnockbackTimer;
+    int m_KnockBackHealth = 0;
+    int m_TotalDamage = 0;
 
 private:
+    void ExitKnockbackState();
+
     EntityState m_State = EntityState::WALK;
 };
