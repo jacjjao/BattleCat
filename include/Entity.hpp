@@ -15,10 +15,6 @@ public:
 
     void GetHit(int damage, std::optional<EnemyAttr> attr);
 
-    int GetDamage(int damage, std::optional<EnemyAttr> attr) const;
-
-    std::optional<EnemyAttr> GetEnemyAttr() const;
-
     HitBox GetHitBox() const; // when attacking
 
     virtual void Draw(Util::Image &image) const = 0;
@@ -44,6 +40,7 @@ public:
 #endif // ENABLE_BATTLE_LOG
 
     static constexpr float s_KnockbackSpeed = 50.0f;
+    static constexpr double s_KnockbackDuration = 1.0;
 
 protected:
     void SetState(EntityState state);

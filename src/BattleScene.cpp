@@ -87,56 +87,37 @@ void BattleScene::Draw() {
 }
 
 void BattleScene::CatAttack(Cat &cat) {
-    const auto IsInRange = [](HitBox a, float p) -> bool {
-        return a.low <= p && p <= a.high;
-    };
-    const auto hitbox = cat.GetHitBox();
-    if (cat.IsSingleTarget()) {
-        Enemy *target = nullptr;
-        for (auto &enemy : m_Enemies) {
-            if (!IsInRange(hitbox, enemy.GetPosX())) {
-                continue;
-            }
-            if (!target || target->GetPosX() < enemy.GetPosX()) {
-                target = std::addressof(enemy);
-            }
-        }
-        if (target) {
-            m_DmgInfos.push_back(DamageInfo{std::addressof(cat), target});
-        }
-    } else {
-        for (auto &enemy : m_Enemies) {
-            if (IsInRange(hitbox, enemy.GetPosX())) {
-                m_DmgInfos.push_back(
-                    DamageInfo{std::addressof(cat), std::addressof(enemy)});
-            }
-        }
-    }
+    ResolveAttack(cat, m_Enemies.data(), m_Enemies.size());
 }
 
 void BattleScene::EnemyAttack(Enemy &enemy) {
+    ResolveAttack(enemy, m_Cats.data(), m_Cats.size());
+}
+
+void BattleScene::ResolveAttack(Entity &attacker, Entity *victims,
+                                size_t count) {
     const auto IsInRange = [](HitBox a, float p) -> bool {
         return a.low <= p && p <= a.high;
     };
-    const auto hitbox = enemy.GetHitBox();
-    if (enemy.IsSingleTarget()) {
-        Cat *target = nullptr;
-        for (auto &cat : m_Cats) {
-            if (!IsInRange(hitbox, cat.GetPosX())) {
+    const auto hitbox = attacker.GetHitBox();
+    if (attacker.IsSingleTarget()) {
+        Entity *target = nullptr;
+        for (size_t i = 0; i < count; ++i) {
+            if (!IsInRange(hitbox, victims[i].GetPosX())) {
                 continue;
             }
-            if (!target || target->GetPosX() < cat.GetPosX()) {
-                target = std::addressof(cat);
+            if (!target || target->GetPosX() < victims[i].GetPosX()) {
+                target = std::addressof(victims[i]);
             }
         }
         if (target) {
-            m_DmgInfos.push_back(DamageInfo{std::addressof(enemy), target});
+            m_DmgInfos.push_back(DamageInfo{std::addressof(attacker), target});
         }
     } else {
-        for (auto &cat : m_Cats) {
-            if (IsInRange(hitbox, cat.GetPosX())) {
-                m_DmgInfos.push_back(
-                    DamageInfo{std::addressof(enemy), std::addressof(cat)});
+        for (size_t i = 0; i < count; ++i) {
+            if (IsInRange(hitbox, victims[i].GetPosX())) {
+                m_DmgInfos.push_back(DamageInfo{std::addressof(attacker),
+                                                std::addressof(victims[i])});
             }
         }
     }

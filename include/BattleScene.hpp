@@ -21,6 +21,7 @@ private:
     void Draw();
     void CatAttack(Cat &cat);
     void EnemyAttack(Enemy &enemy);
+    void ResolveAttack(Entity &attacker, Entity *victims, size_t count);
 
     std::vector<Util::Image> m_CatImage;
     std::vector<Util::Image> m_EnemyImage;

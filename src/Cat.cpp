@@ -22,7 +22,7 @@ void Cat::Walk(float dt) {
     if (GetState() == EntityState::WALK) {
         m_PosX -= m_Stats.speed * dt;
     } else if (GetState() == EntityState::KNOCK_BACK) {
-        m_PosX += s_KnockbackSpeed * dt; // tmp
+        m_PosX += s_KnockbackSpeed * dt;
     }
 }
 

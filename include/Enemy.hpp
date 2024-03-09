@@ -51,7 +51,7 @@ namespace EnemyStats {
         stats.cost = 75;
         stats.det_box = {0, 10};
         stats.hit_box = {0, 10};
-        stats.attr = std::nullopt;
+        stats.attr = EnemyAttr::WHITE;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "Doge";
 #endif

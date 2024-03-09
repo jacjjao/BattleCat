@@ -13,7 +13,7 @@ void Entity::SetStats(const EntityStats &stats) {
     m_Stats = stats;
     m_AtkPrepTimer.SetTimeOutDur(m_Stats.atk_prep_time);
     m_AtkCoolDownTimer.SetTimeOutDur(m_Stats.atk_cool_down);
-    m_KnockbackTimer.SetTimeOutDur(1.0); // tmp
+    m_KnockbackTimer.SetTimeOutDur(s_KnockbackDuration); 
     m_KnockbackTimer.SetTimeOutEvent([this] { ExitKnockbackState(); });
     m_KnockBackHealth = m_Stats.health / m_Stats.kb;
 }
@@ -25,14 +25,6 @@ void Entity::GetHit(int damage, std::optional<EnemyAttr> attr) {
         SetState(EntityState::KNOCK_BACK);
         m_TotalDamage -= m_KnockBackHealth;
     }
-}
-
-int Entity::GetDamage(int damage, std::optional<EnemyAttr> attr) const {
-    return damage;
-}
-
-std::optional<EnemyAttr> Entity::GetEnemyAttr() const {
-    return m_Stats.attr;
 }
 
 HitBox Entity::GetHitBox() const {

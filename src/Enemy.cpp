@@ -21,7 +21,7 @@ void Enemy::Walk(float dt) {
     if (GetState() == EntityState::WALK) {
         m_PosX += m_Stats.speed * dt;
     } else if (GetState() == EntityState::KNOCK_BACK) {
-        m_PosX -= s_KnockbackSpeed * dt; // tmp
+        m_PosX -= s_KnockbackSpeed * dt;
     }
 }
 
@@ -30,7 +30,7 @@ void Enemy::DealDamage(Entity &e) {
     printBattleLog("{} deals damage {} to {}!", m_Stats.name, m_Stats.damage,
                    e.GetName());
 #endif // ENABLE_BATTLE_LOG
-    e.GetHit(m_Stats.damage, std::nullopt);
+    e.GetHit(m_Stats.damage, m_Stats.attr);
 }
 
 Enemy::Enemy(Enemy &&other) noexcept
