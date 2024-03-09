@@ -73,37 +73,72 @@ CatBaseScene::CatBaseScene(App &app)
     m_Root.AddChild(back_button);
 
     auto start_button = std::make_shared<GameButton>(
-        RESOURCE_DIR "/buttons/YellowButton.png",
+        RESOURCE_DIR "/buttons/StartButton.png",
         std::initializer_list<std::string>(
             {RESOURCE_DIR "/buttons/hover_purple.png",
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
     start_button->SetZIndex(0.5f);
-    start_button->SetPosition(-400.0f,150.0f);
+    start_button->SetPosition(-375.0f,150.0f);
     m_Buttons.push_back(start_button);
     m_Root.AddChild(start_button);
 
     auto upgrade_button = std::make_shared<GameButton>(
-        RESOURCE_DIR "/buttons/YellowButton.png",
+        RESOURCE_DIR "/buttons/UpgradeButton.png",
         std::initializer_list<std::string>(
             {RESOURCE_DIR "/buttons/hover_purple.png",
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
     upgrade_button->SetZIndex(0.5f);
-    upgrade_button->SetPosition(-400.0f,50.0f);
+    upgrade_button->SetPosition(-375.0f,60.0f);
     m_Buttons.push_back(upgrade_button);
     m_Root.AddChild(upgrade_button);
 
     auto equip_button = std::make_shared<GameButton>(
-        RESOURCE_DIR "/buttons/YellowButton.png",
+        RESOURCE_DIR "/buttons/EquipButton.png",
         std::initializer_list<std::string>(
             {RESOURCE_DIR "/buttons/hover_purple.png",
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
     equip_button->SetZIndex(0.5f);
-    equip_button->SetPosition(-400.0f,-50.0f);
+    equip_button->SetPosition(-375.0f,-30.0f);
     m_Buttons.push_back(equip_button);
     m_Root.AddChild(equip_button);
+
+    m_BaseCat = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(RESOURCE_DIR"/cat_base/Cat_OpenEyes.png"),0.08f);
+    m_BaseCat->SetPosition(430,-200);
+    m_BaseCat->SetScale(1.5,1.5);
+
+    auto BaseCat_closed_eyes = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(RESOURCE_DIR"/cat_base/Cat_CloseEyes.png"),0.09f);
+    BaseCat_closed_eyes->SetPosition(m_BaseCat->GetPosition());
+    BaseCat_closed_eyes->SetScale(m_BaseCat->GetScale());
+    m_BaseCat->AddChild(BaseCat_closed_eyes);
+    m_Root.AddChild(m_BaseCat);
+
+    auto DialogBox = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(RESOURCE_DIR"/cat_base/dialog_box.png"),0.1f);
+    DialogBox->SetPosition(305,80);
+    DialogBox->SetScale(2,2);
+    m_Root.AddChild(DialogBox);
+
+
 }
 
 void CatBaseScene::Update() {
+    static int basecatframe;
+    basecatframe += 1;
+    basecatframe = basecatframe%6000;
+    switch (basecatframe%75) {
+        case 10:case 12:case 14:
+            m_BaseCat->MovePosition(0,-4);
+            break;
+        case 40:case 44:
+            m_BaseCat->MovePosition(0,6);
+            break;
+    }
+    if(basecatframe%150 == 134 or basecatframe%150 == 135 or basecatframe%150 == 139 or basecatframe%150 == 140){
+        m_BaseCat->GetChildren().at(0)->SetVisible(true);
+    }
+    else{
+        m_BaseCat->GetChildren().at(0)->SetVisible(false);
+    }
+
     for (const auto &btn : m_Buttons) {
         btn->Update();
     }
