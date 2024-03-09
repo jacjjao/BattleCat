@@ -40,6 +40,7 @@ Cat::Cat(Cat &&other) noexcept : m_AtkCallback(other.m_AtkCallback) {
 }
 
 Cat &Cat::operator=(Cat &&other) noexcept {
+    SetStats(other.m_Stats);
     SetCallbacks();
     return *this;
 }

@@ -40,6 +40,7 @@ Enemy::Enemy(Enemy &&other) noexcept
 }
 
 Enemy &Enemy::operator=(Enemy &&other) noexcept {
+    SetStats(other.m_Stats);
     SetCallbacks();
     return *this;
 }
