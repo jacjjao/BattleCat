@@ -11,12 +11,14 @@ BattleScene::BattleScene() {
     cat.SetStats(CatStats::Cat);
     cat.SetPosX(50.f);
 
-    auto &doge = m_Enemies.emplace_back();
+    auto &doge = m_Enemies.emplace_back([this](Enemy& e) { EnemyAttack(e); });
     doge.SetStats(EnemyStats::Doge);
     doge.SetPosX(-50.f);
 }
 
 void BattleScene::Update() {
+    StartAttack();
+
     const auto dt = Util::Time::GetDeltaTime(); 
     for (auto &cat : m_Cats) {
         cat.Update(dt);
@@ -31,8 +33,10 @@ void BattleScene::Update() {
 }
 
 void BattleScene::StartAttack() {
-
     for (auto &cat : m_Cats) {
+        if (cat.GetState() != EntityState::WALK) {
+            continue;
+        }
         if (std::any_of(m_Enemies.cbegin(), m_Enemies.cend(),
                         [&cat](auto &e) -> bool {
                             return cat.CanAttack(e);
@@ -40,8 +44,10 @@ void BattleScene::StartAttack() {
             cat.StartAttack();
         }
     }
-
     for (auto &enemy : m_Enemies) {
+        if (enemy.GetState() != EntityState::WALK) {
+            continue;
+        }
         if (std::any_of(m_Cats.cbegin(), m_Cats.cend(),
                         [&enemy](auto &cat) -> bool {
                             return enemy.CanAttack(cat);
@@ -61,14 +67,14 @@ void BattleScene::Draw() {
 }
 
 void BattleScene::CatAttack(Cat &cat) {
-    const auto is_overlapped = [](HitBox a, HitBox b) -> bool {
-        return !(a.low > b.high || a.high < b.low);
+    const auto IsInRange = [](HitBox a, float p) -> bool {
+        return a.low <= p && p <= a.high;
     };
     const auto hitbox = cat.GetHitBox();
     if (cat.IsSingleTarget()) {
         Enemy *target = nullptr;
         for (auto &enemy : m_Enemies) {
-            if (!is_overlapped(hitbox, enemy.GetHurtBox())) {
+            if (!IsInRange(hitbox, enemy.GetPosX())) {
                 continue;
             }
             if (!target || target->GetPosX() < enemy.GetPosX()) {
@@ -80,8 +86,35 @@ void BattleScene::CatAttack(Cat &cat) {
         }
     } else {
         for (auto &enemy : m_Enemies) {
-            if (is_overlapped(hitbox, enemy.GetHurtBox())) {
+            if (IsInRange(hitbox, enemy.GetPosX())) {
                 cat.DealDamage(enemy);
+            }
+        }
+    }
+}
+
+void BattleScene::EnemyAttack(Enemy &enemy) {
+    const auto IsInRange = [](HitBox a, float p) -> bool {
+        return a.low <= p && p <= a.high;
+    };
+    const auto hitbox = enemy.GetHitBox();
+    if (enemy.IsSingleTarget()) {
+        Cat *target = nullptr;
+        for (auto &cat : m_Cats) {
+            if (!IsInRange(hitbox, cat.GetPosX())) {
+                continue;
+            }
+            if (!target || target->GetPosX() < cat.GetPosX()) {
+                target = std::addressof(cat);
+            }
+        }
+        if (target) {
+            enemy.DealDamage(*target);
+        }
+    } else {
+        for (auto &cat : m_Cats) {
+            if (IsInRange(hitbox, cat.GetPosX())) {
+                enemy.DealDamage(cat);
             }
         }
     }

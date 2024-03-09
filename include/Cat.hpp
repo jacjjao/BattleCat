@@ -25,8 +25,13 @@ public:
 
     void DealDamage(Entity &e);
 
+    Cat(Cat &&other) noexcept;
+    Cat &operator=(Cat &&other) noexcept;
+
 private:
+    void SetCallbacks();
     void Attack();
+    void CoolDownComplete();
 
     HitBox ToWorldSpace(HitBox hitbox) const override;
 

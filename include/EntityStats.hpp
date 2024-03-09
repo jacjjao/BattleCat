@@ -27,5 +27,28 @@ struct EntityStats {
     std::optional<EnemyAttr> attr;
 #ifdef ENABLE_BATTLE_LOG
     std::string name = "Unknow";
-#endif
+#endif // ENABLE_BATTLE_LOG
 };
+
+#ifdef ENABLE_BATTLE_LOG
+
+#include <string>
+
+inline std::string EntityStateToString(EntityState state) {
+    switch (state) { 
+    case EntityState::WALK:
+        return "WALK";
+
+    case EntityState::ON_ATTACK:
+        return "ON_ATTACK";
+
+    case EntityState::ATTACK_COOLDOWN:
+        return "ATTACK_COOLDOWN";
+
+    case EntityState::KNOCK_BACK:
+        return "KNOCK_BACK";
+    }
+    return "UNKNOW";
+}
+
+#endif // ENABLE_BATTLE_LOG

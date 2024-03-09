@@ -12,12 +12,25 @@ static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
 
 class Enemy : public Entity {
 public:
+    Enemy(std::function<void(Enemy &)> atk_callback);
+
     void Draw(Util::Image &image) const override;
 
     void Update(float dt);
 
+    void DealDamage(Entity &e);
+
+    Enemy(Enemy &&other) noexcept;
+    Enemy &operator=(Enemy &&other) noexcept;
+
 private:
+    void SetCallbacks();
+    void Attack();
+    void CoolDownComplete();
+
     HitBox ToWorldSpace(HitBox hitbox) const override;
+
+    const std::function<void(Enemy &)> m_AtkCallback;
 };
 
 namespace EnemyStats {

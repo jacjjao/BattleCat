@@ -13,15 +13,13 @@ public:
     
     void SetStats(const EntityStats& stats);
 
-    virtual void GetHit(int damage, std::optional<EnemyAttr> attr);
+    void GetHit(int damage, std::optional<EnemyAttr> attr);
 
-    virtual int GetDamage(int damage, std::optional<EnemyAttr> attr) const;
+    int GetDamage(int damage, std::optional<EnemyAttr> attr) const;
 
     std::optional<EnemyAttr> GetEnemyAttr() const;
 
     HitBox GetHitBox() const; // when attacking
-
-    HitBox GetHurtBox() const; // when being attacked
 
     virtual void Draw(Util::Image &image) const = 0;
 
@@ -42,12 +40,16 @@ public:
 #endif // ENABLE_BATTLE_LOG
 
 protected:
+    void SetState(EntityState state);
     void OnUpdate();
     virtual HitBox ToWorldSpace(HitBox hitbox) const = 0;
 
-    EntityState m_State = EntityState::WALK;
     EntityStats m_Stats;
     float m_PosX = 0;
     bool m_IsEnemy = false;
     Timer m_AtkPrepTimer;
+    Timer m_AtkCoolDownTimer;
+
+private:
+    EntityState m_State = EntityState::WALK;
 };
