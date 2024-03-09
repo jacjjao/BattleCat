@@ -21,15 +21,14 @@ void Enemy::Walk(float dt) {
     if (GetState() == EntityState::WALK) {
         m_PosX += m_Stats.speed * dt;
     } else if (GetState() == EntityState::KNOCK_BACK) {
-        m_PosX -= 10 * dt; // tmp
+        m_PosX -= s_KnockbackSpeed * dt; // tmp
     }
 }
 
 void Enemy::DealDamage(Entity &e) {
 #ifdef ENABLE_BATTLE_LOG
-    printBattleLog("%s deals damage %d to %s!\n", m_Stats.name.c_str(),
-                   m_Stats.damage,
-           e.GetName().c_str());
+    printBattleLog("{} deals damage {} to {}!", m_Stats.name, m_Stats.damage,
+                   e.GetName());
 #endif // ENABLE_BATTLE_LOG
     e.GetHit(m_Stats.damage, std::nullopt);
 }

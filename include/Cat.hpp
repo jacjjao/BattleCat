@@ -43,7 +43,7 @@ namespace CatStats {
         stats.damage = 20;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 10;
+        stats.speed = 30;
         stats.single_target = true;
         stats.atk_prep_time = 0.27;
         stats.atk_cool_down = 1.23;

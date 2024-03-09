@@ -43,6 +43,8 @@ public:
     }
 #endif // ENABLE_BATTLE_LOG
 
+    static constexpr float s_KnockbackSpeed = 50.0f;
+
 protected:
     void SetState(EntityState state);
     void OnUpdate();

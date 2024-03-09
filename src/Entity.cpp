@@ -5,8 +5,7 @@ void Entity::StartAttack() {
     SetState(EntityState::ON_ATTACK);
     m_AtkPrepTimer.Start();
 #ifdef ENABLE_BATTLE_LOG
-    printBattleLog("%s StarAttack at position: %.2f\n", m_Stats.name.c_str(),
-                   m_PosX);
+    printBattleLog("{} StarAttack at position: {:.2f}", m_Stats.name, m_PosX);
 #endif
 }
 
@@ -69,9 +68,8 @@ bool Entity::IsDead() const {
 
 void Entity::SetState(EntityState state) {
 #ifdef ENABLE_BATTLE_LOG
-    printBattleLog("%s changed it's state from %s to %s\n",
-                   m_Stats.name.c_str(), EntityStateToString(m_State).c_str(),
-                   EntityStateToString(state).c_str());
+    printBattleLog("{} changed it's state from {} to {}", m_Stats.name,
+                   EntityStateToString(m_State), EntityStateToString(state));
 #endif // ENABLE_BATTLE_LOG
 
     m_State = state;
