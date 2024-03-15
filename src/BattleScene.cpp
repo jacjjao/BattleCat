@@ -12,8 +12,8 @@ BattleScene::BattleScene() {
     auto &cat = m_Cats.emplace_back(CatType::CAT, [this](Cat &cat) { CatAttack(cat); });
     cat.SetStats(CatStats::Cat);
     cat.SetPosX(50.f);
-
-    auto &doge = m_Enemies.emplace_back([this](Enemy& e) { EnemyAttack(e); });
+    
+    auto &doge = m_Enemies.emplace_back(EnemyType::DOGE, [this](Enemy& e) { EnemyAttack(e); });
     doge.SetStats(EnemyStats::Doge);
     doge.SetPosX(-50.f);
 }
@@ -97,7 +97,7 @@ void BattleScene::Draw() {
         cat.Draw(m_CatImage[static_cast<size_t>(cat.GetCatType())]);
     }
     for (const auto &enemy : m_Enemies) {
-        enemy.Draw(m_EnemyImage[0]);
+        enemy.Draw(m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
     }
 }
 

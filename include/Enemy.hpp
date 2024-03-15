@@ -12,7 +12,7 @@ static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
 
 class Enemy : public Entity {
 public:
-    Enemy(std::function<void(Enemy &)> atk_callback);
+    Enemy(EnemyType type, std::function<void(Enemy &)> atk_callback);
 
     void StartAttack();
 
@@ -23,6 +23,8 @@ public:
     void Walk(float dt);
 
     void DealDamage(Entity &e) override;
+
+    EnemyType GetEnemyType() const;
 
     Enemy(Enemy &&other) noexcept;
     Enemy &operator=(Enemy &&other) noexcept;
@@ -35,6 +37,7 @@ private:
     HitBox ToWorldSpace(HitBox hitbox) const override;
 
     const std::function<void(Enemy &)> m_AtkCallback;
+    EnemyType m_Type;
 };
 
 namespace EnemyStats {

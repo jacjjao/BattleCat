@@ -1,8 +1,9 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-Enemy::Enemy(std::function<void(Enemy &)> atk_callback)
-    : m_AtkCallback(atk_callback) {
+Enemy::Enemy(const EnemyType type, std::function<void(Enemy &)> atk_callback)
+    : m_AtkCallback(atk_callback),
+      m_Type(type) {
     assert(m_AtkCallback);
     SetCallbacks();
 }
@@ -41,13 +42,19 @@ void Enemy::DealDamage(Entity &e) {
     e.GetHit(m_Stats.damage, m_Stats.attr);
 }
 
+EnemyType Enemy::GetEnemyType() const {
+    return m_Type;
+}
+
 Enemy::Enemy(Enemy &&other) noexcept
-    : m_AtkCallback(other.m_AtkCallback) {
+    : m_AtkCallback(other.m_AtkCallback),
+      m_Type(other.m_Type) {
     SetStats(other.m_Stats);
     SetCallbacks();
 }
 
 Enemy &Enemy::operator=(Enemy &&other) noexcept {
+    m_Type = other.m_Type;
     SetStats(other.m_Stats);
     SetCallbacks();
     return *this;
