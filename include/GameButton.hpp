@@ -21,11 +21,7 @@ public:
 
     void SetScale(float scale);
 
-    void SetWidthScale(float scale);
-
     void SetZIndex(float index);
-
-    void SetText(const std::string &txt_img_path,float scale=1.0f);
 
 private:
     static inline std::unique_ptr<Util::SFX> s_ClickSound = nullptr;
@@ -33,7 +29,6 @@ private:
     std::vector<std::function<void()>> m_ButtonEvents;
 
     std::shared_ptr<AnimatedGameObject> m_HoverBorder = nullptr;
-    std::shared_ptr<GameObjectEx> m_text = nullptr;
 
     bool IsMouseHovering() const;
     void SetHoverBorder(std::shared_ptr<AnimatedGameObject> border);

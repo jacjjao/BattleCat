@@ -27,6 +27,7 @@ void AnimatedGameObject::Reset(){
     m_Anime->Pause();
 }
 
+
 std::size_t AnimatedGameObject::GetCurrentFrameIndex(){
     return m_Anime->GetCurrentFrameIndex();
 }

@@ -16,7 +16,6 @@ struct CatStatsMat {
 };
 
 namespace CatStats {
-
     inline constexpr EntityStats Cat = {.health = 250,
                                     .damage = 20,
                                     .range = 140,

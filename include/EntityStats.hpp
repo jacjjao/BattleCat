@@ -3,7 +3,7 @@
 #include <optional>
 #include "EnemyAttr.hpp"
 
-enum class EntityState { WALK, ON_ATTACK, ATTACK_COOLDOWN, KNOCK_BACK };
+enum class EntityState { WALK, ATTACK, IDLE, HITBACK };
 
 struct HitBox {
     int low;
@@ -15,6 +15,7 @@ struct EntityStats {
     int damage = 0;
     int range = 0;
     int kb = 0;
+    int speed = 0;
     bool single_target = true;
     int move_speed = 0;
     int atk_prep_time = 0;

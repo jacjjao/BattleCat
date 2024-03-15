@@ -12,10 +12,15 @@ MenuScene::MenuScene(App &app) : m_App(app) {
         (std::make_unique<Util::Image>(RESOURCE_DIR"/scene/Menu.png"),0);
     m_Root.AddChild(background);
 
+    auto blackbox = std::make_shared<GameObjectEx>
+        (std::make_unique<Util::Image>(RESOURCE_DIR"/scene/Menu_blackbox.png"),0.1f);
+    blackbox->SetPosition(0,blackbox->GetScaledSize().y/-1.8f);
+    m_Root.AddChild(blackbox);
+
     auto logo =  std::make_shared<GameObjectEx>(std::make_unique<Util::Image>
         (RESOURCE_DIR"/scene/logo.png"),0.5f);
-    logo->SetScale(0.6f, 0.6f);
-    logo->SetPosition(0.0f, 200.0f);
+    logo->SetScale(0.7, 0.7f);
+    logo->SetPosition(0.0f, 180.0f);
     m_Root.AddChild(logo);
 
     m_PlayButton = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/PlayButton.png",
@@ -36,8 +41,6 @@ MenuScene::MenuScene(App &app) : m_App(app) {
     m_SettingsButton->SetPosition(0.0f, -175.0f);
     //m_SettingsButton->SetText(RESOURCE_DIR"/scene/txt_option.png",0.8f);
     m_Root.AddChild(m_SettingsButton);
-
-
 
 }
 

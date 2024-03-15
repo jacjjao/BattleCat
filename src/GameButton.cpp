@@ -19,6 +19,9 @@ GameButton::GameButton(const std::string &btn_path,
         s_ClickSound = std::make_unique<Util::SFX>(RESOURCE_DIR "/sounds/click.mp3");
     }
     SetClickSound([]{s_ClickSound->Play();});
+    AddButtonEvent([]{
+
+    });
 }
 
 void GameButton::SetClickSound(const std::function<void()>& click_sound) {
@@ -80,28 +83,7 @@ void GameButton::SetScale(float scale) {
     if (m_HoverBorder) {
         m_HoverBorder->SetScale(scale, scale);
     }
-    //m_text->SetScale(m_text->GetScale().x * scale,m_text->GetScale().y * scale);
 }
-
-void GameButton::SetWidthScale(float scale){
-    GameObjectEx::SetScale(scale, GameObjectEx::GetScale().y);
-    if (m_HoverBorder) {
-        m_HoverBorder->SetScale(scale, GameObjectEx::GetScale().y);
-    }
-};
-
-void GameButton::SetText(const std::string &txt_img_path,float scale){
-    if (m_text) {
-        RemoveChild(m_text);
-    }
-    auto text = std::make_shared<GameObjectEx>();
-    text->SetDrawable(std::make_shared<Util::Image>(txt_img_path));
-    text->SetScale(scale,scale);
-    text->SetPosition(this->GetPosition());
-    text->SetZIndex(this->GetZIndex() + 0.001f);
-    m_text = std::move(text);
-    AddChild(m_text);
-};
 
 bool GameButton::IsMouseHovering() const {
     const auto size = GetScaledSize();
