@@ -49,12 +49,14 @@ EnemyType Enemy::GetEnemyType() const {
 Enemy::Enemy(Enemy &&other) noexcept
     : m_AtkCallback(other.m_AtkCallback),
       m_Type(other.m_Type) {
+    m_PosX = other.m_PosX;
     SetStats(other.m_Stats);
     SetCallbacks();
 }
 
 Enemy &Enemy::operator=(Enemy &&other) noexcept {
     m_Type = other.m_Type;
+    m_PosX = other.m_PosX;
     SetStats(other.m_Stats);
     SetCallbacks();
     return *this;

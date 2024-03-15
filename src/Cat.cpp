@@ -50,12 +50,14 @@ CatType Cat::GetCatType() const {
 Cat::Cat(Cat &&other) noexcept
     : m_AtkCallback(other.m_AtkCallback),
       m_Type(other.m_Type) {
+    m_PosX = other.m_PosX;
     SetStats(other.m_Stats);
     SetCallbacks();
 }
 
 Cat &Cat::operator=(Cat &&other) noexcept {
     m_Type = other.m_Type;
+    m_PosX = other.m_PosX;
     SetStats(other.m_Stats);
     SetCallbacks();
     return *this;
