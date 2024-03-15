@@ -137,7 +137,7 @@ void CatBaseScene::Update() {
     }
 
     m_BaseCat->GetChildren().at(0)->SetVisible(
-    (basecatframe%140 == 134 or basecatframe%140 == 135 or basecatframe%140 == 129 or basecatframe%140 == 130));
+    (basecatframe % 140 == 134 || basecatframe % 140 == 135 || basecatframe%140 == 129 || basecatframe%140 == 130));
 
     for (const auto &btn : m_Buttons) {
         btn->Update();
