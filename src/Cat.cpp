@@ -2,10 +2,13 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-Cat::Cat(const CatType type, std::function<void(Cat &)> atk_callback)
+Cat::Cat(const CatType type, const float pos,
+         std::function<void(Cat &)> atk_callback)
     : m_AtkCallback(atk_callback),
       m_Type(type) {
     assert(m_AtkCallback);
+    m_PosX = pos;
+    SetStats(CatStats::Stats[static_cast<size_t>(type)]);
     SetCallbacks();
 }
 

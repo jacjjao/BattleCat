@@ -38,10 +38,6 @@ float Entity::GetPosX() const {
     return m_PosX;
 }
 
-float Entity::SetPosX(float x) {
-    return m_PosX = x;
-}
-
 bool Entity::IsSingleTarget() const {
     return m_Stats.single_target;
 }

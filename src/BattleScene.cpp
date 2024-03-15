@@ -9,16 +9,28 @@ BattleScene::BattleScene() {
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
     // tmp
-    auto &cat = m_Cats.emplace_back(CatType::CAT, [this](Cat &cat) { CatAttack(cat); });
-    cat.SetStats(CatStats::Cat);
-    cat.SetPosX(50.f);
+    const auto cat_attack = [this](Cat &cat) { CatAttack(cat); };
+    auto &cat = m_Cats.emplace_back(CatType::CAT, 100, cat_attack);
     
-    auto &doge = m_Enemies.emplace_back(EnemyType::DOGE, [this](Enemy& e) { EnemyAttack(e); });
-    doge.SetStats(EnemyStats::Doge);
-    doge.SetPosX(-50.f);
+    auto &doge = m_Enemies.emplace_back(EnemyType::DOGE, -100, [this](Enemy& e) { EnemyAttack(e); });
+
+    m_CatBtn = std::make_shared<GameButton>(
+        RESOURCE_DIR "/buttons/YellowButton.png",
+        std::initializer_list<std::string>(
+            {RESOURCE_DIR "/buttons/hover_purple.png",
+             RESOURCE_DIR "/buttons/hover_yellow.png"}));
+    m_CatBtn->SetPosition(0.0, -200.0);
+    m_CatBtn->SetZIndex(0.5);
+    m_CatBtn->AddButtonEvent([this, cat_attack] {
+        m_Cats.emplace_back(CatType::CAT, 200, cat_attack);
+    });
+    m_Root.AddChild(m_CatBtn);
 }
 
 void BattleScene::Update() {
+    m_CatBtn->Update();
+    m_Root.Update();
+
     const auto dt = Util::Time::GetDeltaTime(); 
 
     CatStartAttack();
@@ -46,7 +58,7 @@ void BattleScene::Update() {
     }
     m_DmgInfos.clear();
 
-    const auto IsDead = [](auto &e) -> bool { return e.IsDead(); };
+    const auto IsDead = [](auto &e) -> bool { return e.IsDead() && e.GetState() == EntityState::WALK; };
     const auto dead_cat_it = std::remove_if(m_Cats.begin(), m_Cats.end(), IsDead);
 #ifdef ENABLE_BATTLE_LOG
     for (auto it = dead_cat_it; it != m_Cats.end(); ++it) {

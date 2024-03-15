@@ -1,10 +1,13 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-Enemy::Enemy(const EnemyType type, std::function<void(Enemy &)> atk_callback)
+Enemy::Enemy(const EnemyType type, float pos,
+             std::function<void(Enemy &)> atk_callback)
     : m_AtkCallback(atk_callback),
       m_Type(type) {
     assert(m_AtkCallback);
+    m_PosX = pos;
+    SetStats(EnemyStats::Stats[static_cast<size_t>(type)]);
     SetCallbacks();
 }
 

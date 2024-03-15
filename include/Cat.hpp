@@ -12,7 +12,7 @@ static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
 
 class Cat : public Entity {
 public:
-    Cat(CatType type, std::function<void(Cat&)> atk_callback);
+    Cat(CatType type, float pos, std::function<void(Cat&)> atk_callback);
 
     void StartAttack();
 
@@ -51,7 +51,7 @@ namespace CatStats {
         stats.speed = 30;
         stats.single_target = true;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 1.23;
+        stats.atk_cool_down = 0.96;
         stats.recharge_time = 2000;
         stats.cost = 75;
         stats.det_box = {0, 10};
@@ -63,6 +63,8 @@ namespace CatStats {
         return stats;
     }();
 
+    inline const std::array<EntityStats,
+                            static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
+        Stats = {CatStats::Cat};
+
 } // CatStats
-
-

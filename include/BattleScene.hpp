@@ -3,6 +3,8 @@
 #include "Scene.hpp"
 #include "Cat.hpp"
 #include "Enemy.hpp"
+#include "GameButton.hpp"
+#include "Util/Root.hpp"
 #include <vector>
 
 struct DamageInfo {
@@ -35,4 +37,7 @@ private:
     std::vector<Cat> m_Cats;
     std::vector<Enemy> m_Enemies;
     std::vector<DamageInfo> m_DmgInfos;
+
+    Util::Root m_Root;
+    std::shared_ptr<GameButton> m_CatBtn; // tmp
 };

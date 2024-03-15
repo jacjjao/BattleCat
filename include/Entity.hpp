@@ -8,8 +8,6 @@
 class Entity {
 public:
     virtual ~Entity() = default;
-    
-    void SetStats(const EntityStats& stats);
 
     void GetHit(int damage, std::optional<EnemyAttr> attr);
 
@@ -22,8 +20,6 @@ public:
     bool IsInRange(const Entity &e) const;
 
     float GetPosX() const;
-
-    float SetPosX(float x);
 
     bool IsSingleTarget() const;
 
@@ -41,6 +37,7 @@ public:
     static constexpr double s_KnockbackDuration = 1.0;
 
 protected:
+    void SetStats(const EntityStats &stats);
     void SetState(EntityState state);
     void OnUpdate();
     virtual HitBox ToWorldSpace(HitBox hitbox) const = 0;
