@@ -16,6 +16,10 @@ public:
 
     void Update() override;
 
+    // disable copy & move ability or the cats and enemies attack callback will access a dangling pointer
+    BattleScene(const BattleScene &) = delete;
+    BattleScene &operator=(const BattleScene &) = delete;
+
 private:
     void CatStartAttack();
     void EnemyStartAttack();
