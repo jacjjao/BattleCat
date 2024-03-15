@@ -18,17 +18,20 @@ BattleScene::BattleScene() {
 }
 
 void BattleScene::Update() {
-    StartAttacks();
-
     const auto dt = Util::Time::GetDeltaTime(); 
+
+    CatStartAttack();
     for (auto &cat : m_Cats) {
         cat.Walk(dt);
     }
+
+    EnemyStartAttack();
     for (auto &enemy : m_Enemies) {
         enemy.Walk(dt);
     }
 
-    StartAttacks();
+    CatStartAttack();
+    EnemyStartAttack();
 
     for (auto &cat : m_Cats) {
         cat.Update();
@@ -52,26 +55,26 @@ void BattleScene::Update() {
     Draw();
 }
 
-void BattleScene::StartAttacks() {
+void BattleScene::CatStartAttack() {
     for (auto &cat : m_Cats) {
         if (cat.GetState() != EntityState::WALK) {
             continue;
         }
         if (std::any_of(m_Enemies.cbegin(), m_Enemies.cend(),
-                        [&cat](auto &e) -> bool {
-                            return cat.CanAttack(e);
-                        })) {
+                        [&cat](auto &e) -> bool { return cat.CanAttack(e); })) {
             cat.StartAttack();
         }
     }
+}
+
+void BattleScene::EnemyStartAttack() {
     for (auto &enemy : m_Enemies) {
         if (enemy.GetState() != EntityState::WALK) {
             continue;
         }
-        if (std::any_of(m_Cats.cbegin(), m_Cats.cend(),
-                        [&enemy](auto &cat) -> bool {
-                            return enemy.CanAttack(cat);
-                        })) {
+        if (std::any_of(
+                m_Cats.cbegin(), m_Cats.cend(),
+                [&enemy](auto &cat) -> bool { return enemy.CanAttack(cat); })) {
             enemy.StartAttack();
         }
     }
