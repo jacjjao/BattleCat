@@ -56,7 +56,7 @@ CatBaseScene::CatBaseScene(App &app)
     door->SetScale(float(app_w) / bg_size.x, float(app_h) / bg_size.y);
 
     m_Root.AddChild(door);
-
+//-----------------------------------------------------------------------------
     auto back_button = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/button_back_ipad.png",
         std::initializer_list<std::string>(
@@ -71,7 +71,7 @@ CatBaseScene::CatBaseScene(App &app)
     });
     m_Buttons.push_back(back_button);
     m_Root.AddChild(back_button);
-
+//-----------------------------------------------------------------------------
     auto start_button = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/StartButton.png",
         std::initializer_list<std::string>(
@@ -84,7 +84,7 @@ CatBaseScene::CatBaseScene(App &app)
     });
     m_Buttons.push_back(start_button);
     m_Root.AddChild(start_button);
-
+//-----------------------------------------------------------------------------
     auto upgrade_button = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/UpgradeButton.png",
         std::initializer_list<std::string>(
@@ -94,7 +94,7 @@ CatBaseScene::CatBaseScene(App &app)
     upgrade_button->SetPosition(-375.0f,60.0f);
     m_Buttons.push_back(upgrade_button);
     m_Root.AddChild(upgrade_button);
-
+//----------------------------------------------------------------------
     auto equip_button = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/EquipButton.png",
         std::initializer_list<std::string>(
@@ -102,9 +102,12 @@ CatBaseScene::CatBaseScene(App &app)
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
     equip_button->SetZIndex(3);
     equip_button->SetPosition(-375.0f,-30.0f);
+    equip_button->AddButtonEvent([this]{
+        m_App.SwitchScene(App::SceneType::EQUIP_SCENE);
+    });
     m_Buttons.push_back(equip_button);
     m_Root.AddChild(equip_button);
-
+//-----------------------------------------------------------------------------
     m_BaseCat = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(RESOURCE_DIR"/cat_base/Cat_OpenEyes.png"),0.08f);
     m_BaseCat->SetPosition(430,-210);
     m_BaseCat->SetScale(1.5,1.5);
@@ -114,7 +117,7 @@ CatBaseScene::CatBaseScene(App &app)
     BaseCat_closed_eyes->SetScale(m_BaseCat->GetScale());
     m_BaseCat->AddChild(BaseCat_closed_eyes);
     m_Root.AddChild(m_BaseCat);
-
+//----------------------------------------------------------------------------------
     auto DialogBox = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(RESOURCE_DIR"/cat_base/dialog_box.png"),2);
     DialogBox->SetPosition(305,80);
     DialogBox->SetScale(2,2);
