@@ -1,5 +1,6 @@
 #include "BattleScene.hpp"
 #include "Util/Time.hpp"
+#include "DebugUtil/BattleLog.hpp"
 #include <cassert>
 #include <algorithm>
 
@@ -46,11 +47,22 @@ void BattleScene::Update() {
     m_DmgInfos.clear();
 
     const auto IsDead = [](auto &e) -> bool { return e.IsDead(); };
-    m_Cats.erase(std::remove_if(m_Cats.begin(), m_Cats.end(), IsDead),
-                 m_Cats.end());
+    const auto dead_cat_it = std::remove_if(m_Cats.begin(), m_Cats.end(), IsDead);
+#ifdef ENABLE_BATTLE_LOG
+    for (auto it = dead_cat_it; it != m_Cats.end(); ++it) {
+        printBattleLog("{} is dead", it->GetName());
+    }
+#endif
+    m_Cats.erase(dead_cat_it, m_Cats.end());
 
-    m_Enemies.erase(std::remove_if(m_Enemies.begin(), m_Enemies.end(), IsDead),
-                    m_Enemies.end());
+    const auto dead_enemy_it =
+        std::remove_if(m_Enemies.begin(), m_Enemies.end(), IsDead);
+#ifdef ENABLE_BATTLE_LOG
+    for (auto it = dead_enemy_it; it != m_Enemies.end(); ++it) {
+        printBattleLog("{} is dead", it->GetName());
+    }
+#endif
+    m_Enemies.erase(dead_enemy_it, m_Enemies.end());
 
     Draw();
 }
