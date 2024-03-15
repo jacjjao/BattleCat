@@ -2,10 +2,12 @@
 
 #include "Core/Context.hpp"
 
+#include "Entity.hpp"
+
 int main(int, char**) {
     auto context = Core::Context::GetInstance();
     App app;
-    
+
     while (!context->GetExit()) {
         switch (app.GetCurrentState()) {
             case App::State::START:

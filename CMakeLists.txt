@@ -35,6 +35,11 @@ else()
     # target_compile_definitions(${PROJECT_NAME} PRIVATE RESOURCE_DIR="${CMAKE_INSTALL_PREFIX}/Resources")
 endif()
 
+option(BATTLE_LOG "Enable battle log(Debug purpose)" ON)
+if (${BATTLE_LOG})
+    target_compile_definitions(${PROJECT_NAME} PRIVATE ENABLE_BATTLE_LOG)
+endif()
+
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${DEPENDENCY_INCLUDE_DIRS})
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/PTSD/include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)

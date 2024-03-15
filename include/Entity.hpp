@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Enemy.hpp"
-#include "Cat.hpp"
+#include "EntityStats.hpp"
 #include "Util/Image.hpp"
 #include "AnimatedGameObject.hpp"
+#include "Timer.hpp"
+#include <cassert>
 
-template<typename EntityType>
 class Entity {
 public:
     /*static Entity<CatType>
@@ -19,17 +19,16 @@ public:
 
     void GetHit(int damage, std::optional<EnemyAttr> attr);
 
-    int GetDamage(std::optional<EnemyAttr> attr) const;
+    HitBox GetHitBox() const; // when attacking
 
-    std::optional<EnemyAttr> GetEnemyAttr() const;
+    virtual void Draw(Util::Image &image) const = 0;
 
-    EntityType GetEntityType() const;
+    EntityState GetState() const;
 
-    HitBox GetHitBox() const;
+    bool IsInRange(const Entity &e) const;
 
-    void Draw(Util::Image &image) const;
 //--------------------------------------------------------------------------
-    bool IsEnemyInRange();
+/*    bool IsEnemyInRange();
 
      //Walk -> Idle -> Attack -> calculate damage -> Hitback
     // -> Update animation
@@ -108,14 +107,47 @@ public:
                 break;
             }
         }
-    };
+    };*/
+
+    float GetPosX() const;
+
+    bool IsSingleTarget() const;
+
+    virtual void DealDamage(Entity &e) = 0;
+
+    bool IsDead() const;
+
+#ifdef ENABLE_BATTLE_LOG
+    const std::string& GetName() const {
+        return m_Stats.name;
+    }
+#endif // ENABLE_BATTLE_LOG
+
+    static constexpr float s_KnockbackSpeed = 50.0f;
+    static constexpr double s_KnockbackDuration = 1.0;
 
 protected:
-    EntityState m_State = EntityState::WALK;
+    void SetStats(const EntityStats &stats);
+    void SetState(EntityState state);
+    void OnUpdate();
+    virtual HitBox ToWorldSpace(HitBox hitbox) const = 0;
+
     EntityStats m_Stats;
-    bool is_enemy = false;
+    float m_PosX = 0;
+    bool m_IsEnemy = false;
+    Timer m_AtkPrepTimer;
+    Timer m_AtkCoolDownTimer;
+    Timer m_KnockbackTimer;
+    int m_KnockBackHealth = 0;
+    int m_TotalDamage = 0;
+
     std::shared_ptr<AnimatedGameObject> m_attack;
     std::shared_ptr<AnimatedGameObject> m_walk;
     std::shared_ptr<AnimatedGameObject> m_idle;
     std::shared_ptr<AnimatedGameObject> m_hitback;
+
+private:
+    void ExitKnockbackState();
+
+    EntityState m_State = EntityState::WALK;
 };
