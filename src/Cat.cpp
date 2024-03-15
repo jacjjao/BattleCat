@@ -2,8 +2,9 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-Cat::Cat(std::function<void(Cat &)> atk_callback)
-    : m_AtkCallback(atk_callback) {
+Cat::Cat(const CatType type, std::function<void(Cat &)> atk_callback)
+    : m_AtkCallback(atk_callback),
+      m_Type(type) {
     assert(m_AtkCallback);
     SetCallbacks();
 }
@@ -42,12 +43,19 @@ void Cat::DealDamage(Entity &e) {
     e.GetHit(m_Stats.damage, std::nullopt);
 }
 
-Cat::Cat(Cat &&other) noexcept : m_AtkCallback(other.m_AtkCallback) {
+CatType Cat::GetCatType() const {
+    return m_Type;
+}
+
+Cat::Cat(Cat &&other) noexcept
+    : m_AtkCallback(other.m_AtkCallback),
+      m_Type(other.m_Type) {
     SetStats(other.m_Stats);
     SetCallbacks();
 }
 
 Cat &Cat::operator=(Cat &&other) noexcept {
+    m_Type = other.m_Type;
     SetStats(other.m_Stats);
     SetCallbacks();
     return *this;

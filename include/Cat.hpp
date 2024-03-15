@@ -12,7 +12,7 @@ static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
 
 class Cat : public Entity {
 public:
-    Cat(std::function<void(Cat&)> atk_callback);
+    Cat(CatType type, std::function<void(Cat&)> atk_callback);
 
     void StartAttack();
 
@@ -23,6 +23,8 @@ public:
     void Walk(float dt);
 
     void DealDamage(Entity &e) override;
+
+    CatType GetCatType() const;
 
     Cat(Cat &&other) noexcept;
     Cat &operator=(Cat &&other) noexcept;
@@ -35,6 +37,7 @@ private:
     HitBox ToWorldSpace(HitBox hitbox) const override;
 
     const std::function<void(Cat &)> m_AtkCallback;
+    CatType m_Type;
 };
 
 namespace CatStats {

@@ -9,7 +9,7 @@ BattleScene::BattleScene() {
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
     // tmp
-    auto &cat = m_Cats.emplace_back([this](Cat &cat) { CatAttack(cat); });
+    auto &cat = m_Cats.emplace_back(CatType::CAT, [this](Cat &cat) { CatAttack(cat); });
     cat.SetStats(CatStats::Cat);
     cat.SetPosX(50.f);
 
@@ -94,7 +94,7 @@ void BattleScene::EnemyStartAttack() {
 
 void BattleScene::Draw() {
     for (const auto &cat : m_Cats) {
-        cat.Draw(m_CatImage[0]);
+        cat.Draw(m_CatImage[static_cast<size_t>(cat.GetCatType())]);
     }
     for (const auto &enemy : m_Enemies) {
         enemy.Draw(m_EnemyImage[0]);
