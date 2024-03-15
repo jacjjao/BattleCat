@@ -16,7 +16,8 @@ public:
     enum class SceneType : size_t { 
         MENU = 0,
         CAT_BASE,
-        BATTLE_SCENE
+        BATTLE_SCENE,
+        EQUIP_SCENE
     };
     static_assert(std::is_same_v<std::underlying_type_t<SceneType>, size_t>); // Do not change the underlying type
 

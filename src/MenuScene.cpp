@@ -11,18 +11,18 @@ MenuScene::MenuScene(App &app) : m_App(app) {
     auto background = std::make_shared<GameObjectEx>
         (std::make_unique<Util::Image>(RESOURCE_DIR"/scene/Menu.png"),0);
     m_Root.AddChild(background);
-
+//-------------------------------------------------
     auto blackbox = std::make_shared<GameObjectEx>
         (std::make_unique<Util::Image>(RESOURCE_DIR"/scene/Menu_blackbox.png"),0.1f);
     blackbox->SetPosition(0,blackbox->GetScaledSize().y/-1.8f);
     m_Root.AddChild(blackbox);
-
+//--------------------------------------------------------
     auto logo =  std::make_shared<GameObjectEx>(std::make_unique<Util::Image>
         (RESOURCE_DIR"/scene/logo.png"),0.5f);
     logo->SetScale(0.7, 0.7f);
     logo->SetPosition(0.0f, 180.0f);
     m_Root.AddChild(logo);
-
+//------------------------------------------------------------
     m_PlayButton = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/PlayButton.png",
                                                  std::initializer_list<std::string>({RESOURCE_DIR"/buttons/hover_purple.png",
                                                   RESOURCE_DIR"/buttons/hover_yellow.png"}));
@@ -33,13 +33,12 @@ MenuScene::MenuScene(App &app) : m_App(app) {
         m_App.SwitchBGM(App::BGMType::CAT_BASE);
     });
     m_Root.AddChild(m_PlayButton);
-
+//-----------------------------------------------------------
     m_SettingsButton = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/OptionButton.png",
                                                     std::initializer_list<std::string>({RESOURCE_DIR"/buttons/hover_purple.png",
                                                                                         RESOURCE_DIR"/buttons/hover_yellow.png"}));
     m_SettingsButton->SetZIndex(0.6f);
     m_SettingsButton->SetPosition(0.0f, -175.0f);
-    //m_SettingsButton->SetText(RESOURCE_DIR"/scene/txt_option.png",0.8f);
     m_Root.AddChild(m_SettingsButton);
 
 }
