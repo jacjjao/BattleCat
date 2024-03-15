@@ -61,7 +61,7 @@ void BattleScene::CatStartAttack() {
             continue;
         }
         if (std::any_of(m_Enemies.cbegin(), m_Enemies.cend(),
-                        [&cat](auto &e) -> bool { return cat.CanAttack(e); })) {
+                        [&cat](auto &e) -> bool { return cat.IsInRange(e); })) {
             cat.StartAttack();
         }
     }
@@ -74,7 +74,7 @@ void BattleScene::EnemyStartAttack() {
         }
         if (std::any_of(
                 m_Cats.cbegin(), m_Cats.cend(),
-                [&enemy](auto &cat) -> bool { return enemy.CanAttack(cat); })) {
+                [&enemy](auto &cat) -> bool { return enemy.IsInRange(cat); })) {
             enemy.StartAttack();
         }
     }

@@ -27,7 +27,7 @@ EntityState Entity::GetState() const {
     return m_State;
 }
 
-bool Entity::CanAttack(const Entity &e) const {
+bool Entity::IsInRange(const Entity &e) const {
     const auto det_box_pos = ToWorldSpace(m_Stats.det_box);
     const auto pos = e.GetPosX();
     return m_State != EntityState::KNOCK_BACK &&

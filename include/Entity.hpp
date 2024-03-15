@@ -19,7 +19,7 @@ public:
 
     EntityState GetState() const;
 
-    bool CanAttack(const Entity &e) const;
+    bool IsInRange(const Entity &e) const;
 
     float GetPosX() const;
 
