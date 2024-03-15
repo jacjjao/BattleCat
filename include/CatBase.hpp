@@ -16,4 +16,5 @@ private:
     App &m_App;
 
     std::vector<std::shared_ptr<GameButton>> m_Buttons;
+    std::shared_ptr<GameObjectEx> m_BaseCat;
 };

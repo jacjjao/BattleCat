@@ -19,6 +19,7 @@ add_executable(${PROJECT_NAME}
     ${SRC_DIR}/main.cpp
     ${SRC_FILES}
     ${HEADER_FILES}
+        include/EquipScene.hpp
 )
 
 if(MSVC)
@@ -32,6 +33,11 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 else()
     message(FATAL_ERROR "relative RESOURCE_DIR is WIP, Please use `-DCMAKE_BUILD_TYPE=Debug` build for now.")
     # target_compile_definitions(${PROJECT_NAME} PRIVATE RESOURCE_DIR="${CMAKE_INSTALL_PREFIX}/Resources")
+endif()
+
+option(BATTLE_LOG "Enable battle log(Debug purpose)" ON)
+if (${BATTLE_LOG})
+    target_compile_definitions(${PROJECT_NAME} PRIVATE ENABLE_BATTLE_LOG)
 endif()
 
 target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${DEPENDENCY_INCLUDE_DIRS})

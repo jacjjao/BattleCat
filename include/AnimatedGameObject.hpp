@@ -19,6 +19,12 @@ public:
 
     void Pause();
 
+    void Reset();
+
+    std::shared_ptr<Util::Animation> GetAnime();
+
+    std::size_t GetCurrentFrameIndex();
+
 private:
     std::shared_ptr<Util::Animation> m_Anime;
 };

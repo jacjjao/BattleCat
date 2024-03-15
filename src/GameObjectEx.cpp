@@ -2,6 +2,7 @@
 // Created by user on 2024/3/1.
 //
 #include "GameObjectEx.hpp"
+#include "Util/Time.hpp"
 
 void GameObjectEx::SetScale(float x, float y){
     m_Transform.scale = glm::vec2(x,y);
@@ -62,5 +63,10 @@ glm::vec2 GameObjectEx::GetPosition() const{
 float GameObjectEx::GetRotation() const{
     return m_Transform.rotation;
 }
+
+/*void GameObjectEx::PlayShapeAnime(std::initializer_list<int> &frames,std::size_t interval) {
+    static int frame;
+    frame+=1;
+}*/
 
 

@@ -6,6 +6,11 @@ set(SRC_FILES
     AnimatedGameObject.cpp
     Utility.cpp
     CatBase.cpp
+    BattleScene.cpp
+    Entity.cpp
+    Cat.cpp
+    Enemy.cpp
+    Timer.cpp
 )
 
 set(INCLUDE_FILES
@@ -17,6 +22,13 @@ set(INCLUDE_FILES
     AnimatedGameObject.hpp
     Utility.hpp
     CatBase.hpp
+    EntityStats.hpp
+    Enemy.hpp
+    Cat.hpp
+    BattleScene.hpp
+    Entity.hpp
+    Timer.hpp
+    DebugUtil/BattleLog.hpp
 )
 
 set(TEST_FILES

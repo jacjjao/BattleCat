@@ -21,3 +21,17 @@ void AnimatedGameObject::Play() {
 void AnimatedGameObject::Pause() {
     m_Anime->Pause();
 }
+
+void AnimatedGameObject::Reset(){
+    m_Anime->SetCurrentFrame(0);
+    m_Anime->Pause();
+}
+
+
+std::size_t AnimatedGameObject::GetCurrentFrameIndex(){
+    return m_Anime->GetCurrentFrameIndex();
+}
+
+std::shared_ptr<Util::Animation> AnimatedGameObject::GetAnime(){
+    return m_Anime;
+}
