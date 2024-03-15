@@ -12,7 +12,7 @@ Enemy::Enemy(const EnemyType type, float pos,
 }
 
 void Enemy::StartAttack() {
-    SetState(EntityState::ON_ATTACK);
+    SetState(EntityState::ATTACK);
     m_AtkPrepTimer.Start();
 #ifdef ENABLE_BATTLE_LOG
     printBattleLog("{} StarAttack at position: {:.2f}", m_Stats.name, m_PosX);
@@ -32,7 +32,7 @@ void Enemy::Update() {
 void Enemy::Walk(float dt) {
     if (GetState() == EntityState::WALK) {
         m_PosX += m_Stats.speed * dt;
-    } else if (GetState() == EntityState::KNOCK_BACK) {
+    } else if (GetState() == EntityState::HITBACK) {
         m_PosX -= s_KnockbackSpeed * dt;
     }
 }
@@ -71,17 +71,17 @@ void Enemy::SetCallbacks() {
 }
 
 void Enemy::Attack() {
-    if (GetState() == EntityState::KNOCK_BACK) {
+    if (GetState() == EntityState::HITBACK) {
         return;
     }
-    assert(GetState() == EntityState::ON_ATTACK);
+    assert(GetState() == EntityState::ATTACK);
     m_AtkCallback(*this);
-    SetState(EntityState::ATTACK_COOLDOWN);
+    SetState(EntityState::IDLE);
     m_AtkCoolDownTimer.Start();
 }
 
 void Enemy::CoolDownComplete() {
-    if (GetState() == EntityState::ATTACK_COOLDOWN) {
+    if (GetState() == EntityState::IDLE) {
         SetState(EntityState::WALK);
     }
 }

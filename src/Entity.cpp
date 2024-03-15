@@ -14,7 +14,7 @@ void Entity::GetHit(int damage, std::optional<EnemyAttr> attr) {
     m_Stats.health -= damage;
     m_TotalDamage += damage;
     if (m_TotalDamage >= m_KnockBackHealth) {
-        SetState(EntityState::KNOCK_BACK);
+        SetState(EntityState::HITBACK);
         m_TotalDamage -= m_KnockBackHealth;
     }
 }
@@ -30,7 +30,7 @@ EntityState Entity::GetState() const {
 bool Entity::IsInRange(const Entity &e) const {
     const auto det_box_pos = ToWorldSpace(m_Stats.det_box);
     const auto pos = e.GetPosX();
-    return m_State != EntityState::KNOCK_BACK &&
+    return m_State != EntityState::HITBACK &&
            (det_box_pos.low <= pos && pos <= det_box_pos.high);
 }
 
@@ -53,7 +53,7 @@ void Entity::SetState(EntityState state) {
 #endif // ENABLE_BATTLE_LOG
 
     m_State = state;
-    if (state == EntityState::KNOCK_BACK) {
+    if (state == EntityState::HITBACK) {
         m_KnockbackTimer.Start();
     }
 }

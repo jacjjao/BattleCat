@@ -18,7 +18,6 @@ struct EntityStats {
     int kb = 0;
     int speed = 0;
     bool single_target = true;
-    int speed = 0;
     double atk_prep_time = 0; // seconds
     double atk_cool_down = 0; // seconds
     int recharge_time = 0;
@@ -40,14 +39,14 @@ inline std::string EntityStateToString(EntityState state) {
     case EntityState::WALK:
         return "WALK";
 
-    case EntityState::ON_ATTACK:
-        return "ON_ATTACK";
+    case EntityState::ATTACK:
+        return "ATTACK";
 
-    case EntityState::ATTACK_COOLDOWN:
-        return "ATTACK_COOLDOWN";
+    case EntityState::IDLE:
+        return "IDLE";
 
-    case EntityState::KNOCK_BACK:
-        return "KNOCK_BACK";
+    case EntityState::HITBACK:
+        return "HITBACK";
     }
     return "UNKNOW";
 }
