@@ -8,6 +8,14 @@ Cat::Cat(std::function<void(Cat &)> atk_callback)
     SetCallbacks();
 }
 
+void Cat::StartAttack() {
+    SetState(EntityState::ON_ATTACK);
+    m_AtkPrepTimer.Start();
+#ifdef ENABLE_BATTLE_LOG
+    printBattleLog("{} StarAttack at position: {:.2f}", m_Stats.name, m_PosX);
+#endif
+}
+
 void Cat::Draw(Util::Image &image) const {
     Util::Transform trans;
     trans.translation = {m_PosX, 0};

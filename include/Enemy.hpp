@@ -14,6 +14,8 @@ class Enemy : public Entity {
 public:
     Enemy(std::function<void(Enemy &)> atk_callback);
 
+    void StartAttack();
+
     void Draw(Util::Image &image) const override;
 
     void Update();

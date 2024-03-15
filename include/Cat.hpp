@@ -14,6 +14,8 @@ class Cat : public Entity {
 public:
     Cat(std::function<void(Cat&)> atk_callback);
 
+    void StartAttack();
+
     void Draw(Util::Image &image) const override;
 
     void Update();

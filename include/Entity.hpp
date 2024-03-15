@@ -8,8 +8,6 @@
 class Entity {
 public:
     virtual ~Entity() = default;
-
-    void StartAttack();
     
     void SetStats(const EntityStats& stats);
 

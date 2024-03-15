@@ -1,14 +1,6 @@
 #include "Entity.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-void Entity::StartAttack() {
-    SetState(EntityState::ON_ATTACK);
-    m_AtkPrepTimer.Start();
-#ifdef ENABLE_BATTLE_LOG
-    printBattleLog("{} StarAttack at position: {:.2f}", m_Stats.name, m_PosX);
-#endif
-}
-
 void Entity::SetStats(const EntityStats &stats) {
     m_Stats = stats;
     m_AtkPrepTimer.SetTimeOutDur(m_Stats.atk_prep_time);
