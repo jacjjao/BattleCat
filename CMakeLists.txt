@@ -20,6 +20,7 @@ add_executable(${PROJECT_NAME}
     ${SRC_FILES}
     ${HEADER_FILES}
         include/EquipScene.hpp
+        src/EquipScene.cpp
 )
 
 if(MSVC)
