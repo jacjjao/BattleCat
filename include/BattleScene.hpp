@@ -40,4 +40,5 @@ private:
 
     Util::Root m_Root;
     std::shared_ptr<GameButton> m_CatBtn; // tmp
+    std::shared_ptr<GameButton> m_EBtn; // tmp
 };

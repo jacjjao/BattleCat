@@ -26,7 +26,7 @@ struct EntityStats {
     HitBox hit_box;
     std::optional<EnemyAttr> attr;
 #ifdef ENABLE_BATTLE_LOG
-    std::string name = "Unknow";
+    std::string_view name = "Unknow";
 #endif // ENABLE_BATTLE_LOG
 };
 

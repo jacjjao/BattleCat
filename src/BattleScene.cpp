@@ -5,6 +5,8 @@
 #include <algorithm>
 
 BattleScene::BattleScene() {
+    m_Cats.reserve(40);
+    m_Enemies.reserve(40);
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
@@ -12,23 +14,37 @@ BattleScene::BattleScene() {
     const auto cat_attack = [this](Cat &cat) { CatAttack(cat); };
     auto &cat = m_Cats.emplace_back(CatType::CAT, 100, cat_attack);
     
-    auto &doge = m_Enemies.emplace_back(EnemyType::DOGE, -100, [this](Enemy& e) { EnemyAttack(e); });
+    const auto e_attack = [this](Enemy &e) { EnemyAttack(e); };
+    auto &doge = m_Enemies.emplace_back(EnemyType::DOGE, -100, e_attack);
 
     m_CatBtn = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/YellowButton.png",
         std::initializer_list<std::string>(
             {RESOURCE_DIR "/buttons/hover_purple.png",
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
-    m_CatBtn->SetPosition(0.0, -200.0);
+    m_CatBtn->SetPosition(200.0, -200.0);
     m_CatBtn->SetZIndex(0.5);
     m_CatBtn->AddButtonEvent([this, cat_attack] {
         m_Cats.emplace_back(CatType::CAT, 200, cat_attack);
     });
     m_Root.AddChild(m_CatBtn);
+
+    m_EBtn = std::make_shared<GameButton>(
+        RESOURCE_DIR "/buttons/YellowButton.png",
+        std::initializer_list<std::string>(
+            {RESOURCE_DIR "/buttons/hover_purple.png",
+             RESOURCE_DIR "/buttons/hover_yellow.png"}));
+    m_EBtn->SetPosition(-200.0, -200.0);
+    m_EBtn->SetZIndex(0.5);
+    m_EBtn->AddButtonEvent([this, e_attack] {
+        m_Enemies.emplace_back(EnemyType::DOGE, -200, e_attack);
+    });
+    m_Root.AddChild(m_EBtn);
 }
 
 void BattleScene::Update() {
     m_CatBtn->Update();
+    m_EBtn->Update();
     m_Root.Update();
 
     const auto dt = Util::Time::GetDeltaTime(); 
@@ -58,7 +74,7 @@ void BattleScene::Update() {
     }
     m_DmgInfos.clear();
 
-    const auto IsDead = [](auto &e) -> bool { return e.IsDead() && e.GetState() == EntityState::WALK; };
+    const auto IsDead = [](auto &e) -> bool { return e.IsDead() && e.GetState() != EntityState::HITBACK; };
     const auto dead_cat_it = std::remove_if(m_Cats.begin(), m_Cats.end(), IsDead);
 #ifdef ENABLE_BATTLE_LOG
     for (auto it = dead_cat_it; it != m_Cats.end(); ++it) {

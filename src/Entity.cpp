@@ -30,7 +30,7 @@ EntityState Entity::GetState() const {
 bool Entity::IsInRange(const Entity &e) const {
     const auto det_box_pos = ToWorldSpace(m_Stats.det_box);
     const auto pos = e.GetPosX();
-    return m_State != EntityState::HITBACK &&
+    return e.GetState() != EntityState::HITBACK &&
            (det_box_pos.low <= pos && pos <= det_box_pos.high);
 }
 
@@ -43,7 +43,7 @@ bool Entity::IsSingleTarget() const {
 }
 
 bool Entity::IsDead() const {
-    return m_Stats.health == 0;
+    return m_Stats.health <= 0;
 }
 
 void Entity::SetState(EntityState state) {
