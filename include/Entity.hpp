@@ -8,6 +8,8 @@
 
 class Entity {
 public:
+    virtual ~Entity() = default;
+
     void GetHit(int damage, std::optional<EnemyAttr> attr);
 
     HitBox GetHitBox() const; // when attacking

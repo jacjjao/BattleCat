@@ -2,11 +2,8 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-Cat::Cat(const CatType type, const float pos,
-         std::function<void(Cat &)> atk_callback)
-    : m_AtkCallback(atk_callback),
-      m_Type(type) {
-    assert(m_AtkCallback);
+Cat::Cat(const CatType type, const float pos)
+    : m_Type(type) {
     m_PosX = pos;
     SetStats(CatStats::Stats[static_cast<size_t>(type)]);
     SetCallbacks();
@@ -39,11 +36,11 @@ void Cat::Walk(float dt) {
 }
 
 void Cat::DealDamage(Entity &e) {
+    e.GetHit(m_Stats.damage, std::nullopt);
 #ifdef ENABLE_BATTLE_LOG
     printBattleLog("{} deals damage {} to {}!", m_Stats.name, m_Stats.damage,
                    e.GetName());
 #endif // ENABLE_BATTLE_LOG
-    e.GetHit(m_Stats.damage, std::nullopt);
 }
 
 CatType Cat::GetCatType() const {
@@ -51,8 +48,7 @@ CatType Cat::GetCatType() const {
 }
 
 Cat::Cat(Cat &&other) noexcept
-    : m_AtkCallback(other.m_AtkCallback),
-      m_Type(other.m_Type) {
+    : m_Type(other.m_Type) {
     m_PosX = other.m_PosX;
     SetStats(other.m_Stats);
     SetCallbacks();
@@ -66,6 +62,12 @@ Cat &Cat::operator=(Cat &&other) noexcept {
     return *this;
 }
 
+bool Cat::OnAttack() {
+    const auto atk = m_OnAttack;
+    m_OnAttack = false;
+    return atk;
+}
+
 void Cat::SetCallbacks() {
     m_AtkPrepTimer.SetTimeOutEvent([this] { Attack(); });
     m_AtkCoolDownTimer.SetTimeOutEvent([this] { CoolDownComplete(); });
@@ -76,7 +78,7 @@ void Cat::Attack() {
         return;
     } 
     assert(GetState() == EntityState::ATTACK);
-    m_AtkCallback(*this);
+    m_OnAttack = true;
     SetState(EntityState::IDLE);
     m_AtkCoolDownTimer.Start();
 }

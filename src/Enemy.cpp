@@ -1,11 +1,8 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-Enemy::Enemy(const EnemyType type, float pos,
-             std::function<void(Enemy &)> atk_callback)
-    : m_AtkCallback(atk_callback),
-      m_Type(type) {
-    assert(m_AtkCallback);
+Enemy::Enemy(const EnemyType type, float pos)
+    : m_Type(type) {
     m_PosX = pos;
     SetStats(EnemyStats::Stats[static_cast<size_t>(type)]);
     SetCallbacks();
@@ -50,8 +47,7 @@ EnemyType Enemy::GetEnemyType() const {
 }
 
 Enemy::Enemy(Enemy &&other) noexcept
-    : m_AtkCallback(other.m_AtkCallback),
-      m_Type(other.m_Type) {
+    : m_Type(other.m_Type) {
     m_PosX = other.m_PosX;
     SetStats(other.m_Stats);
     SetCallbacks();
@@ -65,6 +61,12 @@ Enemy &Enemy::operator=(Enemy &&other) noexcept {
     return *this;
 }
 
+bool Enemy::OnAttack() {
+    const auto atk = m_OnAttack;
+    m_OnAttack = false;
+    return atk;
+}
+
 void Enemy::SetCallbacks() {
     m_AtkPrepTimer.SetTimeOutEvent([this] { Attack(); });
     m_AtkCoolDownTimer.SetTimeOutEvent([this] { CoolDownComplete(); });
@@ -75,7 +77,7 @@ void Enemy::Attack() {
         return;
     }
     assert(GetState() == EntityState::ATTACK);
-    m_AtkCallback(*this);
+    m_OnAttack = true;
     SetState(EntityState::IDLE);
     m_AtkCoolDownTimer.Start();
 }

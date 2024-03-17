@@ -10,13 +10,6 @@ BattleScene::BattleScene() {
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
-    // tmp
-    const auto cat_attack = [this](Cat &cat) { CatAttack(cat); };
-    auto &cat = m_Cats.emplace_back(CatType::CAT, 100, cat_attack);
-    
-    const auto e_attack = [this](Enemy &e) { EnemyAttack(e); };
-    auto &doge = m_Enemies.emplace_back(EnemyType::DOGE, -100, e_attack);
-
     m_CatBtn = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/YellowButton.png",
         std::initializer_list<std::string>(
@@ -24,8 +17,8 @@ BattleScene::BattleScene() {
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
     m_CatBtn->SetPosition(200.0, -200.0);
     m_CatBtn->SetZIndex(0.5);
-    m_CatBtn->AddButtonEvent([this, cat_attack] {
-        m_Cats.emplace_back(CatType::CAT, 200, cat_attack);
+    m_CatBtn->AddButtonEvent([this] {
+        m_Cats.emplace_back(CatType::CAT, 200);
     });
     m_Root.AddChild(m_CatBtn);
 
@@ -36,8 +29,8 @@ BattleScene::BattleScene() {
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
     m_EBtn->SetPosition(-200.0, -200.0);
     m_EBtn->SetZIndex(0.5);
-    m_EBtn->AddButtonEvent([this, e_attack] {
-        m_Enemies.emplace_back(EnemyType::DOGE, -200, e_attack);
+    m_EBtn->AddButtonEvent([this] {
+        m_Enemies.emplace_back(EnemyType::DOGE, -200);
     });
     m_Root.AddChild(m_EBtn);
 }
@@ -62,11 +55,18 @@ void BattleScene::Update() {
     CatStartAttack();
     EnemyStartAttack();
 
+    // update the timers(for now)
     for (auto &cat : m_Cats) {
         cat.Update();
+        if (cat.OnAttack()) {
+            CatAttack(cat);
+        }
     }
     for (auto &enemy : m_Enemies) {
         enemy.Update();
+        if (enemy.OnAttack()) {
+            EnemyAttack(enemy);
+        }
     }
 
     for (auto &dmg_info : m_DmgInfos) {
@@ -130,37 +130,55 @@ void BattleScene::Draw() {
 }
 
 void BattleScene::CatAttack(Cat &cat) {
-    ResolveAttack(cat, m_Enemies.data(), m_Enemies.size());
-}
-
-void BattleScene::EnemyAttack(Enemy &enemy) {
-    ResolveAttack(enemy, m_Cats.data(), m_Cats.size());
-}
-
-void BattleScene::ResolveAttack(Entity &attacker, Entity *victims,
-                                size_t count) {
     const auto IsInRange = [](HitBox a, float p) -> bool {
         return a.low <= p && p <= a.high;
     };
-    const auto hitbox = attacker.GetHitBox();
-    if (attacker.IsSingleTarget()) {
+    const auto hitbox = cat.GetHitBox();
+    if (cat.IsSingleTarget()) {
         Entity *target = nullptr;
-        for (size_t i = 0; i < count; ++i) {
-            if (!IsInRange(hitbox, victims[i].GetPosX())) {
+        for (auto& e : m_Enemies) {
+            if (!IsInRange(hitbox, e.GetPosX())) {
                 continue;
             }
-            if (!target || target->GetPosX() < victims[i].GetPosX()) {
-                target = std::addressof(victims[i]);
+            if (!target || target->GetPosX() < e.GetPosX()) {
+                target = std::addressof(e);
             }
         }
         if (target) {
-            m_DmgInfos.push_back(DamageInfo{std::addressof(attacker), target});
+            m_DmgInfos.push_back(DamageInfo{std::addressof(cat), target});
         }
     } else {
-        for (size_t i = 0; i < count; ++i) {
-            if (IsInRange(hitbox, victims[i].GetPosX())) {
-                m_DmgInfos.push_back(DamageInfo{std::addressof(attacker),
-                                                std::addressof(victims[i])});
+        for (auto &e : m_Enemies) {
+            if (IsInRange(hitbox, e.GetPosX())) {
+                m_DmgInfos.push_back(DamageInfo{std::addressof(cat),
+                                                std::addressof(e)});
+            }
+        }
+    }
+}
+
+void BattleScene::EnemyAttack(Enemy &enemy) {
+    const auto IsInRange = [](HitBox a, float p) -> bool {
+        return a.low <= p && p <= a.high;
+    };
+    const auto hitbox = enemy.GetHitBox();
+    if (enemy.IsSingleTarget()) {
+        Entity *target = nullptr;
+        for (auto& cat : m_Cats) {
+            if (!IsInRange(hitbox, cat.GetPosX())) {
+                continue;
+            }
+            if (!target || target->GetPosX() < cat.GetPosX()) {
+                target = std::addressof(cat);
+            }
+        }
+        if (target) {
+            m_DmgInfos.push_back(DamageInfo{std::addressof(enemy), target});
+        }
+    } else {
+        for (auto &cat : m_Cats) {
+            if (IsInRange(hitbox, cat.GetPosX())) {
+                m_DmgInfos.push_back(DamageInfo{std::addressof(enemy), std::addressof(cat)});
             }
         }
     }
