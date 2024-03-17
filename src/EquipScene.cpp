@@ -12,6 +12,7 @@ EquipScene::EquipScene(App &app): m_App(app) {
 //-----------------------------------------------------------------------
     auto background = std::make_shared<GameObjectEx>
         (std::make_unique<Util::Image>(RESOURCE_DIR"/equip/background.png"),0);
+    background->SetScale(1.01f*app_w/background->GetScaledSize().x,app_h/background->GetScaledSize().y);
     m_Root.AddChild(background);
 //----------------------------------------------------
     auto equip = std::make_shared<GameObjectEx>
@@ -28,7 +29,7 @@ EquipScene::EquipScene(App &app): m_App(app) {
     back_button->SetPosition(float(app_w)/-2.0f + back_button->GetScaledSize().x/2.0f + 60,
                              float(app_h)/-2.0f + back_button->GetScaledSize().y/2.0f);
     back_button->AddButtonEvent([this] {
-        m_App.SwitchScene(App::SceneType::BATTLE_SCENE);
+        m_App.SwitchScene(App::SceneType::CAT_BASE);
     });
     m_Buttons.push_back(back_button);
     m_Root.AddChild(back_button);
