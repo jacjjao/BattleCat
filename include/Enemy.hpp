@@ -13,7 +13,7 @@ static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
 
 class Enemy : public Entity {
 public:
-    Enemy(EnemyType type, float pos);
+    Enemy(EnemyType type);
 
     void StartAttack();
 
@@ -31,6 +31,8 @@ public:
     Enemy &operator=(Enemy &&other) noexcept;
 
     bool OnAttack();
+
+    void SetStatsModifier(float modifier);
 
 private:
     void SetCallbacks();

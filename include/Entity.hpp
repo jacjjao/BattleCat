@@ -22,6 +22,8 @@ public:
 
     float GetPosX() const;
 
+    void SetPosX(float pos);
+
     bool IsSingleTarget() const;
 
     virtual void DealDamage(Entity &e) = 0;

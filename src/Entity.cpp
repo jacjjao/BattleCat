@@ -15,7 +15,7 @@ void Entity::GetHit(int damage, std::optional<EnemyAttr> attr) {
     m_TotalDamage += damage;
     if (m_TotalDamage >= m_KnockBackHealth) {
         SetState(EntityState::HITBACK);
-        m_TotalDamage -= m_KnockBackHealth;
+        m_TotalDamage %= m_KnockBackHealth;
     }
 }
 
@@ -36,6 +36,10 @@ bool Entity::IsInRange(const Entity &e) const {
 
 float Entity::GetPosX() const {
     return m_PosX;
+}
+
+void Entity::SetPosX(float pos) {
+    m_PosX = pos;
 }
 
 bool Entity::IsSingleTarget() const {

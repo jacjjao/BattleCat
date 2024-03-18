@@ -1,9 +1,8 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-Enemy::Enemy(const EnemyType type, float pos)
+Enemy::Enemy(const EnemyType type)
     : m_Type(type) {
-    m_PosX = pos;
     SetStats(EnemyStats::Stats[static_cast<size_t>(type)]);
     SetCallbacks();
 }
@@ -65,6 +64,13 @@ bool Enemy::OnAttack() {
     const auto atk = m_OnAttack;
     m_OnAttack = false;
     return atk;
+}
+
+void Enemy::SetStatsModifier(float modifier) {
+    assert(modifier >= 1.0f);
+    m_Stats.damage *= modifier;
+    m_Stats.health *= modifier;
+    m_KnockBackHealth = m_Stats.health / m_Stats.kb;
 }
 
 void Enemy::SetCallbacks() {

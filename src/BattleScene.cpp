@@ -30,7 +30,9 @@ BattleScene::BattleScene() {
     m_EBtn->SetPosition(-200.0, -200.0);
     m_EBtn->SetZIndex(0.5);
     m_EBtn->AddButtonEvent([this] {
-        m_Enemies.emplace_back(EnemyType::DOGE, -400);
+        auto& e = m_Enemies.emplace_back(EnemyType::DOGE);
+        e.SetStatsModifier(500.0f);
+        e.SetPosX(-400.0f);
     });
     m_Root.AddChild(m_EBtn);
 }
