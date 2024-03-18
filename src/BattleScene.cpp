@@ -18,7 +18,7 @@ BattleScene::BattleScene() {
     m_CatBtn->SetPosition(200.0, -200.0);
     m_CatBtn->SetZIndex(0.5);
     m_CatBtn->AddButtonEvent([this] {
-        m_Cats.emplace_back(CatType::CAT, 200);
+        m_Cats.emplace_back(CatType::CRAZED_GROSS_CAT, 400);
     });
     m_Root.AddChild(m_CatBtn);
 
@@ -30,7 +30,7 @@ BattleScene::BattleScene() {
     m_EBtn->SetPosition(-200.0, -200.0);
     m_EBtn->SetZIndex(0.5);
     m_EBtn->AddButtonEvent([this] {
-        m_Enemies.emplace_back(EnemyType::DOGE, -200);
+        m_Enemies.emplace_back(EnemyType::DOGE, -400);
     });
     m_Root.AddChild(m_EBtn);
 }
@@ -70,6 +70,8 @@ void BattleScene::Update() {
     }
 
     for (auto &dmg_info : m_DmgInfos) {
+        assert(dmg_info.attacker);
+        assert(dmg_info.victim);
         dmg_info.attacker->DealDamage(*dmg_info.victim);
     }
     m_DmgInfos.clear();
@@ -122,10 +124,12 @@ void BattleScene::EnemyStartAttack() {
 
 void BattleScene::Draw() {
     for (const auto &cat : m_Cats) {
-        cat.Draw(m_CatImage[static_cast<size_t>(cat.GetCatType())]);
+        // cat.Draw(m_CatImage[static_cast<size_t>(cat.GetCatType())]);
+        cat.Draw(m_CatImage[0]);
     }
     for (const auto &enemy : m_Enemies) {
-        enemy.Draw(m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
+        // enemy.Draw(m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
+        enemy.Draw(m_EnemyImage[0]);
     }
 }
 
