@@ -2,59 +2,17 @@
 #include "CatBase.hpp"
 #include "Util/Image.hpp"
 #include "GameObjectEx.hpp"
-#include "Core/Context.hpp"
 #include "App.hpp"
 #include "GameButton.hpp"
 
 CatBaseScene::CatBaseScene(App &app) 
     : m_App(app) {
-    const auto app_w = Core::Context::GetInstance()->GetWindowWidth();
-    const auto app_h = Core::Context::GetInstance()->GetWindowHeight();
-
     auto door = std::make_shared<GameObjectEx>();
     door->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR "/cat_base/door.png"));
     //door->SetZIndex(0.0f);
     //door->SetPosition(0.0f, 0.0f);
-
-    auto frame_L = std::make_shared<GameObjectEx>();
-    auto frame_R = std::make_shared<GameObjectEx>();
-    auto frame_UP = std::make_shared<GameObjectEx>();
-    auto frame_DOWN = std::make_shared<GameObjectEx>();
-    auto frame_base = std::make_shared<GameObjectEx>();
-
-    frame_L->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/cat_base/frame_left.png"));
-    frame_R->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/cat_base/frame_right.png"));
-    frame_UP->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/cat_base/frame_up.png"));
-    frame_DOWN->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/cat_base/frame_down.png"));
-    frame_base->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/cat_base/frame_up_base.png"));
-
-    frame_L->SetZIndex(2);
-    frame_R->SetZIndex(2);
-    frame_UP->SetZIndex(1);
-    frame_DOWN->SetZIndex(1);
-    frame_base->SetZIndex(1.1f);
-
-    frame_L->SetScale(1,2);
-    frame_R->SetScale(1,2);
-    frame_UP->SetScale(2,1);
-    frame_DOWN->SetScale(2,1);
-
-    frame_L->SetPosition(float(app_w)/-2.0f + 18,0);
-    frame_R->SetPosition(float(app_w)/2.0f - 18,0);
-    frame_UP->SetPosition(0,float(app_h)/2.0f - frame_UP->GetScaledSize().y/2.0f);
-    frame_DOWN->SetPosition(0,float(app_h)/-2.0f + frame_DOWN->GetScaledSize().y/2.0f);
-    frame_base->SetPosition(float(app_w)/-2.0f + frame_base->GetScaledSize().x/2.0f + 60
-                            ,float(app_h)/2.0f - frame_base->GetScaledSize().y/2.0f);
-
-    m_Root.AddChild(frame_L);
-    m_Root.AddChild(frame_R);
-    m_Root.AddChild(frame_UP);
-    m_Root.AddChild(frame_DOWN);
-    m_Root.AddChild(frame_base);
-
     const auto bg_size = door->GetScaledSize();
     door->SetScale(float(app_w) / bg_size.x, float(app_h) / bg_size.y);
-
     m_Root.AddChild(door);
 //-----------------------------------------------------------------------------
     auto back_button = std::make_shared<GameButton>(
@@ -92,6 +50,9 @@ CatBaseScene::CatBaseScene(App &app)
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
     upgrade_button->SetZIndex(3);
     upgrade_button->SetPosition(-375.0f,60.0f);
+    upgrade_button->AddButtonEvent([this]{
+        m_App.SwitchScene(App::SceneType::UPGRADE_SCENE);
+    });
     m_Buttons.push_back(upgrade_button);
     m_Root.AddChild(upgrade_button);
 //----------------------------------------------------------------------
@@ -123,7 +84,7 @@ CatBaseScene::CatBaseScene(App &app)
     DialogBox->SetScale(2,2);
     m_Root.AddChild(DialogBox);
 
-
+    Setframes(RESOURCE_DIR"/cat_base/basetext_base.png");
 }
 
 void CatBaseScene::Update() {

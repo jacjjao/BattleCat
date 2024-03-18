@@ -21,6 +21,9 @@ add_executable(${PROJECT_NAME}
     ${HEADER_FILES}
         include/EquipScene.hpp
         src/EquipScene.cpp
+        include/FrameScene.hpp
+        include/UpgradeScene.hpp
+        src/UpgradeScene.cpp
 )
 
 if(MSVC)

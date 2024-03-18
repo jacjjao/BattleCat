@@ -2,13 +2,10 @@
 #include "EquipScene.hpp"
 #include "Util/Image.hpp"
 #include "GameObjectEx.hpp"
-#include "Core/Context.hpp"
 #include "App.hpp"
-#include "GameButton.hpp"
 
-EquipScene::EquipScene(App &app): m_App(app) {
-    const auto app_w = Core::Context::GetInstance()->GetWindowWidth();
-    const auto app_h = Core::Context::GetInstance()->GetWindowHeight();
+EquipScene::EquipScene(App &app) : m_App(app){
+    m_equip.reserve(10);
 //-----------------------------------------------------------------------
     auto background = std::make_shared<GameObjectEx>
         (std::make_unique<Util::Image>(RESOURCE_DIR"/equip/background.png"),0);
@@ -33,6 +30,8 @@ EquipScene::EquipScene(App &app): m_App(app) {
     });
     m_Buttons.push_back(back_button);
     m_Root.AddChild(back_button);
+
+    Setframes(RESOURCE_DIR"/cat_base/basetext_equip.png");
 }
 
 void EquipScene::Update() {
