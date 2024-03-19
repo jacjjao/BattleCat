@@ -52,25 +52,4 @@ private:
     std::shared_ptr<GameObjectEx> m_BaseText;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif // BATTLECAT_FRAMESCENE_HPP

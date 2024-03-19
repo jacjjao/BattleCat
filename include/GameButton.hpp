@@ -1,3 +1,6 @@
+#ifndef  GAMEBUTTON_HPP
+#define  GAMEBUTTON_HPP
+
 #pragma once
 
 #include "GameObjectEx.hpp"
@@ -17,9 +20,9 @@ public:
 
     void Update();
 
-    void SetPosition(float x, float y);
-
     void SetScale(float scale);
+
+    void SetPosition(float x, float y);
 
     void SetZIndex(float index);
 
@@ -34,6 +37,4 @@ private:
     void SetHoverBorder(std::shared_ptr<AnimatedGameObject> border);
 };
 
-/*std::shared_ptr<GameButton>
-CreateGameYellowButton(const std::string &btn_path,
-                       std::initializer_list<std::string> border_paths);*/
+#endif

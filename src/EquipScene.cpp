@@ -9,12 +9,12 @@ EquipScene::EquipScene(App &app) : m_App(app){
 //-----------------------------------------------------------------------
     auto background = std::make_shared<GameObjectEx>
         (std::make_unique<Util::Image>(RESOURCE_DIR"/equip/background.png"),0);
-    background->SetScale(1.01f*app_w/background->GetScaledSize().x,app_h/background->GetScaledSize().y);
+    background->SetScale(1.01f*app_w/background->GetScaledSize().x,0.85f*app_h/background->GetScaledSize().y);
     m_Root.AddChild(background);
 //----------------------------------------------------
     auto equip = std::make_shared<GameObjectEx>
         (std::make_unique<Util::Image>(RESOURCE_DIR"/equip/equip.png"),1);
-    equip->SetPosition(0,180);
+    equip->SetPosition(0,155);
     m_Root.AddChild(equip);
 //-----------------------------------------------------------------
     auto back_button = std::make_shared<GameButton>(
@@ -30,8 +30,8 @@ EquipScene::EquipScene(App &app) : m_App(app){
     });
     m_Buttons.push_back(back_button);
     m_Root.AddChild(back_button);
-
-    Setframes(RESOURCE_DIR"/cat_base/basetext_equip.png");
+//-----------------------------------------------------------------
+    Setframes(RESOURCE_DIR"/equip/basetext_equip.png");
 }
 
 void EquipScene::Update() {

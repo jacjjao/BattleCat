@@ -23,14 +23,4 @@ private:
 };
 
 
-
-
-
-
-
-
-
-
-
-
 #endif // BATTLECAT_EQUIPSCENE_HPP

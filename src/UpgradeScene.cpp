@@ -15,8 +15,19 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     });
     m_Buttons.push_back(back_button);
     m_Root.AddChild(back_button);
-
-    Setframes(RESOURCE_DIR"/cat_base/basetext_upgrade.png");
+    //--------------------------------------------------------------------------------------
+    auto background = std::make_shared<GameObjectEx>
+        (std::make_unique<Util::Image>(RESOURCE_DIR"/upgrade/background.png"),0);
+    background->SetScale(app_w/background->GetScaledSize().x,1.4f);
+    background->SetPosition(0,180);
+    m_Root.AddChild(background);
+    //-------------------------------------------------------------------------------------
+    auto textbox = std::make_shared<GameObjectEx>
+        (std::make_unique<Util::Image>(RESOURCE_DIR"/upgrade/textbox.png"),0);
+    textbox->SetPosition(10,-240);
+    m_Root.AddChild(textbox);
+    //---------------------------------------------------------------------------------
+    Setframes(RESOURCE_DIR"/upgrade/basetext_upgrade.png");
 };
 
 void UpgradeScene::Update(){

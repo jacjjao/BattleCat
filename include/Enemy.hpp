@@ -1,3 +1,6 @@
+#ifndef ENEMY_HPP
+#define ENEMY_HPP
+
 #pragma once
 
 #include "EnemyAttr.hpp"
@@ -70,3 +73,4 @@ namespace EnemyStats {
         Stats = {EnemyStats::Doge};
 
 }
+#endif //ENEMY_HPP

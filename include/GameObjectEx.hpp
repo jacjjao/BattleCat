@@ -20,7 +20,7 @@ public:
     virtual void SetRotation(float r);
     virtual void AddRotation(float r);
     virtual void SetTransform(Util::Transform transform);
-    void PlayShapeAnime(std::initializer_list<int> &frames,std::size_t interval=67);
+    //void PlayShapeAnime(std::initializer_list<int> &frames,std::size_t interval=67);
 
     [[nodiscard]]
     glm::vec2 GetScale() const;

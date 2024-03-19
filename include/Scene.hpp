@@ -5,7 +5,6 @@
 #ifndef BATTLECAT_SCENE_HPP
 #define BATTLECAT_SCENE_HPP
 
-
 #include "Util/BGM.hpp"
 #include "Core/Context.hpp"
 #include "Util/Root.hpp"
