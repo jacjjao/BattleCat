@@ -1,3 +1,6 @@
+#ifndef TIMER_HPP
+#define TIMER_HPP
+
 #pragma once
 
 #include <functional>
@@ -24,3 +27,4 @@ private:
     bool m_TimeOut = false;
     State m_State = State::STOP;
 };
+#endif

@@ -1,3 +1,6 @@
+#ifndef ANIMATEDGAMEOBJECT_HPP
+#define ANIMATEDGAMEOBJECT_HPP
+
 #pragma once
 
 #include <string>
@@ -28,3 +31,4 @@ public:
 private:
     std::shared_ptr<Util::Animation> m_Anime;
 };
+#endif //ANIMATEDGAMEOBJECT_HPP

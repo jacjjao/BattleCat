@@ -1,3 +1,6 @@
+#ifndef BATTLESCENE_HPP
+#define BATTLESCENE_HPP
+
 #pragma once
 
 #include "Scene.hpp"
@@ -40,3 +43,4 @@ private:
     std::shared_ptr<GameButton> m_CatBtn; // tmp
     std::shared_ptr<GameButton> m_EBtn; // tmp
 };
+#endif //BATTLESCENE_HPP

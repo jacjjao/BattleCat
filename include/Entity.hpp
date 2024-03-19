@@ -1,3 +1,6 @@
+#ifndef ENTITY_HPP
+#define ENTITY_HPP
+
 #pragma once
 
 #include "EntityStats.hpp"
@@ -61,3 +64,4 @@ protected:
 private:
     EntityState m_State = EntityState::WALK;
 };
+#endif // ENTITY_HPP

@@ -8,14 +8,18 @@
 #include "MenuScene.hpp"
 #include "CatBase.hpp"
 #include "BattleScene.hpp"
+#include "EquipScene.hpp"
+#include "UpgradeScene.hpp"
 
 void App::Start() {
     LOG_TRACE("Start");
     m_CurrentState = State::UPDATE;
 
-    m_Scenes.emplace_back(static_cast<Scene*>(new MenuScene(*this)));
-    m_Scenes.emplace_back(static_cast<Scene*>(new CatBaseScene(*this)));
-    m_Scenes.emplace_back(static_cast<Scene*>(new BattleScene()));
+    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<MenuScene>(*this)));
+    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<CatBaseScene>(*this)));
+    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<BattleScene>()));
+    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<EquipScene>(*this)));
+    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<UpgradeScene>(*this)));
     SwitchScene(SceneType::MENU);
 
     m_BGMs.push_back(std::make_unique<Util::BGM>(RESOURCE_DIR "/bgm/start.mp3"));
