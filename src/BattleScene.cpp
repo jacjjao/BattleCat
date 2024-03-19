@@ -18,7 +18,7 @@ BattleScene::BattleScene() {
     m_CatBtn->SetPosition(200.0, -200.0);
     m_CatBtn->SetZIndex(0.5);
     m_CatBtn->AddButtonEvent([this] {
-        auto& cat = m_Cats.emplace_back(CatType::CRAZED_GROSS_CAT);
+        auto& cat = m_Cats.emplace_back(CatType::CRAZED_GROSS_CAT, 2);
         cat.SetPosX(400.0f);
     });
     m_Root.AddChild(m_CatBtn);

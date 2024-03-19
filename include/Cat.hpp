@@ -14,7 +14,9 @@ static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
 
 class Cat : public Entity {
 public:
-    Cat(CatType type);
+    friend class CatFactory;
+
+    Cat(CatType type, int level);
 
     void StartAttack();
 
@@ -57,6 +59,9 @@ namespace BaseCatStats {
         stats.det_box = {0, 10};
         stats.hit_box = {0, 10};
         stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 100;
+        stats.damage_diff = 100;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "Cat";
 #endif
@@ -78,6 +83,9 @@ namespace BaseCatStats {
         stats.det_box = {0, 10};
         stats.hit_box = {0, 10};
         stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 100;
+        stats.damage_diff = 100;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "TankCat";
 #endif
@@ -99,6 +107,9 @@ namespace BaseCatStats {
         stats.det_box = {0, 140};
         stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 100;
+        stats.damage_diff = 100;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "CrazedGrossCat";
 #endif
