@@ -2,9 +2,8 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-Cat::Cat(const CatType type, const float pos)
+Cat::Cat(const CatType type)
     : m_Type(type) {
-    m_PosX = pos;
     SetStats(CatStats::Stats[static_cast<size_t>(type)]);
     SetCallbacks();
 }

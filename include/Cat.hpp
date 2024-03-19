@@ -14,7 +14,7 @@ static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
 
 class Cat : public Entity {
 public:
-    Cat(CatType type, float pos);
+    Cat(CatType type);
 
     void StartAttack();
 
