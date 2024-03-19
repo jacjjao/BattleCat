@@ -4,7 +4,7 @@
 
 Cat::Cat(const CatType type)
     : m_Type(type) {
-    SetStats(CatStats::Stats[static_cast<size_t>(type)]);
+    SetStats(BaseCatStats::Stats[static_cast<size_t>(type)]);
     SetCallbacks();
 }
 

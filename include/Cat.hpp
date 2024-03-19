@@ -44,7 +44,7 @@ private:
     bool m_OnAttack = false;
 };
 
-namespace CatStats {
+namespace BaseCatStats {
 
     inline const EntityStats Cat = [] {
         EntityStats stats;
@@ -111,6 +111,6 @@ namespace CatStats {
 
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
-        Stats = {CatStats::Cat, CatStats::TankCat, CatStats::CrazedGrossCat};
+        Stats = {BaseCatStats::Cat, BaseCatStats::TankCat, BaseCatStats::CrazedGrossCat};
 
-} // CatStats
+} // BaseCatStats
