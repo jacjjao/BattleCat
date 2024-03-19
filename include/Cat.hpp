@@ -1,8 +1,6 @@
 #ifndef CAT_HPP
 #define CAT_HPP
 
-#pragma once
-
 #include "EnemyAttr.hpp"
 #include "Entity.hpp"
 #include <array>

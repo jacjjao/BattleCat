@@ -1,8 +1,6 @@
 #ifndef ENTITYSTATS_HPP
 #define ENTITYSTATS_HPP
 
-#pragma once
-
 #include <optional>
 #include <string>
 #include "EnemyAttr.hpp"
