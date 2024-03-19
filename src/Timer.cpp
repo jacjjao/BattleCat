@@ -7,19 +7,22 @@ void Timer::SetTimeOutDur(const double time_out_dur) {
 void Timer::Start() {
     m_State = State::START;
     m_TimeRemained = m_TimeOutDur;
+    m_TimeOut = false;
 }
 
-void Timer::SetTimeOutEvent(std::function<void()> callback) {
-    m_Callback = callback;
-}
-
-void Timer::Update() {
+void Timer::Update(const double dt) {
     if (m_State == State::STOP) {
         return;
     }
-    m_TimeRemained -= Util::Time::GetDeltaTime();
+    m_TimeRemained -= dt;
     if (m_TimeRemained <= 0.0) {
         m_State = State::STOP;
-        m_Callback();
+        m_TimeOut = true;
     }
+}
+
+bool Timer::IsTimeOut() {
+    bool b = m_TimeOut;
+    m_TimeOut = false;
+    return b;
 }

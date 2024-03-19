@@ -5,7 +5,6 @@
 Cat::Cat(const CatType type)
     : m_Type(type) {
     SetStats(BaseCatStats::Stats[static_cast<size_t>(type)]);
-    SetCallbacks();
 }
 
 void Cat::StartAttack() {
@@ -22,8 +21,21 @@ void Cat::Draw(Util::Image &image) const {
     image.Draw(trans, 1.0);
 }
 
-void Cat::Update() {
-    Entity::OnUpdate();
+void Cat::UpdateTimer(const double dt) {
+    m_AtkPrepTimer.Update(dt);
+    if (m_AtkPrepTimer.IsTimeOut()) {
+        Attack();
+    }
+
+    m_AtkCoolDownTimer.Update(dt);
+    if (m_AtkCoolDownTimer.IsTimeOut()) {
+        CoolDownComplete();
+    }
+
+    m_KnockbackTimer.Update(dt);
+    if (m_KnockbackTimer.IsTimeOut()) {
+        SetState(EntityState::WALK);
+    }
 }
 
 void Cat::Walk(float dt) {
@@ -46,30 +58,10 @@ CatType Cat::GetCatType() const {
     return m_Type;
 }
 
-Cat::Cat(Cat &&other) noexcept
-    : m_Type(other.m_Type) {
-    m_PosX = other.m_PosX;
-    SetStats(other.m_Stats);
-    SetCallbacks();
-}
-
-Cat &Cat::operator=(Cat &&other) noexcept {
-    m_Type = other.m_Type;
-    m_PosX = other.m_PosX;
-    SetStats(other.m_Stats);
-    SetCallbacks();
-    return *this;
-}
-
 bool Cat::OnAttack() {
     const auto atk = m_OnAttack;
     m_OnAttack = false;
     return atk;
-}
-
-void Cat::SetCallbacks() {
-    m_AtkPrepTimer.SetTimeOutEvent([this] { Attack(); });
-    m_AtkCoolDownTimer.SetTimeOutEvent([this] { CoolDownComplete(); });
 }
 
 void Cat::Attack() {

@@ -42,7 +42,6 @@ public:
 protected:
     void SetStats(const EntityStats &stats);
     void SetState(EntityState state);
-    void OnUpdate();
     virtual HitBox ToWorldSpace(HitBox hitbox) const = 0;
 
     EntityStats m_Stats;
@@ -60,7 +59,5 @@ protected:
     std::shared_ptr<AnimatedGameObject> m_hitback;
 
 private:
-    void ExitKnockbackState();
-
     EntityState m_State = EntityState::WALK;
 };

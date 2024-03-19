@@ -58,15 +58,14 @@ void BattleScene::Update() {
     CatStartAttack();
     EnemyStartAttack();
 
-    // update the timers(for now)
     for (auto &cat : m_Cats) {
-        cat.Update();
+        cat.UpdateTimer(dt);
         if (cat.OnAttack()) {
             CatAttack(cat);
         }
     }
     for (auto &enemy : m_Enemies) {
-        enemy.Update();
+        enemy.UpdateTimer(dt);
         if (enemy.OnAttack()) {
             EnemyAttack(enemy);
         }

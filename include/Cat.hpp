@@ -20,7 +20,7 @@ public:
 
     void Draw(Util::Image &image) const override;
 
-    void Update();
+    void UpdateTimer(double dt);
 
     void Walk(float dt);
 
@@ -28,13 +28,9 @@ public:
 
     CatType GetCatType() const;
 
-    Cat(Cat &&other) noexcept;
-    Cat &operator=(Cat &&other) noexcept;
-
     bool OnAttack();
 
 private:
-    void SetCallbacks();
     void Attack();
     void CoolDownComplete();
 

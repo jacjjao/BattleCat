@@ -19,7 +19,7 @@ public:
 
     void Draw(Util::Image &image) const override;
 
-    void Update();
+    void UpdateTimer(double dt);
 
     void Walk(float dt);
 
@@ -27,15 +27,11 @@ public:
 
     EnemyType GetEnemyType() const;
 
-    Enemy(Enemy &&other) noexcept;
-    Enemy &operator=(Enemy &&other) noexcept;
-
     bool OnAttack();
 
     void SetStatsModifier(float modifier);
 
 private:
-    void SetCallbacks();
     void Attack();
     void CoolDownComplete();
 
