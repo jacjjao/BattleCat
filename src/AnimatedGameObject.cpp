@@ -23,8 +23,8 @@ void AnimatedGameObject::Pause() {
 }
 
 void AnimatedGameObject::Reset(){
-    m_Anime->SetCurrentFrame(0);
     m_Anime->Pause();
+    m_Anime->SetCurrentFrame(0);
 }
 
 
