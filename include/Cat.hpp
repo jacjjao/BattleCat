@@ -124,3 +124,5 @@ namespace BaseCatStats {
         Stats = {BaseCatStats::Cat, BaseCatStats::TankCat, BaseCatStats::CrazedGrossCat};
 
 } // BaseCatStats
+
+#endif // CAT_HPP
