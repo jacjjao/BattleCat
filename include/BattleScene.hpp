@@ -21,7 +21,6 @@ public:
 
     void Update() override;
 
-    // disable copy & move ability or the cats and enemies attack callback will access a dangling pointer
     BattleScene(const BattleScene &) = delete;
     BattleScene &operator=(const BattleScene &) = delete;
 
@@ -31,7 +30,6 @@ private:
     void Draw();
     void CatAttack(Cat &cat);
     void EnemyAttack(Enemy &enemy);
-    void ResolveAttack(Entity &attacker, Entity *victims, size_t count);
 
     std::vector<Util::Image> m_CatImage;
     std::vector<Util::Image> m_EnemyImage;
@@ -43,5 +41,6 @@ private:
 
     Util::Root m_Root;
     std::shared_ptr<GameButton> m_CatBtn; // tmp
+    std::shared_ptr<GameButton> m_EBtn; // tmp
 };
 #endif //BATTLESCENE_HPP

@@ -1,14 +1,9 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-Enemy::Enemy(const EnemyType type, float pos,
-             std::function<void(Enemy &)> atk_callback)
-    : m_AtkCallback(atk_callback),
-      m_Type(type) {
-    assert(m_AtkCallback);
-    m_PosX = pos;
+Enemy::Enemy(const EnemyType type)
+    : m_Type(type) {
     SetStats(EnemyStats::Stats[static_cast<size_t>(type)]);
-    SetCallbacks();
 }
 
 void Enemy::StartAttack() {
@@ -25,11 +20,24 @@ void Enemy::Draw(Util::Image &image) const {
     image.Draw(trans, 1.0f);
 }
 
-void Enemy::Update() {
-    Entity::OnUpdate();
+void Enemy::UpdateTimer(const double dt) {
+    m_AtkPrepTimer.Update(dt);
+    if (m_AtkPrepTimer.IsTimeOut()) {
+        Attack();
+    }
+
+    m_AtkCoolDownTimer.Update(dt);
+    if (m_AtkCoolDownTimer.IsTimeOut()) {
+        CoolDownComplete();
+    }
+
+    m_KnockbackTimer.Update(dt);
+    if (m_KnockbackTimer.IsTimeOut()) {
+        SetState(EntityState::WALK);
+    }
 }
 
-void Enemy::Walk(float dt) {
+void Enemy::Walk(const float dt) {
     if (GetState() == EntityState::WALK) {
         m_PosX += m_Stats.speed * dt;
     } else if (GetState() == EntityState::HITBACK) {
@@ -49,25 +57,17 @@ EnemyType Enemy::GetEnemyType() const {
     return m_Type;
 }
 
-Enemy::Enemy(Enemy &&other) noexcept
-    : m_AtkCallback(other.m_AtkCallback),
-      m_Type(other.m_Type) {
-    m_PosX = other.m_PosX;
-    SetStats(other.m_Stats);
-    SetCallbacks();
+bool Enemy::OnAttack() {
+    const auto atk = m_OnAttack;
+    m_OnAttack = false;
+    return atk;
 }
 
-Enemy &Enemy::operator=(Enemy &&other) noexcept {
-    m_Type = other.m_Type;
-    m_PosX = other.m_PosX;
-    SetStats(other.m_Stats);
-    SetCallbacks();
-    return *this;
-}
-
-void Enemy::SetCallbacks() {
-    m_AtkPrepTimer.SetTimeOutEvent([this] { Attack(); });
-    m_AtkCoolDownTimer.SetTimeOutEvent([this] { CoolDownComplete(); });
+void Enemy::SetStatsModifier(float modifier) {
+    assert(modifier >= 1.0f);
+    m_Stats.damage *= modifier;
+    m_Stats.health *= modifier;
+    m_KnockBackHealth = m_Stats.health / m_Stats.kb;
 }
 
 void Enemy::Attack() {
@@ -75,7 +75,7 @@ void Enemy::Attack() {
         return;
     }
     assert(GetState() == EntityState::ATTACK);
-    m_AtkCallback(*this);
+    m_OnAttack = true;
     SetState(EntityState::IDLE);
     m_AtkCoolDownTimer.Start();
 }

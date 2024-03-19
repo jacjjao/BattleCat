@@ -15,14 +15,14 @@ public:
 
     void Start();
 
-    void SetTimeOutEvent(std::function<void()> callback);
+    void Update(double dt);
 
-    void Update();
+    bool IsTimeOut();
 
 private:
     double m_TimeOutDur;
     double m_TimeRemained;
-    std::function<void()> m_Callback;
+    bool m_TimeOut = false;
     State m_State = State::STOP;
 };
 #endif

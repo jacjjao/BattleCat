@@ -2,14 +2,12 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 
-Cat::Cat(const CatType type, const float pos,
-         std::function<void(Cat &)> atk_callback)
-    : m_AtkCallback(atk_callback),
-      m_Type(type) {
-    assert(m_AtkCallback);
-    m_PosX = pos;
-    SetStats(CatStats::Stats[static_cast<size_t>(type)]);
-    SetCallbacks();
+Cat::Cat(const CatType type, const int level)
+    : m_Type(type) {
+    SetStats(BaseCatStats::Stats[static_cast<size_t>(type)]);
+    assert(level >= m_Stats.base_level);
+    m_Stats.health += (level - m_Stats.base_level) * m_Stats.health_diff;
+    m_Stats.damage += (level - m_Stats.base_level) * m_Stats.damage_diff;
 }
 
 void Cat::StartAttack() {
@@ -26,8 +24,21 @@ void Cat::Draw(Util::Image &image) const {
     image.Draw(trans, 1.0);
 }
 
-void Cat::Update() {
-    Entity::OnUpdate();
+void Cat::UpdateTimer(const double dt) {
+    m_AtkPrepTimer.Update(dt);
+    if (m_AtkPrepTimer.IsTimeOut()) {
+        Attack();
+    }
+
+    m_AtkCoolDownTimer.Update(dt);
+    if (m_AtkCoolDownTimer.IsTimeOut()) {
+        CoolDownComplete();
+    }
+
+    m_KnockbackTimer.Update(dt);
+    if (m_KnockbackTimer.IsTimeOut()) {
+        SetState(EntityState::WALK);
+    }
 }
 
 void Cat::Walk(float dt) {
@@ -39,36 +50,21 @@ void Cat::Walk(float dt) {
 }
 
 void Cat::DealDamage(Entity &e) {
+    e.GetHit(m_Stats.damage, std::nullopt);
 #ifdef ENABLE_BATTLE_LOG
     printBattleLog("{} deals damage {} to {}!", m_Stats.name, m_Stats.damage,
                    e.GetName());
 #endif // ENABLE_BATTLE_LOG
-    e.GetHit(m_Stats.damage, std::nullopt);
 }
 
 CatType Cat::GetCatType() const {
     return m_Type;
 }
 
-Cat::Cat(Cat &&other) noexcept
-    : m_AtkCallback(other.m_AtkCallback),
-      m_Type(other.m_Type) {
-    m_PosX = other.m_PosX;
-    SetStats(other.m_Stats);
-    SetCallbacks();
-}
-
-Cat &Cat::operator=(Cat &&other) noexcept {
-    m_Type = other.m_Type;
-    m_PosX = other.m_PosX;
-    SetStats(other.m_Stats);
-    SetCallbacks();
-    return *this;
-}
-
-void Cat::SetCallbacks() {
-    m_AtkPrepTimer.SetTimeOutEvent([this] { Attack(); });
-    m_AtkCoolDownTimer.SetTimeOutEvent([this] { CoolDownComplete(); });
+bool Cat::OnAttack() {
+    const auto atk = m_OnAttack;
+    m_OnAttack = false;
+    return atk;
 }
 
 void Cat::Attack() {
@@ -76,7 +72,7 @@ void Cat::Attack() {
         return;
     } 
     assert(GetState() == EntityState::ATTACK);
-    m_AtkCallback(*this);
+    m_OnAttack = true;
     SetState(EntityState::IDLE);
     m_AtkCoolDownTimer.Start();
 }

@@ -26,8 +26,11 @@ struct EntityStats {
     HitBox det_box; // detect or hurt box
     HitBox hit_box;
     std::optional<EnemyAttr> attr;
+    int base_level = 0;
+    int health_diff = 0;
+    int damage_diff = 0;
 #ifdef ENABLE_BATTLE_LOG
-    std::string name = "Unknow";
+    std::string_view name = "Unknow";
 #endif // ENABLE_BATTLE_LOG
 };
 
