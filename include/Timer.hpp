@@ -1,3 +1,6 @@
+#ifndef TIMER_HPP
+#define TIMER_HPP
+
 #pragma once
 
 #include <functional>
@@ -24,3 +27,4 @@ private:
     std::function<void()> m_Callback;
     State m_State = State::STOP;
 };
+#endif

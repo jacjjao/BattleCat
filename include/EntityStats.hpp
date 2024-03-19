@@ -1,3 +1,6 @@
+#ifndef ENTITYSTATS_HPP
+#define ENTITYSTATS_HPP
+
 #pragma once
 
 #include <optional>
@@ -52,3 +55,4 @@ inline std::string EntityStateToString(EntityState state) {
 }
 
 #endif // ENABLE_BATTLE_LOG
+#endif // ENTITYSTATS_HPP

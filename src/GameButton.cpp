@@ -67,7 +67,6 @@ void GameButton::SetPosition(const float x, const float y) {
     if (m_HoverBorder) {
         m_HoverBorder->SetPosition(x, y);
     }
-    //m_text->SetPosition(x,y);
 }
 
 void GameButton::SetZIndex(const float index) {
@@ -75,7 +74,6 @@ void GameButton::SetZIndex(const float index) {
     if (m_HoverBorder) {
         m_HoverBorder->SetZIndex(index + 0.001f);
     }
-    //m_text->SetZIndex(index + 0.001f);
 }
 
 void GameButton::SetScale(float scale) {
@@ -91,17 +89,3 @@ bool GameButton::IsMouseHovering() const {
     return PointInRect(top_left_pos, size, Util::Input::GetCursorPosition());
 }
 
-/*std::shared_ptr<GameButton>
-CreateGameYellowButton(const std::string &btn_path,
-                       std::initializer_list<std::string> border_paths) {
-    auto button = std::make_unique<GameButton>();
-    button->SetDrawable(std::make_shared<Util::Image>(btn_path));
-
-    auto border = std::make_shared<AnimatedGameObject>(border_paths);
-    border->SetLooping(true);
-    border->SetInterval(67);
-
-    button->SetHoverBorder(border);
-
-    return button;
-}*/
