@@ -1,8 +1,6 @@
 #ifndef ENEMY_HPP
 #define ENEMY_HPP
 
-#pragma once
-
 #include "EnemyAttr.hpp"
 #include "EntityStats.hpp"
 #include "Entity.hpp"

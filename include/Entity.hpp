@@ -1,8 +1,6 @@
 #ifndef ENTITY_HPP
 #define ENTITY_HPP
 
-#pragma once
-
 #include "EntityStats.hpp"
 #include "Util/Image.hpp"
 #include "AnimatedGameObject.hpp"
