@@ -46,11 +46,7 @@ void Enemy::Walk(const float dt) {
 }
 
 void Enemy::DealDamage(Entity &e) {
-#ifdef ENABLE_BATTLE_LOG
-    printBattleLog("{} deals damage {} to {}!", m_Stats.name, m_Stats.damage,
-                   e.GetName());
-#endif // ENABLE_BATTLE_LOG
-    e.GetHit(m_Stats.damage, m_Stats.attr);
+    e.GetHit(m_Stats.damage, *this);
 }
 
 EnemyType Enemy::GetEnemyType() const {

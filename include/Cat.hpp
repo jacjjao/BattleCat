@@ -8,6 +8,7 @@
 enum class CatType : size_t {
     CAT = 0,
     TANK_CAT,
+    AXE_CAT,
     CRAZED_GROSS_CAT,
     CAT_TYPE_COUNT
 };
@@ -25,7 +26,7 @@ public:
 
     void UpdateTimer(double dt);
 
-    void Walk(float dt);
+    void Walk(double dt);
 
     void DealDamage(Entity &e) override;
 
@@ -93,6 +94,31 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline const EntityStats AxeCat = [] {
+        EntityStats stats;
+        stats.health = 250;
+        stats.damage = 100;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 30;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 0.96;
+        stats.recharge_time = 2000;
+        stats.cost = 75;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 100;
+        stats.damage_diff = 100;
+        stats.strong = {EnemyAttr::RED};
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "AxeCat";
+#endif
+        return stats;
+    }();
+
     inline const EntityStats CrazedGrossCat = [] {
         EntityStats stats;
         stats.health = 250;
@@ -119,7 +145,8 @@ namespace BaseCatStats {
 
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
-        Stats = {BaseCatStats::Cat, BaseCatStats::TankCat, BaseCatStats::CrazedGrossCat};
+        Stats = {BaseCatStats::Cat, BaseCatStats::TankCat, BaseCatStats::AxeCat,
+                 BaseCatStats::CrazedGrossCat};
 
 } // BaseCatStats
 
