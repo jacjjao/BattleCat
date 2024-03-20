@@ -3,6 +3,7 @@
 
 #include <optional>
 #include <string>
+#include <vector>
 #include "EnemyAttr.hpp"
 
 enum class EntityState { WALK, ATTACK, IDLE, HITBACK };
@@ -29,6 +30,7 @@ struct EntityStats {
     int base_level = 0;
     int health_diff = 0;
     int damage_diff = 0;
+    std::vector<EnemyAttr> strong;
 #ifdef ENABLE_BATTLE_LOG
     std::string_view name = "Unknow";
 #endif // ENABLE_BATTLE_LOG

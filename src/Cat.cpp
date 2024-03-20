@@ -41,7 +41,7 @@ void Cat::UpdateTimer(const double dt) {
     }
 }
 
-void Cat::Walk(float dt) {
+void Cat::Walk(const double dt) {
     if (GetState() == EntityState::WALK) {
         m_PosX -= m_Stats.speed * dt;
     } else if (GetState() == EntityState::HITBACK) {
@@ -50,11 +50,14 @@ void Cat::Walk(float dt) {
 }
 
 void Cat::DealDamage(Entity &e) {
-    e.GetHit(m_Stats.damage, std::nullopt);
-#ifdef ENABLE_BATTLE_LOG
-    printBattleLog("{} deals damage {} to {}!", m_Stats.name, m_Stats.damage,
-                   e.GetName());
-#endif // ENABLE_BATTLE_LOG
+    const auto attr = e.GetAttr();
+    auto damage = m_Stats.damage;
+    if (attr && std::find(m_Stats.strong.cbegin(), m_Stats.strong.cend(), *attr) != m_Stats.strong.cend()) {
+        auto d = static_cast<double>(damage);
+        d *= 1.5;
+        damage = static_cast<int>(d);
+    }
+    e.GetHit(damage, *this);
 }
 
 CatType Cat::GetCatType() const {
