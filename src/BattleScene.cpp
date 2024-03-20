@@ -18,8 +18,8 @@ BattleScene::BattleScene() {
     m_CatBtn->SetPosition(200.0, -200.0);
     m_CatBtn->SetZIndex(0.5);
     m_CatBtn->AddButtonEvent([this] {
-        auto& cat = m_Cats.emplace_back(CatType::CRAZED_GROSS_CAT, 2);
-        cat.SetPosX(400.0f);
+        auto& cat = m_Cats.emplace_back(CatType::AXE_CAT, 1);
+        cat.SetPosX(200.0f);
     });
     m_Root.AddChild(m_CatBtn);
 
@@ -33,7 +33,7 @@ BattleScene::BattleScene() {
     m_EBtn->AddButtonEvent([this] {
         auto& e = m_Enemies.emplace_back(EnemyType::DOGE);
         e.SetStatsModifier(500.0f);
-        e.SetPosX(-400.0f);
+        e.SetPosX(-200.0f);
     });
     m_Root.AddChild(m_EBtn);
 }

@@ -9,13 +9,25 @@ void Entity::SetStats(const EntityStats &stats) {
     m_KnockBackHealth = m_Stats.health / m_Stats.kb;
 }
 
-void Entity::GetHit(int damage, std::optional<EnemyAttr> attr) {
+void Entity::GetHit(int damage, const Entity &attacker) {
+    const auto attr = attacker.GetAttr();
+    if (attr && std::find(m_Stats.strong.cbegin(), m_Stats.strong.cend(),
+                          *attr) != m_Stats.strong.cend()) {
+        auto d = static_cast<double>(damage);
+        d *= 0.5;
+        damage = static_cast<int>(d);
+    }
     m_Stats.health -= damage;
     m_TotalDamage += damage;
     if (m_TotalDamage >= m_KnockBackHealth) {
         SetState(EntityState::HITBACK);
         m_TotalDamage %= m_KnockBackHealth;
     }
+
+#ifdef ENABLE_BATTLE_LOG
+    printBattleLog("{} deals damage {} to {}!", attacker.GetName(), damage,
+                   GetName());
+#endif // ENABLE_BATTLE_LOG
 }
 
 HitBox Entity::GetHitBox() const {
@@ -47,6 +59,10 @@ bool Entity::IsSingleTarget() const {
 
 bool Entity::IsDead() const {
     return m_Stats.health <= 0;
+}
+
+std::optional<EnemyAttr> Entity::GetAttr() const {
+    return m_Stats.attr;
 }
 
 void Entity::SetState(EntityState state) {

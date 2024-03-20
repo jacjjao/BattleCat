@@ -11,7 +11,7 @@ class Entity {
 public:
     virtual ~Entity() = default;
 
-    void GetHit(int damage, std::optional<EnemyAttr> attr);
+    void GetHit(int damage, const Entity &attacker);
 
     HitBox GetHitBox() const; // when attacking
 
@@ -30,6 +30,8 @@ public:
     virtual void DealDamage(Entity &e) = 0;
 
     bool IsDead() const;
+
+    std::optional<EnemyAttr> GetAttr() const;
 
 #ifdef ENABLE_BATTLE_LOG
     const std::string_view GetName() const {
