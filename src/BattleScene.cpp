@@ -35,7 +35,7 @@ BattleScene::BattleScene(App &app)
     m_EBtn->SetPosition(-200.0, -200.0);
     m_EBtn->SetZIndex(0.5);
     m_EBtn->AddButtonEvent([this] {
-        AddEnemy(EnemyType::DOGE, 500.0f);
+        AddEnemy(EnemyType::DOGE, 1.0f);
     });
     m_Root.AddChild(m_EBtn);
 }
@@ -81,9 +81,15 @@ void BattleScene::Update() {
     m_DmgInfos.clear();
 
 
+    if (m_EnemyTower->IsDead())
+    {
+        GameOver(true);
+        Reset();
+        m_App.SwitchScene(App::SceneType::CAT_BASE);
+    }
     if (m_CatTower->IsDead())
     {
-        GameOver();
+        GameOver(false);
         Reset();
         m_App.SwitchScene(App::SceneType::CAT_BASE);
     }
@@ -121,12 +127,17 @@ void BattleScene::Reset() {
 
     AddCat(CatType::CAT_TOWER, 1);
     m_CatTower = std::addressof(m_Cats[0]);
-    m_CatTower->SetPosX(s_CatTowerPosX);
-    assert(m_Cats.size() == 1 && m_CatTower);
+
+    AddEnemy(EnemyType::ENEMY_TOWER, 3.0f);
+    m_EnemyTower = std::addressof(m_Enemies[0]);
 }
 
-void BattleScene::GameOver() {
-    LOG_DEBUG("GameOver");
+void BattleScene::GameOver(const bool cat_won) {
+    if (cat_won) {
+        LOG_DEBUG("You Win!");
+    } else {
+        LOG_DEBUG("You Lose!");
+    }
 }
 
 void BattleScene::CatStartAttack() {

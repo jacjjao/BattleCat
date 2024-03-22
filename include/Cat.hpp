@@ -50,18 +50,8 @@ namespace BaseCatStats {
     inline const EntityStats CatTower = [] {
         EntityStats stats;
         stats.health = 250;
-        stats.damage = 20;
-        stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 0;
+        stats.kb = 1;
         stats.single_target = true;
-        stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
-        stats.recharge_time = 2000;
-        stats.cost = 75;
-        stats.det_box = {0, 10};
-        stats.hit_box = {0, 10};
-        stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 100;
         stats.damage_diff = 100;

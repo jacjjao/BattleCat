@@ -30,7 +30,7 @@ private:
     static constexpr float s_EnemiesTowerPosX = 0.0f;
 
     void Reset();
-    void GameOver();
+    void GameOver(bool cat_won);
     void CatStartAttack();
     void EnemyStartAttack();
     void Draw();
@@ -48,6 +48,7 @@ private:
     std::vector<DamageInfo> m_DmgInfos;
 
     Cat *m_CatTower = nullptr;
+    Enemy *m_EnemyTower = nullptr;
 
     Util::Root m_Root;
     std::shared_ptr<GameButton> m_CatBtn; // tmp
