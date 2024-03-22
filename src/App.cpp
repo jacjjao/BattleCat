@@ -17,7 +17,7 @@ void App::Start() {
 
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<MenuScene>(*this)));
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<CatBaseScene>(*this)));
-    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<BattleScene>()));
+    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<BattleScene>(*this)));
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<EquipScene>(*this)));
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<UpgradeScene>(*this)));
     SwitchScene(SceneType::MENU);

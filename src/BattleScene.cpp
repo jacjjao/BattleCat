@@ -1,12 +1,17 @@
 #include "BattleScene.hpp"
 #include "Util/Time.hpp"
 #include "DebugUtil/BattleLog.hpp"
+#include "App.hpp"
 #include <cassert>
 #include <algorithm>
 
-BattleScene::BattleScene() {
-    m_Cats.reserve(40);
-    m_Enemies.reserve(40);
+BattleScene::BattleScene(App &app)
+    : m_App(app) {
+    m_Cats.reserve(s_MaxEntityCount); // to prevent reallocation
+    m_Enemies.reserve(s_MaxEntityCount);
+    
+    Reset();
+
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
@@ -18,8 +23,7 @@ BattleScene::BattleScene() {
     m_CatBtn->SetPosition(200.0, -200.0);
     m_CatBtn->SetZIndex(0.5);
     m_CatBtn->AddButtonEvent([this] {
-        auto& cat = m_Cats.emplace_back(CatType::AXE_CAT, 1);
-        cat.SetPosX(200.0f);
+        AddCat(CatType::AXE_CAT, 1);
     });
     m_Root.AddChild(m_CatBtn);
 
@@ -31,9 +35,7 @@ BattleScene::BattleScene() {
     m_EBtn->SetPosition(-200.0, -200.0);
     m_EBtn->SetZIndex(0.5);
     m_EBtn->AddButtonEvent([this] {
-        auto& e = m_Enemies.emplace_back(EnemyType::DOGE);
-        e.SetStatsModifier(500.0f);
-        e.SetPosX(-200.0f);
+        AddEnemy(EnemyType::DOGE, 1.0f);
     });
     m_Root.AddChild(m_EBtn);
 }
@@ -43,7 +45,7 @@ void BattleScene::Update() {
     m_EBtn->Update();
     m_Root.Update();
 
-    const auto dt = Util::Time::GetDeltaTime(); 
+    const auto dt = Util::Time::GetDeltaTime();
 
     CatStartAttack();
     for (auto &cat : m_Cats) {
@@ -78,8 +80,25 @@ void BattleScene::Update() {
     }
     m_DmgInfos.clear();
 
-    const auto IsDead = [](auto &e) -> bool { return e.IsDead() && e.GetState() != EntityState::HITBACK; };
-    const auto dead_cat_it = std::remove_if(m_Cats.begin(), m_Cats.end(), IsDead);
+
+    if (m_EnemyTower->IsDead())
+    {
+        GameOver(true);
+        Reset();
+        m_App.SwitchScene(App::SceneType::CAT_BASE);
+    }
+    if (m_CatTower->IsDead())
+    {
+        GameOver(false);
+        Reset();
+        m_App.SwitchScene(App::SceneType::CAT_BASE);
+    }
+
+    const auto IsDead = [](auto &e) -> bool {
+        return e.IsDead() && e.GetState() != EntityState::HITBACK;
+    };
+    const auto dead_cat_it =
+        std::remove_if(m_Cats.begin(), m_Cats.end(), IsDead);
 #ifdef ENABLE_BATTLE_LOG
     for (auto it = dead_cat_it; it != m_Cats.end(); ++it) {
         printBattleLog("{} is dead", it->GetName());
@@ -97,6 +116,28 @@ void BattleScene::Update() {
     m_Enemies.erase(dead_enemy_it, m_Enemies.end());
 
     Draw();
+}
+
+void BattleScene::Reset() {
+    m_Cats.clear();
+    m_Enemies.clear();
+    
+    assert(m_Cats.capacity() == s_MaxEntityCount);
+    assert(m_Enemies.capacity() == s_MaxEntityCount);
+
+    AddCat(CatType::CAT_TOWER, 1);
+    m_CatTower = std::addressof(m_Cats[0]);
+
+    AddEnemy(EnemyType::ENEMY_TOWER, 3.0f);
+    m_EnemyTower = std::addressof(m_Enemies[0]);
+}
+
+void BattleScene::GameOver(const bool cat_won) {
+    if (cat_won) {
+        LOG_DEBUG("You Win!");
+    } else {
+        LOG_DEBUG("You Lose!");
+    }
 }
 
 void BattleScene::CatStartAttack() {
@@ -188,4 +229,23 @@ void BattleScene::EnemyAttack(Enemy &enemy) {
             }
         }
     }
+}
+
+void BattleScene::AddCat(const CatType type, const int level) {
+    assert(m_Cats.size() <= s_MaxEntityCount);
+    if (m_Cats.size() == s_MaxEntityCount) {
+        return;
+    }
+    auto& cat = m_Cats.emplace_back(type, level);
+    cat.SetPosX(s_CatTowerPosX);
+}
+
+void BattleScene::AddEnemy(const EnemyType type, const float modifier) {
+    assert(m_Cats.size() <= s_MaxEntityCount);
+    if (m_Enemies.size() == s_MaxEntityCount) {
+        return;
+    }
+    auto& e = m_Enemies.emplace_back(type);
+    e.SetStatsModifier(modifier);
+    e.SetPosX(s_EnemiesTowerPosX);
 }
