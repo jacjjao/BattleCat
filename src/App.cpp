@@ -17,8 +17,11 @@ void App::Start() {
 
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<MenuScene>(*this)));
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<CatBaseScene>(*this)));
-    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<BattleScene>(*this)));
-    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<EquipScene>(*this)));
+    auto battle = std::make_unique<BattleScene>(*this);
+    m_BattleScene = battle.get();
+    m_Scenes.emplace_back(std::move(battle));
+    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(
+        std::make_unique<EquipScene>(*this)));
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<UpgradeScene>(*this)));
     SwitchScene(SceneType::MENU);
 
@@ -51,6 +54,11 @@ void App::SwitchScene(const SceneType type) {
         throw std::invalid_argument("Invalid SceneType");
     }
     m_CurScene = m_Scenes[index].get();
+}
+
+void App::SwitchToBattleScene(Stage stage) {
+    m_BattleScene->LoadStage(std::move(stage));
+    SwitchScene(SceneType::BATTLE_SCENE);
 }
 
 void App::SwitchBGM(const BGMType type) {

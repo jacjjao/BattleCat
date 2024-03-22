@@ -4,6 +4,9 @@
 #include "pch.hpp" // IWYU pragma: export
 #include "Scene.hpp"
 #include "Util/BGM.hpp"
+#include "Stage.hpp"
+
+class BattleScene;
 
 class App {
 public:
@@ -38,6 +41,8 @@ public:
 
     void SwitchScene(SceneType type);
 
+    void SwitchToBattleScene(Stage stage);
+
     void SwitchBGM(BGMType type);
 
 private:
@@ -45,6 +50,7 @@ private:
 
     std::vector<std::unique_ptr<Scene>> m_Scenes;
     Scene* m_CurScene = nullptr;
+    BattleScene *m_BattleScene = nullptr;
 
     std::vector<std::unique_ptr<Util::BGM>> m_BGMs;
     Util::BGM* m_CurBGM = nullptr;
