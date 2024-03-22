@@ -7,7 +7,8 @@
 #include <array>
 
 enum class EnemyType : size_t {
-    DOGE = 0,
+    ENEMY_TOWER = 0,
+    DOGE,
     ENEMY_TYPE_COUNT
 };
 static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
@@ -44,6 +45,18 @@ private:
 
 namespace EnemyStats {
 
+    inline const EntityStats EnemyTower = [] {
+        EntityStats stats;
+        stats.health = 100;
+        stats.kb = 1;
+        stats.single_target = true;
+        stats.attr = std::nullopt;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "EnemyTower";
+#endif
+        return stats;
+    }();
+
     inline const EntityStats Doge = [] { // tmp
         EntityStats stats;
         stats.health = 100;
@@ -67,7 +80,7 @@ namespace EnemyStats {
 
     inline const std::array<EntityStats,
                             static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT)>
-        Stats = {EnemyStats::Doge};
+        Stats = {EnemyStats::EnemyTower, EnemyStats::Doge};
 
 }
 #endif //ENEMY_HPP

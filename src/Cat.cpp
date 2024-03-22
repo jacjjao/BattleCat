@@ -6,7 +6,7 @@ Cat::Cat(const CatType type, const int level)
     : m_Type(type) {
     SetStats(BaseCatStats::Stats[static_cast<size_t>(type)]);
     assert(level >= m_Stats.base_level);
-    m_Stats.health += (level - m_Stats.base_level) * m_Stats.health_diff;
+    m_Health += (level - m_Stats.base_level) * m_Stats.health_diff;
     m_Stats.damage += (level - m_Stats.base_level) * m_Stats.damage_diff;
 }
 

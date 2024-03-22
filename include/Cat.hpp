@@ -6,7 +6,8 @@
 #include <array>
 
 enum class CatType : size_t {
-    CAT = 0,
+    CAT_TOWER = 0,
+    CAT,
     TANK_CAT,
     AXE_CAT,
     CRAZED_GROSS_CAT,
@@ -45,6 +46,20 @@ private:
 };
 
 namespace BaseCatStats {
+
+    inline const EntityStats CatTower = [] {
+        EntityStats stats;
+        stats.health = 250;
+        stats.kb = 1;
+        stats.single_target = true;
+        stats.base_level = 1;
+        stats.health_diff = 100;
+        stats.damage_diff = 100;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "CatTower";
+#endif
+        return stats;
+    }();
 
     inline const EntityStats Cat = [] {
         EntityStats stats;
@@ -145,7 +160,8 @@ namespace BaseCatStats {
 
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
-        Stats = {BaseCatStats::Cat, BaseCatStats::TankCat, BaseCatStats::AxeCat,
+        Stats = {BaseCatStats::CatTower, BaseCatStats::Cat,
+                 BaseCatStats::TankCat, BaseCatStats::AxeCat,
                  BaseCatStats::CrazedGrossCat};
 
 } // BaseCatStats

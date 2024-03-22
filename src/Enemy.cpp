@@ -62,8 +62,8 @@ bool Enemy::OnAttack() {
 void Enemy::SetStatsModifier(float modifier) {
     assert(modifier >= 1.0f);
     m_Stats.damage *= modifier;
-    m_Stats.health *= modifier;
-    m_KnockBackHealth = m_Stats.health / m_Stats.kb;
+    m_Health *= modifier;
+    m_KnockBackHealth = m_Health / m_Stats.kb;
 }
 
 void Enemy::Attack() {
