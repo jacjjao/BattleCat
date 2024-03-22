@@ -8,6 +8,7 @@
 #include "Enemy.hpp"
 #include "GameButton.hpp"
 #include "Util/Root.hpp"
+#include "Stage.hpp"
 #include <vector>
 
 struct DamageInfo {
@@ -17,7 +18,7 @@ struct DamageInfo {
 
 class BattleScene : public Scene {
 public:
-    BattleScene(App &app);
+    BattleScene(App &app, Stage stage);
 
     void Update() override;
 
@@ -29,7 +30,7 @@ private:
     static constexpr float s_CatTowerPosX = 500.0f;
     static constexpr float s_EnemiesTowerPosX = 0.0f;
 
-    void Reset();
+    void LoadStage(Stage& stage);
     void GameOver(bool cat_won);
     void CatStartAttack();
     void EnemyStartAttack();
@@ -42,7 +43,6 @@ private:
     std::vector<Util::Image> m_CatImage;
     std::vector<Util::Image> m_EnemyImage;
 
-    size_t m_TotalTime = 0;
     std::vector<Cat> m_Cats;
     std::vector<Enemy> m_Enemies;
     std::vector<DamageInfo> m_DmgInfos;
@@ -53,6 +53,10 @@ private:
     Util::Root m_Root;
     std::shared_ptr<GameButton> m_CatBtn; // tmp
     std::shared_ptr<GameButton> m_EBtn; // tmp
+
+    Stage m_Stage;
+
+    double m_TotalTime = 0.0;
 
     App &m_App;
 };

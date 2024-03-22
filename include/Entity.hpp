@@ -17,6 +17,7 @@ public:
 
     virtual void Draw(Util::Image &image) const = 0;
 
+    void SetState(EntityState state);
     EntityState GetState() const;
 
     bool IsInRange(const Entity &e) const;
@@ -33,6 +34,8 @@ public:
 
     std::optional<EnemyAttr> GetAttr() const;
 
+    double GetHealthPercent() const;
+
 #ifdef ENABLE_BATTLE_LOG
     const std::string_view GetName() const {
         return m_Stats.name;
@@ -44,7 +47,6 @@ public:
 
 protected:
     void SetStats(const EntityStats &stats);
-    void SetState(EntityState state);
     virtual HitBox ToWorldSpace(HitBox hitbox) const = 0;
 
     EntityStats m_Stats;
@@ -55,6 +57,7 @@ protected:
     Timer m_KnockbackTimer;
     int m_KnockBackHealth = 0;
     int m_TotalDamage = 0;
+    double m_Health = 0;
 
     std::shared_ptr<AnimatedGameObject> m_attack;
     std::shared_ptr<AnimatedGameObject> m_walk;

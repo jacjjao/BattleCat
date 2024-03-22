@@ -4,6 +4,7 @@
 #include "pch.hpp" // IWYU pragma: export
 #include "Scene.hpp"
 #include "Util/BGM.hpp"
+#include "Stage.hpp"
 
 class App {
 public:
@@ -37,6 +38,8 @@ public:
     void End(); // NOLINT(readability-convert-member-functions-to-static)
 
     void SwitchScene(SceneType type);
+
+    void SwitchToBattleScene(Stage stage);
 
     void SwitchBGM(BGMType type);
 

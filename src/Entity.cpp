@@ -3,6 +3,7 @@
 
 void Entity::SetStats(const EntityStats &stats) {
     m_Stats = stats;
+    m_Health = stats.health;
     m_AtkPrepTimer.SetTimeOutDur(m_Stats.atk_prep_time);
     m_AtkCoolDownTimer.SetTimeOutDur(m_Stats.atk_cool_down);
     m_KnockbackTimer.SetTimeOutDur(s_KnockbackDuration); 
@@ -17,7 +18,7 @@ void Entity::GetHit(int damage, const Entity &attacker) {
         d *= 0.5;
         damage = static_cast<int>(d);
     }
-    m_Stats.health -= damage;
+    m_Health -= damage;
     m_TotalDamage += damage;
     if (m_TotalDamage >= m_KnockBackHealth) {
         SetState(EntityState::HITBACK);
@@ -25,8 +26,8 @@ void Entity::GetHit(int damage, const Entity &attacker) {
     }
 
 #ifdef ENABLE_BATTLE_LOG
-    printBattleLog("{} deals damage {} to {}!", attacker.GetName(), damage,
-                   GetName());
+    printBattleLog("{} deals damage {} to {}! And {} have {} left!",
+                   attacker.GetName(), damage, GetName(), GetName(), m_Health);
 #endif // ENABLE_BATTLE_LOG
 }
 
@@ -58,11 +59,16 @@ bool Entity::IsSingleTarget() const {
 }
 
 bool Entity::IsDead() const {
-    return m_Stats.health <= 0;
+    return m_Health <= 0;
 }
 
 std::optional<EnemyAttr> Entity::GetAttr() const {
     return m_Stats.attr;
+}
+
+double Entity::GetHealthPercent() const {
+    assert(m_Stats.health != 0.0);
+    return static_cast<double>(m_Health) / static_cast<double>(m_Stats.health);
 }
 
 void Entity::SetState(EntityState state) {
