@@ -32,6 +32,13 @@ public:
     glm::vec2 GetPosition() const;
     [[nodiscard]]
     float GetRotation() const;
+    [[nodiscard]]
+    std::shared_ptr<Core::Drawable> GetDrawable() const;
+    [[nodiscard]]
+    glm::vec2 GetTopLeftPos() const;
+    [[nodiscard]]
+    glm::vec2 GetBottomRightPos() const;
+
 
     virtual ~GameObjectEx() override = default;
 
