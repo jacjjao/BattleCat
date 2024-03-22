@@ -12,6 +12,7 @@ set(SRC_FILES
     Enemy.cpp
     Timer.cpp
     UpgradeScene.cpp
+    Stage.cpp
     UnitCard.cpp
 )
 
@@ -33,6 +34,7 @@ set(INCLUDE_FILES
     DebugUtil/BattleLog.hpp
     FrameScene.hpp
     UpgradeScene.hpp
+    Stage.hpp
     UnitCard.hpp
 )
 
