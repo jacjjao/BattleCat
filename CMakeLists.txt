@@ -24,6 +24,8 @@ add_executable(${PROJECT_NAME}
         include/FrameScene.hpp
         include/UpgradeScene.hpp
         src/UpgradeScene.cpp
+        include/unitcard.hpp
+        src/UnitCard.cpp
 )
 
 if(MSVC)

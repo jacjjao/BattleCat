@@ -13,6 +13,10 @@ set(SRC_FILES
     Timer.cpp
     UpgradeScene.cpp
     Stage.cpp
+<<<<<<< HEAD
+    UnitCard.cpp
+=======
+>>>>>>> 726157210b8149ef34a30ed8012460627ca2a131
 )
 
 set(INCLUDE_FILES
@@ -34,6 +38,10 @@ set(INCLUDE_FILES
     FrameScene.hpp
     UpgradeScene.hpp
     Stage.hpp
+<<<<<<< HEAD
+    UnitCard.hpp
+=======
+>>>>>>> 726157210b8149ef34a30ed8012460627ca2a131
 )
 
 set(TEST_FILES

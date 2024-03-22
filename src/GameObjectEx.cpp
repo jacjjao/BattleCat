@@ -64,6 +64,18 @@ float GameObjectEx::GetRotation() const{
     return m_Transform.rotation;
 }
 
+std::shared_ptr<Core::Drawable> GameObjectEx::GetDrawable() const{
+    return m_Drawable;
+};
+
+glm::vec2 GameObjectEx::GetTopLeftPos() const{
+    auto m = m_Transform.translation + GetScaledSize()*glm::vec2(-0.5f,0.5f);
+    return m_Transform.translation + GetScaledSize()*glm::vec2(-0.5f,0.5f);
+};
+
+glm::vec2 GameObjectEx::GetBottomRightPos() const{
+    return m_Transform.translation + GetScaledSize()*glm::vec2(0.5f,-0.5f);
+};
 /*void GameObjectEx::PlayShapeAnime(std::initializer_list<int> &frames,std::size_t interval) {
     static int frame;
     frame+=1;

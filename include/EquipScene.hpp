@@ -7,6 +7,7 @@
 
 #include "FrameScene.hpp"
 #include "GameButton.hpp"
+#include "UnitCard.hpp"
 
 class App;
 
@@ -17,8 +18,13 @@ public:
 private:
     App &m_App;
 
-    std::vector<std::shared_ptr<GameButton>> m_Buttons;
-    std::vector<std::shared_ptr<GameObjectEx>> m_equip;
+    std::vector<std::shared_ptr<GameButton>> m_buttons;
+    std::vector<std::shared_ptr<GameObjectEx>> m_equiplist;
+    std::vector<std::shared_ptr<UnitCard>> m_catlist;
+
+    std::shared_ptr<GameObjectEx> m_equip;
+    std::shared_ptr<AnimatedGameObject> m_border;
+    int m_currentunit = 0;
 
 };
 

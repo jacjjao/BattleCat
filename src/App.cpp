@@ -41,6 +41,10 @@ void App::Update() {
     }
     //TODO: do your things here and delete this line <3
 
+    if (Util::Input::IsKeyDown(Util::Keycode::G)){
+        printf("CursorPos:(%f, %f)\n",Util::Input::GetCursorPosition().x,Util::Input::GetCursorPosition().y);
+    }
+
     m_CurScene->Update();
 }
 
