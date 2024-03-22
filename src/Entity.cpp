@@ -26,7 +26,7 @@ void Entity::GetHit(int damage, const Entity &attacker) {
     }
 
 #ifdef ENABLE_BATTLE_LOG
-    printBattleLog("{} deals damage {} to {}! And {} have {} left!",
+    printBattleLog("{} deals damage {} to {}! {} have {}hp left!",
                    attacker.GetName(), damage, GetName(), GetName(), m_Health);
 #endif // ENABLE_BATTLE_LOG
 }

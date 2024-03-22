@@ -17,8 +17,11 @@ void App::Start() {
 
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<MenuScene>(*this)));
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<CatBaseScene>(*this)));
-    m_Scenes.emplace_back(nullptr);
-    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<EquipScene>(*this)));
+    auto battle = std::make_unique<BattleScene>(*this);
+    m_BattleScene = battle.get();
+    m_Scenes.emplace_back(std::move(battle));
+    m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(
+        std::make_unique<EquipScene>(*this)));
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<UpgradeScene>(*this)));
     SwitchScene(SceneType::MENU);
 
@@ -54,8 +57,7 @@ void App::SwitchScene(const SceneType type) {
 }
 
 void App::SwitchToBattleScene(Stage stage) {
-    m_Scenes[static_cast<size_t>(SceneType::BATTLE_SCENE)].reset(
-        static_cast<Scene *>(new BattleScene(*this, StageFactory::CreateStage(Stages::LEVEL1))));
+    m_BattleScene->LoadStage(std::move(stage));
     SwitchScene(SceneType::BATTLE_SCENE);
 }
 

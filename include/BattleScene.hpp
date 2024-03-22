@@ -18,9 +18,10 @@ struct DamageInfo {
 
 class BattleScene : public Scene {
 public:
-    BattleScene(App &app, Stage stage);
+    BattleScene(App &app);
 
     void Update() override;
+    void LoadStage(Stage &stage);
 
     BattleScene(const BattleScene &) = delete;
     BattleScene &operator=(const BattleScene &) = delete;
@@ -28,9 +29,8 @@ public:
 private:
     static constexpr size_t s_MaxEntityCount = 41; // +1 for tower
     static constexpr float s_CatTowerPosX = 500.0f;
-    static constexpr float s_EnemiesTowerPosX = 0.0f;
+    static constexpr float s_EnemiesTowerPosX = -500.0f;
 
-    void LoadStage(Stage& stage);
     void GameOver(bool cat_won);
     void CatStartAttack();
     void EnemyStartAttack();

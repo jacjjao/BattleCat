@@ -5,12 +5,10 @@
 #include <cassert>
 #include <algorithm>
 
-BattleScene::BattleScene(App &app, Stage stage)
+BattleScene::BattleScene(App &app)
     : m_App(app) {
     m_Cats.reserve(s_MaxEntityCount); // to prevent reallocation
     m_Enemies.reserve(s_MaxEntityCount);
-    
-    LoadStage(stage);
 
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
@@ -22,9 +20,7 @@ BattleScene::BattleScene(App &app, Stage stage)
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
     m_CatBtn->SetPosition(200.0, -200.0);
     m_CatBtn->SetZIndex(0.5);
-    m_CatBtn->AddButtonEvent([this] {
-        AddCat(CatType::AXE_CAT, 1);
-    });
+    m_CatBtn->AddButtonEvent([this] { AddCat(CatType::AXE_CAT, 1); });
     m_Root.AddChild(m_CatBtn);
 
     m_EBtn = std::make_shared<GameButton>(
@@ -34,9 +30,7 @@ BattleScene::BattleScene(App &app, Stage stage)
              RESOURCE_DIR "/buttons/hover_yellow.png"}));
     m_EBtn->SetPosition(-200.0, -200.0);
     m_EBtn->SetZIndex(0.5);
-    m_EBtn->AddButtonEvent([this] {
-        AddEnemy(EnemyType::DOGE, 1.0f);
-    });
+    m_EBtn->AddButtonEvent([this] { AddEnemy(EnemyType::DOGE, 1.0f); });
     m_Root.AddChild(m_EBtn);
 }
 
@@ -55,7 +49,7 @@ void BattleScene::Update() {
         if (!e) {
             continue;
         }
-        auto [type, modifier] = *e;
+        auto& [type, modifier] = *e;
         AddEnemy(type, modifier);
     }
 
@@ -144,6 +138,7 @@ void BattleScene::LoadStage(Stage &stage) {
     m_EnemyTower->SetState(EntityState::IDLE);
 
     m_Stage = std::move(stage);
+    m_TotalTime = 0.0;
 }
 
 void BattleScene::GameOver(const bool cat_won) {

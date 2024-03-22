@@ -6,6 +6,8 @@
 #include "Util/BGM.hpp"
 #include "Stage.hpp"
 
+class BattleScene;
+
 class App {
 public:
     enum class State {
@@ -48,6 +50,7 @@ private:
 
     std::vector<std::unique_ptr<Scene>> m_Scenes;
     Scene* m_CurScene = nullptr;
+    BattleScene *m_BattleScene = nullptr;
 
     std::vector<std::unique_ptr<Util::BGM>> m_BGMs;
     Util::BGM* m_CurBGM = nullptr;

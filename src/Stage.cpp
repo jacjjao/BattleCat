@@ -13,12 +13,11 @@ EnemyDispatcher::Update(double tower_health_percent, double total_time,
         --limit;
     } else {
         m_Timer.Update(dt);
-        if (m_Timer.IsTimeOut()) {
-            --limit;
-            m_Timer.Start();
-        } else {
+        if (!m_Timer.IsTimeOut()) {
             return std::nullopt;
-        }
+        } 
+        --limit;
+        m_Timer.Start();
     }
     return {{type, modifier}};
 }
