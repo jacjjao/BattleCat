@@ -50,15 +50,15 @@ EquipScene::EquipScene(App &app) : m_App(app){
             {RESOURCE_DIR "/buttons/button_back_yellow.png",
              RESOURCE_DIR "/buttons/button_back_purple.png"}));
     back_button->SetZIndex(3);
-    back_button->SetPosition(float(app_w)/-2.0f + back_button->GetScaledSize().x/2.0f + 60,
-                             float(app_h)/-2.0f + back_button->GetScaledSize().y/2.0f);
+    back_button->SetPosition(app_w/-2.0f + back_button->GetScaledSize().x/2.0f + 60,
+                             app_h/-2.0f + back_button->GetScaledSize().y/2.0f);
     back_button->AddButtonEvent([this] {
         m_App.SwitchScene(App::SceneType::CAT_BASE);
     });
     m_buttons.push_back(back_button);
     m_Root.AddChild(back_button);
 //-----------------------------------------------------------------
-    Setframes(RESOURCE_DIR"/equip/basetext_equip.png");
+    SetBaseText(RESOURCE_DIR"/equip/basetext_equip.png");
 }
 
 void EquipScene::Update() {

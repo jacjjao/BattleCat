@@ -7,49 +7,50 @@
 
 class FrameScene : public Scene{
 public:
-    void Setframes(const std::string &basetext) {
-        m_frameL = std::make_shared<GameObjectEx>();
-        m_frameR = std::make_shared<GameObjectEx>();
-        m_frameUP = std::make_shared<GameObjectEx>();
-        m_frameDOWN = std::make_shared<GameObjectEx>();
-        m_BaseText = std::make_shared<GameObjectEx>();
-
-        m_frameL->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/cat_base/frame_left.png"));
-        m_frameR->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/cat_base/frame_right.png"));
-        m_frameUP->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/cat_base/frame_up.png"));
-        m_frameDOWN->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR"/cat_base/frame_down.png"));
-        m_BaseText->SetDrawable(std::make_shared<Util::Image>(basetext));
-
-        m_frameL->SetZIndex(2);
-        m_frameR->SetZIndex(2);
-        m_frameUP->SetZIndex(1);
-        m_frameDOWN->SetZIndex(1);
-        m_BaseText->SetZIndex(1.1f);
-
-        m_frameL->SetScale(1,2);
-        m_frameR->SetScale(1,2);
-        m_frameUP->SetScale(2,1);
-        m_frameDOWN->SetScale(2,1);
-
-        m_frameL->SetPosition(float(app_w)/-2.0f + 18,0);
-        m_frameR->SetPosition(float(app_w)/2.0f - 18,0);
-        m_frameUP->SetPosition(0,float(app_h)/2.0f - m_frameUP->GetScaledSize().y/2.0f);
-        m_frameDOWN->SetPosition(0,float(app_h)/-2.0f + m_frameDOWN->GetScaledSize().y/2.0f);
-        m_BaseText->SetPosition(float(app_w)/-2.0f + m_BaseText->GetScaledSize().x/2.0f + 60
-                                ,float(app_h)/2.0f - m_BaseText->GetScaledSize().y/2.0f);
-
+    FrameScene(){
         m_Root.AddChild(m_frameL);
         m_Root.AddChild(m_frameR);
         m_Root.AddChild(m_frameUP);
         m_Root.AddChild(m_frameDOWN);
+    }
+    void SetBaseText(const std::string &basetext){
+        m_BaseText = std::make_shared<GameObjectEx>();
+        m_BaseText->SetDrawable(std::make_shared<Util::Image>(basetext));
+        m_BaseText->SetZIndex(1.1f);
+        m_BaseText->SetPosition(float(app_w)/-2.0f + m_BaseText->GetScaledSize().x/2.0f + 60
+                                ,float(app_h)/2.0f - m_BaseText->GetScaledSize().y/2.0f);
         m_Root.AddChild(m_BaseText);
     }
 private:
-    std::shared_ptr<GameObjectEx> m_frameL;
-    std::shared_ptr<GameObjectEx> m_frameR;
-    std::shared_ptr<GameObjectEx> m_frameUP;
-    std::shared_ptr<GameObjectEx> m_frameDOWN;
+    static std::shared_ptr<GameObjectEx> Set
+        (const std::string &path, const float &z, const glm::vec2 &scale, const glm::vec2 &pos){
+        auto frame = std::make_shared<GameObjectEx>();
+        frame->SetDrawable(std::make_shared<Util::Image>(path));
+        frame->SetZIndex(z);
+        frame->SetScale(scale);
+        frame->SetPosition(pos);
+        return frame;
+    };
+
+    //-----------------------------------------------------------------------------------
+    static inline const std::shared_ptr<GameObjectEx> m_frameL = Set
+        (RESOURCE_DIR"/cat_base/frame_left.png",2,glm::vec2(1,2),
+         glm::vec2(float(app_w)/-2.0f + 18,0));
+
+    static inline const std::shared_ptr<GameObjectEx> m_frameR = Set
+        (RESOURCE_DIR"/cat_base/frame_right.png",2,glm::vec2(1,2),
+         glm::vec2(float(app_w)/2.0f - 18,0));
+
+    static inline const std::shared_ptr<GameObjectEx> m_frameUP = Set
+        (RESOURCE_DIR"/cat_base/frame_up.png",1,glm::vec2(2,1),
+         glm::vec2(0,float(app_h)/2.0f - 27.5));
+
+    static inline const std::shared_ptr<GameObjectEx> m_frameDOWN =Set
+        (RESOURCE_DIR"/cat_base/frame_down.png",1,glm::vec2(2,1),
+         glm::vec2(0,float(app_h)/-2.0f + 27.5));
+
     std::shared_ptr<GameObjectEx> m_BaseText;
+
 };
 
 #endif // BATTLECAT_FRAMESCENE_HPP
