@@ -38,6 +38,7 @@ set(INCLUDE_FILES
     UpgradeScene.hpp
     Stage.hpp
     UnitCard.hpp
+    Draggable.hpp
 )
 
 set(TEST_FILES

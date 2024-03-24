@@ -91,7 +91,7 @@ void EquipScene::Update() {
 //-------------------------------------------------------------------
     auto CurrentUnit = m_catlist.at(m_currentunit);
     CurrentUnit->Dragging();
-    if(CurrentUnit->GetState() == UnitCardState::PUT_OFF){
+    if(CurrentUnit->GetState() == DragState::PUT_OFF){
         if(m_equiplist.size() < MAXEQUIP &&
             PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
             auto &eq = m_equiplist.emplace_back(std::make_shared<GameObjectEx>(
