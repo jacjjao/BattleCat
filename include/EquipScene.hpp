@@ -26,6 +26,9 @@ private:
     std::shared_ptr<AnimatedGameObject> m_border;
     int m_currentunit = 0;
 
+    void UpdateEquip();
+    void AddEquip();
+
 };
 
 

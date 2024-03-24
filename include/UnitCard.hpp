@@ -18,8 +18,13 @@ public:
         m_DragImg = std::make_shared<GameObjectEx>();
         m_DragImg->SetDrawable(shared_ptr_drawable);
         m_DragImg->SetZIndex(zIndex+0.3f);
+        m_DragImg->SetScale(1.4f,1.4f);
     };
     void Dragging() override;
+
+    void Unpressed() override;
+
+    void Put_OFF() override;
 
     bool IsMouseHovering() override;
 

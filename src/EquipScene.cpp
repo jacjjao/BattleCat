@@ -90,18 +90,25 @@ void EquipScene::Update() {
     }
 //-------------------------------------------------------------------
     auto CurrentUnit = m_catlist.at(m_currentunit);
-    CurrentUnit->Dragging();
-    if(CurrentUnit->GetState() == DragState::PUT_OFF){
-        if(m_equiplist.size() < MAXEQUIP &&
-            PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
-            auto &eq = m_equiplist.emplace_back(std::make_shared<GameObjectEx>(
-                std::make_unique<Util::Image>(RESOURCE_DIR "/cats/000/uni000_f00.png"),1.1f));
-            m_Root.AddChild(eq);
-        }
-        for(int i=0;i<m_equiplist.size();i++) {
-            m_equiplist.at(i)->SetPosition(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
-        }
+    CurrentUnit->Drag();
+    if(CurrentUnit->GetCurrentState() == DragState::PUT_OFF &&
+        PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
+        AddEquip();
     }
 //--------------------------------------------------------
     m_Root.Update();
+}
+
+void EquipScene::AddEquip(){
+    if(m_equiplist.size() < MAXEQUIP){
+        auto &eq = m_equiplist.emplace_back(std::make_shared<GameObjectEx>(
+            std::make_unique<Util::Image>(RESOURCE_DIR "/cats/000/uni000_f00.png"),1.1f));
+        m_Root.AddChild(eq);
+    }
+    UpdateEquip();
+}
+void EquipScene::UpdateEquip(){
+    for(short int i=0;i<m_equiplist.size();i++) {
+        m_equiplist.at(i)->SetPosition(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
+    }
 }
