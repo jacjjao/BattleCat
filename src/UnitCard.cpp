@@ -7,14 +7,20 @@
 void UnitCard::Dragging(){
     m_DragImg->SetPosition(Util::Input::GetCursorPosition());
     m_DragImg->Draw();
+    SetVisible(OriginalVisible);
 }
 
 void UnitCard::Put_OFF() {
+    SetVisible(true);
     return;
 }
 
 void UnitCard::Unpressed() {
     return;
+}
+
+void UnitCard::SetDragImgScale(float x,float y){
+    m_DragImg->SetScale(x,y);
 }
 
 bool UnitCard::IsMouseHovering(){
