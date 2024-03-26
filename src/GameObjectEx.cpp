@@ -12,40 +12,38 @@ void GameObjectEx::SetScale(glm::vec2 scale){
     m_Transform.scale = scale;
 }
 
-void GameObjectEx::SetPosition(float x, float y){
-    m_Transform.translation = glm::vec2(x,y);
-}
-
 void GameObjectEx::SetPosition(glm::vec2 position){
+    glm::vec2 pre_pos = m_Transform.translation;
     m_Transform.translation = position;
+    for(std::shared_ptr<GameObject> &child : m_Children){
+        auto childEx = std::static_pointer_cast<GameObjectEx>(child);
+        glm::vec2 delta = childEx->GetPosition() - pre_pos;
+        childEx->SetPosition(position + delta);
+    }
 }
 
-void GameObjectEx::MovePosition(float x, float y){
-    m_Transform.translation = glm::vec2(GetPosition().x + x ,GetPosition().y + y);
-    for(std::shared_ptr<GameObject> &child : m_Children){
-        auto childEx = std::static_pointer_cast<GameObjectEx>(child);;
-        childEx->MovePosition(x,y);
-    }
+void GameObjectEx::SetPosition(float x, float y){
+    SetPosition(glm::vec2(x,y));
 }
 
 void GameObjectEx::MovePosition(glm::vec2 position){
-    m_Transform.translation = GetPosition() + position;
-    for(std::shared_ptr<GameObject> &child : m_Children){
-        auto childEx = std::static_pointer_cast<GameObjectEx>(child);;
-        childEx->MovePosition(position);
-    }
+    SetPosition(GetPosition() + position);
+}
+
+void GameObjectEx::MovePosition(float x, float y){
+    MovePosition(glm::vec2(x,y));
 }
 
 void GameObjectEx::SetRotation(float r){
     m_Transform.rotation = r;
+    for(std::shared_ptr<GameObject> &child : m_Children){
+        auto childEx = std::static_pointer_cast<GameObjectEx>(child);;
+        childEx->SetRotation(r);
+    }
 }
 
 void GameObjectEx::AddRotation(float r){
-    m_Transform.rotation = GetRotation() + r;
-    for(std::shared_ptr<GameObject> &child : m_Children){
-        auto childEx = std::static_pointer_cast<GameObjectEx>(child);;
-        childEx->AddRotation(r);
-    }
+    SetRotation(GetRotation() + r);
 }
 
 void GameObjectEx::SetTransform(Util::Transform transform){
@@ -69,16 +67,12 @@ std::shared_ptr<Core::Drawable> GameObjectEx::GetDrawable() const{
 };
 
 glm::vec2 GameObjectEx::GetTopLeftPos() const{
-    auto m = m_Transform.translation + GetScaledSize()*glm::vec2(-0.5f,0.5f);
     return m_Transform.translation + GetScaledSize()*glm::vec2(-0.5f,0.5f);
 };
 
 glm::vec2 GameObjectEx::GetBottomRightPos() const{
     return m_Transform.translation + GetScaledSize()*glm::vec2(0.5f,-0.5f);
 };
-/*void GameObjectEx::PlayShapeAnime(std::initializer_list<int> &frames,std::size_t interval) {
-    static int frame;
-    frame+=1;
-}*/
+
 
 

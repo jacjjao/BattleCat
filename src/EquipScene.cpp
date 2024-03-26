@@ -12,11 +12,8 @@
 EquipScene::EquipScene(App &app) : m_App(app){
     m_catlist.reserve(MAXUNITS);
     for(int i=0;i<MAXUNITS;i++){
-        auto unit = std::make_shared<UnitCard>
-            (std::make_unique<Util::Image>(RESOURCE_DIR"/cats/unit.png"),1.9f);
-        //unit->SetPosition(0,-180);
-
-        m_catlist.push_back(unit);
+        auto &unit = m_catlist.emplace_back
+             (std::make_shared<UnitCard>(std::make_unique<Util::Image>(RESOURCE_DIR"/cats/unit.png"),1.9f));
         m_Root.AddChild(unit);
     }
 //------------------------------------------------------------------------
@@ -89,26 +86,47 @@ void EquipScene::Update() {
         btn->Update();
     }
 //-------------------------------------------------------------------
-    auto CurrentUnit = m_catlist.at(m_currentunit);
+    auto &CurrentUnit = m_catlist.at(m_currentunit);
     CurrentUnit->Drag();
-    if(CurrentUnit->GetCurrentState() == DragState::PUT_OFF &&
-        PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
-        AddEquip();
+    if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
+        CurrentUnit->SetDragImgScale(0.5f,0.5f);
+        if(CurrentUnit->GetCurrentState() == DragState::PUT_OFF){
+            AddEquip();
+        }
+    }
+    else{
+        CurrentUnit->SetDragImgScale(1.4f,1.4f);
     }
 //--------------------------------------------------------
+    for(short int i=0;i<m_equiplist.size();i++) {
+        auto &eq = m_equiplist.at(i);
+        eq->Drag();
+        if(eq->GetCurrentState() == DragState::PUT_OFF &&
+            !PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
+            RemoveEquip(i);
+        }
+    }
     m_Root.Update();
 }
 
-void EquipScene::AddEquip(){
-    if(m_equiplist.size() < MAXEQUIP){
-        auto &eq = m_equiplist.emplace_back(std::make_shared<GameObjectEx>(
-            std::make_unique<Util::Image>(RESOURCE_DIR "/cats/000/uni000_f00.png"),1.1f));
-        m_Root.AddChild(eq);
+void EquipScene::AddEquip() {
+    if(m_equiplist.size() >= MAXEQUIP){
+        return;
     }
+    auto &eq = m_equiplist.emplace_back(std::make_unique<UnitCard>
+        (std::make_unique<Util::Image>(RESOURCE_DIR"/cats/000/uni000_f00.png"),1.1f, false));
+    m_Root.AddChild(eq);
     UpdateEquip();
 }
 void EquipScene::UpdateEquip(){
     for(short int i=0;i<m_equiplist.size();i++) {
         m_equiplist.at(i)->SetPosition(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
     }
+}
+
+void EquipScene::RemoveEquip(int index) {
+    auto &erased = m_equiplist.at(index);
+    m_Root.RemoveChild(erased);
+    m_equiplist.erase(m_equiplist.begin() + index);
+    UpdateEquip();
 }

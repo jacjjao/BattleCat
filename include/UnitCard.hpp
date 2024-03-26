@@ -11,15 +11,19 @@
 
 class UnitCard : public Draggable , public GameObjectEx{
 public:
-    UnitCard(std::unique_ptr<Core::Drawable> drawable,const float zIndex){
-        auto shared_ptr_drawable = static_cast<std::shared_ptr<Core::Drawable>>(drawable.get());
-        SetDrawable(std::move(drawable));
+    UnitCard(std::unique_ptr<Core::Drawable> drawable,const float zIndex,bool CopyImg = true){
+        std::shared_ptr<Core::Drawable> drawable_shared = std::move(drawable);
+        SetDrawable(drawable_shared);
         SetZIndex(zIndex);
         m_DragImg = std::make_shared<GameObjectEx>();
-        m_DragImg->SetDrawable(shared_ptr_drawable);
+        m_DragImg->SetDrawable(drawable_shared);
         m_DragImg->SetZIndex(zIndex+0.3f);
         m_DragImg->SetScale(1.4f,1.4f);
+        OriginalVisible = CopyImg;
     };
+
+    void SetDragImgScale(float x,float y);
+
     void Dragging() override;
 
     void Unpressed() override;
@@ -30,6 +34,7 @@ public:
 
 private:
     std::shared_ptr<GameObjectEx> m_DragImg;
+    bool OriginalVisible;
 };
 
 #endif // BATTLECAT_UNITCARD_HPP

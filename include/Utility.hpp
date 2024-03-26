@@ -9,7 +9,7 @@
 [[nodiscard]] 
 bool PointInRect(glm::vec2 rect_tl_pos, glm::vec2 rect_size, glm::vec2 p);
 [[nodiscard]]
-bool PosInRange(glm::vec2 LTop,glm::vec2 RBottom2,glm::vec2 pos);
+bool PosInRange(glm::vec2 LTop,glm::vec2 RBottom,glm::vec2 pos);
 /*[[nodiscard]]
 bool fixKeyUP(Util::Keycode &key);*/
 #endif
