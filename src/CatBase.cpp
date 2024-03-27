@@ -83,8 +83,8 @@ CatBaseScene::CatBaseScene(App &app)
     DialogBox->SetPosition(305,80);
     DialogBox->SetScale(2,2);
     m_Root.AddChild(DialogBox);
-
-    Setframes(RESOURCE_DIR"/cat_base/basetext_base.png");
+//---------------------------------------------------------------------------------
+    SetBaseText(RESOURCE_DIR"/cat_base/basetext_base.png");
 }
 
 void CatBaseScene::Update() {

@@ -4,6 +4,7 @@ set(SRC_FILES
     GameObjectEx.cpp
     GameButton.cpp
     AnimatedGameObject.cpp
+    EquipScene.cpp
     Utility.cpp
     CatBase.cpp
     BattleScene.cpp
@@ -13,10 +14,7 @@ set(SRC_FILES
     Timer.cpp
     UpgradeScene.cpp
     Stage.cpp
-<<<<<<< HEAD
     UnitCard.cpp
-=======
->>>>>>> 726157210b8149ef34a30ed8012460627ca2a131
 )
 
 set(INCLUDE_FILES
@@ -26,6 +24,7 @@ set(INCLUDE_FILES
     GameObjectEx.hpp
     GameButton.hpp
     AnimatedGameObject.hpp
+    EquipScene.hpp
     Utility.hpp
     CatBase.hpp
     EntityStats.hpp
@@ -38,10 +37,8 @@ set(INCLUDE_FILES
     FrameScene.hpp
     UpgradeScene.hpp
     Stage.hpp
-<<<<<<< HEAD
     UnitCard.hpp
-=======
->>>>>>> 726157210b8149ef34a30ed8012460627ca2a131
+    Draggable.hpp
 )
 
 set(TEST_FILES

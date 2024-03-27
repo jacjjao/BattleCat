@@ -11,19 +11,19 @@ class GameObjectEx : public Util::GameObject{
 public:
     using Util::GameObject::GameObject;
 
-    virtual void SetScale(float x, float y);
-    virtual void SetScale(glm::vec2 scale);
+    void SetScale(glm::vec2 scale);
+    void SetScale(float x, float y);
 
-    virtual void SetPosition(float x, float y);
-    virtual void SetPosition(glm::vec2 position);
+    void SetPosition(glm::vec2 position);
+    void SetPosition(float x, float y);
 
-    virtual void MovePosition(float x, float y);
-    virtual void MovePosition(glm::vec2 position);
+    void MovePosition(glm::vec2 position);
+    void MovePosition(float x, float y);
 
-    virtual void SetRotation(float r);
-    virtual void AddRotation(float r);
+    void SetRotation(float r);
+    void AddRotation(float r);
 
-    virtual void SetTransform(Util::Transform transform);
+    void SetTransform(Util::Transform transform);
     //void PlayShapeAnime(std::initializer_list<int> &frames,std::size_t interval=67);
 
     [[nodiscard]]

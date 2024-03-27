@@ -27,7 +27,7 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     textbox->SetPosition(10,-240);
     m_Root.AddChild(textbox);
     //---------------------------------------------------------------------------------
-    Setframes(RESOURCE_DIR"/upgrade/basetext_upgrade.png");
+    SetBaseText(RESOURCE_DIR"/upgrade/basetext_upgrade.png");
 };
 
 void UpgradeScene::Update(){

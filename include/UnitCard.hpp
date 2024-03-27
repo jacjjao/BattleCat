@@ -7,29 +7,34 @@
 
 #include "GameObjectEx.hpp"
 #include "Util/Image.hpp"
+#include "Draggable.hpp"
 
-enum class UnitCardState : size_t{
-    UNPRESSED = 0,
-    PUT_OFF,
-    DRAGGING
-};
-
-class UnitCard : public GameObjectEx{
+class UnitCard : public Draggable , public GameObjectEx{
 public:
-    using GameObjectEx::GameObjectEx;
+    UnitCard(std::unique_ptr<Core::Drawable> drawable,const float zIndex,bool CopyImg = true){
+        std::shared_ptr<Core::Drawable> drawable_shared = std::move(drawable);
+        SetDrawable(drawable_shared);
+        SetZIndex(zIndex);
+        m_DragImg = std::make_shared<GameObjectEx>();
+        m_DragImg->SetDrawable(drawable_shared);
+        m_DragImg->SetZIndex(zIndex+0.3f);
+        m_DragImg->SetScale(1.4f,1.4f);
+        OriginalVisible = CopyImg;
+    };
 
-    void Dragging();
+    void SetDragImgScale(float x,float y);
 
-    [[nodiscard]]
-    bool IsMouseHovering() const;
-    [[nodiscard]]
-    UnitCardState GetState() const;
+    void Dragging() override;
+
+    void Unpressed() override;
+
+    void Put_OFF() override;
+
+    bool IsMouseHovering() override;
+
 private:
-    UnitCardState m_State = UnitCardState::UNPRESSED;
-    std::shared_ptr<GameObjectEx> m_DragImg =
-        std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(RESOURCE_DIR"/cats/unit.png"),3);
-
-
+    std::shared_ptr<GameObjectEx> m_DragImg;
+    bool OriginalVisible;
 };
 
 #endif // BATTLECAT_UNITCARD_HPP
