@@ -61,8 +61,7 @@ void App::SwitchScene(const SceneType type) {
 }
 
 void App::SwitchToBattleScene(Stage stage) {
-    m_BattleScene->LoadStage(stage);
-    //m_BattleScene->LoadStage(std::move(stage));
+    m_BattleScene->LoadStage(std::move(stage));
     SwitchScene(SceneType::BATTLE_SCENE);
 }
 
