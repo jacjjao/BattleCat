@@ -39,6 +39,7 @@ set(INCLUDE_FILES
     Stage.hpp
     UnitCard.hpp
     Draggable.hpp
+    EquipList.hpp
 )
 
 set(TEST_FILES

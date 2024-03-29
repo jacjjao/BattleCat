@@ -6,8 +6,7 @@
 #include "Util/Input.hpp"
 #include "AnimatedGameObject.hpp"
 #include "Utility.hpp"
-#define MAXUNITS 25
-#define MAXEQUIP 10
+#include "EquipList.hpp"
 
 EquipScene::EquipScene(App &app) : m_App(app){
     //Set cat list.
@@ -30,9 +29,6 @@ EquipScene::EquipScene(App &app) : m_App(app){
     m_border->SetVisible(true);
     m_border->Play();
     m_Root.AddChild(m_border);
-//------------------------------------------------------------------------
-    //Set limit number of equip cap.
-    m_equiplist.reserve(MAXEQUIP);
 //-----------------------------------------------------------------------
     //Set background.
     auto background = std::make_shared<GameObjectEx>
@@ -40,7 +36,7 @@ EquipScene::EquipScene(App &app) : m_App(app){
     background->SetScale(1.01f*app_w/background->GetScaledSize().x,0.85f*app_h/background->GetScaledSize().y);
     m_Root.AddChild(background);
 //----------------------------------------------------
-    //Set the equip image.
+    //Set the equip background image.
     m_equip = std::make_shared<GameObjectEx>
         (std::make_unique<Util::Image>(RESOURCE_DIR"/equip/equip.png"),1);
     m_equip->SetPosition(0,155);
@@ -60,6 +56,16 @@ EquipScene::EquipScene(App &app) : m_App(app){
     });
     m_buttons.push_back(back_button);
     m_Root.AddChild(back_button);
+//-----------------------------------------------------------------
+    //Set cats form transform button.
+    auto TransFormbtn = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/transform.png");
+    TransFormbtn->SetZIndex(2.2f);
+    TransFormbtn->SetPosition(185.0f,-280.0f);
+    TransFormbtn->AddButtonEvent([this]{
+        LOG_DEBUG("Cat form transform in equip.");
+    });
+    m_buttons.push_back(TransFormbtn);
+    m_Root.AddChild(TransFormbtn);
 //-----------------------------------------------------------------
     //The others.
     SetBaseText(RESOURCE_DIR"/equip/basetext_equip.png");
@@ -83,15 +89,15 @@ void EquipScene::Update() {
     if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
         CurrentUnit->SetDragImgScale(0.5f,0.5f);
         if(CurrentUnit->GetCurrentState() == DragState::PUT_OFF){
-            AddEquip();
+            AddEquip(RESOURCE_DIR"/cats/000/uni000_f00.png");
         }
     }
     else{
         CurrentUnit->SetDragImgScale(1.4f,1.4f);
     }
 //--------------------------------------------------------
-    for(short int i=0;i<m_equiplist.size();i++) {
-        auto &eq = m_equiplist.at(i);
+    for(short int i=0;i<EquipList::m_equiplist.size();i++) {
+        auto &eq = EquipList::m_equiplist.at(i);
         eq->Drag();
         if(eq->GetCurrentState() == DragState::PUT_OFF &&
             !PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
@@ -102,26 +108,26 @@ void EquipScene::Update() {
     m_Root.Update();
 }
 
-void EquipScene::AddEquip() {
-    if(m_equiplist.size() >= MAXEQUIP){
+void EquipScene::AddEquip(const std::string &path) {
+    if(EquipList::m_equiplist.size() >= MAXEQUIP){
         return;
     }
-    auto &eq = m_equiplist.emplace_back(std::make_unique<UnitCard>
-        (std::make_unique<Util::Image>(RESOURCE_DIR"/cats/000/uni000_f00.png"),1.1f, false));
+    auto &eq = EquipList::m_equiplist.emplace_back(std::make_unique<UnitCard>
+        (std::make_unique<Util::Image>(path),1.1f, false));
     m_Root.AddChild(eq);
     UpdateEquip();
 }
 
 void EquipScene::UpdateEquip(){
-    for(short int i=0;i<m_equiplist.size();i++) {
-        m_equiplist.at(i)->SetPosition(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
+    for(short int i=0;i<EquipList::m_equiplist.size();i++) {
+        EquipList::m_equiplist.at(i)->SetPosition(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
     }
 }
 
 void EquipScene::RemoveEquip(int index) {
-    auto &erased = m_equiplist.at(index);
+    auto &erased =  EquipList::m_equiplist.at(index);
     m_Root.RemoveChild(erased);
-    m_equiplist.erase(m_equiplist.begin() + index);
+    EquipList::m_equiplist.erase( EquipList::m_equiplist.begin() + index);
     UpdateEquip();
 }
 

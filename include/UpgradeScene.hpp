@@ -8,6 +8,7 @@
 #include "pch.hpp"
 #include "FrameScene.hpp"
 #include "GameButton.hpp"
+#include "UnitCard.hpp"
 
 class UpgradeScene : public FrameScene{
 public:
@@ -15,8 +16,12 @@ public:
 
     void Update() override;
 
+    void UpdateCatList();
+
 private:
     App &m_App;
     std::vector<std::shared_ptr<GameButton>> m_Buttons;
+    int m_currentunit;
+    std::vector<std::shared_ptr<UnitCard>> m_catlist;
 };
 #endif // BATTLECAT_UPGRADESCENE_HPP
