@@ -17,6 +17,8 @@ public:
 
     void Spend(int money);
 
+    void SetWalletDelta(float delta);
+
 private:
     static constexpr std::array<int, 20> s_MoneyMax = {
          500,  600,  700,  800,  900, 1000, 1100, 1200, 1300, 1400,
