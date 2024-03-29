@@ -39,8 +39,6 @@ BattleScene::BattleScene(App &app)
 
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
-
-    m_Wallet.emplace(1);
 }
 
 void BattleScene::Update() {
@@ -150,6 +148,8 @@ void BattleScene::LoadStage(Stage &stage) {
 
     m_Stage = std::move(stage);
     m_TotalTime = 0.0;
+
+    m_Wallet.emplace(20);
 }
 
 void BattleScene::GameOver(const bool cat_won) {
