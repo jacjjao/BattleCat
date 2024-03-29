@@ -27,6 +27,15 @@ void AnimatedGameObject::Reset(){
     m_Anime->SetCurrentFrame(0);
 }
 
+void AnimatedGameObject::SetCurrentFrame(std::size_t index) {
+    m_Anime->SetCurrentFrame(index);
+}
+
+void AnimatedGameObject::Draw(const Util::Transform &transform, const float zIndex,const size_t img_index) {
+    m_Anime->SetCurrentFrame(img_index);
+    m_Anime->Draw(transform, zIndex);
+    Reset();
+}
 
 std::size_t AnimatedGameObject::GetCurrentFrameIndex(){
     return m_Anime->GetCurrentFrameIndex();

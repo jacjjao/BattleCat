@@ -13,12 +13,27 @@ void Wallet::Update(const float dt) {
 }
 
 void Wallet::Draw() {
-    std::array<char, 50> buf;
-    snprintf(buf.data(), buf.size() - 1, "%d/%d$", static_cast<int>(m_CurMoney), m_MaxMoney);
-    m_Text.SetText(buf.data());
-    Util::Transform pos;
-    pos.translation = glm::vec2(500, 300);
-    m_Text.Draw(pos, 2.0f);
+#define MAXDIGIT 5
+#define MOST_RIGHT_X 590
+    auto Cur = static_cast<int>(m_CurMoney);
+    auto Max = static_cast<int>(m_MaxMoney);
+    auto nextX = MOST_RIGHT_X;
+
+    m_num->Draw(Util::Transform{.translation = glm::vec2(nextX-=30,300)},5.0f,11);
+    for(int i=0;i<MAXDIGIT;i++){
+        short int MaxNum = GetDigit(Max,i);
+        if(MaxNum<10){
+            m_num->Draw(Util::Transform{.translation=glm::vec2(nextX-=30,300)},5.0f,MaxNum);
+        }
+    }
+
+    m_num->Draw(Util::Transform{.translation = glm::vec2(nextX-=30,300)},5.0f,10);
+    for(int i=0;i<MAXDIGIT;i++){
+        short int CurrNum = GetDigit(Cur,i);
+        if(CurrNum<10){
+            m_num->Draw(Util::Transform{.translation=glm::vec2(nextX-=30,300)},5.0f,CurrNum);
+        }
+    }
 }
 
 bool Wallet::CanDeploy(const int required) {
@@ -34,3 +49,11 @@ void Wallet::SetWalletDelta(const float delta) {
     assert(delta > 0.0f);
     m_MoneyDelta = delta;
 }
+
+short int Wallet::GetDigit(int number, short int digit) {
+    for(short i=0;i<digit;i++) {
+        number/= 10;
+        if(number==0) { return 10;}
+    }
+    return static_cast<short>(number%10);
+};
