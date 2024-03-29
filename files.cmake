@@ -41,6 +41,7 @@ set(INCLUDE_FILES
     Stage.hpp
     UnitCard.hpp
     Draggable.hpp
+    EquipList.hpp
     Wallet.hpp
     DeployButton.hpp
 )
