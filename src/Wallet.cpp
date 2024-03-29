@@ -31,5 +31,6 @@ void Wallet::Spend(const int money) {
 }
 
 void Wallet::SetWalletDelta(const float delta) {
+    assert(delta > 0.0f);
     m_MoneyDelta = delta;
 }
