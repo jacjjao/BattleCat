@@ -15,6 +15,8 @@ set(SRC_FILES
     UpgradeScene.cpp
     Stage.cpp
     UnitCard.cpp
+    Wallet.cpp
+    DeployButton.cpp
 )
 
 set(INCLUDE_FILES
@@ -40,6 +42,8 @@ set(INCLUDE_FILES
     UnitCard.hpp
     Draggable.hpp
     EquipList.hpp
+    Wallet.hpp
+    DeployButton.hpp
 )
 
 set(TEST_FILES

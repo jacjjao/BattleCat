@@ -10,38 +10,60 @@ BattleScene::BattleScene(App &app)
     m_Cats.reserve(s_MaxEntityCount); // to prevent reallocation
     m_Enemies.reserve(s_MaxEntityCount);
 
+    constexpr int unit_img_width = 110;
+    constexpr int margin_x = 10;
+    constexpr int start_x = -(unit_img_width * 2 + margin_x * 2);
+    constexpr int start_y = -300;
+
+    int x = start_x;
+    int y = start_y;
+    m_CatButton.resize(10);
+    for (int row = 0; row < 2; ++row) {
+        for (int i = 0; i < 5; ++i) {
+            const int idx = row * 5 + i;
+            m_CatButton[idx] =
+                std::make_shared<DeployButton>(RESOURCE_DIR "/cats/000/uni000_f00.png");
+            m_CatButton[idx]->SetPosition(x, y);
+            m_CatButton[idx]->AddButtonEvent([this] {
+                if (m_Wallet->CanDeploy(100)) {
+                    AddCat(CatType::CAT, 10);
+                    m_Wallet->Spend(100);
+                }
+            });
+            m_CatButton[idx]->SetCoolDownTime(2.0);
+            m_Root.AddChild(m_CatButton[idx]);
+            x += m_CatButton[idx]->GetScaledSize().x + margin_x;
+        }
+        y += m_CatButton[0]->GetScaledSize().y;
+        x = start_x;
+    }
+
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
-    m_CatBtn = std::make_shared<GameButton>(
-        RESOURCE_DIR "/buttons/YellowButton.png",
+    m_ReturnButton = std::make_shared<GameButton>(
+        RESOURCE_DIR "/buttons/button_back_ipad.png",
         std::initializer_list<std::string>(
-            {RESOURCE_DIR "/buttons/hover_purple.png",
-             RESOURCE_DIR "/buttons/hover_yellow.png"}));
-    m_CatBtn->SetPosition(200.0, -200.0);
-    m_CatBtn->SetZIndex(0.5);
-    m_CatBtn->AddButtonEvent([this] { AddCat(CatType::AXE_CAT, 1); });
-    m_Root.AddChild(m_CatBtn);
-
-    m_EBtn = std::make_shared<GameButton>(
-        RESOURCE_DIR "/buttons/YellowButton.png",
-        std::initializer_list<std::string>(
-            {RESOURCE_DIR "/buttons/hover_purple.png",
-             RESOURCE_DIR "/buttons/hover_yellow.png"}));
-    m_EBtn->SetPosition(-200.0, -200.0);
-    m_EBtn->SetZIndex(0.5);
-    m_EBtn->AddButtonEvent([this] { AddEnemy(EnemyType::DOGE, 1.0f); });
-    m_Root.AddChild(m_EBtn);
+            {RESOURCE_DIR "/buttons/button_back_yellow.png",
+             RESOURCE_DIR "/buttons/button_back_purple.png"}));
+    m_ReturnButton->SetPosition(-500, 300);
+    m_ReturnButton->AddButtonEvent(
+        [this] { m_App.SwitchScene(App::SceneType::CAT_BASE);
+    });
+    m_Root.AddChild(m_ReturnButton);
 }
 
 void BattleScene::Update() {
-    m_CatBtn->Update();
-    m_EBtn->Update();
-    m_Root.Update();
-
     const auto dt = Util::Time::GetDeltaTime();
     m_TotalTime += dt;
+    
+    for (auto &btn : m_CatButton) {
+        btn->Update(dt);
+    }
+    m_ReturnButton->Update();
+    m_Root.Update();
 
+    m_Wallet->Update(dt);
     
     const auto health_percent = m_EnemyTower->GetHealthPercent();
     for (auto &ed : m_Stage.dispatchers) {
@@ -139,6 +161,8 @@ void BattleScene::LoadStage(Stage &stage) {
 
     m_Stage = std::move(stage);
     m_TotalTime = 0.0;
+
+    m_Wallet.emplace(20);
 }
 
 void BattleScene::GameOver(const bool cat_won) {
@@ -183,6 +207,7 @@ void BattleScene::Draw() {
         // enemy.Draw(m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
         enemy.Draw(m_EnemyImage[0]);
     }
+    m_Wallet->Draw();
 }
 
 void BattleScene::CatAttack(Cat &cat) {
@@ -242,7 +267,7 @@ void BattleScene::EnemyAttack(Enemy &enemy) {
 
 void BattleScene::AddCat(const CatType type, const int level) {
     assert(m_Cats.size() <= s_MaxEntityCount);
-    if (m_Cats.size() == s_MaxEntityCount) {
+    if (m_Cats.size() >= s_MaxEntityCount) {
         return;
     }
     auto& cat = m_Cats.emplace_back(type, level);
@@ -251,7 +276,7 @@ void BattleScene::AddCat(const CatType type, const int level) {
 
 void BattleScene::AddEnemy(const EnemyType type, const float modifier) {
     assert(m_Cats.size() <= s_MaxEntityCount);
-    if (m_Enemies.size() == s_MaxEntityCount) {
+    if (m_Enemies.size() >= s_MaxEntityCount) {
         return;
     }
     auto& e = m_Enemies.emplace_back(type);

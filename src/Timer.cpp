@@ -26,3 +26,7 @@ bool Timer::IsTimeOut() {
     m_TimeOut = false;
     return b;
 }
+
+Timer::State Timer::GetState() const {
+    return m_State;
+}

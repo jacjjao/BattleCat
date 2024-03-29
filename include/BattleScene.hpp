@@ -9,6 +9,8 @@
 #include "GameButton.hpp"
 #include "Util/Root.hpp"
 #include "Stage.hpp"
+#include "Wallet.hpp"
+#include "DeployButton.hpp"
 #include <vector>
 
 struct DamageInfo {
@@ -47,14 +49,16 @@ private:
     std::vector<Enemy> m_Enemies;
     std::vector<DamageInfo> m_DmgInfos;
 
+    std::vector<std::shared_ptr<DeployButton>> m_CatButton;
+    std::shared_ptr<GameButton> m_ReturnButton;
+
     Cat *m_CatTower = nullptr;
     Enemy *m_EnemyTower = nullptr;
 
     Util::Root m_Root;
-    std::shared_ptr<GameButton> m_CatBtn; // tmp
-    std::shared_ptr<GameButton> m_EBtn; // tmp
 
     Stage m_Stage;
+    std::optional<Wallet> m_Wallet;
 
     double m_TotalTime = 0.0;
 
