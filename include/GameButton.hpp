@@ -9,22 +9,27 @@
 
 class GameButton : public GameObjectEx{
 public:
-    //explicit GameButton() = default;
     explicit GameButton(const std::string &btn_path);
 
     explicit GameButton(const std::string &btn_path,std::initializer_list<std::string> border_paths);
+
+    virtual ~GameButton() = default;
 
     void SetClickSound(const std::function<void()>& click_sound);
 
     void AddButtonEvent(const std::function<void()>& func);
 
-    void Update();
+    virtual void Update(double dt = 0.0);
 
     void SetScale(float scale);
 
     void SetPosition(float x, float y);
 
     void SetZIndex(float index);
+
+protected:
+    bool UpdateClickEvent();
+    void UpdateHoverBorder();
 
 private:
     static inline std::unique_ptr<Util::SFX> s_ClickSound = nullptr;

@@ -22,7 +22,7 @@ BattleScene::BattleScene(App &app)
         for (int i = 0; i < 5; ++i) {
             const int idx = row * 5 + i;
             m_CatButton[idx] =
-                std::make_shared<GameButton>(RESOURCE_DIR "/cats/000/uni000_f00.png");
+                std::make_shared<DeployButton>(RESOURCE_DIR "/cats/000/uni000_f00.png");
             m_CatButton[idx]->SetPosition(x, y);
             m_CatButton[idx]->AddButtonEvent([this] {
                 if (m_Wallet->CanDeploy(100)) {
@@ -30,6 +30,7 @@ BattleScene::BattleScene(App &app)
                     m_Wallet->Spend(100);
                 }
             });
+            m_CatButton[idx]->SetCoolDownTime(2.0);
             m_Root.AddChild(m_CatButton[idx]);
             x += m_CatButton[idx]->GetScaledSize().x + margin_x;
         }
@@ -39,16 +40,28 @@ BattleScene::BattleScene(App &app)
 
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
+
+    m_ReturnButton = std::make_shared<GameButton>(
+        RESOURCE_DIR "/buttons/button_back_ipad.png",
+        std::initializer_list<std::string>(
+            {RESOURCE_DIR "/buttons/button_back_yellow.png",
+             RESOURCE_DIR "/buttons/button_back_purple.png"}));
+    m_ReturnButton->SetPosition(-500, 300);
+    m_ReturnButton->AddButtonEvent(
+        [this] { m_App.SwitchScene(App::SceneType::CAT_BASE);
+    });
+    m_Root.AddChild(m_ReturnButton);
 }
 
 void BattleScene::Update() {
-    for (auto &btn : m_CatButton) {
-        btn->Update();
-    }
-    m_Root.Update();
-
     const auto dt = Util::Time::GetDeltaTime();
     m_TotalTime += dt;
+    
+    for (auto &btn : m_CatButton) {
+        btn->Update(dt);
+    }
+    m_ReturnButton->Update();
+    m_Root.Update();
 
     m_Wallet->Update(dt);
     

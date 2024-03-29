@@ -19,6 +19,8 @@ public:
 
     bool IsTimeOut();
 
+    State GetState() const;
+
 private:
     double m_TimeOutDur;
     double m_TimeRemained;
