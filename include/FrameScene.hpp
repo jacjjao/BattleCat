@@ -21,6 +21,9 @@ public:
                                 ,float(app_h)/2.0f - m_BaseText->GetScaledSize().y/2.0f);
         m_Root.AddChild(m_BaseText);
     }
+
+    virtual ~FrameScene() = default;
+
 private:
     static std::shared_ptr<GameObjectEx> Set
         (const std::string &path, const float &z, const glm::vec2 &scale, const glm::vec2 &pos){

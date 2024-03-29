@@ -25,8 +25,6 @@ public:
 
     void Dragging() override;
 
-    void Unpressed() override;
-
     void Put_OFF() override;
 
     bool IsMouseHovering() override;

@@ -21,12 +21,8 @@ void UnitCard::Put_OFF() {
     m_DragTrans.scale = glm::vec2(1.4f, 1.4f);
 }
 
-void UnitCard::Unpressed() {
-    return;
-}
-
 void UnitCard::MinifyAnime(){
-    if(m_minify || m_State == DragState::UNPRESSED){
+    if(m_minify || m_State == State::UNPRESSED){
         return;
     }
     m_DragTrans.scale = glm::vec2(1.35f,1.35f);
@@ -35,7 +31,7 @@ void UnitCard::MinifyAnime(){
 }
 
 void UnitCard::AmplifyAnime(){
-    if(!m_minify || m_State == DragState::UNPRESSED){
+    if(!m_minify || m_State == State::UNPRESSED){
         return;
     }
     m_DragTrans.scale = glm::vec2(0.35f,0.35f);

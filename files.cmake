@@ -17,6 +17,7 @@ set(SRC_FILES
     UnitCard.cpp
     Wallet.cpp
     DeployButton.cpp
+    NumberSystem.cpp
 )
 
 set(INCLUDE_FILES
@@ -44,6 +45,7 @@ set(INCLUDE_FILES
     EquipList.hpp
     Wallet.hpp
     DeployButton.hpp
+    NumberSystem.hpp
 )
 
 set(TEST_FILES
