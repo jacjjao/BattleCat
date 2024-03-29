@@ -35,22 +35,19 @@ void GameButton::AddButtonEvent(const std::function<void()> &func) {
 }
 
 void GameButton::Update() {
-    if(!m_HoverBorder){
+    bool hovering = IsMouseHovering();
+
+    if(m_HoverBorder) {
+        m_HoverBorder->SetVisible(hovering);
+        hovering ? m_HoverBorder->Play():m_HoverBorder->Pause();
+    }
+
+    if(!hovering || !Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB)){
         return;
     }
 
-    if (IsMouseHovering()) {
-        m_HoverBorder->SetVisible(true);
-        m_HoverBorder->Play();
-        if (Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB)) {
-            for (const auto &callback : m_ButtonEvents) {
-                callback();
-            }
-        }
-    }
-    else{
-        m_HoverBorder->SetVisible(false);
-        m_HoverBorder->Pause();
+    for (const auto &callback : m_ButtonEvents) {
+        callback();
     }
 }
 

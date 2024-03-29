@@ -8,6 +8,7 @@
 #include "GameObjectEx.hpp"
 #include "Util/Image.hpp"
 #include "Draggable.hpp"
+#include "GameButton.hpp"
 
 class UnitCard : public Draggable , public GameObjectEx{
 public:
