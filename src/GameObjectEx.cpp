@@ -50,6 +50,13 @@ void GameObjectEx::SetTransform(Util::Transform transform){
     m_Transform = transform;
 }
 
+void GameObjectEx::Draw(const Util::Transform &transform, const float zIndex){
+    if(!m_Visible){
+        return;
+    }
+    m_Drawable->Draw(transform,zIndex);
+}
+
 glm::vec2 GameObjectEx::GetScale() const{
     return m_Transform.scale;
 }
@@ -73,6 +80,8 @@ glm::vec2 GameObjectEx::GetTopLeftPos() const{
 glm::vec2 GameObjectEx::GetBottomRightPos() const{
     return m_Transform.translation + GetScaledSize()*glm::vec2(0.5f,-0.5f);
 };
+
+
 
 
 

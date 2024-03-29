@@ -10,7 +10,7 @@ void Enemy::StartAttack() {
     SetState(EntityState::ATTACK);
     m_AtkPrepTimer.Start();
 #ifdef ENABLE_BATTLE_LOG
-    printBattleLog("{} StarAttack at position: {:.2f}", m_Stats.name, m_PosX);
+    printBattleLog("{} StarAttack at position: {}", m_Stats.name, m_PosX);
 #endif
 }
 

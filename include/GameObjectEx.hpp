@@ -24,7 +24,9 @@ public:
     void AddRotation(float r);
 
     void SetTransform(Util::Transform transform);
-    //void PlayShapeAnime(std::initializer_list<int> &frames,std::size_t interval=67);
+
+    void Draw(){ GameObject::Draw(); }
+    void Draw(const Util::Transform &transform, const float zIndex);
 
     [[nodiscard]]
     glm::vec2 GetScale() const;

@@ -24,6 +24,10 @@ public:
 
     void Reset();
 
+    void SetCurrentFrame(std::size_t index);
+
+    void Draw(const Util::Transform &transform, const float zIndex,const size_t img_index);
+
     std::shared_ptr<Util::Animation> GetAnime();
 
     std::size_t GetCurrentFrameIndex();

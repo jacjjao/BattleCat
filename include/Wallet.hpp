@@ -3,6 +3,7 @@
 
 #include <array>
 #include "Util/Text.hpp"
+#include "AnimatedGameObject.hpp"
 
 class Wallet
 {
@@ -29,6 +30,12 @@ private:
     int m_MaxMoney = 0;
 
     Util::Text m_Text;
+
+    short int GetDigit(int number,short int digit);
+
+    //-------------------
+    std::shared_ptr<AnimatedGameObject> m_num = std::make_shared<AnimatedGameObject>
+        (std::initializer_list<std::string>{RESOURCE_DIR"/scene/0.png",RESOURCE_DIR"/scene/1.png",RESOURCE_DIR"/scene/2.png",RESOURCE_DIR"/scene/3.png",RESOURCE_DIR"/scene/4.png",RESOURCE_DIR"/scene/5.png",RESOURCE_DIR"/scene/6.png",RESOURCE_DIR"/scene/7.png",RESOURCE_DIR"/scene/8.png",RESOURCE_DIR"/scene/9.png",RESOURCE_DIR"/scene/slash.png",RESOURCE_DIR"/scene/dollar.png"});
 };
 
 #endif
