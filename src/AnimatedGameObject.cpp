@@ -32,6 +32,9 @@ void AnimatedGameObject::SetCurrentFrame(std::size_t index) {
 }
 
 void AnimatedGameObject::Draw(const Util::Transform &transform, const float zIndex,const size_t img_index) {
+    if(img_index >= m_Anime->GetFrameCount()){
+        throw std::invalid_argument("The index \"img_index\" out of range of frames");
+    }
     m_Anime->SetCurrentFrame(img_index);
     m_Anime->Draw(transform, zIndex);
     Reset();
