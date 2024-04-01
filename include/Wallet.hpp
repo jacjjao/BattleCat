@@ -15,7 +15,7 @@ public:
 
     void Draw();
 
-    bool CanDeploy(int required);
+    bool CanDeploy(int required) const;
 
     void Spend(int money);
 
@@ -26,7 +26,7 @@ private:
         0,    500,  600,  700,  800,  900,  1000, 1100, 1200, 1300, 1400,
         1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400};
 
-    float m_MoneyDelta = 300.0;
+    float m_MoneyDelta = 50.0;
     float m_CurMoney = 0.0f;
     int m_MaxMoney = 0;
 
