@@ -87,19 +87,21 @@ void EquipScene::Update() {
     auto &CurrentUnit = m_catlist.at(m_currentunit);
     CurrentUnit->Drag();
     if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
-        CurrentUnit->SetDragImgScale(0.5f,0.5f);
-        if(CurrentUnit->GetCurrentState() == DragState::PUT_OFF){
+        if(CurrentUnit->GetCurrentState() == Draggable::State::PUT_OFF){
             AddEquip(RESOURCE_DIR"/cats/000/uni000_f00.png");
         }
+        else{
+            CurrentUnit->MinifyAnime();
+        }
     }
-    else{
-        CurrentUnit->SetDragImgScale(1.4f,1.4f);
+    else {
+        CurrentUnit->AmplifyAnime();
     }
 //--------------------------------------------------------
     for(short int i=0;i<EquipList::m_equiplist.size();i++) {
         auto &eq = EquipList::m_equiplist.at(i);
         eq->Drag();
-        if(eq->GetCurrentState() == DragState::PUT_OFF &&
+        if(eq->GetCurrentState() == Draggable::State::PUT_OFF &&
             !PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
             RemoveEquip(i);
         }
@@ -113,7 +115,7 @@ void EquipScene::AddEquip(const std::string &path) {
         return;
     }
     auto &eq = EquipList::m_equiplist.emplace_back(std::make_unique<UnitCard>
-        (std::make_unique<Util::Image>(path),1.1f, false));
+        (std::make_unique<Util::Image>(path),1.89f, false));
     m_Root.AddChild(eq);
     UpdateEquip();
 }
