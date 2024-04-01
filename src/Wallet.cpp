@@ -8,43 +8,14 @@ Wallet::Wallet(const int level)
 }
 
 void Wallet::Update(const float dt) {
-    m_CurMoney = std::min(m_CurMoney + m_MoneyDelta * dt,
-                          static_cast<float>(m_MaxMoney));
+    m_CurMoney = std::min(m_CurMoney + m_MoneyDelta * dt,static_cast<float>(m_MaxMoney));
 }
 
 void Wallet::Draw() {
-    constexpr int MAX_DIGIT = 5;
-    constexpr int MOST_RIGHT_X = 590;
-
-    auto Cur = static_cast<int>(m_CurMoney);
-    auto Max = static_cast<int>(m_MaxMoney);
-    auto nextX = MOST_RIGHT_X;
-
-    const auto getTransform = [&nextX]() -> Util::Transform { 
-        nextX -= 30;
-        Util::Transform t;
-        t.translation = glm::vec2(nextX, 300);
-        return t;
-    };
-
-    const auto drawDigits = [this, &getTransform](int num) -> void {
-        assert(num >= 0);
-        if (num == 0) {
-            m_num->Draw(getTransform(), 5.0f, 0);
-            return;
-        }
-        while (num > 0) {
-            int digit = num % 10;
-            m_num->Draw(getTransform(), 5.0f, digit);
-            num /= 10;
-        }
-    };
-
-    m_num->Draw(getTransform(), 5.0f, 11); // $
-    drawDigits(Max);
-
-    m_num->Draw(getTransform(), 5.0f, 10); // '/'
-    drawDigits(Cur);
+    m_dollar->Draw(Util::Transform{.translation=glm::vec2(590,300)},5.0f);
+    glm::vec2 leftmost_pos = m_wallet.Display(m_MaxMoney,glm::vec2(560,300),5.0f);
+    m_slash->Draw(Util::Transform{.translation=glm::vec2(leftmost_pos.x-30,300)},5.0f);
+    m_wallet.Display(static_cast<int>(m_CurMoney),glm::vec2(leftmost_pos.x-60,300),5.0f);
 }
 
 bool Wallet::CanDeploy(const int required) const {
@@ -60,3 +31,4 @@ void Wallet::SetWalletDelta(const float delta) {
     assert(delta > 0.0f);
     m_MoneyDelta = delta;
 }
+

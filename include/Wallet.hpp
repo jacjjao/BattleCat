@@ -4,6 +4,7 @@
 #include <array>
 #include "Util/Text.hpp"
 #include "AnimatedGameObject.hpp"
+#include "NumberSystem.hpp"
 
 class Wallet
 {
@@ -29,11 +30,11 @@ private:
     float m_CurMoney = 0.0f;
     int m_MaxMoney = 0;
 
-    Util::Text m_Text;
+    NumberSystem m_wallet;
+    std::shared_ptr<Util::Image> m_slash = std::make_shared<Util::Image>(RESOURCE_DIR"/scene/slash.png");
+    std::shared_ptr<Util::Image> m_dollar = std::make_shared<Util::Image>(RESOURCE_DIR"/scene/dollar.png");
 
-    //-------------------
-    std::shared_ptr<AnimatedGameObject> m_num = std::make_shared<AnimatedGameObject>
-        (std::initializer_list<std::string>{RESOURCE_DIR"/scene/0.png",RESOURCE_DIR"/scene/1.png",RESOURCE_DIR"/scene/2.png",RESOURCE_DIR"/scene/3.png",RESOURCE_DIR"/scene/4.png",RESOURCE_DIR"/scene/5.png",RESOURCE_DIR"/scene/6.png",RESOURCE_DIR"/scene/7.png",RESOURCE_DIR"/scene/8.png",RESOURCE_DIR"/scene/9.png",RESOURCE_DIR"/scene/slash.png",RESOURCE_DIR"/scene/dollar.png"});
+    Util::Text m_Text;
 };
 
 #endif
