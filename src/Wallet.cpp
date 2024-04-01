@@ -13,30 +13,41 @@ void Wallet::Update(const float dt) {
 }
 
 void Wallet::Draw() {
-#define MAXDIGIT 5
-#define MOST_RIGHT_X 590
+    constexpr int MAX_DIGIT = 5;
+    constexpr int MOST_RIGHT_X = 590;
+
     auto Cur = static_cast<int>(m_CurMoney);
     auto Max = static_cast<int>(m_MaxMoney);
     auto nextX = MOST_RIGHT_X;
 
-    m_num->Draw(Util::Transform{.translation = glm::vec2(nextX-=30,300)},5.0f,11);
-    for(int i=0;i<MAXDIGIT;i++){
-        short int MaxNum = GetDigit(Max,i);
-        if(MaxNum<10){
-            m_num->Draw(Util::Transform{.translation=glm::vec2(nextX-=30,300)},5.0f,MaxNum);
-        }
-    }
+    const auto getTransform = [&nextX]() -> Util::Transform { 
+        nextX -= 30;
+        Util::Transform t;
+        t.translation = glm::vec2(nextX, 300);
+        return t;
+    };
 
-    m_num->Draw(Util::Transform{.translation = glm::vec2(nextX-=30,300)},5.0f,10);
-    for(int i=0;i<MAXDIGIT;i++){
-        short int CurrNum = GetDigit(Cur,i);
-        if(CurrNum<10){
-            m_num->Draw(Util::Transform{.translation=glm::vec2(nextX-=30,300)},5.0f,CurrNum);
+    const auto drawDigits = [this, &getTransform](int num) -> void {
+        assert(num >= 0);
+        if (num == 0) {
+            m_num->Draw(getTransform(), 5.0f, 0);
+            return;
         }
-    }
+        while (num > 0) {
+            int digit = num % 10;
+            m_num->Draw(getTransform(), 5.0f, digit);
+            num /= 10;
+        }
+    };
+
+    m_num->Draw(getTransform(), 5.0f, 11); // $
+    drawDigits(Max);
+
+    m_num->Draw(getTransform(), 5.0f, 10); // '/'
+    drawDigits(Cur);
 }
 
-bool Wallet::CanDeploy(const int required) {
+bool Wallet::CanDeploy(const int required) const {
     return static_cast<float>(required) <= m_CurMoney;
 }
 
@@ -49,11 +60,3 @@ void Wallet::SetWalletDelta(const float delta) {
     assert(delta > 0.0f);
     m_MoneyDelta = delta;
 }
-
-short int Wallet::GetDigit(int number, short int digit) {
-    for(short i=0;i<digit;i++) {
-        number/= 10;
-        if(number==0) { return 10;}
-    }
-    return static_cast<short>(number%10);
-};
