@@ -4,38 +4,26 @@ NumberSystem::NumberSystem(std::initializer_list<std::string> &font){
     SetNumberFont(font);
 }
 
-glm::vec2 NumberSystem::Display(unsigned const int number,const glm::vec2 rightmost_pos,const float zIndex) {
-    auto X = rightmost_pos.x;
-    auto Y = rightmost_pos.y;
-    short digits = GetDigits(number);
+glm::vec2 NumberSystem::Display(unsigned int number, glm::vec2 rightmost_pos, const float zIndex) {
+    constexpr int xOffset = 30;
+    const auto drawDigit = [this, xOffset, &rightmost_pos](int z, int digit) {
+        Util::Transform t;
+        t.translation = rightmost_pos;
+        m_num->Draw(t, z, digit);
+        rightmost_pos.x -= xOffset;
+    };
 
-    for(int i=0;i<digits;i++){
-        short int digit = GetCurrentDigit(number,i);
-        if(digit<10){
-            m_num->Draw(Util::Transform{.translation=glm::vec2(X,Y)},zIndex,digit);
-            X-=30;
-        }
+    if (number == 0) {
+        drawDigit(zIndex, 0);
+        return rightmost_pos;
     }
-    return glm::vec2(X+30,Y);
+
+    for (; number > 0; number /= 10) {
+        drawDigit(zIndex, number % 10);
+    }
+    return glm::vec2(rightmost_pos.x + xOffset, rightmost_pos.y);
 }
 
 void NumberSystem::SetNumberFont(std::initializer_list<std::string> &font){
     m_num = std::make_shared<AnimatedGameObject>(font);
-}
-
-short int NumberSystem::GetCurrentDigit(unsigned int number,const unsigned short int digit) {
-    for(short i=0;i<digit;i++) {
-        number/= 10;
-        if(number==0) { return 10;}
-    }
-    return static_cast<short>(number%10);
-};
-
-short int NumberSystem::GetDigits(unsigned int number){
-    short int digits = 1;
-    while(number > 0){
-        number/=10;
-        digits++;
-    }
-    return digits;
 }
