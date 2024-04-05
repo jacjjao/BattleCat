@@ -18,9 +18,8 @@ void Cat::StartAttack() {
 #endif
 }
 
-void Cat::Draw(Util::Image &image) const {
-    Util::Transform trans;
-    trans.translation = {m_PosX, 0};
+void Cat::Draw(Util::Transform trans, Util::Image &image) const {
+    trans.translation += glm::vec2{m_PosX, 0};
     image.Draw(trans, 1.0);
 }
 

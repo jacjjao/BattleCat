@@ -15,8 +15,6 @@ public:
 
     HitBox GetHitBox() const; // when attacking
 
-    virtual void Draw(Util::Image &image) const = 0;
-
     void SetState(EntityState state);
     EntityState GetState() const;
 
