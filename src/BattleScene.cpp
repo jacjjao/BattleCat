@@ -2,6 +2,7 @@
 #include "Util/Time.hpp"
 #include "DebugUtil/BattleLog.hpp"
 #include "App.hpp"
+#include "Util/Input.hpp"
 #include <cassert>
 #include <algorithm>
 
@@ -54,6 +55,8 @@ BattleScene::BattleScene(App &app)
 }
 
 void BattleScene::Update() {
+    m_Cam.Update();
+
     const auto dt = Util::Time::GetDeltaTime();
     m_TotalTime += dt;
     
@@ -163,6 +166,7 @@ void BattleScene::LoadStage(Stage &stage) {
     m_TotalTime = 0.0;
 
     m_Wallet.emplace(20);
+    m_Cam.Reset();
 }
 
 void BattleScene::GameOver(const bool cat_won) {
@@ -201,11 +205,11 @@ void BattleScene::EnemyStartAttack() {
 void BattleScene::Draw() {
     for (const auto &cat : m_Cats) {
         // cat.Draw(m_CatImage[static_cast<size_t>(cat.GetCatType())]);
-        cat.Draw(m_CatImage[0]);
+        cat.Draw(m_Cam.GetTransform(), m_CatImage[0]);
     }
     for (const auto &enemy : m_Enemies) {
         // enemy.Draw(m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
-        enemy.Draw(m_EnemyImage[0]);
+        enemy.Draw(m_Cam.GetTransform(), m_EnemyImage[0]);
     }
     m_Wallet->Draw();
 }

@@ -11,6 +11,7 @@
 #include "Stage.hpp"
 #include "Wallet.hpp"
 #include "DeployButton.hpp"
+#include "Camera.hpp"
 #include <vector>
 
 struct DamageInfo {
@@ -61,6 +62,8 @@ private:
     std::optional<Wallet> m_Wallet;
 
     double m_TotalTime = 0.0;
+
+    Camera m_Cam;
 
     App &m_App;
 };

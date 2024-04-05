@@ -19,7 +19,7 @@ public:
 
     void StartAttack();
 
-    void Draw(Util::Image &image) const override;
+    void Draw(Util::Transform trans, Util::Image &image) const;
 
     void UpdateTimer(double dt);
 

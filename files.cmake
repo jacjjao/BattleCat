@@ -18,6 +18,7 @@ set(SRC_FILES
     Wallet.cpp
     DeployButton.cpp
     NumberSystem.cpp
+    Camera.cpp
 )
 
 set(INCLUDE_FILES
@@ -46,6 +47,7 @@ set(INCLUDE_FILES
     Wallet.hpp
     DeployButton.hpp
     NumberSystem.hpp
+    Camera.hpp
 )
 
 set(TEST_FILES
