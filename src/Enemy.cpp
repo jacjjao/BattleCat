@@ -14,9 +14,8 @@ void Enemy::StartAttack() {
 #endif
 }
 
-void Enemy::Draw(Util::Image &image) const {
-    Util::Transform trans;
-    trans.translation = {m_PosX, 0};
+void Enemy::Draw(Util::Transform trans, Util::Image &image) const {
+    trans.translation += glm::vec2{m_PosX, 0};
     image.Draw(trans, 1.0f);
 }
 

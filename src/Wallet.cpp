@@ -12,13 +12,17 @@ void Wallet::Update(const float dt) {
 }
 
 void Wallet::Draw() {
-    m_dollar->Draw(Util::Transform{.translation=glm::vec2(590,300)},5.0f);
-    glm::vec2 leftmost_pos = m_wallet.Display(m_MaxMoney,glm::vec2(560,300),5.0f);
-    m_slash->Draw(Util::Transform{.translation=glm::vec2(leftmost_pos.x-30,300)},5.0f);
-    m_wallet.Display(static_cast<int>(m_CurMoney),glm::vec2(leftmost_pos.x-60,300),5.0f);
+    Util::Transform tmp;
+    tmp.translation = glm::vec2(590, 300);
+    m_dollar->Draw(tmp, 5.0f);
+    glm::vec2 rightmost_pos = m_wallet.Display(m_MaxMoney,glm::vec2(560,300),5.0f);
+    tmp.translation = glm::vec2(rightmost_pos.x - 30, 300);
+    m_slash->Draw(tmp, 5.0f);
+    m_wallet.Display(static_cast<int>(m_CurMoney),
+                     glm::vec2(rightmost_pos.x - 60, 300), 5.0f);
 }
 
-bool Wallet::CanDeploy(const int required) {
+bool Wallet::CanDeploy(const int required) const {
     return static_cast<float>(required) <= m_CurMoney;
 }
 
