@@ -11,6 +11,13 @@ BattleScene::BattleScene(App &app)
     m_Cats.reserve(s_MaxEntityCount); // to prevent reallocation
     m_Enemies.reserve(s_MaxEntityCount);
 
+    //-------------------
+    /*auto background = std::make_shared<GameObjectEx>
+        (std::make_unique<Util::Image>(RESOURCE_DIR"/img/bg/bg_000.png"),-1);
+    background->SetScale(1.0f*app_w/background->GetScaledSize().x,1.0f*app_h/background->GetScaledSize().y);
+    m_Root.AddChild(background);*/
+    //---------------------------
+
     constexpr int unit_img_width = 110;
     constexpr int margin_x = 10;
     constexpr int start_x = -(unit_img_width * 2 + margin_x * 2);
