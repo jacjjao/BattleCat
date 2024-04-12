@@ -20,7 +20,12 @@ void Cat::StartAttack() {
 
 void Cat::Draw(Util::Transform trans, Util::Image &image) const {
     trans.translation += glm::vec2{m_PosX, 0};
-    image.Draw(trans, 1.0);
+    trans.translation += glm::vec2{image.GetSize().x / 2.0f, 0};
+    float z = 1.0f;
+    if (m_Type == CatType::CAT_TOWER) {
+        z = -1.0f;
+    }
+    image.Draw(trans, z);
 }
 
 void Cat::UpdateTimer(const double dt) {

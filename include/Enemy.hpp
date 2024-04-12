@@ -47,7 +47,7 @@ namespace EnemyStats {
 
     inline const EntityStats EnemyTower = [] {
         EntityStats stats;
-        stats.health = 100;
+        stats.health = 1000;
         stats.kb = 1;
         stats.single_target = true;
         stats.attr = std::nullopt;
@@ -69,8 +69,8 @@ namespace EnemyStats {
         stats.atk_cool_down = 0.96;
         stats.recharge_time = 2000;
         stats.cost = 75;
-        stats.det_box = {0, 10};
-        stats.hit_box = {0, 10};
+        stats.det_box = {0, 1};
+        stats.hit_box = {0, 1};
         stats.attr = EnemyAttr::RED;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "Doge";

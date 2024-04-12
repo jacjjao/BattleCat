@@ -11,42 +11,77 @@ BattleScene::BattleScene(App &app)
     m_Cats.reserve(s_MaxEntityCount); // to prevent reallocation
     m_Enemies.reserve(s_MaxEntityCount);
 
-    //-------------------
-    /*auto background = std::make_shared<GameObjectEx>
-        (std::make_unique<Util::Image>(RESOURCE_DIR"/img/bg/bg_000.png"),-1);
-    background->SetScale(1.0f*app_w/background->GetScaledSize().x,1.0f*app_h/background->GetScaledSize().y);
-    m_Root.AddChild(background);*/
-    //---------------------------
-
     constexpr int unit_img_width = 110;
     constexpr int margin_x = 10;
     constexpr int start_x = -(unit_img_width * 2 + margin_x * 2);
-    constexpr int start_y = -300;
+    constexpr int start_y = -200;
 
     int x = start_x;
     int y = start_y;
+
     m_CatButton.resize(10);
+    for (int i = 0; i < 10; ++i) {
+        m_CatButton[i] =
+            std::make_shared<DeployButton>(RESOURCE_DIR "/img/uni/f/uni_f.png");
+    }
+
+    // cat
+    m_CatButton[0] =
+        std::make_shared<DeployButton>(RESOURCE_DIR "/img/uni/f/uni000_f00.png");
+    m_CatButton[0]->AddButtonEvent([this] {
+        if (m_Wallet->CanDeploy(100)) {
+            AddCat(CatType::CAT, 10);
+            m_Wallet->Spend(100);
+        }
+    });
+
+    // tank cat
+    m_CatButton[1] = std::make_shared<DeployButton>(
+        RESOURCE_DIR "/img/uni/f/uni001_f00.png");
+    m_CatButton[1]->AddButtonEvent([this] {
+        if (m_Wallet->CanDeploy(200)) {
+            AddCat(CatType::TANK_CAT, 10);
+            m_Wallet->Spend(200);
+        }
+    });
+
+    m_CatButton[2] = std::make_shared<DeployButton>(
+        RESOURCE_DIR "/img/uni/f/uni002_f00.png");
+    m_CatButton[2]->AddButtonEvent([this] {
+        if (m_Wallet->CanDeploy(300)) {
+            AddCat(CatType::AXE_CAT, 10);
+            m_Wallet->Spend(300);
+        }
+    });
+
+    m_CatButton[3] =
+        std::make_shared<DeployButton>(RESOURCE_DIR "/img/uni/f/uni003_f00.png");
+    m_CatButton[3]->AddButtonEvent([this] {
+        if (m_Wallet->CanDeploy(400)) {
+            AddCat(CatType::CRAZED_GROSS_CAT, 10);
+            m_Wallet->Spend(400);
+        }
+    });
+
     for (int row = 0; row < 2; ++row) {
         for (int i = 0; i < 5; ++i) {
             const int idx = row * 5 + i;
-            m_CatButton[idx] =
-                std::make_shared<DeployButton>(RESOURCE_DIR "/cats/000/uni000_f00.png");
             m_CatButton[idx]->SetPosition(x, y);
-            m_CatButton[idx]->AddButtonEvent([this] {
-                if (m_Wallet->CanDeploy(100)) {
-                    AddCat(CatType::CAT, 10);
-                    m_Wallet->Spend(100);
-                }
-            });
             m_CatButton[idx]->SetCoolDownTime(2.0);
             m_Root.AddChild(m_CatButton[idx]);
             x += m_CatButton[idx]->GetScaledSize().x + margin_x;
         }
-        y += m_CatButton[0]->GetScaledSize().y;
+        y -= m_CatButton[0]->GetScaledSize().y;
         x = start_x;
     }
 
+    m_CatImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
+    m_CatImage.emplace_back(RESOURCE_DIR "/cats/001/walk.png");
+    m_CatImage.emplace_back(RESOURCE_DIR "/cats/002/walk.png");
+    m_CatImage.emplace_back(RESOURCE_DIR "/cats/003/walk.png");
+
+    m_EnemyImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
     m_ReturnButton = std::make_shared<GameButton>(
@@ -59,10 +94,14 @@ BattleScene::BattleScene(App &app)
         [this] { m_App.SwitchScene(App::SceneType::CAT_BASE);
     });
     m_Root.AddChild(m_ReturnButton);
+
+    m_Background.emplace(RESOURCE_DIR "/img/bg/bg_000.png");
+    m_Background->SetScaleX(2.0f);
 }
 
 void BattleScene::Update() {
     m_Cam.Update();
+    m_Background->ConstraintCam(m_Cam);
 
     const auto dt = Util::Time::GetDeltaTime();
     m_TotalTime += dt;
@@ -172,7 +211,7 @@ void BattleScene::LoadStage(Stage &stage) {
     m_Stage = std::move(stage);
     m_TotalTime = 0.0;
 
-    m_Wallet.emplace(20);
+    m_Wallet.emplace(8);
     m_Cam.Reset();
 }
 
@@ -211,14 +250,18 @@ void BattleScene::EnemyStartAttack() {
 
 void BattleScene::Draw() {
     for (const auto &cat : m_Cats) {
-        // cat.Draw(m_CatImage[static_cast<size_t>(cat.GetCatType())]);
-        cat.Draw(m_Cam.GetTransform(), m_CatImage[0]);
+        cat.Draw(m_Cam.GetTransform(),
+                 m_CatImage[static_cast<size_t>(cat.GetCatType())]);
+        // cat.Draw(m_Cam.GetTransform(), m_CatImage[0]);
     }
     for (const auto &enemy : m_Enemies) {
-        // enemy.Draw(m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
-        enemy.Draw(m_Cam.GetTransform(), m_EnemyImage[0]);
+        enemy.Draw(m_Cam.GetTransform(),
+                   m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
+        // enemy.Draw(m_Cam.GetTransform(), m_EnemyImage[0]);
     }
     m_Wallet->Draw();
+
+    m_Background->Draw(m_Cam);
 }
 
 void BattleScene::CatAttack(Cat &cat) {
