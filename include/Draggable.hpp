@@ -3,8 +3,6 @@
 
 #include "Util/Input.hpp"
 
-
-
 class Draggable{
 public:
     enum class State : size_t{
