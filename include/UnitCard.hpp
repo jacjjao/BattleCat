@@ -14,20 +14,19 @@
 
 class UnitCard : public Draggable , public GameObjectEx{
 public:
-    UnitCard(unsigned int unitnum,const float zIndex,bool CopyImg = true){
+    UnitCard(unsigned int unitnum,const float zIndex){
         const int UnitNumLength = 3;
         SetDrawable(std::make_unique<Util::Image>(RESOURCE_DIR"/cats/unit.png"));
         SetZIndex(zIndex);
-        OriginalVisible = CopyImg;
         m_DragTrans.scale = glm::vec2(1.4f, 1.4f);
 
         m_UnitNum = unitnum;
         std::stringstream ss;
-        ss << RESOURCE_DIR"/cats/udi/" << "udi" << std::string(UnitNumLength - std::to_string(unitnum).length(), '0') << unitnum << "_c.png";
+        ss << RESOURCE_DIR"/cats/udi/" << "udi" << std::string(UnitNumLength - std::to_string(unitnum).length(), '0') << unitnum << "_f.png";
         //printf("%s/n",ss.str().c_str());
-        m_udi = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(ss.str()),zIndex+0.001f);
-        m_udi->SetPosition(109.0f,31.0f);
-        AddChild(m_udi);
+        m_udi1 = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(ss.str()),zIndex+0.001f);
+        m_udi1->SetPosition(-2.0f,32.0f);
+        AddChild(m_udi1);
     };
 
     void MinifyAnime();
@@ -47,11 +46,10 @@ public:
     unsigned int GetUnitNum(){ return m_UnitNum;};
 
 private:
-    //std::shared_ptr<GameObjectEx> m_unit;
-    std::shared_ptr<GameObjectEx> m_udi;
+    std::shared_ptr<GameObjectEx> m_udi1;
+    std::shared_ptr<GameObjectEx> m_udi2;
     short m_FrameTimer = 0;
     Util::Transform m_DragTrans;
-    bool OriginalVisible;
     bool m_minify = false;
     unsigned int m_UnitNum = 0;
 };

@@ -10,11 +10,9 @@ void UnitCard::Dragging() {
         m_DragTrans.scale += glm::vec2(0.1f,0.1f)*glm::vec2(m_minify ? -1:1);
         m_FrameTimer--;
     }
-    m_Drawable->Draw(m_DragTrans,m_ZIndex+0.3f);
+    Draw(m_DragTrans,m_ZIndex+0.3f);
     Util::Transform tmp = m_DragTrans;
-    tmp.translation += m_udi->GetPosition() - this->GetPosition();
-    m_udi->Draw(tmp,m_udi->GetZIndex()+0.3f);
-    SetVisible(OriginalVisible);
+    tmp.translation += m_udi1->GetPosition() - this->GetPosition();
 }
 
 void UnitCard::Put_OFF() {
@@ -44,7 +42,7 @@ void UnitCard::AmplifyAnime(){
 
 void UnitCard::SetVisible(bool b){
     GameObjectEx::SetVisible(b);
-    m_udi->SetVisible(b);
+    m_udi1->SetVisible(b);
 }
 
 bool UnitCard::IsMouseHovering(){

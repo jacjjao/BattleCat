@@ -54,6 +54,10 @@ EquipScene::EquipScene(App &app) : m_App(app){
     back_button->AddButtonEvent([this] {
         m_App.SwitchScene(App::SceneType::CAT_BASE);
     });
+    back_button->AddButtonEvent([this] {
+        m_currentunit = 0;
+        UpdateCatList();
+    });
     m_buttons.push_back(back_button);
     m_Root.AddChild(back_button);
 //-----------------------------------------------------------------
@@ -88,8 +92,7 @@ void EquipScene::Update() {
     CurrentUnit->Drag();
     if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
         if(CurrentUnit->GetCurrentState() == Draggable::State::PUT_OFF){
-            AddEquip(RESOURCE_DIR"/cats/000/uni000_f00.png");
-            //"C:\Users\user\Desktop\thePTSD\BattleCat\Resources\cats\uni\f\uni000_f00.png"
+            AddEquip(CurrentUnit->GetUnitNum());
         }
         else{
             CurrentUnit->MinifyAnime();
@@ -111,25 +114,21 @@ void EquipScene::Update() {
     m_Root.Update();
 }
 
-void EquipScene::AddEquip(const std::string &path) {
+void EquipScene::AddEquip(const unsigned int unitnum) {
     if(EquipList::m_equiplist.size() >= MAXEQUIP){
         return;
     }
-    auto &eq = EquipList::m_equiplist.emplace_back(std::make_unique<UnitCard>
-        (0,1.89f, false));
-    m_Root.AddChild(eq);
+    EquipList::m_equiplist.emplace_back(std::make_unique<EquipCard>(unitnum,1.89f));
     UpdateEquip();
 }
 
 void EquipScene::UpdateEquip(){
     for(short int i=0;i<EquipList::m_equiplist.size();i++) {
-        EquipList::m_equiplist.at(i)->SetPosition(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
+        EquipList::m_equiplist.at(i)->m_curruni->SetPosition(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
     }
 }
 
 void EquipScene::RemoveEquip(int index) {
-    auto &erased =  EquipList::m_equiplist.at(index);
-    m_Root.RemoveChild(erased);
     EquipList::m_equiplist.erase( EquipList::m_equiplist.begin() + index);
     UpdateEquip();
 }

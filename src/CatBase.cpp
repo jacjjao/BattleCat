@@ -1,9 +1,10 @@
-#include "pch.hpp"
 #include "CatBase.hpp"
-#include "Util/Image.hpp"
-#include "GameObjectEx.hpp"
 #include "App.hpp"
+#include "EquipScene.hpp"
 #include "GameButton.hpp"
+#include "GameObjectEx.hpp"
+#include "Util/Image.hpp"
+#include "pch.hpp"
 
 CatBaseScene::CatBaseScene(App &app) 
     : m_App(app) {

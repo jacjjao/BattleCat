@@ -19,6 +19,7 @@ set(SRC_FILES
     DeployButton.cpp
     NumberSystem.cpp
     Camera.cpp
+    EquipList.cpp
 )
 
 set(INCLUDE_FILES

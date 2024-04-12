@@ -13,6 +13,10 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     back_button->AddButtonEvent([this] {
         m_App.SwitchScene(App::SceneType::CAT_BASE);
     });
+    back_button->AddButtonEvent([this] {
+        m_currentunit = 0;
+        UpdateCatList();
+    });
     m_Buttons.push_back(back_button);
     m_Root.AddChild(back_button);
     //--------------------------------------------------------------------------------------
