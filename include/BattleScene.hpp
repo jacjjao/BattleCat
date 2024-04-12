@@ -12,6 +12,7 @@
 #include "Wallet.hpp"
 #include "DeployButton.hpp"
 #include "Camera.hpp"
+#include "BattleBackground.hpp"
 #include <vector>
 
 struct DamageInfo {
@@ -52,6 +53,8 @@ private:
 
     std::vector<std::shared_ptr<DeployButton>> m_CatButton;
     std::shared_ptr<GameButton> m_ReturnButton;
+
+    std::optional<BattleBackground> m_Background;
 
     Cat *m_CatTower = nullptr;
     Enemy *m_EnemyTower = nullptr;

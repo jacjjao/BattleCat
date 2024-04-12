@@ -2,9 +2,8 @@
 #include "Util/Input.hpp"
 #include "Config.hpp"
 
-void Camera::Move(const float dx, const float dy) {
+void Camera::Move(const float dx) {
     m_Transform.translation.x += dx;
-    m_Transform.translation.y += dy;
 }
 
 glm::vec2 Camera::UpdateMousePos() {
@@ -17,7 +16,7 @@ glm::vec2 Camera::UpdateMousePos() {
 void Camera::Update() {
     const auto mouse_delta = UpdateMousePos();
     if (Util::Input::IsKeyPressed(Util::Keycode::MOUSE_LB)) {
-        Move(mouse_delta.x, mouse_delta.y);
+        Move(mouse_delta.x);
     }
     if (Util::Input::IsKeyDown(Util::Keycode::R)) {
         Reset();
@@ -32,4 +31,8 @@ void Camera::Reset() {
 
 Util::Transform Camera::GetTransform() const {
     return m_Transform;
+}
+
+void Camera::SetTransform(const Util::Transform &t) {
+    m_Transform = t;
 }

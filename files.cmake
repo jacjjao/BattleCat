@@ -20,6 +20,7 @@ set(SRC_FILES
     NumberSystem.cpp
     Camera.cpp
     EquipList.cpp
+    BattleBackground.cpp
 )
 
 set(INCLUDE_FILES
@@ -51,6 +52,7 @@ set(INCLUDE_FILES
     Camera.hpp
     CatList.hpp
     Sound.hpp
+    BattleBackground.hpp
 )
 
 set(TEST_FILES
