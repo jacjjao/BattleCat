@@ -73,8 +73,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 0.96;
         stats.recharge_time = 2000;
         stats.cost = 75;
-        stats.det_box = {0, 10};
-        stats.hit_box = {0, 10};
+        stats.det_box = {0, 1};
+        stats.hit_box = {0, 1};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 100;
