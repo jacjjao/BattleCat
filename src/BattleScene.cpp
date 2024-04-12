@@ -80,6 +80,8 @@ BattleScene::BattleScene(App &app)
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/001/walk.png");
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/002/walk.png");
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/003/walk.png");
+
+    m_EnemyImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
     m_ReturnButton = std::make_shared<GameButton>(
@@ -253,8 +255,9 @@ void BattleScene::Draw() {
         // cat.Draw(m_Cam.GetTransform(), m_CatImage[0]);
     }
     for (const auto &enemy : m_Enemies) {
-        // enemy.Draw(m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
-        enemy.Draw(m_Cam.GetTransform(), m_EnemyImage[0]);
+        enemy.Draw(m_Cam.GetTransform(),
+                   m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
+        // enemy.Draw(m_Cam.GetTransform(), m_EnemyImage[0]);
     }
     m_Wallet->Draw();
 

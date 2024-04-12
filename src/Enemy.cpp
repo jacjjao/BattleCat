@@ -17,7 +17,11 @@ void Enemy::StartAttack() {
 void Enemy::Draw(Util::Transform trans, Util::Image &image) const {
     trans.translation += glm::vec2{m_PosX, 0};
     trans.translation -= glm::vec2{image.GetSize().x / 2.0f, 0.0f};
-    image.Draw(trans, 1.0f);
+    float z = 1.0f;
+    if (m_Type == EnemyType::ENEMY_TOWER) {
+        z = -1.0f;
+    }
+    image.Draw(trans, z);
 }
 
 void Enemy::UpdateTimer(const double dt) {
