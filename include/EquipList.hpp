@@ -26,23 +26,25 @@ public:
         m_curruni = m_uni1;
     };
 
-    void Unpressed() override;
-    void Dragging() override;
-    void Put_OFF() override;
-    void PickUp() override;
-
-    void Setform(const unsigned short int form);
-    bool IsMouseHovering() override;
+    void Setform();
+    void SetPos(float x,float y);
 
     unsigned int GetUnitNum(){ return m_UnitNum;};
 
 private:
+    void Unpressed() override;
+    void Dragging() override;
+    void Put_OFF() override;
+    void PickUp() override;
+    bool IsMouseHovering() override;
+
     std::shared_ptr<GameObjectEx> m_uni1;
     std::shared_ptr<GameObjectEx> m_uni2;
     std::shared_ptr<GameObjectEx> m_curruni;
     short m_FrameTimer = 0;
     Util::Transform m_DragTrans;
     unsigned int m_UnitNum = 0;
+    bool m_form;
 };
 
 //-------------------------------------------------------------------------------

@@ -2,11 +2,15 @@
 #include "Util/Input.hpp"
 #include "Utility.hpp"
 
-void EquipCard::Setform(const unsigned short form) {
-    if(form != 1 && form != 2){
-        throw std::invalid_argument("Form error , please input 1 or 2");
-    }
-    m_curruni = (form == 1 ? m_uni1:m_uni2);
+void EquipCard::Setform() {
+    //false -> 1 form , true -> 2 form.
+    m_form = !m_form;
+    m_curruni = (m_form? m_uni2:m_uni1);
+}
+
+void EquipCard::SetPos(float x, float y) {
+    m_uni1->SetPosition(x,y);
+    m_uni2->SetPosition(x,y);
 }
 
 void EquipCard::Dragging() {

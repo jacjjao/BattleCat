@@ -7,6 +7,7 @@
 #include "AnimatedGameObject.hpp"
 #include "Utility.hpp"
 #include "EquipList.hpp"
+#include "Sound.hpp"
 
 EquipScene::EquipScene(App &app) : m_App(app){
     //Set cat list.
@@ -65,8 +66,15 @@ EquipScene::EquipScene(App &app) : m_App(app){
     auto TransFormbtn = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/transform.png");
     TransFormbtn->SetZIndex(2.2f);
     TransFormbtn->SetPosition(185.0f,-280.0f);
+    TransFormbtn->SetClickSound([]{
+       Sounds::ButtonClick->Play();
+    });
     TransFormbtn->AddButtonEvent([this]{
-        LOG_DEBUG("Cat form transform in equip.");
+        auto it = std::find_if(EquipList::m_equiplist.begin(),EquipList::m_equiplist.end(),
+       [this](std::shared_ptr<EquipCard> &ec) {return ec->GetUnitNum() == m_catlist.at(m_currentunit)->GetUnitNum();});
+        if (it != EquipList::m_equiplist.end()){
+            (*it)->Setform();
+        }
     });
     m_buttons.push_back(TransFormbtn);
     m_Root.AddChild(TransFormbtn);
@@ -88,18 +96,22 @@ void EquipScene::Update() {
         btn->Update();
     }
 //-------------------------------------------------------------------
-    auto &CurrentUnit = m_catlist.at(m_currentunit);
-    CurrentUnit->Drag();
-    if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
-        if(CurrentUnit->GetCurrentState() == Draggable::State::PUT_OFF){
-            AddEquip(CurrentUnit->GetUnitNum());
+    bool CanDrag = !std::any_of(EquipList::m_equiplist.begin(),EquipList::m_equiplist.end(),
+                [this](std::shared_ptr<EquipCard> &ec){return ec->GetUnitNum() == m_catlist.at(m_currentunit)->GetUnitNum();});
+    if(CanDrag){
+        auto &CurrentUnit = m_catlist.at(m_currentunit);
+        CurrentUnit->Drag();
+        if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
+            if(CurrentUnit->GetCurrentState() == Draggable::State::PUT_OFF){
+                AddEquip(CurrentUnit->GetUnitNum());
+            }
+            else{
+                CurrentUnit->MinifyAnime();
+            }
         }
-        else{
-            CurrentUnit->MinifyAnime();
+        else {
+            CurrentUnit->AmplifyAnime();
         }
-    }
-    else {
-        CurrentUnit->AmplifyAnime();
     }
 //--------------------------------------------------------
     for(short int i=0;i<EquipList::m_equiplist.size();i++) {
@@ -124,7 +136,7 @@ void EquipScene::AddEquip(const unsigned int unitnum) {
 
 void EquipScene::UpdateEquip(){
     for(short int i=0;i<EquipList::m_equiplist.size();i++) {
-        EquipList::m_equiplist.at(i)->m_curruni->SetPosition(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
+        EquipList::m_equiplist.at(i)->SetPos(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
     }
 }
 

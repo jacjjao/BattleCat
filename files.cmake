@@ -50,6 +50,7 @@ set(INCLUDE_FILES
     NumberSystem.hpp
     Camera.hpp
     CatList.hpp
+    Sound.hpp
 )
 
 set(TEST_FILES
