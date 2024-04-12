@@ -22,8 +22,10 @@ private:
     //delete vvv
     //std::vector<std::shared_ptr<UnitCard>> &m_equiplist
     //^^^
-    std::vector<std::shared_ptr<UnitCard>> m_catlist;
 
+    //delete it vvv ,because:CatList.hpp
+    std::vector<std::shared_ptr<UnitCard>> m_catlist;
+    //^^^
     std::shared_ptr<GameObjectEx> m_equip;
     std::shared_ptr<AnimatedGameObject> m_border;
     int m_currentunit = 0;

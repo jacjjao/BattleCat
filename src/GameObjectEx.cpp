@@ -4,12 +4,16 @@
 #include "GameObjectEx.hpp"
 #include "Util/Time.hpp"
 
-void GameObjectEx::SetScale(float x, float y){
-    m_Transform.scale = glm::vec2(x,y);
-}
-
 void GameObjectEx::SetScale(glm::vec2 scale){
     m_Transform.scale = scale;
+    for(std::shared_ptr<GameObject> &child : m_Children){
+        auto childEx = std::static_pointer_cast<GameObjectEx>(child);
+        childEx->SetScale(scale);
+    }
+}
+
+void GameObjectEx::SetScale(float x, float y){
+    SetScale(glm::vec2(x,y));
 }
 
 void GameObjectEx::SetPosition(glm::vec2 position){

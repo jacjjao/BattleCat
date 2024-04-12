@@ -19,6 +19,7 @@ add_executable(${PROJECT_NAME}
     ${SRC_DIR}/main.cpp
     ${SRC_FILES}
     ${HEADER_FILES}
+        include/CatList.hpp
 )
 
 if(MSVC)

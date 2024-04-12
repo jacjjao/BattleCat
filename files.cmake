@@ -48,6 +48,7 @@ set(INCLUDE_FILES
     DeployButton.hpp
     NumberSystem.hpp
     Camera.hpp
+    CatList.hpp
 )
 
 set(TEST_FILES

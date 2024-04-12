@@ -11,10 +11,10 @@
 EquipScene::EquipScene(App &app) : m_App(app){
     //Set cat list.
     m_catlist.reserve(MAXUNITS);
-    for(int i=0;i<MAXUNITS;i++){
+    for(unsigned int i=0;i<MAXUNITS;i++){
         auto &unit = m_catlist.emplace_back
-             (std::make_shared<UnitCard>(std::make_unique<Util::Image>(RESOURCE_DIR"/cats/unit.png"),1.9f));
-        m_Root.AddChild(unit);
+             (std::make_shared<UnitCard>(i,1.9f));
+        m_Root. AddChild(unit);
     }
 //------------------------------------------------------------------------
     //Set border.
@@ -89,6 +89,7 @@ void EquipScene::Update() {
     if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
         if(CurrentUnit->GetCurrentState() == Draggable::State::PUT_OFF){
             AddEquip(RESOURCE_DIR"/cats/000/uni000_f00.png");
+            //"C:\Users\user\Desktop\thePTSD\BattleCat\Resources\cats\uni\f\uni000_f00.png"
         }
         else{
             CurrentUnit->MinifyAnime();
@@ -115,7 +116,7 @@ void EquipScene::AddEquip(const std::string &path) {
         return;
     }
     auto &eq = EquipList::m_equiplist.emplace_back(std::make_unique<UnitCard>
-        (std::make_unique<Util::Image>(path),1.89f, false));
+        (0,1.89f, false));
     m_Root.AddChild(eq);
     UpdateEquip();
 }

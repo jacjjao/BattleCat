@@ -11,6 +11,9 @@ void UnitCard::Dragging() {
         m_FrameTimer--;
     }
     m_Drawable->Draw(m_DragTrans,m_ZIndex+0.3f);
+    Util::Transform tmp = m_DragTrans;
+    tmp.translation += m_udi->GetPosition() - this->GetPosition();
+    m_udi->Draw(tmp,m_udi->GetZIndex()+0.3f);
     SetVisible(OriginalVisible);
 }
 
@@ -39,9 +42,16 @@ void UnitCard::AmplifyAnime(){
     m_minify = false;
 }
 
+void UnitCard::SetVisible(bool b){
+    GameObjectEx::SetVisible(b);
+    m_udi->SetVisible(b);
+}
+
 bool UnitCard::IsMouseHovering(){
     const auto size = GetScaledSize();
     const auto top_left_pos = GetTransform().translation - size / 2.0f;
     return PointInRect(top_left_pos, size, Util::Input::GetCursorPosition());
 }
+
+
 

@@ -6,7 +6,7 @@
 #include "Util/BGM.hpp"
 #include "Stage.hpp"
 
-#define MAXUNITS 25
+#define MAXUNITS 24
 
 class BattleScene;
 

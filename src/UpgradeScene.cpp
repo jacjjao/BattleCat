@@ -30,7 +30,7 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     m_catlist.reserve(MAXUNITS);
     for(int i=0;i<MAXUNITS;i++){
         auto &unit = m_catlist.emplace_back
-                     (std::make_shared<UnitCard>(std::make_unique<Util::Image>(RESOURCE_DIR"/cats/unit.png"),1.9f));
+                     (std::make_shared<UnitCard>(i,1.9f));
         m_Root.AddChild(unit);
     }
     //---------------------------------------------------------------------------------
