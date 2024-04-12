@@ -19,6 +19,7 @@ set(SRC_FILES
     DeployButton.cpp
     NumberSystem.cpp
     Camera.cpp
+    BattleBackground.cpp
 )
 
 set(INCLUDE_FILES
@@ -48,6 +49,7 @@ set(INCLUDE_FILES
     DeployButton.hpp
     NumberSystem.hpp
     Camera.hpp
+    BattleBackground.hpp
 )
 
 set(TEST_FILES
