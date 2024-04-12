@@ -211,7 +211,7 @@ void BattleScene::LoadStage(Stage &stage) {
     m_Stage = std::move(stage);
     m_TotalTime = 0.0;
 
-    m_Wallet.emplace(20);
+    m_Wallet.emplace(8);
     m_Cam.Reset();
 }
 
