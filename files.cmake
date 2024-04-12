@@ -19,6 +19,7 @@ set(SRC_FILES
     DeployButton.cpp
     NumberSystem.cpp
     Camera.cpp
+    EquipList.cpp
     BattleBackground.cpp
 )
 
@@ -49,6 +50,8 @@ set(INCLUDE_FILES
     DeployButton.hpp
     NumberSystem.hpp
     Camera.hpp
+    CatList.hpp
+    Sound.hpp
     BattleBackground.hpp
 )
 

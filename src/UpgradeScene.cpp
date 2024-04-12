@@ -13,6 +13,10 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     back_button->AddButtonEvent([this] {
         m_App.SwitchScene(App::SceneType::CAT_BASE);
     });
+    back_button->AddButtonEvent([this] {
+        m_currentunit = 0;
+        UpdateCatList();
+    });
     m_Buttons.push_back(back_button);
     m_Root.AddChild(back_button);
     //--------------------------------------------------------------------------------------
@@ -30,7 +34,7 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     m_catlist.reserve(MAXUNITS);
     for(int i=0;i<MAXUNITS;i++){
         auto &unit = m_catlist.emplace_back
-                     (std::make_shared<UnitCard>(std::make_unique<Util::Image>(RESOURCE_DIR"/cats/unit.png"),1.9f));
+                     (std::make_shared<UnitCard>(i,1.9f));
         m_Root.AddChild(unit);
     }
     //---------------------------------------------------------------------------------

@@ -19,9 +19,6 @@ private:
     App &m_App;
 
     std::vector<std::shared_ptr<GameButton>> m_buttons;
-    //delete vvv
-    //std::vector<std::shared_ptr<UnitCard>> &m_equiplist
-    //^^^
     std::vector<std::shared_ptr<UnitCard>> m_catlist;
 
     std::shared_ptr<GameObjectEx> m_equip;
@@ -29,7 +26,7 @@ private:
     int m_currentunit = 0;
 
     void UpdateEquip();
-    void AddEquip(const std::string &path);
+    void AddEquip(const unsigned int unitnum);
     void RemoveEquip(int index);
     void UpdateCatList();
 

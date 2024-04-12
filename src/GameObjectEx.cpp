@@ -4,12 +4,21 @@
 #include "GameObjectEx.hpp"
 #include "Util/Time.hpp"
 
-void GameObjectEx::SetScale(float x, float y){
-    m_Transform.scale = glm::vec2(x,y);
+void GameObjectEx::SetScale(glm::vec2 scale){
+    glm::vec2 pre_scale = m_Transform.scale;
+    glm::vec2 pre_pos = m_Transform.translation;
+    m_Transform.scale = scale;
+    for(std::shared_ptr<GameObject> &child : m_Children){
+        auto childEx = std::static_pointer_cast<GameObjectEx>(child);
+        glm::vec2 deltaPos = childEx->GetPosition() - pre_pos;
+        glm::vec2 ScaleDiff = scale/pre_scale;
+        childEx->SetPosition(pre_pos + deltaPos*ScaleDiff);
+        childEx->SetScale(childEx->GetScale()*ScaleDiff);
+    }
 }
 
-void GameObjectEx::SetScale(glm::vec2 scale){
-    m_Transform.scale = scale;
+void GameObjectEx::SetScale(float x, float y){
+    SetScale(glm::vec2(x,y));
 }
 
 void GameObjectEx::SetPosition(glm::vec2 position){
@@ -35,10 +44,12 @@ void GameObjectEx::MovePosition(float x, float y){
 }
 
 void GameObjectEx::SetRotation(float r){
+    float pre_r = m_Transform.rotation;
     m_Transform.rotation = r;
     for(std::shared_ptr<GameObject> &child : m_Children){
-        auto childEx = std::static_pointer_cast<GameObjectEx>(child);;
-        childEx->SetRotation(r);
+        auto childEx = std::static_pointer_cast<GameObjectEx>(child);
+        float delta = childEx->GetRotation() - pre_r;
+        childEx->SetRotation(r+delta);
     }
 }
 
@@ -55,6 +66,15 @@ void GameObjectEx::Draw(const Util::Transform &transform, const float zIndex){
         return;
     }
     m_Drawable->Draw(transform,zIndex);
+    for(std::shared_ptr<GameObject> &child : m_Children){
+        auto childEx = std::static_pointer_cast<GameObjectEx>(child);
+        auto deltaZ = childEx->GetZIndex() - this->GetZIndex();
+        Util::Transform tran;
+        tran.translation = transform.translation + (childEx->GetPosition() - this->GetPosition())*(transform.scale/this->GetScale());
+        //tran.rotation = transform.rotation + childEx->GetRotation() - this->GetRotation();
+        tran.scale = childEx->GetScale()*transform.scale/this->GetScale();
+        childEx->Draw(tran,zIndex+deltaZ);
+    }
 }
 
 glm::vec2 GameObjectEx::GetScale() const{

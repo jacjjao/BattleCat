@@ -44,6 +44,8 @@ public:
 
     virtual ~GameObjectEx() override = default;
 
+protected:
+    //std::vector<std::shared_ptr<GameObject>> m_Friend;
 };
 
 #endif //BATTLECAT_GAMEOBJECTEX_HPP

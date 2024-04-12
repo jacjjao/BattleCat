@@ -7,14 +7,15 @@
 #include "AnimatedGameObject.hpp"
 #include "Utility.hpp"
 #include "EquipList.hpp"
+#include "Sound.hpp"
 
 EquipScene::EquipScene(App &app) : m_App(app){
     //Set cat list.
     m_catlist.reserve(MAXUNITS);
-    for(int i=0;i<MAXUNITS;i++){
+    for(unsigned int i=0;i<MAXUNITS;i++){
         auto &unit = m_catlist.emplace_back
-             (std::make_shared<UnitCard>(std::make_unique<Util::Image>(RESOURCE_DIR"/cats/unit.png"),1.9f));
-        m_Root.AddChild(unit);
+             (std::make_shared<UnitCard>(i,1.9f));
+        m_Root. AddChild(unit);
     }
 //------------------------------------------------------------------------
     //Set border.
@@ -54,6 +55,10 @@ EquipScene::EquipScene(App &app) : m_App(app){
     back_button->AddButtonEvent([this] {
         m_App.SwitchScene(App::SceneType::CAT_BASE);
     });
+    back_button->AddButtonEvent([this] {
+        m_currentunit = 0;
+        UpdateCatList();
+    });
     m_buttons.push_back(back_button);
     m_Root.AddChild(back_button);
 //-----------------------------------------------------------------
@@ -61,8 +66,15 @@ EquipScene::EquipScene(App &app) : m_App(app){
     auto TransFormbtn = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/transform.png");
     TransFormbtn->SetZIndex(2.2f);
     TransFormbtn->SetPosition(185.0f,-280.0f);
+    TransFormbtn->SetClickSound([]{
+       Sounds::ButtonClick->Play();
+    });
     TransFormbtn->AddButtonEvent([this]{
-        LOG_DEBUG("Cat form transform in equip.");
+        auto it = std::find_if(EquipList::m_equiplist.begin(),EquipList::m_equiplist.end(),
+       [this](std::shared_ptr<EquipCard> &ec) {return ec->GetUnitNum() == m_catlist.at(m_currentunit)->GetUnitNum();});
+        if (it != EquipList::m_equiplist.end()){
+            (*it)->Setform();
+        }
     });
     m_buttons.push_back(TransFormbtn);
     m_Root.AddChild(TransFormbtn);
@@ -84,18 +96,22 @@ void EquipScene::Update() {
         btn->Update();
     }
 //-------------------------------------------------------------------
-    auto &CurrentUnit = m_catlist.at(m_currentunit);
-    CurrentUnit->Drag();
-    if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
-        if(CurrentUnit->GetCurrentState() == Draggable::State::PUT_OFF){
-            AddEquip(RESOURCE_DIR"/cats/000/uni000_f00.png");
+    bool CanDrag = !std::any_of(EquipList::m_equiplist.begin(),EquipList::m_equiplist.end(),
+                [this](std::shared_ptr<EquipCard> &ec){return ec->GetUnitNum() == m_catlist.at(m_currentunit)->GetUnitNum();});
+    if(CanDrag){
+        auto &CurrentUnit = m_catlist.at(m_currentunit);
+        CurrentUnit->Drag();
+        if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
+            if(CurrentUnit->GetCurrentState() == Draggable::State::PUT_OFF){
+                AddEquip(CurrentUnit->GetUnitNum());
+            }
+            else{
+                CurrentUnit->MinifyAnime();
+            }
         }
-        else{
-            CurrentUnit->MinifyAnime();
+        else {
+            CurrentUnit->AmplifyAnime();
         }
-    }
-    else {
-        CurrentUnit->AmplifyAnime();
     }
 //--------------------------------------------------------
     for(short int i=0;i<EquipList::m_equiplist.size();i++) {
@@ -110,25 +126,21 @@ void EquipScene::Update() {
     m_Root.Update();
 }
 
-void EquipScene::AddEquip(const std::string &path) {
+void EquipScene::AddEquip(const unsigned int unitnum) {
     if(EquipList::m_equiplist.size() >= MAXEQUIP){
         return;
     }
-    auto &eq = EquipList::m_equiplist.emplace_back(std::make_unique<UnitCard>
-        (std::make_unique<Util::Image>(path),1.89f, false));
-    m_Root.AddChild(eq);
+    EquipList::m_equiplist.emplace_back(std::make_unique<EquipCard>(unitnum,1.89f));
     UpdateEquip();
 }
 
 void EquipScene::UpdateEquip(){
     for(short int i=0;i<EquipList::m_equiplist.size();i++) {
-        EquipList::m_equiplist.at(i)->SetPosition(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
+        EquipList::m_equiplist.at(i)->SetPos(-241 + (i % 5) * 146, 202 - (i / 5) * 94);
     }
 }
 
 void EquipScene::RemoveEquip(int index) {
-    auto &erased =  EquipList::m_equiplist.at(index);
-    m_Root.RemoveChild(erased);
     EquipList::m_equiplist.erase( EquipList::m_equiplist.begin() + index);
     UpdateEquip();
 }
