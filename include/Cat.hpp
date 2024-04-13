@@ -72,7 +72,7 @@ namespace BaseCatStats {
         stats.atk_prep_time = 0.27;
         stats.atk_cool_down = 0.96;
         stats.recharge_time = 2000;
-        stats.cost = 75;
+        stats.cost = 100;
         stats.det_box = {0, 1};
         stats.hit_box = {0, 1};
         stats.attr = std::nullopt;
@@ -96,7 +96,7 @@ namespace BaseCatStats {
         stats.atk_prep_time = 0.27;
         stats.atk_cool_down = 0.96;
         stats.recharge_time = 2000;
-        stats.cost = 75;
+        stats.cost = 200;
         stats.det_box = {0, 10};
         stats.hit_box = {0, 10};
         stats.attr = std::nullopt;
@@ -120,7 +120,7 @@ namespace BaseCatStats {
         stats.atk_prep_time = 0.27;
         stats.atk_cool_down = 0.96;
         stats.recharge_time = 2000;
-        stats.cost = 75;
+        stats.cost = 300;
         stats.det_box = {0, 140};
         stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
@@ -145,7 +145,7 @@ namespace BaseCatStats {
         stats.atk_prep_time = 0.27;
         stats.atk_cool_down = 0.96;
         stats.recharge_time = 2000;
-        stats.cost = 75;
+        stats.cost = 600;
         stats.det_box = {0, 140};
         stats.hit_box = {0, 140};
         stats.attr = std::nullopt;

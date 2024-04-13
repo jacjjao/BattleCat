@@ -43,6 +43,7 @@ private:
     void EnemyAttack(Enemy &enemy);
     void AddCat(CatType type, int level);
     void AddEnemy(EnemyType type, float modifier);
+    void CreateUnitButtons();
 
     std::vector<Util::Image> m_CatImage;
     std::vector<Util::Image> m_EnemyImage;
