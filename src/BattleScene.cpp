@@ -11,70 +11,6 @@ BattleScene::BattleScene(App &app)
     m_Cats.reserve(s_MaxEntityCount); // to prevent reallocation
     m_Enemies.reserve(s_MaxEntityCount);
 
-    constexpr int unit_img_width = 110;
-    constexpr int margin_x = 10;
-    constexpr int start_x = -(unit_img_width * 2 + margin_x * 2);
-    constexpr int start_y = -200;
-
-    int x = start_x;
-    int y = start_y;
-
-    m_CatButton.resize(10);
-    for (int i = 0; i < 10; ++i) {
-        m_CatButton[i] =
-            std::make_shared<DeployButton>(RESOURCE_DIR "/img/uni/f/uni_f.png");
-    }
-
-    // cat
-    m_CatButton[0] =
-        std::make_shared<DeployButton>(RESOURCE_DIR "/img/uni/f/uni000_f00.png");
-    m_CatButton[0]->AddButtonEvent([this] {
-        if (m_Wallet->CanDeploy(100)) {
-            AddCat(CatType::CAT, 10);
-            m_Wallet->Spend(100);
-        }
-    });
-
-    // tank cat
-    m_CatButton[1] = std::make_shared<DeployButton>(
-        RESOURCE_DIR "/img/uni/f/uni001_f00.png");
-    m_CatButton[1]->AddButtonEvent([this] {
-        if (m_Wallet->CanDeploy(200)) {
-            AddCat(CatType::TANK_CAT, 10);
-            m_Wallet->Spend(200);
-        }
-    });
-
-    m_CatButton[2] = std::make_shared<DeployButton>(
-        RESOURCE_DIR "/img/uni/f/uni002_f00.png");
-    m_CatButton[2]->AddButtonEvent([this] {
-        if (m_Wallet->CanDeploy(300)) {
-            AddCat(CatType::AXE_CAT, 10);
-            m_Wallet->Spend(300);
-        }
-    });
-
-    m_CatButton[3] =
-        std::make_shared<DeployButton>(RESOURCE_DIR "/img/uni/f/uni003_f00.png");
-    m_CatButton[3]->AddButtonEvent([this] {
-        if (m_Wallet->CanDeploy(400)) {
-            AddCat(CatType::CRAZED_GROSS_CAT, 10);
-            m_Wallet->Spend(400);
-        }
-    });
-
-    for (int row = 0; row < 2; ++row) {
-        for (int i = 0; i < 5; ++i) {
-            const int idx = row * 5 + i;
-            m_CatButton[idx]->SetPosition(x, y);
-            m_CatButton[idx]->SetCoolDownTime(2.0);
-            m_Root.AddChild(m_CatButton[idx]);
-            x += m_CatButton[idx]->GetScaledSize().x + margin_x;
-        }
-        y -= m_CatButton[0]->GetScaledSize().y;
-        x = start_x;
-    }
-
     m_CatImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
     m_CatImage.emplace_back(RESOURCE_DIR "/cats/001/walk.png");
@@ -211,8 +147,10 @@ void BattleScene::LoadStage(Stage &stage) {
     m_Stage = std::move(stage);
     m_TotalTime = 0.0;
 
-    m_Wallet.emplace(8);
+    m_Wallet.emplace(3);
     m_Cam.Reset();
+
+    CreateUnitButtons();
 }
 
 void BattleScene::GameOver(const bool cat_won) {
@@ -260,6 +198,10 @@ void BattleScene::Draw() {
         // enemy.Draw(m_Cam.GetTransform(), m_EnemyImage[0]);
     }
     m_Wallet->Draw();
+
+    for (auto &btn : m_CatButton) {
+        btn->DrawCost();
+    }
 
     m_Background->Draw(m_Cam);
 }
@@ -337,4 +279,101 @@ void BattleScene::AddEnemy(const EnemyType type, const float modifier) {
     e.SetStatsModifier(modifier);
     e.SetPosX(s_EnemiesTowerPosX);
     LOG_DEBUG("Add Enemy at time {}", m_TotalTime);
+}
+
+void BattleScene::CreateUnitButtons() {
+
+    constexpr int unit_img_width = 110;
+    constexpr int margin_x = 10;
+    constexpr int start_x = -(unit_img_width * 2 + margin_x * 2);
+    constexpr int start_y = -200;
+
+    int x = start_x;
+    int y = start_y;
+
+    for (auto &btn : m_CatButton) {
+        m_Root.RemoveChild(btn);
+    }
+    m_CatButton.clear();
+    m_CatButton.resize(10);
+    for (int i = 0; i < 10; ++i) {
+        m_CatButton[i] =
+            std::make_shared<DeployButton>(RESOURCE_DIR "/img/uni/f/uni_f.png");
+    }
+
+    // Everything is hard-coded for now just for midterm demonstration
+    // later in development, we will pass some data to construct the buttons
+    
+    // cat
+    {
+        m_CatButton[0] = std::make_shared<DeployButton>(
+            RESOURCE_DIR "/img/uni/f/uni000_f00.png");
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(CatType::CAT)].cost;
+        m_CatButton[0]->SetCost(cost);
+        m_CatButton[0]->AddButtonEvent([this, cost] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(CatType::CAT, 10);
+                m_Wallet->Spend(cost);
+                m_CatButton[0]->StartCoolDown();
+            }
+        });
+    }
+
+    // tank cat
+    {
+        m_CatButton[1] = std::make_shared<DeployButton>(
+            RESOURCE_DIR "/img/uni/f/uni001_f00.png");
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(CatType::TANK_CAT)].cost;
+        m_CatButton[1]->SetCost(cost);
+        m_CatButton[1]->AddButtonEvent([this, cost] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(CatType::TANK_CAT, 10);
+                m_Wallet->Spend(cost);
+                m_CatButton[1]->StartCoolDown();
+            }
+        });
+    }
+
+    {
+        m_CatButton[2] = std::make_shared<DeployButton>(
+            RESOURCE_DIR "/img/uni/f/uni002_f00.png");
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(CatType::AXE_CAT)].cost;
+        m_CatButton[2]->SetCost(cost);
+        m_CatButton[2]->AddButtonEvent([this, cost] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(CatType::AXE_CAT, 10);
+                m_Wallet->Spend(cost);
+                m_CatButton[2]->StartCoolDown();
+            }
+        });
+    }
+
+    {
+        m_CatButton[3] = std::make_shared<DeployButton>(
+            RESOURCE_DIR "/img/uni/f/uni003_f00.png");
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(CatType::CRAZED_GROSS_CAT)].cost;
+        m_CatButton[3]->SetCost(cost);
+        m_CatButton[3]->AddButtonEvent([this, cost] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(CatType::CRAZED_GROSS_CAT, 10);
+                m_Wallet->Spend(cost);
+            }
+        });
+    }
+
+    for (int row = 0; row < 2; ++row) {
+        for (int i = 0; i < 5; ++i) {
+            const int idx = row * 5 + i;
+            m_CatButton[idx]->SetPosition(x, y);
+            m_CatButton[idx]->SetCoolDownTime(2.0);
+            m_Root.AddChild(m_CatButton[idx]);
+            x += m_CatButton[idx]->GetScaledSize().x + margin_x;
+        }
+        y -= m_CatButton[0]->GetScaledSize().y;
+        x = start_x;
+    }
 }
