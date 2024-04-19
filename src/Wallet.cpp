@@ -37,3 +37,8 @@ void Wallet::SetWalletDelta(const float delta) {
     m_MoneyDelta = delta;
 }
 
+void Wallet::LevelUp(const int level) {
+    m_MaxMoney = s_MoneyMax[level];
+    m_MoneyDelta = s_DeltaMoney[level];
+}
+
