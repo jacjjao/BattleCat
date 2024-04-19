@@ -49,6 +49,7 @@ void BattleScene::Update() {
     m_Root.Update();
 
     m_Wallet->Update(dt);
+    m_Work->Update();
     
     const auto health_percent = m_EnemyTower->GetHealthPercent();
     for (auto &ed : m_Stage.dispatchers) {
@@ -147,7 +148,9 @@ void BattleScene::LoadStage(Stage &stage) {
     m_Stage = std::move(stage);
     m_TotalTime = 0.0;
 
-    m_Wallet.emplace(3);
+    m_Wallet.emplace(1);
+    m_Work.emplace(*m_Wallet);
+
     m_Cam.Reset();
 
     CreateUnitButtons();
@@ -198,6 +201,7 @@ void BattleScene::Draw() {
         // enemy.Draw(m_Cam.GetTransform(), m_EnemyImage[0]);
     }
     m_Wallet->Draw();
+    m_Work->Draw();
 
     for (auto &btn : m_CatButton) {
         btn->DrawCost();
@@ -282,7 +286,6 @@ void BattleScene::AddEnemy(const EnemyType type, const float modifier) {
 }
 
 void BattleScene::CreateUnitButtons() {
-
     constexpr int unit_img_width = 110;
     constexpr int margin_x = 10;
     constexpr int start_x = -(unit_img_width * 2 + margin_x * 2);
