@@ -30,6 +30,9 @@ private:
     std::shared_ptr<Util::Image> m_Img;
     AnimatedGameObject m_Anime;
 
+    Util::Text m_LevelText;
+    Util::Text m_SpendText;
+
     Wallet& m_Wallet;
 };
 
