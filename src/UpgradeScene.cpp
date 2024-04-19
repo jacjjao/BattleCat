@@ -1,5 +1,6 @@
 #include "UpgradeScene.hpp"
 #include "App.hpp"
+#include "Sound.hpp"
 
 UpgradeScene::UpgradeScene(App &app) : m_App(app){
     auto back_button = std::make_shared<GameButton>(
@@ -11,11 +12,8 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     back_button->SetPosition(float(app_w)/-2.0f + back_button->GetScaledSize().x/2.0f + 60,
                              float(app_h)/-2.0f + back_button->GetScaledSize().y/2.0f);
     back_button->AddButtonEvent([this] {
+        m_state = SceneState::EXIT;
         m_App.SwitchScene(App::SceneType::CAT_BASE);
-    });
-    back_button->AddButtonEvent([this] {
-        m_currentunit = 0;
-        UpdateCatList();
     });
     m_Buttons.push_back(back_button);
     m_Root.AddChild(back_button);
@@ -31,18 +29,19 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     textbox->SetPosition(10,-240);
     m_Root.AddChild(textbox);
     //---------------------------------------------------------------------------------
-    m_catlist.reserve(MAXUNITS);
-    for(int i=0;i<MAXUNITS;i++){
-        auto &unit = m_catlist.emplace_back
-                     (std::make_shared<UnitCard>(i,1.9f));
-        m_Root.AddChild(unit);
+    m_catlist = CatList::GetCatList();
+    for(auto &cat : m_catlist){
+        m_Root.AddChild(cat);
     }
     //---------------------------------------------------------------------------------
     auto TransFormbtn = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/transform.png");
     TransFormbtn->SetZIndex(2.2f);
     TransFormbtn->SetPosition(185.0f,-40.0f);
+    TransFormbtn->SetClickSound([]{
+        Sounds::ButtonClick->Play();
+    });
     TransFormbtn->AddButtonEvent([this]{
-        LOG_DEBUG("Cat form transform in upgrade.");
+        m_catlist.at(m_currentunit)->Transform();
     });
     m_Buttons.push_back(TransFormbtn);
     m_Root.AddChild(TransFormbtn);
@@ -52,6 +51,12 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
 };
 
 void UpgradeScene::Update(){
+    if(m_state == SceneState::EXIT){
+        m_state = SceneState::UPDATE;
+        m_currentunit = 0;
+        UpdateCatList();
+    }
+    //--------------------------------------------------------------------
     bool left = (Util::Input::IsKeyDown(Util::Keycode::LEFT) && m_currentunit > 0);
     bool right = (Util::Input::IsKeyDown(Util::Keycode::RIGHT) && m_currentunit < m_catlist.size()-1);
     m_currentunit += right - left;

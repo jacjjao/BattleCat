@@ -20,6 +20,7 @@ add_executable(${PROJECT_NAME}
     ${SRC_FILES}
     ${HEADER_FILES}
         include/CatList.hpp
+        src/CatList.cpp
 )
 
 if(MSVC)

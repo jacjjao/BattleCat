@@ -14,13 +14,13 @@ set(SRC_FILES
     Timer.cpp
     UpgradeScene.cpp
     Stage.cpp
-    UnitCard.cpp
     Wallet.cpp
     DeployButton.cpp
     NumberSystem.cpp
     Camera.cpp
     EquipList.cpp
     BattleBackground.cpp
+    CatList.cpp
 )
 
 set(INCLUDE_FILES
@@ -43,7 +43,6 @@ set(INCLUDE_FILES
     FrameScene.hpp
     UpgradeScene.hpp
     Stage.hpp
-    UnitCard.hpp
     Draggable.hpp
     EquipList.hpp
     Wallet.hpp

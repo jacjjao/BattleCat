@@ -11,11 +11,9 @@
 
 EquipScene::EquipScene(App &app) : m_App(app){
     //Set cat list.
-    m_catlist.reserve(MAXUNITS);
-    for(unsigned int i=0;i<MAXUNITS;i++){
-        auto &unit = m_catlist.emplace_back
-             (std::make_shared<UnitCard>(i,1.9f));
-        m_Root.AddChild(unit);
+    m_catlist = CatList::GetCatList();
+    for(auto &cat : m_catlist){
+        m_Root.AddChild(cat);
     }
 //------------------------------------------------------------------------
     //Set border.
@@ -53,11 +51,8 @@ EquipScene::EquipScene(App &app) : m_App(app){
     back_button->SetPosition(app_w/-2.0f + back_button->GetScaledSize().x/2.0f + 60,
                              app_h/-2.0f + back_button->GetScaledSize().y/2.0f);
     back_button->AddButtonEvent([this] {
+        m_state = SceneState::EXIT;
         m_App.SwitchScene(App::SceneType::CAT_BASE);
-    });
-    back_button->AddButtonEvent([this] {
-        m_currentunit = 0;
-        UpdateCatList();
     });
     m_buttons.push_back(back_button);
     m_Root.AddChild(back_button);
@@ -88,6 +83,12 @@ EquipScene::EquipScene(App &app) : m_App(app){
 }
 
 void EquipScene::Update() {
+    if(m_state == SceneState::EXIT){
+        m_state = SceneState::UPDATE;
+        m_currentunit = 0;
+        UpdateCatList();
+    }
+//---------------------------------------------------------------------
     bool left = (Util::Input::IsKeyDown(Util::Keycode::LEFT) && m_currentunit > 0);
     bool right = (Util::Input::IsKeyDown(Util::Keycode::RIGHT) && m_currentunit < m_catlist.size()-1);
     m_currentunit += right - left;
