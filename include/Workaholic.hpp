@@ -27,6 +27,9 @@ private:
 
     GameButton m_Btn;
 
+    std::shared_ptr<Util::Image> m_Img;
+    AnimatedGameObject m_Anime;
+
     Wallet& m_Wallet;
 };
 

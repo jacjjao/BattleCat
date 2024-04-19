@@ -4,9 +4,15 @@
 
 Workholic::Workholic(Wallet &wallet)
     : m_Wallet(wallet),
-      m_Btn(RESOURCE_DIR "/img/Workholic0.png",
-            {RESOURCE_DIR "/img/Workholic1.png",
-             RESOURCE_DIR "/img/Workholic2.png"}) {
+      m_Btn(RESOURCE_DIR "/img/Workholic0.png") ,
+      m_Anime({RESOURCE_DIR "/img/Workholic1.png",
+               RESOURCE_DIR "/img/Workholic2.png"}) {
+    m_Anime.SetInterval(100);
+    m_Anime.SetLooping(true);
+    m_Anime.Play();
+
+    m_Img = std::make_shared<Util::Image>(RESOURCE_DIR "/img/Workholic0.png");
+
     m_Btn.AddButtonEvent([this] {
         if (CanLevelUp()) {
             LevelUp();
@@ -37,7 +43,11 @@ void Workholic::LevelUp() {
 
 void Workholic::Update() {
     m_Btn.Update();
-    /* TODO: flashing */
+    if (CanLevelUp()) {
+        m_Btn.SetDrawable(m_Anime.GetDrawable());
+    } else {
+        m_Btn.SetDrawable(m_Img);
+    }
 }
 
 void Workholic::Draw() {
