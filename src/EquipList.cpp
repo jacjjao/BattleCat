@@ -2,7 +2,7 @@
 #include "Util/Input.hpp"
 #include "Utility.hpp"
 
-void EquipCard::Setform() {
+void EquipCard::Transform() {
     //false -> 1 form , true -> 2 form.
     m_form = !m_form;
     m_curruni = (m_form? m_uni2:m_uni1);

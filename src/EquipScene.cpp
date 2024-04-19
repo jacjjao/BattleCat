@@ -15,7 +15,7 @@ EquipScene::EquipScene(App &app) : m_App(app){
     for(unsigned int i=0;i<MAXUNITS;i++){
         auto &unit = m_catlist.emplace_back
              (std::make_shared<UnitCard>(i,1.9f));
-        m_Root. AddChild(unit);
+        m_Root.AddChild(unit);
     }
 //------------------------------------------------------------------------
     //Set border.
@@ -73,8 +73,11 @@ EquipScene::EquipScene(App &app) : m_App(app){
         auto it = std::find_if(EquipList::m_equiplist.begin(),EquipList::m_equiplist.end(),
        [this](std::shared_ptr<EquipCard> &ec) {return ec->GetUnitNum() == m_catlist.at(m_currentunit)->GetUnitNum();});
         if (it != EquipList::m_equiplist.end()){
-            (*it)->Setform();
+            (*it)->Transform();
         }
+    });
+    TransFormbtn->AddButtonEvent([this]{
+        m_catlist.at(m_currentunit)->Transform();
     });
     m_buttons.push_back(TransFormbtn);
     m_Root.AddChild(TransFormbtn);
@@ -103,7 +106,7 @@ void EquipScene::Update() {
         CurrentUnit->Drag();
         if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
             if(CurrentUnit->GetCurrentState() == Draggable::State::PUT_OFF){
-                AddEquip(CurrentUnit->GetUnitNum());
+                AddEquip(CurrentUnit->GetUnitNum(),CurrentUnit->Getform());
             }
             else{
                 CurrentUnit->MinifyAnime();
@@ -126,11 +129,11 @@ void EquipScene::Update() {
     m_Root.Update();
 }
 
-void EquipScene::AddEquip(const unsigned int unitnum) {
+void EquipScene::AddEquip(const unsigned int unitnum,bool form) {
     if(EquipList::m_equiplist.size() >= MAXEQUIP){
         return;
     }
-    EquipList::m_equiplist.emplace_back(std::make_unique<EquipCard>(unitnum,1.89f));
+    EquipList::m_equiplist.emplace_back(std::make_unique<EquipCard>(unitnum,1.89f,form));
     UpdateEquip();
 }
 
