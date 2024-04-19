@@ -1,9 +1,15 @@
-#include "UnitCard.hpp"
+#include "CatList.hpp"
 #include "Util/Input.hpp"
 #include "Utility.hpp"
 #include "GameObjectEx.hpp"
 #include "Util/Image.hpp"
 
+void UnitCard::Transform() {
+    //false -> 1 form , true -> 2 form.
+    m_form = !m_form;
+    m_udi1->SetVisible(!m_form);
+    m_udi2->SetVisible(m_form);
+}
 void UnitCard::Dragging() {
     m_DragTrans.translation = Util::Input::GetCursorPosition();
     if (m_FrameTimer > 0) {
@@ -42,7 +48,8 @@ void UnitCard::AmplifyAnime(){
 
 void UnitCard::SetVisible(bool b){
     GameObjectEx::SetVisible(b);
-    m_udi1->SetVisible(b);
+    m_udi1->SetVisible(!m_form && b);
+    m_udi2->SetVisible(m_form && b);
 }
 
 bool UnitCard::IsMouseHovering(){

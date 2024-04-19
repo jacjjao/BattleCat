@@ -13,7 +13,7 @@
 class EquipCard : public Draggable{
 friend class EquipScene;
 public:
-    EquipCard(unsigned int unitnum,const float zIndex){
+    EquipCard(unsigned int unitnum,const float zIndex,bool form){
         const int UnitNumLength = 3;
         m_UnitNum = unitnum;
         std::stringstream uni1_img;
@@ -23,10 +23,11 @@ public:
         m_uni1 = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(uni1_img.str()),zIndex);
         m_uni2 = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(uni2_img.str()),zIndex);
 
-        m_curruni = m_uni1;
+        m_form = form;
+        m_curruni = (m_form? m_uni2:m_uni1);
     };
 
-    void Setform();
+    void Transform();
     void SetPos(float x,float y);
 
     unsigned int GetUnitNum(){ return m_UnitNum;};

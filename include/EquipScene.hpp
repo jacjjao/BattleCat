@@ -7,7 +7,7 @@
 
 #include "FrameScene.hpp"
 #include "GameButton.hpp"
-#include "UnitCard.hpp"
+#include "CatList.hpp"
 
 class App;
 
@@ -26,7 +26,7 @@ private:
     int m_currentunit = 0;
 
     void UpdateEquip();
-    void AddEquip(const unsigned int unitnum);
+    void AddEquip(const unsigned int unitnum,bool form);
     void RemoveEquip(int index);
     void UpdateCatList();
 
