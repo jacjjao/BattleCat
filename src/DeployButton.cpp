@@ -13,8 +13,10 @@ void DeployButton::SetCoolDownTime(const double time) {
 }
 
 void DeployButton::SetCost(const int cost) {
-    m_Text.emplace(RESOURCE_DIR "/font/Inter.ttf", 16, " ",
-                   Util::Color(0, 0, 200, 255));
+    if (!m_Text) {
+        m_Text.emplace(RESOURCE_DIR "/font/Inter.ttf", 16, " ",
+                       Util::Color(0, 0, 200, 255));
+    }
     std::string str = "$" + std::to_string(cost);
     m_Text->SetText(str);
     m_TextTransform.translation = GetScaledSize();
