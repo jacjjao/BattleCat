@@ -32,7 +32,7 @@ void Cat::Draw(Util::Transform trans, Animation &anime) {
     if (state == EntityState::HITBACK) {
         trans.translation.y += hb_dy;
     }
-    if (m_Type == CatType::CAT && m_PrevDrawState != state) {
+    if (m_Type != CatType::CAT_TOWER && m_PrevDrawState != state) {
         m_PrevDrawState = state;
         // restart the current state's animation
         switch (state) {
@@ -53,7 +53,7 @@ void Cat::Draw(Util::Transform trans, Animation &anime) {
         }
     }
 
-    if (m_Type == CatType::CAT) {
+    if (m_Type != CatType::CAT_TOWER) {
         switch (state) {
         case EntityState::WALK:
             anime.walk->GetDrawable()->Draw(trans, 1.0f);
