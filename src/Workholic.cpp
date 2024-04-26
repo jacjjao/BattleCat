@@ -6,11 +6,7 @@ Workholic::Workholic(Wallet &wallet)
     : m_Wallet(wallet),
       m_Btn(RESOURCE_DIR "/img/Workholic0.png") ,
       m_Anime({RESOURCE_DIR "/img/Workholic1.png",
-               RESOURCE_DIR "/img/Workholic2.png"}),
-      m_LevelText(RESOURCE_DIR "/font/Inter.ttf", 24, " ",
-                  Util::Color(0, 255, 255, 255)),
-      m_SpendText(RESOURCE_DIR "/font/Inter.ttf", 24, " ",
-                  Util::Color(0, 255, 255, 255)) {
+               RESOURCE_DIR "/img/Workholic2.png"}){
     m_Anime.SetInterval(100);
     m_Anime.SetLooping(true);
     m_Anime.Play();
@@ -27,11 +23,8 @@ Workholic::Workholic(Wallet &wallet)
     const int hh = WINDOW_HEIGHT / 2;
     const auto half_size = m_Btn.GetScaledSize() * 0.5f;
     m_Btn.SetPosition(-hw + half_size.x, -hh + half_size.y);
-
     m_Btn.SetZIndex(10.0f);
 
-    //m_LevelText.SetText("LEVEL 1");
-    //m_SpendText.SetText(std::to_string(s_LevelSpend[2]));
 }
 
 bool Workholic::CanLevelUp() const {
@@ -45,14 +38,6 @@ void Workholic::LevelUp() {
     assert(m_Level < s_LevelSpend.size());
     m_Wallet.Spend(s_LevelSpend[m_Level]);
     m_Wallet.LevelUp(m_Level);
-
-    /*if (m_Level >= 8) {
-        m_LevelText.SetText("MAX!!!");
-        m_SpendText.SetText("");
-    } else {
-        m_LevelText.SetText("LEVEL " + std::to_string(m_Level));
-        m_SpendText.SetText(std::to_string(s_LevelSpend[m_Level + 1]));
-    }*/
 }
 
 void Workholic::Update() {
@@ -70,13 +55,12 @@ void Workholic::Draw() {
     Util::Transform transform = m_Btn.GetTransform();
     transform.translation.y += m_Btn.GetScaledSize().y * 0.4f + 5;
     transform.translation.x -= 7;
-    //m_LevelText.Draw(transform, 11.0f);
     m_LEVEL->Draw(transform,11.0f);
     m_Levelnum.Display(m_Level,glm::vec2(transform.translation.x+50, transform.translation.y),11.0f,20);
 
     transform.translation.y -= m_Btn.GetScaledSize().y * 0.8f;
     transform.translation.x += 20;
-    //m_SpendText.Draw(transform, 11.0f);
+
     if (m_Level >= 8) {
         transform.translation.x -= 10;
         m_MAX->Draw(transform,11.0f);
