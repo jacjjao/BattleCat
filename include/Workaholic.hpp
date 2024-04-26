@@ -20,12 +20,8 @@ public:
     void Draw();
 
 private:
-    /*static constexpr std::array<int, 9> s_LevelSpend = {
-        0, 0, 200, 400, 800, 1600, 3200, 5000, 6400
-    };*/
-
     static constexpr std::array<int, 9> s_LevelSpend = {
-        0, 0, 2, 4, 8, 16, 32, 50, 64
+        0, 0, 200, 400, 800, 1600, 3200, 5000, 6400
     };
 
     int m_Level = 1;
