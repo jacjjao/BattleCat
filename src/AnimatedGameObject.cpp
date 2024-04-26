@@ -44,6 +44,10 @@ std::size_t AnimatedGameObject::GetCurrentFrameIndex(){
     return m_Anime->GetCurrentFrameIndex();
 }
 
+bool AnimatedGameObject::IsPlaying() const {
+    return m_Anime->GetState() == Util::Animation::State::PLAY;
+}
+
 std::shared_ptr<Util::Animation> AnimatedGameObject::GetAnime(){
     return m_Anime;
 }

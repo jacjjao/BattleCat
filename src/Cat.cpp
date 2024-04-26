@@ -20,14 +20,61 @@ void Cat::StartAttack() {
 #endif
 }
 
-void Cat::Draw(Util::Transform trans, Util::Image &image) const {
+void Cat::Draw(Util::Transform trans, Animation &anime) {
     trans.translation += glm::vec2{m_PosX, 0};
-    trans.translation += glm::vec2{image.GetSize().x / 2.0f, 0};
+    trans.translation += glm::vec2{anime.idle->GetScaledSize().x / 2.0f, 0};
     float z = 1.0f;
     if (m_Type == CatType::CAT_TOWER) {
         z = -1.0f;
     }
-    image.Draw(trans, z);
+
+    const auto state = GetState();
+    if (m_Type == CatType::CAT && m_PrevDrawState != state) {
+        m_PrevDrawState = state;
+        // restart the current state's animation
+        switch (state) {
+        case EntityState::WALK:
+            anime.walk->Reset();
+            anime.walk->Play();
+            break;
+
+        case EntityState::ATTACK:
+            anime.attack->Reset();
+            anime.attack->Play();
+            break;
+
+        case EntityState::IDLE:
+            anime.idle->Reset();
+            anime.idle->Play();
+            break;
+        }
+    }
+
+    if (m_Type == CatType::CAT) {
+        switch (state) {
+        case EntityState::WALK:
+            anime.walk->GetDrawable()->Draw(trans, 1.0f);
+            break;
+
+        case EntityState::ATTACK:
+            anime.attack->GetDrawable()->Draw(trans, 1.0f);
+            break;
+
+        case EntityState::IDLE:
+            if (anime.attack->IsPlaying()) {
+                anime.attack->GetDrawable()->Draw(trans, 1.0f);
+            } else {
+                anime.idle->GetDrawable()->Draw(trans, 1.0f);
+            }
+            break;
+
+        case EntityState::HITBACK:
+            anime.knockback->Draw(trans, 1.0f);
+            break;
+        }
+    } else {
+        anime.idle->Draw(trans, z, 0);
+    }
 }
 
 void Cat::UpdateTimer(const double dt) {
@@ -109,8 +156,7 @@ void Cat::CoolDownComplete() {
 }
 
 HitBox Cat::ToWorldSpace(HitBox hitbox) const {
-    const auto len = hitbox.high - hitbox.low;
-    hitbox.high = m_PosX;
-    hitbox.low = m_PosX - len;
+    hitbox.high = m_PosX + hitbox.high;
+    hitbox.low = m_PosX + hitbox.low;
     return hitbox;
 }
