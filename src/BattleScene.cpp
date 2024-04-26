@@ -406,6 +406,7 @@ void BattleScene::CreateUnitButtons() {
             if (m_Wallet->CanDeploy(cost)) {
                 AddCat(CatType::CRAZED_GROSS_CAT, 10);
                 m_Wallet->Spend(cost);
+                m_CatButton[3]->StartCoolDown();
             }
         });
     }
