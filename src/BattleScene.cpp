@@ -51,6 +51,8 @@ void BattleScene::Update() {
 
     m_Wallet->Update(dt);
     m_Work->Update();
+
+    static double velocity_y = 0.0;
     
     const auto health_percent = m_EnemyTower->GetHealthPercent();
     for (auto &ed : m_Stage.dispatchers) {
@@ -58,43 +60,70 @@ void BattleScene::Update() {
         if (!e) {
             continue;
         }
-        auto& [type, modifier] = *e;
+        auto& [type, modifier, knock] = *e;
         AddEnemy(type, modifier);
+        if (knock && !m_OnBossAppear) {
+            m_OnBossAppear = true;
+            m_CatY = 0.0;
+            velocity_y = 200.0;
+            for (auto &cat : m_Cats) {
+                cat.ResetState();
+            }
+        }
     }
 
-    CatStartAttack();
-    for (auto &cat : m_Cats) {
-        cat.Walk(dt);
+    if (m_OnBossAppear) {
+        constexpr double gravity = -200;
+        constexpr double velocity_x = 100.0;
+        velocity_y += gravity * dt;
+        m_CatY += velocity_y * dt;
+        if (m_CatY <= 0.0) {
+            m_CatY = 0.0;
+            m_OnBossAppear = false;
+        }
+        for (size_t i = 1; i < m_Cats.size(); ++i) {
+            m_Cats[i].Move(velocity_x * dt);
+        }
     }
 
-    EnemyStartAttack();
+    if (!m_OnBossAppear) {
+        CatStartAttack();
+        for (auto &cat : m_Cats) {
+            cat.Walk(dt);
+        }
+    }
+
+    if (!m_OnBossAppear) {
+        EnemyStartAttack();
+    }
     for (auto &enemy : m_Enemies) {
         enemy.Walk(dt);
     }
 
-    CatStartAttack();
-    EnemyStartAttack();
+    if (!m_OnBossAppear) {
+        CatStartAttack();
+        EnemyStartAttack();
 
-    for (auto &cat : m_Cats) {
-        cat.UpdateTimer(dt);
-        if (cat.OnAttack()) {
-            CatAttack(cat);
+        for (auto &cat : m_Cats) {
+            cat.UpdateTimer(dt);
+            if (cat.OnAttack()) {
+                CatAttack(cat);
+            }
         }
-    }
-    for (auto &enemy : m_Enemies) {
-        enemy.UpdateTimer(dt);
-        if (enemy.OnAttack()) {
-            EnemyAttack(enemy);
+        for (auto &enemy : m_Enemies) {
+            enemy.UpdateTimer(dt);
+            if (enemy.OnAttack()) {
+                EnemyAttack(enemy);
+            }
         }
-    }
 
-    for (auto &dmg_info : m_DmgInfos) {
-        assert(dmg_info.attacker);
-        assert(dmg_info.victim);
-        dmg_info.attacker->DealDamage(*dmg_info.victim);
+        for (auto &dmg_info : m_DmgInfos) {
+            assert(dmg_info.attacker);
+            assert(dmg_info.victim);
+            dmg_info.attacker->DealDamage(*dmg_info.victim);
+        }
+        m_DmgInfos.clear();
     }
-    m_DmgInfos.clear();
-
 
     if (m_EnemyTower->IsDead())
     {
@@ -193,10 +222,18 @@ void BattleScene::EnemyStartAttack() {
 }
 
 void BattleScene::Draw() {
-    for (const auto &cat : m_Cats) {
-        cat.Draw(m_Cam.GetTransform(),
-                 m_CatImage[static_cast<size_t>(cat.GetCatType())]);
-        // cat.Draw(m_Cam.GetTransform(), m_CatImage[0]);
+    {   
+        auto t = m_Cam.GetTransform();
+        m_Cats[0].Draw(t,
+                       m_CatImage[static_cast<size_t>(m_Cats[0].GetCatType())]);
+        t.translation.y += m_CatY;
+        for (size_t i = 1; i < m_Cats.size(); ++i) {
+            auto t = m_Cam.GetTransform();
+            t.translation.y += m_CatY;
+            m_Cats[i].Draw(
+                t, m_CatImage[static_cast<size_t>(m_Cats[i].GetCatType())]);
+            // cat.Draw(m_Cam.GetTransform(), m_CatImage[0]);
+        }
     }
     for (const auto &enemy : m_Enemies) {
         enemy.Draw(m_Cam.GetTransform(),

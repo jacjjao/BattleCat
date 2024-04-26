@@ -10,6 +10,11 @@ void Timer::Start() {
     m_TimeOut = false;
 }
 
+void Timer::Stop() {
+    m_State = State::STOP;
+    m_TimeOut = false;
+}
+
 void Timer::Update(const double dt) {
     if (m_State == State::STOP) {
         return;

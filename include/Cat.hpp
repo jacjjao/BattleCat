@@ -35,6 +35,10 @@ public:
 
     bool OnAttack();
 
+    void ResetState();
+
+    void Move(float dx);
+
 private:
     void Attack();
     void CoolDownComplete();
@@ -115,7 +119,7 @@ namespace BaseCatStats {
         stats.damage = 100;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 30;
+        stats.speed = 100;
         stats.single_target = true;
         stats.atk_prep_time = 0.27;
         stats.atk_cool_down = 0.96;

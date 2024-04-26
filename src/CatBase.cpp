@@ -86,6 +86,22 @@ CatBaseScene::CatBaseScene(App &app)
     m_Root.AddChild(DialogBox);
 //---------------------------------------------------------------------------------
     SetBaseText(RESOURCE_DIR"/cat_base/basetext_base.png");
+
+
+/* !!! for debug, will remove !!! */
+    /*
+    auto stage_select_btn = std::make_shared<GameButton>(
+        RESOURCE_DIR "/buttons/StartButton.png",
+        std::initializer_list<std::string>(
+            {RESOURCE_DIR "/buttons/hover_purple.png",
+             RESOURCE_DIR "/buttons/hover_yellow.png"}));
+    stage_select_btn->SetZIndex(3.0f);
+    stage_select_btn->AddButtonEvent(
+        [this] { m_App.SwitchScene(App::SceneType::STAGE_SELECT_SCENE);
+    });
+    m_Buttons.push_back(stage_select_btn);
+    m_Root.AddChild(stage_select_btn);
+    */
 }
 
 void CatBaseScene::Update() {

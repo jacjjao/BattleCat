@@ -22,6 +22,7 @@ set(SRC_FILES
     BattleBackground.cpp
     CatList.cpp
     Workholic.cpp
+    StageSelectScene.cpp
 )
 
 set(INCLUDE_FILES
@@ -54,6 +55,7 @@ set(INCLUDE_FILES
     Sound.hpp
     BattleBackground.hpp
     Workholic.hpp
+    StageSelectScene.hpp
 )
 
 set(TEST_FILES

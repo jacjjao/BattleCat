@@ -4,7 +4,7 @@
 
 void Entity::SetStats(const EntityStats &stats) {
     m_Stats = stats;
-    m_Health = stats.health;
+    m_FullHealth = m_Health = stats.health;
     m_AtkPrepTimer.SetTimeOutDur(m_Stats.atk_prep_time);
     m_AtkCoolDownTimer.SetTimeOutDur(m_Stats.atk_cool_down);
     m_KnockbackTimer.SetTimeOutDur(s_KnockbackDuration); 
@@ -69,7 +69,7 @@ std::optional<EnemyAttr> Entity::GetAttr() const {
 
 double Entity::GetHealthPercent() const {
     assert(m_Stats.health != 0.0);
-    return static_cast<double>(m_Health) / static_cast<double>(m_Stats.health);
+    return static_cast<double>(m_Health) / static_cast<double>(m_FullHealth);
 }
 
 void Entity::SetState(EntityState state) {
