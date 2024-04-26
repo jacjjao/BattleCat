@@ -67,6 +67,7 @@ void Enemy::SetStatsModifier(float modifier) {
     assert(modifier >= 1.0f);
     m_Stats.damage *= modifier;
     m_Health *= modifier;
+    m_FullHealth = m_Health;
     m_KnockBackHealth = m_Health / m_Stats.kb;
 }
 

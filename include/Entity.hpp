@@ -56,6 +56,7 @@ protected:
     int m_KnockBackHealth = 0;
     int m_TotalDamage = 0;
     double m_Health = 0;
+    double m_FullHealth = 0;
 
     std::shared_ptr<AnimatedGameObject> m_attack;
     std::shared_ptr<AnimatedGameObject> m_walk;
