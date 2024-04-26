@@ -1,5 +1,6 @@
 #include "Entity.hpp"
 #include "DebugUtil/BattleLog.hpp"
+#include "Scene.hpp"
 
 void Entity::SetStats(const EntityStats &stats) {
     m_Stats = stats;

@@ -46,7 +46,7 @@ public:
     unsigned int GetUnitNum(){ return m_UnitNum;};
 
     bool Getform(){return m_form;};
-    ;
+
 private:
     //void Unpressed() override;
     void Dragging() override;

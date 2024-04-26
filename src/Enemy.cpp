@@ -1,5 +1,7 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
+#include <random>
+#include "Sound.hpp"
 
 Enemy::Enemy(const EnemyType type)
     : m_Type(type) {
@@ -51,6 +53,11 @@ void Enemy::Walk(const float dt) {
 
 void Enemy::DealDamage(Entity &e) {
     e.GetHit(m_Stats.damage, *this);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::bernoulli_distribution dis(0.5);
+    //Sounds::Attack1->Play();
+    dis(gen) ? Sounds::Attack1->Play() : Sounds::Attack2->Play();
 }
 
 EnemyType Enemy::GetEnemyType() const {
