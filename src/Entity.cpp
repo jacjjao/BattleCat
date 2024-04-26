@@ -24,6 +24,7 @@ void Entity::GetHit(int damage, const Entity &attacker) {
     if (m_TotalDamage >= m_KnockBackHealth) {
         SetState(EntityState::HITBACK);
         m_TotalDamage %= m_KnockBackHealth;
+        OnHitBack();
     }
 
 #ifdef ENABLE_BATTLE_LOG

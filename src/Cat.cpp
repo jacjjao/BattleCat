@@ -29,6 +29,9 @@ void Cat::Draw(Util::Transform trans, Animation &anime) {
     }
 
     const auto state = GetState();
+    if (state == EntityState::HITBACK) {
+        trans.translation.y += hb_dy;
+    }
     if (m_Type == CatType::CAT && m_PrevDrawState != state) {
         m_PrevDrawState = state;
         // restart the current state's animation
@@ -91,6 +94,7 @@ void Cat::UpdateTimer(const double dt) {
     m_KnockbackTimer.Update(dt);
     if (m_KnockbackTimer.IsTimeOut()) {
         SetState(EntityState::WALK);
+        hb_dy = 0.0;
     }
 }
 
@@ -99,6 +103,14 @@ void Cat::Walk(const double dt) {
         m_PosX -= m_Stats.speed * dt;
     } else if (GetState() == EntityState::HITBACK) {
         m_PosX += s_KnockbackSpeed * dt;
+        constexpr double gravity = -500.0;
+        hb_vel_y += gravity * dt;
+        hb_dy += hb_vel_y * dt;
+        if (hb_dy <= 0 && hb_vel_y <= 0 && land == 0) {
+            ++land;
+            hb_vel_y = 110.0;
+        }
+        hb_dy = std::max(0.0, hb_dy);
     }
 }
 
@@ -159,4 +171,9 @@ HitBox Cat::ToWorldSpace(HitBox hitbox) const {
     hitbox.high = m_PosX + hitbox.high;
     hitbox.low = m_PosX + hitbox.low;
     return hitbox;
+}
+
+void Cat::OnHitBack() {
+    hb_vel_y = 140.0;
+    land = 0;
 }

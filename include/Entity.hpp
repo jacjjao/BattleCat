@@ -46,6 +46,7 @@ public:
 protected:
     void SetStats(const EntityStats &stats);
     virtual HitBox ToWorldSpace(HitBox hitbox) const = 0;
+    virtual void OnHitBack(){}; // TODO: make it pure virtual
 
     EntityStats m_Stats;
     float m_PosX = 0;

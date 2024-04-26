@@ -49,12 +49,17 @@ public:
 private:
     void Attack();
     void CoolDownComplete();
+    void OnHitBack() override;
 
     HitBox ToWorldSpace(HitBox hitbox) const override;
 
     CatType m_Type;
     bool m_OnAttack = false;
     EntityState m_PrevDrawState = EntityState::HITBACK;
+
+    double hb_vel_y = 0.0; // hitback velocity - y axis
+    double hb_dy = 0.0;
+    int land = 0;
 };
 
 namespace BaseCatStats {
@@ -75,7 +80,7 @@ namespace BaseCatStats {
 
     inline const EntityStats Cat = [] {
         EntityStats stats;
-        stats.health = 250;
+        stats.health = 10;
         stats.damage = 20;
         stats.range = 140;
         stats.kb = 3;
