@@ -32,6 +32,8 @@ public:
 
     std::size_t GetCurrentFrameIndex();
 
+    bool IsPlaying() const;
+
 private:
     std::shared_ptr<Util::Animation> m_Anime;
 };

@@ -12,11 +12,11 @@ BattleScene::BattleScene(App &app)
     m_Cats.reserve(s_MaxEntityCount); // to prevent reallocation
     m_Enemies.reserve(s_MaxEntityCount);
 
-    m_CatImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
-    m_CatImage.emplace_back(RESOURCE_DIR "/cats/000/walk.png");
-    m_CatImage.emplace_back(RESOURCE_DIR "/cats/001/walk.png");
-    m_CatImage.emplace_back(RESOURCE_DIR "/cats/002/walk.png");
-    m_CatImage.emplace_back(RESOURCE_DIR "/cats/003/walk.png");
+    m_CatAnime.push_back(CatAnime::Tower());
+    m_CatAnime.push_back(CatAnime::Cat());
+    m_CatAnime.push_back(CatAnime::Tank());
+    m_CatAnime.push_back(CatAnime::Axe());
+    m_CatAnime.push_back(CatAnime::Gross());
 
     m_EnemyImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
@@ -66,8 +66,8 @@ void BattleScene::Update() {
             m_OnBossAppear = true;
             m_CatY = 0.0;
             velocity_y = 200.0;
-            for (auto &cat : m_Cats) {
-                cat.ResetState();
+            for (size_t i = 1; i < m_Cats.size(); ++i) {
+                m_Cats[i].ResetState();
             }
         }
     }
@@ -186,6 +186,7 @@ void BattleScene::LoadStage(Stage &stage) {
     m_Cam.Reset();
 
     CreateUnitButtons();
+    m_OnBossAppear = false;
 }
 
 void BattleScene::GameOver(const bool cat_won) {
@@ -225,13 +226,13 @@ void BattleScene::Draw() {
     {   
         auto t = m_Cam.GetTransform();
         m_Cats[0].Draw(t,
-                       m_CatImage[static_cast<size_t>(m_Cats[0].GetCatType())]);
+                       m_CatAnime[static_cast<size_t>(m_Cats[0].GetCatType())]);
         t.translation.y += m_CatY;
         for (size_t i = 1; i < m_Cats.size(); ++i) {
             auto t = m_Cam.GetTransform();
             t.translation.y += m_CatY;
             m_Cats[i].Draw(
-                t, m_CatImage[static_cast<size_t>(m_Cats[i].GetCatType())]);
+                t, m_CatAnime[static_cast<size_t>(m_Cats[i].GetCatType())]);
             // cat.Draw(m_Cam.GetTransform(), m_CatImage[0]);
         }
     }

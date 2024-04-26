@@ -3,8 +3,10 @@
 std::optional<std::tuple<EnemyType, float, bool>>
 EnemyDispatcher::Update(double tower_health_percent, double total_time,
                         double dt) {
-    if ((total_time < initAppearTime &&
-         tower_health_percent > towerHealthPercent) ||
+    if (tower_health_percent > towerHealthPercent) {
+        return std::nullopt;
+    } 
+    if ((initAppearTime != s_Infinite && total_time < initAppearTime) ||
         limit <= 0) {
         return std::nullopt;
     }
@@ -59,7 +61,7 @@ Stage StageFactory::CreateLevel1() {
     {
         EnemyDispatcher test;
         test.initAppearTime = EnemyDispatcher::s_Infinite;
-        test.towerHealthPercent = 0.99;
+        test.towerHealthPercent = 0.95;
         test.limit = 1;
         test.knockCats = true;
         stage.dispatchers.push_back(std::move(test));

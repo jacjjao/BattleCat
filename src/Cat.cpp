@@ -20,14 +20,64 @@ void Cat::StartAttack() {
 #endif
 }
 
-void Cat::Draw(Util::Transform trans, Util::Image &image) const {
+void Cat::Draw(Util::Transform trans, Animation &anime) {
     trans.translation += glm::vec2{m_PosX, 0};
-    trans.translation += glm::vec2{image.GetSize().x / 2.0f, 0};
+    trans.translation += glm::vec2{anime.idle->GetScaledSize().x / 2.0f, 0};
     float z = 1.0f;
     if (m_Type == CatType::CAT_TOWER) {
         z = -1.0f;
     }
-    image.Draw(trans, z);
+
+    const auto state = GetState();
+    if (state == EntityState::HITBACK) {
+        trans.translation.y += hb_dy;
+    }
+    if (m_Type != CatType::CAT_TOWER && m_PrevDrawState != state) {
+        m_PrevDrawState = state;
+        // restart the current state's animation
+        switch (state) {
+        case EntityState::WALK:
+            anime.walk->Reset();
+            anime.walk->Play();
+            break;
+
+        case EntityState::ATTACK:
+            anime.attack->Reset();
+            anime.attack->Play();
+            break;
+
+        case EntityState::IDLE:
+            anime.idle->Reset();
+            anime.idle->Play();
+            break;
+        }
+    }
+
+    if (m_Type != CatType::CAT_TOWER) {
+        switch (state) {
+        case EntityState::WALK:
+            anime.walk->GetDrawable()->Draw(trans, 1.0f);
+            break;
+
+        case EntityState::ATTACK:
+            anime.attack->GetDrawable()->Draw(trans, 1.0f);
+            break;
+
+        case EntityState::IDLE:
+            if (anime.attack->IsPlaying()) {
+                anime.attack->GetDrawable()->Draw(trans, 1.0f);
+            } else {
+                anime.idle->GetDrawable()->Draw(trans, 1.0f);
+            }
+            break;
+
+        case EntityState::HITBACK:
+            anime.knockback->Draw(trans, 1.0f);
+            break;
+        }
+    } else {
+        anime.idle->Draw(trans, z, 0);
+    }
 }
 
 void Cat::UpdateTimer(const double dt) {
@@ -44,6 +94,7 @@ void Cat::UpdateTimer(const double dt) {
     m_KnockbackTimer.Update(dt);
     if (m_KnockbackTimer.IsTimeOut()) {
         SetState(EntityState::WALK);
+        hb_dy = 0.0;
     }
 }
 
@@ -52,6 +103,14 @@ void Cat::Walk(const double dt) {
         m_PosX -= m_Stats.speed * dt;
     } else if (GetState() == EntityState::HITBACK) {
         m_PosX += s_KnockbackSpeed * dt;
+        constexpr double gravity = -500.0;
+        hb_vel_y += gravity * dt;
+        hb_dy += hb_vel_y * dt;
+        if (hb_dy <= 0 && hb_vel_y <= 0 && land == 0) {
+            ++land;
+            hb_vel_y = 110.0;
+        }
+        hb_dy = std::max(0.0, hb_dy);
     }
 }
 
@@ -109,8 +168,12 @@ void Cat::CoolDownComplete() {
 }
 
 HitBox Cat::ToWorldSpace(HitBox hitbox) const {
-    const auto len = hitbox.high - hitbox.low;
-    hitbox.high = m_PosX;
-    hitbox.low = m_PosX - len;
+    hitbox.high = m_PosX + hitbox.high;
+    hitbox.low = m_PosX + hitbox.low;
     return hitbox;
+}
+
+void Cat::OnHitBack() {
+    hb_vel_y = 140.0;
+    land = 0;
 }
