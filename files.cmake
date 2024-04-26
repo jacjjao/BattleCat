@@ -23,6 +23,7 @@ set(SRC_FILES
     CatList.cpp
     Workholic.cpp
     StageSelectScene.cpp
+    FrameScene.cpp
 )
 
 set(INCLUDE_FILES

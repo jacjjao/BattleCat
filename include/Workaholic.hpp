@@ -30,9 +30,6 @@ private:
 
     std::shared_ptr<Util::Image> m_Img;
     AnimatedGameObject m_Anime;
-
-    Util::Text m_LevelText;
-    Util::Text m_SpendText;
     
     NumberSystem m_Spendnum = NumberSystem({RESOURCE_DIR"/scene/yellowbit/0.png",RESOURCE_DIR"/scene/yellowbit/1.png",RESOURCE_DIR"/scene/yellowbit/2.png",RESOURCE_DIR"/scene/yellowbit/3.png",RESOURCE_DIR"/scene/yellowbit/4.png",RESOURCE_DIR"/scene/yellowbit/5.png",
             RESOURCE_DIR"/scene/yellowbit/6.png",RESOURCE_DIR"/scene/yellowbit/7.png",RESOURCE_DIR"/scene/yellowbit/8.png",RESOURCE_DIR"/scene/yellowbit/9.png"});
