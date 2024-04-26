@@ -21,6 +21,7 @@ set(SRC_FILES
     EquipList.cpp
     BattleBackground.cpp
     CatList.cpp
+    Workholic.cpp
 )
 
 set(INCLUDE_FILES
@@ -52,6 +53,7 @@ set(INCLUDE_FILES
     CatList.hpp
     Sound.hpp
     BattleBackground.hpp
+    Workholic.hpp
 )
 
 set(TEST_FILES

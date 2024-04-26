@@ -13,6 +13,7 @@
 #include "DeployButton.hpp"
 #include "Camera.hpp"
 #include "BattleBackground.hpp"
+#include "Workaholic.hpp"
 #include <vector>
 
 struct DamageInfo {
@@ -70,5 +71,7 @@ private:
     Camera m_Cam;
 
     App &m_App;
+
+    std::optional<Workholic> m_Work;
 };
 #endif //BATTLESCENE_HPP

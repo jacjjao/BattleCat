@@ -20,6 +20,8 @@ public:
     void Spend(int money);
 
     void SetWalletDelta(float delta);
+    
+    void LevelUp(int level);
 
 private:
     static constexpr std::array<int, 9> s_MoneyMax = {
