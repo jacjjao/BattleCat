@@ -4,6 +4,7 @@
 #include <array>
 #include "GameButton.hpp"
 #include "Wallet.hpp"
+#include "NumberSystem.hpp"
 
 class Workholic
 {
@@ -32,6 +33,9 @@ private:
 
     Util::Text m_LevelText;
     Util::Text m_SpendText;
+
+    NumberSystem m_Levelnum;
+    NumberSystem m_Spendnum;
 
     Wallet& m_Wallet;
 };

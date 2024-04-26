@@ -71,6 +71,7 @@ void Workholic::Draw() {
     transform.translation.y += m_Btn.GetScaledSize().y * 0.4f;
     transform.translation.x += 10;
     m_LevelText.Draw(transform, 11.0f);
+    //m_Levelnum.Display(m_Level,glm::vec2(transform.translation.x, transform.translation.y),11.0f);
 
     transform.translation.y -= m_Btn.GetScaledSize().y * 0.8f;
     transform.translation.x -= 5;

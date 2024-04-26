@@ -4,8 +4,8 @@ NumberSystem::NumberSystem(std::initializer_list<std::string> &font){
     SetNumberFont(font);
 }
 
-glm::vec2 NumberSystem::Display(unsigned int number, glm::vec2 rightmost_pos, const float zIndex) {
-    constexpr int xOffset = 30;
+glm::vec2 NumberSystem::Display(unsigned int number, glm::vec2 rightmost_pos, const float zIndex,const int xOffset) {
+    //constexpr int xOffset = 30;
     const auto drawDigit = [this, xOffset, &rightmost_pos](int z, int digit) {
         Util::Transform t;
         t.translation = rightmost_pos;
