@@ -5,6 +5,7 @@
 #include "Util/Input.hpp"
 #include <cassert>
 #include <algorithm>
+#include "Sound.hpp"
 
 BattleScene::BattleScene(App &app)
     : m_App(app) {
@@ -98,11 +99,13 @@ void BattleScene::Update() {
     if (m_EnemyTower->IsDead())
     {
         GameOver(true);
+        Sounds::Victory->Play();
         m_App.SwitchScene(App::SceneType::CAT_BASE);
     }
     if (m_CatTower->IsDead())
     {
         GameOver(false);
+        Sounds::Defeat->Play();
         m_App.SwitchScene(App::SceneType::CAT_BASE);
     }
 

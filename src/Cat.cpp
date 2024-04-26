@@ -1,6 +1,8 @@
 #include "Cat.hpp"
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
+#include "Sound.hpp"
+#include <random>
 
 Cat::Cat(const CatType type, const int level)
     : m_Type(type) {
@@ -62,6 +64,11 @@ void Cat::DealDamage(Entity &e) {
         damage = static_cast<int>(d);
     }
     e.GetHit(damage, *this);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::bernoulli_distribution dis(0.5);
+    //Sounds::Attack1->Play();
+    dis(gen) ? Sounds::Attack1->Play() : Sounds::Attack2->Play();
 }
 
 CatType Cat::GetCatType() const {

@@ -61,6 +61,7 @@ void UpgradeScene::Update(){
     bool right = (Util::Input::IsKeyDown(Util::Keycode::RIGHT) && m_currentunit < m_catlist.size()-1);
     m_currentunit += right - left;
     if(left || right){
+        Sounds::Scrolling->Play();
         UpdateCatList();
     }
     //--------------------------------------------------------------------------------

@@ -77,7 +77,7 @@ EquipScene::EquipScene(App &app) : m_App(app){
     m_buttons.push_back(TransFormbtn);
     m_Root.AddChild(TransFormbtn);
 //-----------------------------------------------------------------
-    //The others.
+    //Misc.
     SetBaseText(RESOURCE_DIR"/equip/basetext_equip.png");
     UpdateCatList();
 }
@@ -93,6 +93,7 @@ void EquipScene::Update() {
     bool right = (Util::Input::IsKeyDown(Util::Keycode::RIGHT) && m_currentunit < m_catlist.size()-1);
     m_currentunit += right - left;
     if(left || right){
+        Sounds::Scrolling->Play();
         UpdateCatList();
     }
 //--------------------------------------------------------------------
