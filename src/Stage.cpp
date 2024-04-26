@@ -1,6 +1,6 @@
 #include "Stage.hpp"
 
-std::optional<std::tuple<EnemyType, float>>
+std::optional<std::tuple<EnemyType, float, bool>>
 EnemyDispatcher::Update(double tower_health_percent, double total_time,
                         double dt) {
     if (total_time < initAppearTime ||
@@ -19,7 +19,7 @@ EnemyDispatcher::Update(double tower_health_percent, double total_time,
         --limit;
         m_Timer.Start();
     }
-    return {{type, modifier}};
+    return {{type, modifier, knockCats}};
 }
 
 void EnemyDispatcher::SetTimeOutDur(double time_out_dur) {
@@ -54,6 +54,14 @@ Stage StageFactory::CreateLevel1() {
         ed.SetTimeOutDur(10.0);
         ed.limit = EnemyDispatcher::s_Infinite;
         stage.dispatchers.push_back(std::move(ed));
+    }
+    {
+        EnemyDispatcher test;
+        test.initAppearTime = 10.0;
+        test.towerHealthPercent = 100.0;
+        test.limit = 1;
+        test.knockCats = true;
+        stage.dispatchers.push_back(std::move(test));
     }
 
     return stage;

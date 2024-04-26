@@ -73,5 +73,9 @@ private:
     App &m_App;
 
     std::optional<Workholic> m_Work;
+
+    // for knockback effect when boss appear
+    bool m_OnBossAppear = false;
+    double m_CatY = 0.0;
 };
 #endif //BATTLESCENE_HPP

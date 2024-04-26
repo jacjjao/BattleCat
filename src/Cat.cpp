@@ -74,6 +74,17 @@ bool Cat::OnAttack() {
     return atk;
 }
 
+void Cat::ResetState() {
+    SetState(EntityState::WALK);
+    m_AtkCoolDownTimer.Stop();
+    m_AtkPrepTimer.Stop();
+    m_KnockbackTimer.Stop();
+}
+
+void Cat::Move(const float dx) {
+    m_PosX += dx;
+}
+
 void Cat::Attack() {
     if (GetState() == EntityState::HITBACK) {
         return;

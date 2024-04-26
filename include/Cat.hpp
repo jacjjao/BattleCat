@@ -35,6 +35,10 @@ public:
 
     bool OnAttack();
 
+    void ResetState();
+
+    void Move(float dx);
+
 private:
     void Attack();
     void CoolDownComplete();

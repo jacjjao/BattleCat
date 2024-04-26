@@ -15,6 +15,8 @@ public:
 
     void Start();
 
+    void Stop();
+
     void Update(double dt);
 
     bool IsTimeOut();
