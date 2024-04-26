@@ -1,6 +1,6 @@
 #include "NumberSystem.hpp"
 
-NumberSystem::NumberSystem(std::initializer_list<std::string> &font){
+NumberSystem::NumberSystem(const std::initializer_list<std::string> font){
     SetNumberFont(font);
 }
 
@@ -24,6 +24,6 @@ glm::vec2 NumberSystem::Display(unsigned int number, glm::vec2 rightmost_pos, co
     return glm::vec2(rightmost_pos.x + xOffset, rightmost_pos.y);
 }
 
-void NumberSystem::SetNumberFont(std::initializer_list<std::string> &font){
+void NumberSystem::SetNumberFont(const std::initializer_list<std::string> font){
     m_num = std::make_shared<AnimatedGameObject>(font);
 }

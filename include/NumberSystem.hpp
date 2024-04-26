@@ -5,10 +5,10 @@
 class NumberSystem{
 public:
     NumberSystem() = default;
-    NumberSystem(std::initializer_list<std::string> &font);
+    NumberSystem(std::initializer_list<std::string> font);
 
     glm::vec2 Display(unsigned int number,glm::vec2 rightmost_pos,float zIndex,int xOffset);
-    void SetNumberFont(std::initializer_list<std::string> &font);
+    void SetNumberFont(std::initializer_list<std::string> font);
 
 private:
     std::shared_ptr<AnimatedGameObject> m_num = std::make_shared<AnimatedGameObject>(std::initializer_list<std::string>
