@@ -5,6 +5,7 @@
 #include "Timer.hpp"
 #include "Util/Text.hpp"
 #include "Util/Root.hpp"
+#include "LoadingRectangle.hpp"
 #include <optional>
 
 class DeployButton : public GameButton {
@@ -17,11 +18,19 @@ public:
 
     void SetCost(int cost);
 
+    void Draw();
+
     void DrawCost();
 
     void StartCoolDown();
 
+    static void Init();
+
+    static void DrawStates();
+
 private:
+    static inline std::optional<LoadingRectangles> s_Renderer;
+
     Timer m_Timer;
     std::optional<Util::Text> m_Text;
     Util::Transform m_TextTransform;

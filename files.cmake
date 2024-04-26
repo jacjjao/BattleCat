@@ -23,6 +23,7 @@ set(SRC_FILES
     CatList.cpp
     Workholic.cpp
     StageSelectScene.cpp
+    LoadingRectangle.cpp
 )
 
 set(INCLUDE_FILES
@@ -56,6 +57,7 @@ set(INCLUDE_FILES
     BattleBackground.hpp
     Workholic.hpp
     StageSelectScene.hpp
+    LoadingRectangle.hpp
 )
 
 set(TEST_FILES

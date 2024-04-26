@@ -6,6 +6,7 @@
 #include <cassert>
 #include <algorithm>
 #include "Sound.hpp"
+#include "LoadingRectangle.hpp"
 
 BattleScene::BattleScene(App &app)
     : m_App(app) {
@@ -34,6 +35,8 @@ BattleScene::BattleScene(App &app)
 
     m_Background.emplace(RESOURCE_DIR "/img/bg/bg_000.png");
     m_Background->SetScaleX(2.0f);
+
+    DeployButton::Init();
 }
 
 void BattleScene::Update() {
@@ -222,7 +225,8 @@ void BattleScene::EnemyStartAttack() {
     }
 }
 
-void BattleScene::Draw() {
+void BattleScene::Draw() { 
+    DeployButton::DrawStates();
     {   
         auto t = m_Cam.GetTransform();
         m_Cats[0].Draw(t,
@@ -245,7 +249,7 @@ void BattleScene::Draw() {
     m_Work->Draw();
 
     for (auto &btn : m_CatButton) {
-        btn->DrawCost();
+        btn->Draw();
     }
 
     m_Background->Draw(m_Cam);
@@ -335,9 +339,6 @@ void BattleScene::CreateUnitButtons() {
     int x = start_x;
     int y = start_y;
 
-    for (auto &btn : m_CatButton) {
-        m_Root.RemoveChild(btn);
-    }
     m_CatButton.clear();
     m_CatButton.resize(10);
     for (int i = 0; i < 10; ++i) {
@@ -414,7 +415,6 @@ void BattleScene::CreateUnitButtons() {
             const int idx = row * 5 + i;
             m_CatButton[idx]->SetPosition(x, y);
             m_CatButton[idx]->SetCoolDownTime(2.0);
-            m_Root.AddChild(m_CatButton[idx]);
             x += m_CatButton[idx]->GetScaledSize().x + margin_x;
         }
         y -= m_CatButton[0]->GetScaledSize().y;
