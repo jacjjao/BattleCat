@@ -30,8 +30,8 @@ Workholic::Workholic(Wallet &wallet)
 
     m_Btn.SetZIndex(10.0f);
 
-    m_LevelText.SetText("LEVEL 1");
-    m_SpendText.SetText(std::to_string(s_LevelSpend[2]));
+    //m_LevelText.SetText("LEVEL 1");
+    //m_SpendText.SetText(std::to_string(s_LevelSpend[2]));
 }
 
 bool Workholic::CanLevelUp() const {
@@ -46,13 +46,13 @@ void Workholic::LevelUp() {
     m_Wallet.Spend(s_LevelSpend[m_Level]);
     m_Wallet.LevelUp(m_Level);
 
-    if (m_Level >= 8) {
+    /*if (m_Level >= 8) {
         m_LevelText.SetText("MAX!!!");
         m_SpendText.SetText("");
     } else {
         m_LevelText.SetText("LEVEL " + std::to_string(m_Level));
         m_SpendText.SetText(std::to_string(s_LevelSpend[m_Level + 1]));
-    }
+    }*/
 }
 
 void Workholic::Update() {
@@ -68,11 +68,24 @@ void Workholic::Draw() {
     m_Btn.Draw();
 
     Util::Transform transform = m_Btn.GetTransform();
-    transform.translation.y += m_Btn.GetScaledSize().y * 0.4f;
-    transform.translation.x += 10;
-    m_LevelText.Draw(transform, 11.0f);
+    transform.translation.y += m_Btn.GetScaledSize().y * 0.4f + 5;
+    transform.translation.x -= 7;
+    //m_LevelText.Draw(transform, 11.0f);
+    m_LEVEL->Draw(transform,11.0f);
+    m_Levelnum.Display(m_Level,glm::vec2(transform.translation.x+50, transform.translation.y),11.0f,20);
 
     transform.translation.y -= m_Btn.GetScaledSize().y * 0.8f;
-    transform.translation.x -= 5;
-    m_SpendText.Draw(transform, 11.0f);
+    transform.translation.x += 20;
+    //m_SpendText.Draw(transform, 11.0f);
+    if (m_Level >= 8) {
+        transform.translation.x -= 10;
+        m_MAX->Draw(transform,11.0f);
+    }
+    else{
+        m_dollar->Draw(transform,11.0f);
+        m_Spendnum.Display(
+            s_LevelSpend[m_Level + 1],
+            glm::vec2(transform.translation.x - 18, transform.translation.y),
+            11.0f, 18);
+    }
 }

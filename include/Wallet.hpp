@@ -36,8 +36,8 @@ private:
     int m_MaxMoney = 0;
 
     NumberSystem m_wallet;
-    std::shared_ptr<Util::Image> m_slash = std::make_shared<Util::Image>(RESOURCE_DIR"/scene/slash.png");
-    std::shared_ptr<Util::Image> m_dollar = std::make_shared<Util::Image>(RESOURCE_DIR"/scene/dollar.png");
+    std::shared_ptr<Util::Image> m_slash = std::make_shared<Util::Image>(RESOURCE_DIR"/scene/yellownumber/slash.png");
+    std::shared_ptr<Util::Image> m_dollar = std::make_shared<Util::Image>(RESOURCE_DIR"/scene/yellownumber/dollar.png");
 
     Util::Text m_Text;
 };
