@@ -64,7 +64,7 @@ void BattleScene::Update() {
         if (knock && !m_OnBossAppear) {
             m_OnBossAppear = true;
             m_CatY = 0.0;
-            velocity_y = 120.0;
+            velocity_y = 200.0;
             for (auto &cat : m_Cats) {
                 cat.ResetState();
             }
@@ -72,7 +72,7 @@ void BattleScene::Update() {
     }
 
     if (m_OnBossAppear) {
-        constexpr double gravity = -100;
+        constexpr double gravity = -200;
         constexpr double velocity_x = 100.0;
         velocity_y += gravity * dt;
         m_CatY += velocity_y * dt;
