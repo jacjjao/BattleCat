@@ -25,8 +25,8 @@ public:
     State GetState() const;
 
 private:
-    double m_TimeOutDur = 0;
-    double m_TimeRemained = 0;
+    double m_TimeOutDur{};
+    double m_TimeRemained{};
     bool m_TimeOut = false;
     State m_State = State::STOP;
 };

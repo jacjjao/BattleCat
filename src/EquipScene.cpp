@@ -88,6 +88,9 @@ void EquipScene::Update() {
         m_state = SceneState::UPDATE;
         m_currentunit = 0;
         UpdateCatList(-128.0f);
+        for(unsigned short i = 0; i < short(EquipList::m_equiplist.size());i++) {
+            EquipList::m_equiplist.at(i)->Transform();
+        }
     }
 //---------------------------------------------------------------------
     bool left = (Util::Input::IsKeyDown(Util::Keycode::LEFT) && m_currentunit > 0);

@@ -49,6 +49,9 @@ void Cat::Draw(Util::Transform trans, Animation &anime) {
             anime.idle->Reset();
             anime.idle->Play();
             break;
+
+        case EntityState::HITBACK:
+            break;
         }
     }
 
