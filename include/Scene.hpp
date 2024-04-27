@@ -20,7 +20,8 @@ protected:
 
     enum SceneState{
         EXIT=0,
-        UPDATE=1
+        UPDATE=1,
+        ENTER=2
     };
     Util::Root m_Root;
     SceneState m_state = SceneState::EXIT;

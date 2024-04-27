@@ -24,7 +24,7 @@ private:
     std::shared_ptr<AnimatedGameObject> m_border;
 
     void UpdateEquip();
-    void AddEquip(unsigned int unitnum,bool form);
+    void AddEquip(std::shared_ptr<UnitCard>& unit);
     void RemoveEquip(int index);
 
 };

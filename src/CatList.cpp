@@ -3,6 +3,8 @@
 #include "Utility.hpp"
 #include "GameObjectEx.hpp"
 #include "Util/Image.hpp"
+#include "Sound.hpp"
+#include "EquipList.hpp"
 
 UnitCard::UnitCard(unsigned int unitnum, const float zIndex) {
     const int UnitNumLength = 3;
@@ -28,14 +30,13 @@ UnitCard::UnitCard(unsigned int unitnum, const float zIndex) {
     m_currudi = m_udi1;
 }
 
-
-
 void UnitCard::Transform() {
     //false -> 1 form , true -> 2 form.
     m_form = !m_form;
     m_udi1->SetVisible(!m_form);
     m_udi2->SetVisible(m_form);
 }
+
 void UnitCard::Dragging() {
     m_DragTrans.translation = Util::Input::GetCursorPosition();
     if (m_FrameTimer > 0) {
@@ -55,7 +56,7 @@ void UnitCard::Put_OFF() {
 }
 
 void UnitCard::MinifyAnime(){
-    if(m_minify || m_State == State::UNPRESSED){
+    if(m_minify || m_DragState == DragState::UNPRESSED){
         return;
     }
     m_DragTrans.scale = glm::vec2(1.35f,1.35f);
@@ -64,7 +65,7 @@ void UnitCard::MinifyAnime(){
 }
 
 void UnitCard::AmplifyAnime(){
-    if(!m_minify || m_State == State::UNPRESSED){
+    if(!m_minify || m_DragState == DragState::UNPRESSED){
         return;
     }
     m_DragTrans.scale = glm::vec2(0.35f,0.35f);
@@ -82,6 +83,21 @@ bool UnitCard::IsMouseHovering(){
     const auto size = GetScaledSize();
     const auto top_left_pos = GetTransform().translation - size / 2.0f;
     return PointInRect(top_left_pos, size, Util::Input::GetCursorPosition());
+}
+
+CatList::CatList() {
+    m_TransFormbtn->SetZIndex(2.2f);
+    //m_TransFormbtn->SetPosition(185.0f,-280.0f);
+    m_TransFormbtn->SetClickSound([]{
+        Sounds::ButtonClick->Play();
+    });
+    m_TransFormbtn->AddButtonEvent([this]{
+        auto &unit = m_catlist.at(m_currentunit);
+        unit->Transform();
+        if (auto eq = unit->m_EquipCard.lock()) {
+            eq->Transform();
+        }
+    });
 }
 
 void CatList::UpdateCatList(const float y) const {

@@ -33,17 +33,10 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     textbox->SetPosition(10,-240);
     m_Root.AddChild(textbox);
     //---------------------------------------------------------------------------------
-    auto TransFormbtn = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/transform.png");
-    TransFormbtn->SetZIndex(2.2f);
-    TransFormbtn->SetPosition(185.0f,-40.0f);
-    TransFormbtn->SetClickSound([]{
-        Sounds::ButtonClick->Play();
-    });
-    TransFormbtn->AddButtonEvent([this]{
-        m_catlist.at(m_currentunit)->Transform();
-    });
-    m_Buttons.push_back(TransFormbtn);
-    m_Root.AddChild(TransFormbtn);
+    //Set cats form transform button.
+    m_TransFormbtn->SetPosition(185.0f,-40.0f);
+    m_Buttons.push_back(m_TransFormbtn);
+    m_Root.AddChild(m_TransFormbtn);
     //---------------------------------------------------------------------------------
     SetBaseText(RESOURCE_DIR"/upgrade/basetext_upgrade.png");
     UpdateCatList(112.0f);

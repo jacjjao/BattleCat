@@ -6,10 +6,12 @@
 #include "Util/Image.hpp"
 #include "Draggable.hpp"
 #include "GameButton.hpp"
+//#include "EquipList.hpp"
 
 #include <sstream>
 #include <iostream>
 
+class EquipCard;
 class UnitCard : public Draggable , public GameObjectEx{
 public:
     UnitCard(unsigned int unitnum,float zIndex);
@@ -27,7 +29,15 @@ public:
     unsigned int GetUnitNum() const{ return m_UnitNum;};
 
     [[nodiscard]]
-    bool Getform() const{return m_form;};
+    bool Getform() const{ return m_form;};
+
+    [[nodiscard]]
+    bool Inuse() const {
+        if(m_EquipCard.lock()) return true;
+        return false;
+    };
+
+   std::weak_ptr<EquipCard> m_EquipCard;
 
 private:
     //void Unpressed() override;
@@ -51,6 +61,7 @@ class CatList{
 
 public:
     virtual ~CatList() = default;
+    CatList();
 
 private:
     static std::vector<std::shared_ptr<UnitCard>> Init(){
@@ -66,6 +77,7 @@ protected:
     unsigned short int m_currentunit = 0;
     void UpdateCatList(float y) const;
     static inline std::vector<std::shared_ptr<UnitCard>> m_catlist = Init();
+    std::shared_ptr<GameButton> m_TransFormbtn = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/transform.png");
 };
 
 #endif // BATTLECAT_CATLIST_HPP

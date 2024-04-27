@@ -58,24 +58,9 @@ EquipScene::EquipScene(App &app) : m_App(app){
     m_Root.AddChild(back_button);
 //-----------------------------------------------------------------
     //Set cats form transform button.
-    auto TransFormbtn = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/transform.png");
-    TransFormbtn->SetZIndex(2.2f);
-    TransFormbtn->SetPosition(185.0f,-280.0f);
-    TransFormbtn->SetClickSound([]{
-       Sounds::ButtonClick->Play();
-    });
-    TransFormbtn->AddButtonEvent([this]{
-        auto it = std::find_if(EquipList::m_equiplist.begin(),EquipList::m_equiplist.end(),
-       [this](std::shared_ptr<EquipCard> &ec) {return ec->GetUnitNum() == m_catlist.at(m_currentunit)->GetUnitNum();});
-        if (it != EquipList::m_equiplist.end()){
-            (*it)->Transform();
-        }
-    });
-    TransFormbtn->AddButtonEvent([this]{
-        m_catlist.at(m_currentunit)->Transform();
-    });
-    m_buttons.push_back(TransFormbtn);
-    m_Root.AddChild(TransFormbtn);
+    m_TransFormbtn->SetPosition(185.0f,-280.0f);
+    m_buttons.push_back(m_TransFormbtn);
+    m_Root.AddChild(m_TransFormbtn);
 //-----------------------------------------------------------------
     //Misc.
     SetBaseText(RESOURCE_DIR"/equip/basetext_equip.png");
@@ -88,9 +73,6 @@ void EquipScene::Update() {
         m_state = SceneState::UPDATE;
         m_currentunit = 0;
         UpdateCatList(-128.0f);
-        for(unsigned short i = 0; i < short(EquipList::m_equiplist.size());i++) {
-            EquipList::m_equiplist.at(i)->Transform();
-        }
     }
 //---------------------------------------------------------------------
     bool left = (Util::Input::IsKeyDown(Util::Keycode::LEFT) && m_currentunit > 0);
@@ -105,14 +87,12 @@ void EquipScene::Update() {
         btn->Update();
     }
 //-------------------------------------------------------------------
-    bool CanDrag = !std::any_of(EquipList::m_equiplist.begin(),EquipList::m_equiplist.end(),
-                [this](std::shared_ptr<EquipCard> &ec){return ec->GetUnitNum() == m_catlist.at(m_currentunit)->GetUnitNum();});
-    if(CanDrag){
-        auto &CurrentUnit = m_catlist.at(m_currentunit);
+    auto &CurrentUnit = m_catlist.at(m_currentunit);
+    if(!CurrentUnit->Inuse()){
         CurrentUnit->Drag();
         if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
-            if(CurrentUnit->GetCurrentState() == Draggable::State::PUT_OFF){
-                AddEquip(CurrentUnit->GetUnitNum(),CurrentUnit->Getform());
+            if(CurrentUnit->GetCurrentState() == Draggable::DragState::PUT_OFF){
+                AddEquip(CurrentUnit);
             }
             else{
                 CurrentUnit->MinifyAnime();
@@ -126,7 +106,7 @@ void EquipScene::Update() {
     for(unsigned short int i=0;i < short(EquipList::m_equiplist.size());i++) {
         auto &eq = EquipList::m_equiplist.at(i);
         eq->Drag();
-        if(eq->GetCurrentState() == Draggable::State::PUT_OFF &&
+        if(eq->GetCurrentState() == Draggable::DragState::PUT_OFF &&
             !PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
             RemoveEquip(i);
         }
@@ -135,11 +115,13 @@ void EquipScene::Update() {
     m_Root.Update();
 }
 
-void EquipScene::AddEquip(const unsigned int unitnum,bool form) {
+void EquipScene::AddEquip(std::shared_ptr<UnitCard>& unit) {
     if(EquipList::m_equiplist.size() >= MAXEQUIP){
         return;
     }
-    EquipList::m_equiplist.emplace_back(std::make_unique<EquipCard>(unitnum,1.89f,form));
+    auto &eq = EquipList::m_equiplist.emplace_back(std::make_unique<EquipCard>(unit->GetUnitNum(),1.89f,unit->Getform()));
+    unit->m_EquipCard = eq;
+    eq->m_UnitCard = unit;
     UpdateEquip();
 }
 

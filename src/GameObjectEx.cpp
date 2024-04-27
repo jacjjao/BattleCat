@@ -1,5 +1,7 @@
 #include "GameObjectEx.hpp"
 #include "Util/Time.hpp"
+#include "Util/Input.hpp"
+#include "Utility.hpp"
 
 void GameObjectEx::SetScale(glm::vec2 scale){
     glm::vec2 pre_scale = m_Transform.scale;
@@ -97,7 +99,6 @@ glm::vec2 GameObjectEx::GetTopLeftPos() const{
 glm::vec2 GameObjectEx::GetBottomRightPos() const{
     return m_Transform.translation + GetScaledSize()*glm::vec2(0.5f,-0.5f);
 }
-
 
 
 
