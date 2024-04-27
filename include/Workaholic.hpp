@@ -9,8 +9,9 @@
 class Workholic
 {
 public:
-    Workholic(Wallet& wallet);
+    explicit Workholic(Wallet& wallet);
 
+    [[nodiscard]]
     bool CanLevelUp() const;
 
     void LevelUp();

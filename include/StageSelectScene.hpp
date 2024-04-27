@@ -7,7 +7,7 @@
 class StageSelectScene : public FrameScene
 {
 public:
-    StageSelectScene(App &app);
+    explicit StageSelectScene(App &app);
 
     void Update() override;
 

@@ -3,13 +3,13 @@
 #include "Utility.hpp"
 #include "Util/BGM.hpp"
 
-GameButton::GameButton(const std::string &btn_path) {
+GameButton::GameButton(const std::string& btn_path) {
     SetDrawable(std::make_shared<Util::Image>(btn_path));
 
     SetZIndex(0.0f);
 }
 
-GameButton::GameButton(const std::string &btn_path,
+GameButton::GameButton(const std::string& btn_path,
                        std::initializer_list<std::string> border_paths){
     SetDrawable(std::make_shared<Util::Image>(btn_path));
 

@@ -3,6 +3,10 @@
 #include "Sound.hpp"
 
 UpgradeScene::UpgradeScene(App &app) : m_App(app){
+    for(auto &cat : m_catlist){
+        m_Root.AddChild(cat);
+    }
+    //---------------------------------------------------------------------------------
     auto back_button = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/button_back_ipad.png",
         std::initializer_list<std::string>(
@@ -29,11 +33,6 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     textbox->SetPosition(10,-240);
     m_Root.AddChild(textbox);
     //---------------------------------------------------------------------------------
-    m_catlist = CatList::GetCatList();
-    for(auto &cat : m_catlist){
-        m_Root.AddChild(cat);
-    }
-    //---------------------------------------------------------------------------------
     auto TransFormbtn = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/transform.png");
     TransFormbtn->SetZIndex(2.2f);
     TransFormbtn->SetPosition(185.0f,-40.0f);
@@ -47,7 +46,7 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     m_Root.AddChild(TransFormbtn);
     //---------------------------------------------------------------------------------
     SetBaseText(RESOURCE_DIR"/upgrade/basetext_upgrade.png");
-    UpdateCatList();
+    UpdateCatList(112.0f);
 };
 
 void UpgradeScene::Update(){
@@ -55,7 +54,7 @@ void UpgradeScene::Update(){
     if(m_state == SceneState::EXIT){
         m_state = SceneState::UPDATE;
         m_currentunit = 0;
-        UpdateCatList();
+        UpdateCatList(112.0f);
     }
     //--------------------------------------------------------------------
     bool left = (Util::Input::IsKeyDown(Util::Keycode::LEFT) && m_currentunit > 0);
@@ -63,7 +62,7 @@ void UpgradeScene::Update(){
     m_currentunit += right - left;
     if(left || right){
         Sounds::Scrolling->Play();
-        UpdateCatList();
+        UpdateCatList(112.0f);
     }
     //--------------------------------------------------------------------------------
     for (const auto &btn : m_Buttons) {
@@ -71,22 +70,3 @@ void UpgradeScene::Update(){
     }
     m_Root.Update();
 };
-
-void UpgradeScene::UpdateCatList(){
-    for(int i=0;i < m_catlist.size();i++){
-        auto &unit = m_catlist.at(i);
-        if(i == m_currentunit){
-            unit->SetPosition(0,112.0f);
-            unit->SetScale(1.2f,1.2f);
-            unit->SetVisible(true);
-        }
-        else if(std::abs(m_currentunit-i) <= 2){
-            unit->SetPosition((i-m_currentunit)*285 + (i-m_currentunit>=0 ? 70:-70),60);
-            unit->SetScale(0.8f,0.8f);
-            unit->SetVisible(true);
-        }
-        else{
-            unit->SetVisible(false);
-        }
-    }
-}

@@ -11,6 +11,7 @@ public:
 
     void Reset();
 
+    [[nodiscard]]
     Util::Transform GetTransform() const;
 
     void SetTransform(const Util::Transform &t);

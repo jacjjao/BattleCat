@@ -30,7 +30,8 @@ public:
     void Transform();
     void SetPos(float x,float y);
 
-    unsigned int GetUnitNum(){ return m_UnitNum;};
+    [[nodiscard]]
+    unsigned int GetUnitNum() const{ return m_UnitNum;};
 
 private:
     void Unpressed() override;

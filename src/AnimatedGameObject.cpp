@@ -1,8 +1,7 @@
 #include "AnimatedGameObject.hpp"
 
 AnimatedGameObject::AnimatedGameObject(std::initializer_list<std::string> AnimationPaths)
-    : m_Anime(std::make_shared<Util::Animation>(AnimationPaths, false, 500,
-                                                false, 0)) {
+    : m_Anime(std::make_shared<Util::Animation>(AnimationPaths, false, 500,false, 0)) {
     SetDrawable(m_Anime);
 }
 

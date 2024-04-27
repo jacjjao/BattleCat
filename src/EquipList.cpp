@@ -4,8 +4,8 @@
 
 void EquipCard::Transform() {
     //false -> 1 form , true -> 2 form.
+    m_curruni = !m_form ? m_uni2:m_uni1;
     m_form = !m_form;
-    m_curruni = (m_form? m_uni2:m_uni1);
 }
 
 void EquipCard::SetPos(float x, float y) {

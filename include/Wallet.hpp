@@ -9,12 +9,13 @@
 class Wallet
 {
 public:
-    Wallet(int level);
+    explicit Wallet(int level);
 
     void Update(float dt);
 
     void Draw();
 
+    [[nodiscard]]
     bool CanDeploy(int required) const;
 
     void Spend(int money);

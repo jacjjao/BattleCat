@@ -1,6 +1,5 @@
 #include "App.hpp"
 
-#include "Util/Image.hpp"
 #include "Util/Input.hpp"
 #include "Util/Keycode.hpp"
 #include "Util/Logger.hpp"
@@ -11,6 +10,7 @@
 #include "EquipScene.hpp"
 #include "UpgradeScene.hpp"
 #include "StageSelectScene.hpp"
+#include "Utility.hpp"
 
 void App::Start() {
     LOG_TRACE("Start");
@@ -18,7 +18,7 @@ void App::Start() {
 
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<MenuScene>(*this)));
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(std::make_unique<CatBaseScene>(*this)));
-    auto battle = std::make_unique<BattleScene>(*this);
+    std::unique_ptr<BattleScene> battle = std::make_unique<BattleScene>(*this);
     m_BattleScene = battle.get();
     m_Scenes.emplace_back(std::move(battle));
     m_Scenes.emplace_back(static_cast<std::unique_ptr<Scene>>(
@@ -48,6 +48,7 @@ void App::Update() {
         printf("CursorPos:(%f, %f)\n",Util::Input::GetCursorPosition().x,Util::Input::GetCursorPosition().y);
     }
 
+    Patch::MouseUpdate();
     m_CurScene->Update();
 }
 

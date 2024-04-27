@@ -11,24 +11,21 @@
 
 class App;
 
-class EquipScene : public FrameScene{
+class EquipScene : public FrameScene, private CatList {
 public:
-    EquipScene(App &app);
+    explicit EquipScene(App &app);
     void Update() override;
 private:
     App &m_App;
 
     std::vector<std::shared_ptr<GameButton>> m_buttons;
-    std::vector<std::shared_ptr<UnitCard>> m_catlist;
 
     std::shared_ptr<GameObjectEx> m_equip;
     std::shared_ptr<AnimatedGameObject> m_border;
-    int m_currentunit = 0;
 
     void UpdateEquip();
-    void AddEquip(const unsigned int unitnum,bool form);
+    void AddEquip(unsigned int unitnum,bool form);
     void RemoveEquip(int index);
-    void UpdateCatList();
 
 };
 

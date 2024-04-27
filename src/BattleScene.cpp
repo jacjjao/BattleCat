@@ -2,7 +2,6 @@
 #include "Util/Time.hpp"
 #include "DebugUtil/BattleLog.hpp"
 #include "App.hpp"
-#include "Util/Input.hpp"
 #include <cassert>
 #include <algorithm>
 #include "Sound.hpp"
@@ -223,16 +222,14 @@ void BattleScene::EnemyStartAttack() {
 }
 
 void BattleScene::Draw() {
-    {   
+    {
         auto t = m_Cam.GetTransform();
-        m_Cats[0].Draw(t,
-                       m_CatAnime[static_cast<size_t>(m_Cats[0].GetCatType())]);
+        m_Cats[0].Draw(t,m_CatAnime[static_cast<size_t>(m_Cats[0].GetCatType())]);
         t.translation.y += m_CatY;
         for (size_t i = 1; i < m_Cats.size(); ++i) {
-            auto t = m_Cam.GetTransform();
-            t.translation.y += m_CatY;
-            m_Cats[i].Draw(
-                t, m_CatAnime[static_cast<size_t>(m_Cats[i].GetCatType())]);
+            auto gt = m_Cam.GetTransform();
+            gt.translation.y += m_CatY;
+            m_Cats[i].Draw(gt, m_CatAnime[static_cast<size_t>(m_Cats[i].GetCatType())]);
             // cat.Draw(m_Cam.GetTransform(), m_CatImage[0]);
         }
     }

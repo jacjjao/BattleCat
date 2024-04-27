@@ -1,6 +1,3 @@
-//
-// Created by user on 2024/3/1.
-//
 #include "GameObjectEx.hpp"
 #include "Util/Time.hpp"
 
@@ -91,15 +88,15 @@ float GameObjectEx::GetRotation() const{
 
 std::shared_ptr<Core::Drawable> GameObjectEx::GetDrawable() const{
     return m_Drawable;
-};
+}
 
 glm::vec2 GameObjectEx::GetTopLeftPos() const{
     return m_Transform.translation + GetScaledSize()*glm::vec2(-0.5f,0.5f);
-};
+}
 
 glm::vec2 GameObjectEx::GetBottomRightPos() const{
     return m_Transform.translation + GetScaledSize()*glm::vec2(0.5f,-0.5f);
-};
+}
 
 
 

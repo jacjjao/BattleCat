@@ -26,7 +26,7 @@ public:
     void SetTransform(Util::Transform transform);
 
     void Draw(){ GameObject::Draw(); }
-    void Draw(const Util::Transform &transform, const float zIndex);
+    void Draw(const Util::Transform &transform, float zIndex);
 
     [[nodiscard]]
     glm::vec2 GetScale() const;
@@ -40,7 +40,6 @@ public:
     glm::vec2 GetTopLeftPos() const;
     [[nodiscard]]
     glm::vec2 GetBottomRightPos() const;
-
 
     virtual ~GameObjectEx() override = default;
 

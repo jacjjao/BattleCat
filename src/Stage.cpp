@@ -48,7 +48,7 @@ Stage StageFactory::CreateLevel1() {
         ed.initAppearTime = 0.0;
         ed.towerHealthPercent = 1.0;
         ed.limit = 1;
-        stage.dispatchers.push_back(std::move(ed));
+        stage.dispatchers.push_back(ed);
     }
     {
         EnemyDispatcher ed;
@@ -56,7 +56,7 @@ Stage StageFactory::CreateLevel1() {
         ed.towerHealthPercent = 1.0;
         ed.SetTimeOutDur(10.0);
         ed.limit = EnemyDispatcher::s_Infinite;
-        stage.dispatchers.push_back(std::move(ed));
+        stage.dispatchers.push_back(ed);
     }
     {
         EnemyDispatcher test;
@@ -64,7 +64,7 @@ Stage StageFactory::CreateLevel1() {
         test.towerHealthPercent = 0.95;
         test.limit = 1;
         test.knockCats = true;
-        stage.dispatchers.push_back(std::move(test));
+        stage.dispatchers.push_back(test);
     }
 
     return stage;

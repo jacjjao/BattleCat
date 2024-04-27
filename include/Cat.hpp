@@ -38,6 +38,7 @@ public:
 
     void DealDamage(Entity &e) override;
 
+    [[nodiscard]]
     CatType GetCatType() const;
 
     bool OnAttack();
@@ -51,6 +52,7 @@ private:
     void CoolDownComplete();
     void OnHitBack() override;
 
+    [[nodiscard]]
     HitBox ToWorldSpace(HitBox hitbox) const override;
 
     CatType m_Type;
@@ -195,7 +197,7 @@ namespace CatAnime {
         Cat::Animation a;
         a.idle = std::move(idle);
         return a;
-    };
+    }
 
     inline Cat::Animation Cat() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
@@ -226,7 +228,7 @@ namespace CatAnime {
         a.idle = std::move(idle);
         a.knockback = std::move(knockback);
         return a;
-    };
+    }
 
     inline Cat::Animation Tank() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
@@ -257,7 +259,7 @@ namespace CatAnime {
         a.idle = std::move(idle);
         a.knockback = std::move(knockback);
         return a;
-    };
+    }
 
     inline Cat::Animation Axe() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
@@ -289,7 +291,7 @@ namespace CatAnime {
         a.idle = std::move(idle);
         a.knockback = std::move(knockback);
         return a;
-    };
+    }
 
     inline Cat::Animation Gross() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
@@ -323,7 +325,7 @@ namespace CatAnime {
         a.idle = std::move(idle);
         a.knockback = std::move(knockback);
         return a;
-    };
+    }
 
 // clang-format on
 

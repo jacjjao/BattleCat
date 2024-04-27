@@ -7,7 +7,7 @@
 class BattleBackground
 {
 public:
-    BattleBackground(const std::string &path);
+    explicit BattleBackground(const std::string &path);
 
     void SetScaleX(float x);
 

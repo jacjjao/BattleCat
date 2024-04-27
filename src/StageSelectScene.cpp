@@ -1,8 +1,8 @@
 #include "StageSelectScene.hpp"
 
 StageSelectScene::StageSelectScene(App &app)
-    : m_App(app),
-      m_Background(RESOURCE_DIR "/img/img030_tw.png") {}
+    : m_Background(RESOURCE_DIR "/img/img030_tw.png"),
+      m_App(app) {}
 
 void StageSelectScene::Update() {
     FrameScene::Update();

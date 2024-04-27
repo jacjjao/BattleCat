@@ -10,7 +10,7 @@
 
 class CatBaseScene : public FrameScene {
 public:
-    CatBaseScene(App &app);
+    explicit CatBaseScene(App &app);
     virtual void Update() override;
 private:
     App &m_App;

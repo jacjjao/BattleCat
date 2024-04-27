@@ -2,6 +2,7 @@
 #define BATTLECAT_DRAGGABLE_HPP
 
 #include "Util/Input.hpp"
+#include "Utility.hpp"
 
 class Draggable{
 public:
@@ -49,21 +50,23 @@ protected:
     State m_State = State::UNPRESSED;
 private:
     void UpdateState(){
-        //const auto key = Util::Keycode::MOUSE_LB;
-        const auto key = Util::Keycode::SPACE;
+        const auto key = Util::Keycode::MOUSE_LB;
+        //const auto key = Util::Keycode::SPACE;
         if(m_State == State::PICKUP){
             m_State = State::DRAGGING;
             return;
         }
-        if(Util::Input::IsKeyUp(key) && m_State == State::DRAGGING){
+        if(Patch::MouseLBUP() && m_State == State::DRAGGING){
             m_State = State::PUT_OFF;
             return;
         }
         if(!Util::Input::IsKeyPressed(key)){
             m_State = State::UNPRESSED;
+            return;
         }
         if(Util::Input::IsKeyDown(key) && IsMouseHovering()){
             m_State = State::PICKUP;
+            return;
         }
     };
 };
