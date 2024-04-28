@@ -35,7 +35,3 @@ bool Timer::IsTimeOut() {
 Timer::State Timer::GetState() const {
     return m_State;
 }
-
-double Timer::GetProcess() const {
-    return m_TimeRemained / m_TimeOutDur;
-}
