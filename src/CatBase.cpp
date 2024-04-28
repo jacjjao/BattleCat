@@ -105,6 +105,8 @@ CatBaseScene::CatBaseScene(App &app)
 }
 
 void CatBaseScene::Update() {
+    FrameScene::Update();
+    //-----------------------------------------------------------
     static int basecatframe;
     basecatframe += 1;
     basecatframe = basecatframe%3000;
@@ -116,10 +118,9 @@ void CatBaseScene::Update() {
             m_BaseCat->MovePosition(0,3);
             break;
     }
-
     m_BaseCat->GetChildren().at(0)->SetVisible(
     (basecatframe % 140 == 134 || basecatframe % 140 == 135 || basecatframe%140 == 129 || basecatframe%140 == 130));
-
+    //----------------------------------------------------------------------
     for (const auto &btn : m_Buttons) {
         btn->Update();
     }

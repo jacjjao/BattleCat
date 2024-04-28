@@ -1,10 +1,10 @@
 #ifndef STAGE_SELECT_SCENE_HPP
 #define STAGE_SELECT_SCENE_HPP
 
-#include "Scene.hpp"
+#include "FrameScene.hpp"
 #include "Util/Image.hpp"
 
-class StageSelectScene : public Scene
+class StageSelectScene : public FrameScene
 {
 public:
     StageSelectScene(App &app);

@@ -13,13 +13,7 @@ void DeployButton::SetCoolDownTime(const double time) {
 }
 
 void DeployButton::SetCost(const int cost) {
-    if (!m_Text) {
-        m_Text.emplace(RESOURCE_DIR "/font/Inter.ttf", 16, " ",
-                       Util::Color(0, 0, 200, 255));
-    }
-    std::string str = "$" + std::to_string(cost);
-    m_Text->SetText(str);
-    m_TextTransform.translation = GetScaledSize();
+    n_Cost = cost;
 }
 
 void DeployButton::Draw() {
@@ -41,16 +35,12 @@ void DeployButton::Draw() {
 }
 
 void DeployButton::DrawCost() {
-    if (!m_Text) {
+    if(!n_Cost){
         return;
     }
     Util::Transform t;
     t.translation = GetBottomRightPos();
-    auto sz = m_Text->GetSize();
-    // Hard-coded for now. Not sure if GetBottomRightPos is bugged or m_Text->GetSize is causing issues
-    t.translation.x -= sz.x * 0.3f;
-    t.translation.y += sz.y * 0.7f;
-    m_Text->Draw(t, 50.0f);
+    m_Cost.Display(n_Cost,glm::vec2(t.translation.x - 9,t.translation.y + 13),50.0f,18);
 }
 
 void DeployButton::StartCoolDown() {

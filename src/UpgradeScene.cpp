@@ -51,6 +51,7 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
 };
 
 void UpgradeScene::Update(){
+    FrameScene::Update();
     if(m_state == SceneState::EXIT){
         m_state = SceneState::UPDATE;
         m_currentunit = 0;
