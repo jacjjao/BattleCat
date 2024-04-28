@@ -44,25 +44,25 @@ namespace RectProgram {
         layout(location = 0) in vec2 pos;
         layout(location = 1) in vec4 color;
 
-        layout(location = 0) out vec4 o_color;
+        out vec4 frag_color;
         
         uniform mat4 vp;
 
         void main() {
             gl_Position = vp * vec4(pos, 0, 1);
-            o_color = color;
+            frag_color = color;
         }
     )";
 
     static inline const char* fragment_shader = R"(
         #version 410 core
 
-        in vec4 color;
+        in vec4 frag_color;
         
         out vec4 fragColor;
 
         void main() {
-            fragColor = color;
+            fragColor = frag_color;
         }
     )";
 

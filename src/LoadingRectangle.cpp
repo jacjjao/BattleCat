@@ -103,6 +103,10 @@ void LoadingRectangles::DrawRect(float x, float y, float w, float h,
 }
 
 void LoadingRectangles::DrawAll() {
+    if (m_Vertices.empty()) {
+        return;
+    }
+
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
     glBufferSubData(GL_ARRAY_BUFFER, 0, m_Vertices.size() * sizeof(Vertex),
                     m_Vertices.data());
