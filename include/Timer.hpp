@@ -21,13 +21,14 @@ public:
 
     bool IsTimeOut();
 
+    [[nodiscard]]
     State GetState() const;
 
     double GetProcess() const;
 
 private:
-    double m_TimeOutDur;
-    double m_TimeRemained;
+    double m_TimeOutDur{};
+    double m_TimeRemained{};
     bool m_TimeOut = false;
     State m_State = State::STOP;
 };

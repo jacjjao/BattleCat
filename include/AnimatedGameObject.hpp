@@ -12,7 +12,7 @@
 class AnimatedGameObject : public GameObjectEx {
 
 public:
-    explicit AnimatedGameObject(std::initializer_list<std::string> AnimationPaths);
+    AnimatedGameObject(std::initializer_list<std::string> AnimationPaths);
 
     void SetLooping(bool looping);
 
@@ -26,12 +26,13 @@ public:
 
     void SetCurrentFrame(std::size_t index);
 
-    void Draw(const Util::Transform &transform, const float zIndex,const size_t img_index);
+    void Draw(const Util::Transform &transform, float zIndex, size_t img_index);
 
     std::shared_ptr<Util::Animation> GetAnime();
 
     std::size_t GetCurrentFrameIndex();
 
+    [[nodiscard]]
     bool IsPlaying() const;
 
 private:

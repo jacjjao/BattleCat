@@ -1,6 +1,5 @@
 #include "CatBase.hpp"
 #include "App.hpp"
-#include "EquipScene.hpp"
 #include "GameButton.hpp"
 #include "GameObjectEx.hpp"
 #include "Util/Image.hpp"

@@ -1,5 +1,4 @@
 #include "Cat.hpp"
-#include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
 #include "Sound.hpp"
 #include <random>
@@ -49,6 +48,9 @@ void Cat::Draw(Util::Transform trans, Animation &anime) {
         case EntityState::IDLE:
             anime.idle->Reset();
             anime.idle->Play();
+            break;
+
+        case EntityState::HITBACK:
             break;
         }
     }

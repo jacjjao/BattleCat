@@ -34,6 +34,7 @@ public:
     };
     static_assert(std::is_same_v<std::underlying_type_t<BGMType>, size_t>); // Do not change the underlying type
 
+    [[nodiscard]]
     State GetCurrentState() const { return m_CurrentState; }
 
     void Start();

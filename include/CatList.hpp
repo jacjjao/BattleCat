@@ -6,34 +6,16 @@
 #include "Util/Image.hpp"
 #include "Draggable.hpp"
 #include "GameButton.hpp"
+//#include "EquipList.hpp"
+
 #include <sstream>
 #include <iostream>
 
+class EquipCard;
 class UnitCard : public Draggable , public GameObjectEx{
 public:
-    UnitCard(unsigned int unitnum,const float zIndex){
-        const int UnitNumLength = 3;
-        SetDrawable(std::make_unique<Util::Image>(RESOURCE_DIR"/cats/unit.png"));
-        SetZIndex(zIndex);
-        m_DragTrans.scale = glm::vec2(1.4f, 1.4f);
+    UnitCard(unsigned int unitnum,float zIndex);
 
-        m_UnitNum = unitnum;
-        std::stringstream udi1_img;
-        udi1_img << RESOURCE_DIR"/cats/udi/" << "udi" << std::string(UnitNumLength - std::to_string(unitnum).length(), '0') << unitnum<<"_f.png";
-        m_udi1 = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(udi1_img.str()),zIndex+0.001f);
-        m_udi1->SetPosition(-2.0f,32.0f);
-        AddChild(m_udi1);
-
-        std::stringstream udi2_img;
-        udi2_img << RESOURCE_DIR"/cats/udi/" << "udi" << std::string(UnitNumLength - std::to_string(unitnum).length(), '0') << unitnum << "_c.png";
-        m_udi2 = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(udi2_img.str()),zIndex+0.001f);
-        m_udi2->SetPosition(-2.0f,32.0f);
-        AddChild(m_udi2);
-
-        m_udi2->SetVisible(false);
-
-        m_currudi = m_udi1;
-    };
     void Transform();
 
     void MinifyAnime();
@@ -43,9 +25,19 @@ public:
     void SetVisible(bool b);
 
     //void SetScale(float x, float y);
-    unsigned int GetUnitNum(){ return m_UnitNum;};
+    [[nodiscard]]
+    unsigned int GetUnitNum() const{ return m_UnitNum;};
 
-    bool Getform(){return m_form;};
+    [[nodiscard]]
+    bool Getform() const{ return m_form;};
+
+    [[nodiscard]]
+    bool Inuse() const {
+        if(m_EquipCard.lock()) return true;
+        return false;
+    };
+
+   std::weak_ptr<EquipCard> m_EquipCard;
 
 private:
     //void Unpressed() override;
@@ -66,21 +58,26 @@ private:
 };
 //--------------------------------------------------------------------------------------
 class CatList{
+
+public:
+    virtual ~CatList() = default;
+    CatList();
+
 private:
-    CatList() = delete;
     static std::vector<std::shared_ptr<UnitCard>> Init(){
         std::vector<std::shared_ptr<UnitCard>> catlist;
         catlist.reserve(MAXUNITS);
         for(unsigned int i=0;i<MAXUNITS;i++){
-            auto &unit = catlist.emplace_back
-                         (std::make_shared<UnitCard>(i,1.9f));
-            //m_Root. AddChild(unit);
+            catlist.emplace_back(std::make_shared<UnitCard>(i,1.9f));
         }
         return catlist;
     }
+
+protected:
+    unsigned short int m_currentunit = 0;
+    void UpdateCatList(float y) const;
     static inline std::vector<std::shared_ptr<UnitCard>> m_catlist = Init();
-public:
-    static std::vector<std::shared_ptr<UnitCard>> GetCatList(){return m_catlist;};
+    std::shared_ptr<GameButton> m_TransFormbtn = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/transform.png");
 };
 
 #endif // BATTLECAT_CATLIST_HPP

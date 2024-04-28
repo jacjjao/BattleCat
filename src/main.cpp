@@ -2,7 +2,7 @@
 
 #include "Core/Context.hpp"
 
-#include "Entity.hpp"
+//#include "Entity.hpp"
 
 int main(int, char**) {
     auto context = Core::Context::GetInstance();

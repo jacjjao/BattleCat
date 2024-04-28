@@ -3,7 +3,7 @@
 
 Wallet::Wallet(const int level)
     : m_Text(RESOURCE_DIR "/font/Inter.ttf", 40, "HI", Util::Color(255, 255, 0, 255)) {
-    assert(level < s_MoneyMax.size());
+    assert(level < int(s_MoneyMax.size()));
     m_MaxMoney = s_MoneyMax[level];
     m_MoneyDelta = s_DeltaMoney[level];
 }

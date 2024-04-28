@@ -13,29 +13,39 @@ public:
 
     void GetHit(int damage, const Entity &attacker);
 
+    [[nodiscard]]
     HitBox GetHitBox() const; // when attacking
 
     void SetState(EntityState state);
+
+    [[nodiscard]]
     EntityState GetState() const;
 
+    [[nodiscard]]
     bool IsInRange(const Entity &e) const;
 
+    [[nodiscard]]
     float GetPosX() const;
 
     void SetPosX(float pos);
 
+    [[nodiscard]]
     bool IsSingleTarget() const;
 
     virtual void DealDamage(Entity &e) = 0;
 
+    [[nodiscard]]
     bool IsDead() const;
 
+    [[nodiscard]]
     std::optional<EnemyAttr> GetAttr() const;
 
+    [[nodiscard]]
     double GetHealthPercent() const;
 
 #ifdef ENABLE_BATTLE_LOG
-    const std::string_view GetName() const {
+    [[nodiscard]]
+    std::string_view GetName() const {
         return m_Stats.name;
     }
 #endif // ENABLE_BATTLE_LOG
@@ -45,6 +55,7 @@ public:
 
 protected:
     void SetStats(const EntityStats &stats);
+    [[nodiscard]]
     virtual HitBox ToWorldSpace(HitBox hitbox) const = 0;
     virtual void OnHitBack(){}; // TODO: make it pure virtual
 

@@ -21,14 +21,14 @@ public:
     void SetBaseText(const std::string &basetext);
 
     static unsigned int GetXP(){ return m_XP; };
-    void AddXP(unsigned int xp);
+    static void AddXP(unsigned int xp);
 
     static unsigned int GetCatfood(){ return m_Catfood; };
-    void AddCatfood(unsigned int Catfood);
+    static void AddCatfood(unsigned int Catfood);
 
     virtual void Update() override;
 
-    virtual ~FrameScene() = default;
+    virtual ~FrameScene() override = default;
 
 private:
     static std::shared_ptr<GameObjectEx> Init

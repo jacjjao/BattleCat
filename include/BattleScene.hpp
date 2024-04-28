@@ -23,7 +23,7 @@ struct DamageInfo {
 
 class BattleScene : public Scene {
 public:
-    BattleScene(App &app);
+    explicit BattleScene(App &app);
 
     void Update() override;
     void LoadStage(Stage &stage);

@@ -15,7 +15,7 @@ static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
 
 class Enemy : public Entity {
 public:
-    Enemy(EnemyType type);
+    explicit Enemy(EnemyType type);
 
     void StartAttack();
 
@@ -27,6 +27,7 @@ public:
 
     void DealDamage(Entity &e) override;
 
+    [[nodiscard]]
     EnemyType GetEnemyType() const;
 
     bool OnAttack();
@@ -37,6 +38,7 @@ private:
     void Attack();
     void CoolDownComplete();
 
+    [[nodiscard]]
     HitBox ToWorldSpace(HitBox hitbox) const override;
 
     EnemyType m_Type;

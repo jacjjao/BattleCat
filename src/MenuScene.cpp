@@ -3,9 +3,9 @@
 #include "Util/Image.hpp"
 #include "GameObjectEx.hpp"
 #include "App.hpp"
-#include "CatBase.hpp"
+//#include "CatBase.hpp"
 
-#include "Util/Input.hpp"
+//#include "Util/Input.hpp"
 
 MenuScene::MenuScene(App &app) : m_App(app) {
     auto background = std::make_shared<GameObjectEx>

@@ -1,8 +1,7 @@
-//
-// Created by user on 2024/3/1.
-//
 #include "GameObjectEx.hpp"
 #include "Util/Time.hpp"
+#include "Util/Input.hpp"
+#include "Utility.hpp"
 
 void GameObjectEx::SetScale(glm::vec2 scale){
     glm::vec2 pre_scale = m_Transform.scale;
@@ -91,16 +90,15 @@ float GameObjectEx::GetRotation() const{
 
 std::shared_ptr<Core::Drawable> GameObjectEx::GetDrawable() const{
     return m_Drawable;
-};
+}
 
 glm::vec2 GameObjectEx::GetTopLeftPos() const{
     return m_Transform.translation + GetScaledSize()*glm::vec2(-0.5f,0.5f);
-};
+}
 
 glm::vec2 GameObjectEx::GetBottomRightPos() const{
     return m_Transform.translation + GetScaledSize()*glm::vec2(0.5f,-0.5f);
-};
-
+}
 
 
 

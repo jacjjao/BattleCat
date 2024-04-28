@@ -2,10 +2,11 @@
 #define BATTLECAT_DRAGGABLE_HPP
 
 #include "Util/Input.hpp"
+#include "Utility.hpp"
 
 class Draggable{
 public:
-    enum class State : size_t{
+    enum class DragState : size_t{
         UNPRESSED = 0,
         PUT_OFF,
         DRAGGING,
@@ -15,20 +16,20 @@ public:
 public:
     void Drag(){
         UpdateState();
-        switch (m_State) {
-            case State::UNPRESSED:{
+        switch (m_DragState) {
+            case DragState::UNPRESSED:{
                 Unpressed();
                 break;
             }
-            case State::PUT_OFF:{
+            case DragState::PUT_OFF:{
                 Put_OFF();
                 break;
             }
-            case State::DRAGGING:{
+            case DragState::DRAGGING:{
                 Dragging();
                 break;
             }
-            case State::PICKUP:{
+            case DragState::PICKUP:{
                 PickUp();
                 break;
             }
@@ -36,8 +37,8 @@ public:
     };
 
     [[nodiscard]]
-    State GetCurrentState() const {
-        return m_State;
+    DragState GetCurrentState() const {
+        return m_DragState;
     };
 protected:
     virtual void Unpressed(){};
@@ -46,24 +47,26 @@ protected:
     virtual void PickUp(){};
 
     virtual bool IsMouseHovering() = 0;
-    State m_State = State::UNPRESSED;
+    DragState m_DragState = DragState::UNPRESSED;
 private:
     void UpdateState(){
-        //const auto key = Util::Keycode::MOUSE_LB;
-        const auto key = Util::Keycode::SPACE;
-        if(m_State == State::PICKUP){
-            m_State = State::DRAGGING;
+        const auto key = Util::Keycode::MOUSE_LB;
+        //const auto key = Util::Keycode::SPACE;
+        if(m_DragState == DragState::PICKUP){
+            m_DragState = DragState::DRAGGING;
             return;
         }
-        if(Util::Input::IsKeyUp(key) && m_State == State::DRAGGING){
-            m_State = State::PUT_OFF;
+        if(Patch::MouseLBUP() && m_DragState == DragState::DRAGGING){
+            m_DragState = DragState::PUT_OFF;
             return;
         }
         if(!Util::Input::IsKeyPressed(key)){
-            m_State = State::UNPRESSED;
+            m_DragState = DragState::UNPRESSED;
+            return;
         }
         if(Util::Input::IsKeyDown(key) && IsMouseHovering()){
-            m_State = State::PICKUP;
+            m_DragState = DragState::PICKUP;
+            return;
         }
     };
 };

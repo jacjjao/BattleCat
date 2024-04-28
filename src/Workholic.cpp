@@ -3,10 +3,10 @@
 #include <cassert>
 
 Workholic::Workholic(Wallet &wallet)
-    : m_Wallet(wallet),
-      m_Btn(RESOURCE_DIR "/img/Workholic0.png") ,
-      m_Anime({RESOURCE_DIR "/img/Workholic1.png",
-               RESOURCE_DIR "/img/Workholic2.png"}){
+    : m_Btn(RESOURCE_DIR "/img/Workholic0.png"),
+      m_Anime({RESOURCE_DIR "/img/Workholic1.png",RESOURCE_DIR "/img/Workholic2.png"}) ,
+      m_Wallet(wallet){
+
     m_Anime.SetInterval(100);
     m_Anime.SetLooping(true);
     m_Anime.Play();
@@ -29,13 +29,13 @@ Workholic::Workholic(Wallet &wallet)
 
 bool Workholic::CanLevelUp() const {
     const int next_level = m_Level + 1;
-    return next_level < s_LevelSpend.size() &&
+    return next_level < int(s_LevelSpend.size()) &&
            m_Wallet.CanDeploy(s_LevelSpend[next_level]);
 }
 
 void Workholic::LevelUp() {
     ++m_Level;
-    assert(m_Level < s_LevelSpend.size());
+    assert(m_Level < int(s_LevelSpend.size()));
     m_Wallet.Spend(s_LevelSpend[m_Level]);
     m_Wallet.LevelUp(m_Level);
 }

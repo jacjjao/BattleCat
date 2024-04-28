@@ -45,7 +45,7 @@ void Enemy::UpdateTimer(const double dt) {
 
 void Enemy::Walk(const float dt) {
     if (GetState() == EntityState::WALK) {
-        m_PosX += m_Stats.speed * dt;
+        m_PosX += float(m_Stats.speed) * dt;
     } else if (GetState() == EntityState::HITBACK) {
         m_PosX -= s_KnockbackSpeed * dt;
     }

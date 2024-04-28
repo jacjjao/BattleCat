@@ -13,7 +13,7 @@ class App;
 
 class MenuScene : public Scene{
 public:
-    MenuScene(App &app);
+    explicit MenuScene(App &app);
 
     void Update() override;
 

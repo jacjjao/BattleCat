@@ -2,10 +2,24 @@
 #include "Util/Input.hpp"
 #include "Utility.hpp"
 
+EquipCard::EquipCard(unsigned int unitnum, const float zIndex, bool form) {
+    const int UnitNumLength = 3;
+    m_UnitNum = unitnum;
+    std::stringstream uni1_img;
+    uni1_img << RESOURCE_DIR"/cats/uni/f/" << "uni" << std::string(UnitNumLength - std::to_string(unitnum).length(), '0') << unitnum << "_f00.png";
+    std::stringstream uni2_img;
+    uni2_img << RESOURCE_DIR"/cats/uni/c/" << "uni" << std::string(UnitNumLength - std::to_string(unitnum).length(), '0') << unitnum << "_c00.png";
+    m_uni1 = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(uni1_img.str()),zIndex);
+    m_uni2 = std::make_shared<GameObjectEx>(std::make_unique<Util::Image>(uni2_img.str()),zIndex);
+
+    m_form = form;
+    m_curruni = (m_form? m_uni2:m_uni1);
+}
+
 void EquipCard::Transform() {
     //false -> 1 form , true -> 2 form.
+    m_curruni = !m_form ? m_uni2:m_uni1;
     m_form = !m_form;
-    m_curruni = (m_form? m_uni2:m_uni1);
 }
 
 void EquipCard::SetPos(float x, float y) {

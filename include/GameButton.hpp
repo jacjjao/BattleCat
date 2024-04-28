@@ -9,11 +9,11 @@
 
 class GameButton : public GameObjectEx{
 public:
-    explicit GameButton(const std::string &btn_path);
+    explicit GameButton(const std::string& btn_path);
 
-    explicit GameButton(const std::string &btn_path,std::initializer_list<std::string> border_paths);
+    explicit GameButton(const std::string& btn_path,std::initializer_list<std::string> border_paths);
 
-    virtual ~GameButton() = default;
+    virtual ~GameButton() override = default;
 
     void SetClickSound(const std::function<void()>& click_sound);
 
@@ -38,7 +38,9 @@ private:
 
     std::shared_ptr<AnimatedGameObject> m_HoverBorder = nullptr;
 
+    [[nodiscard]]
     bool IsMouseHovering() const;
+
     void SetHoverBorder(std::shared_ptr<AnimatedGameObject> border);
 };
 
