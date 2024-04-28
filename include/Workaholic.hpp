@@ -31,11 +31,6 @@ private:
 
     std::shared_ptr<Util::Image> m_Img;
     AnimatedGameObject m_Anime;
-    
-    NumberSystem m_Spendnum = NumberSystem({RESOURCE_DIR"/scene/yellowbit/0.png",RESOURCE_DIR"/scene/yellowbit/1.png",RESOURCE_DIR"/scene/yellowbit/2.png",RESOURCE_DIR"/scene/yellowbit/3.png",RESOURCE_DIR"/scene/yellowbit/4.png",RESOURCE_DIR"/scene/yellowbit/5.png",
-            RESOURCE_DIR"/scene/yellowbit/6.png",RESOURCE_DIR"/scene/yellowbit/7.png",RESOURCE_DIR"/scene/yellowbit/8.png",RESOURCE_DIR"/scene/yellowbit/9.png"});
-    NumberSystem m_Levelnum = NumberSystem({RESOURCE_DIR"/scene/whitenumber/0.png",RESOURCE_DIR"/scene/whitenumber/1.png",RESOURCE_DIR"/scene/whitenumber/2.png",RESOURCE_DIR"/scene/whitenumber/3.png",RESOURCE_DIR"/scene/whitenumber/4.png",RESOURCE_DIR"/scene/whitenumber/5.png",
-            RESOURCE_DIR"/scene/whitenumber/6.png",RESOURCE_DIR"/scene/whitenumber/7.png",RESOURCE_DIR"/scene/whitenumber/8.png",RESOURCE_DIR"/scene/whitenumber/9.png"});
 
     std::shared_ptr<Util::Image> m_dollar = std::make_shared<Util::Image>(RESOURCE_DIR"/scene/yellowbit/dollar.png");
     std::shared_ptr<Util::Image> m_LEVEL = std::make_shared<Util::Image>(RESOURCE_DIR"/scene/whitenumber/LEVEL.png");

@@ -61,7 +61,7 @@ void Workholic::Draw() {
     transform.translation.y += m_Btn.GetScaledSize().y * 0.4f + 5;
     transform.translation.x -= 7;
     m_LEVEL->Draw(transform,11.0f);
-    m_Levelnum.Display(m_Level,glm::vec2(transform.translation.x+50, transform.translation.y),11.0f,20);
+    NumberSystem::Display(m_Level,glm::vec2(transform.translation.x+50, transform.translation.y),11.0f,20,NumberSystem::WhiteNumber);
 
     transform.translation.y -= m_Btn.GetScaledSize().y * 0.8f;
     transform.translation.x += 20;
@@ -72,9 +72,9 @@ void Workholic::Draw() {
     }
     else{
         m_dollar->Draw(transform,11.0f);
-        m_Spendnum.Display(
+        NumberSystem::Display(
             s_LevelSpend[m_Level + 1],
             glm::vec2(transform.translation.x - 18, transform.translation.y),
-            11.0f, 18);
+            11.0f, 18,NumberSystem::YellowBit);
     }
 }

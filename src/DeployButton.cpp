@@ -39,7 +39,7 @@ void DeployButton::DrawCost() {
     }
     Util::Transform t;
     t.translation = GetBottomRightPos();
-    m_Cost.Display(n_Cost,glm::vec2(t.translation.x - 9,t.translation.y + 13),50.0f,18);
+    NumberSystem::Display(n_Cost,glm::vec2(t.translation.x - 9,t.translation.y + 13),50.0f,18,NumberSystem::YellowBit);
 }
 
 void DeployButton::StartCoolDown() {

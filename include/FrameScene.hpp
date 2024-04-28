@@ -75,7 +75,6 @@ private:
          glm::vec2(float(app_w)/3.8f,float(app_h)/-2.0f + 27.5));
 
     std::shared_ptr<GameObjectEx> m_BaseText;
-    NumberSystem m_NumSys;
 
 protected:
     static inline unsigned int m_XP = 99999999;

@@ -24,6 +24,6 @@ void FrameScene::AddCatfood(unsigned int Catfood) {
 }
 
 void FrameScene::Update() {
-    m_NumSys.Display(m_XP,glm::vec2(float(app_w)/2.0f - 72,float(app_h)/2.0f - 26.5),2.0f,30);
-    m_NumSys.Display(m_Catfood,glm::vec2(float(app_w)/2.0f - 72,float(app_h)/-2.0f + 26.5),2.0f,30);
+    NumberSystem::Display(m_XP,glm::vec2(float(app_w)/2.0f - 72,float(app_h)/2.0f - 26.5),2.0f,30,NumberSystem::YellowNumber);
+    NumberSystem::Display(m_Catfood,glm::vec2(float(app_w)/2.0f - 72,float(app_h)/-2.0f + 26.5),2.0f,30,NumberSystem::YellowNumber);
 }

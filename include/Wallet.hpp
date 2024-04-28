@@ -36,7 +36,6 @@ private:
     float m_CurMoney = 0.0f;
     int m_MaxMoney = 0;
 
-    NumberSystem m_wallet;
     std::shared_ptr<Util::Image> m_slash = std::make_shared<Util::Image>(RESOURCE_DIR"/scene/yellownumber/slash.png");
     std::shared_ptr<Util::Image> m_dollar = std::make_shared<Util::Image>(RESOURCE_DIR"/scene/yellownumber/dollar.png");
 

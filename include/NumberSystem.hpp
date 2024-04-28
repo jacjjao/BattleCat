@@ -1,20 +1,24 @@
 #ifndef BATTLECAT_NUMBERSYSTEM_HPP
 #define BATTLECAT_NUMBERSYSTEM_HPP
 
-#include "AnimatedGameObject.hpp"
-class NumberSystem{
-public:
-    NumberSystem() = default;
-    NumberSystem(std::initializer_list<std::string> font);
+#include <array>
+#include <glm/vec2.hpp>
+#include "Util/Image.hpp"
 
-    glm::vec2 Display(unsigned int number,glm::vec2 rightmost_pos,float zIndex,float xOffset);
-    void SetNumberFont(std::initializer_list<std::string> font);
+namespace NumberSystem{
+    extern std::array<Util::Image,10> DarkBit;
 
-private:
-    std::shared_ptr<AnimatedGameObject> m_num = std::make_shared<AnimatedGameObject>(std::initializer_list<std::string>
-        {RESOURCE_DIR"/scene/yellownumber/0.png",RESOURCE_DIR"/scene/yellownumber/1.png",RESOURCE_DIR"/scene/yellownumber/2.png",RESOURCE_DIR"/scene/yellownumber/3.png",RESOURCE_DIR"/scene/yellownumber/4.png",
-          RESOURCE_DIR"/scene/yellownumber/5.png",RESOURCE_DIR"/scene/yellownumber/6.png",RESOURCE_DIR"/scene/yellownumber/7.png",RESOURCE_DIR"/scene/yellownumber/8.png",RESOURCE_DIR"/scene/yellownumber/9.png"});
+    extern std::array<Util::Image,10> DarkNumber;
 
-};
+    extern std::array<Util::Image,10> SmallNumber;
+
+    extern std::array<Util::Image,10> WhiteNumber;
+
+    extern std::array<Util::Image,10> YellowBit;
+
+    extern std::array<Util::Image,10> YellowNumber;
+
+    glm::vec2 Display(unsigned int number,glm::vec2 rightmost_pos,float zIndex,float xOffset,std::array<Util::Image,10>& font);
+}
 
 #endif // BATTLECAT_NUMBERSYSTEM_HPP
