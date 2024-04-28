@@ -7,7 +7,7 @@ public:
     NumberSystem() = default;
     NumberSystem(std::initializer_list<std::string> font);
 
-    glm::vec2 Display(unsigned int number,glm::vec2 rightmost_pos,float zIndex,int xOffset);
+    glm::vec2 Display(unsigned int number,glm::vec2 rightmost_pos,float zIndex,float xOffset);
     void SetNumberFont(std::initializer_list<std::string> font);
 
 private:

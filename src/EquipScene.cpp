@@ -83,6 +83,7 @@ EquipScene::EquipScene(App &app) : m_App(app){
 }
 
 void EquipScene::Update() {
+    FrameScene::Update();
     if(m_state == SceneState::EXIT){
         m_state = SceneState::UPDATE;
         m_currentunit = 0;
