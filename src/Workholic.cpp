@@ -1,6 +1,7 @@
 #include "Workaholic.hpp"
 #include "config.hpp"
 #include <cassert>
+#include "Sound.hpp"
 
 Workholic::Workholic(Wallet &wallet)
     : m_Btn(RESOURCE_DIR "/img/Workholic0.png"),
@@ -16,6 +17,10 @@ Workholic::Workholic(Wallet &wallet)
     m_Btn.AddButtonEvent([this] {
         if (CanLevelUp()) {
             LevelUp();
+            Sounds::Deploy->Play();
+        }
+        else{
+            Sounds::Scrolling->Play();
         }
     });
     

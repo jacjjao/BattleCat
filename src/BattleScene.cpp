@@ -359,6 +359,10 @@ void BattleScene::CreateUnitButtons() {
                 AddCat(CatType::CAT, 10);
                 m_Wallet->Spend(cost);
                 m_CatButton[0]->StartCoolDown();
+                Sounds::Deploy->Play();
+            }
+            else{
+                Sounds::Blocked->Play();
             }
         });
     }
@@ -375,6 +379,10 @@ void BattleScene::CreateUnitButtons() {
                 AddCat(CatType::TANK_CAT, 10);
                 m_Wallet->Spend(cost);
                 m_CatButton[1]->StartCoolDown();
+                Sounds::Deploy->Play();
+            }
+            else{
+                Sounds::Blocked->Play();
             }
         });
     }
@@ -390,6 +398,10 @@ void BattleScene::CreateUnitButtons() {
                 AddCat(CatType::AXE_CAT, 10);
                 m_Wallet->Spend(cost);
                 m_CatButton[2]->StartCoolDown();
+                Sounds::Deploy->Play();
+            }
+            else{
+                Sounds::Blocked->Play();
             }
         });
     }
@@ -405,6 +417,10 @@ void BattleScene::CreateUnitButtons() {
                 AddCat(CatType::CRAZED_GROSS_CAT, 10);
                 m_Wallet->Spend(cost);
                 m_CatButton[3]->StartCoolDown();
+                Sounds::Deploy->Play();
+            }
+            else{
+                Sounds::Blocked->Play();
             }
         });
     }

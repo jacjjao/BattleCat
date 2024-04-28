@@ -3,9 +3,8 @@
 
 void DeployButton::Update(const double dt) {
     m_Timer.Update(dt);
-    if (m_Timer.GetState() != Timer::State::START) {
-        UpdateClickEvent();
-    }
+    bool CoolDown = (m_Timer.GetState() == Timer::State::START);
+    UpdateClickEvent(!CoolDown);
 }
 
 void DeployButton::SetCoolDownTime(const double time) {
