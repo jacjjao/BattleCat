@@ -24,6 +24,8 @@ public:
     [[nodiscard]]
     State GetState() const;
 
+    double GetProcess() const;
+
 private:
     double m_TimeOutDur{};
     double m_TimeRemained{};
