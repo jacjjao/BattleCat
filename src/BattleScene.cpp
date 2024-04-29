@@ -229,12 +229,12 @@ void BattleScene::Draw() {
     DeployButton::DrawStates();
     {   
         auto t = m_Cam.GetTransform();
-        m_Cats[0].Draw(t,m_CatAnime[static_cast<size_t>(m_Cats[0].GetCatType())]);
+        m_Cats[0].Draw(t, m_CatAnime[static_cast<size_t>(m_Cats[0].GetCatType())], 0, 0);
         t.translation.y += m_CatY;
         for (size_t i = 1; i < m_Cats.size(); ++i) {
             auto gt = m_Cam.GetTransform();
             gt.translation.y += m_CatY;
-            m_Cats[i].Draw(gt, m_CatAnime[static_cast<size_t>(m_Cats[i].GetCatType())]);
+            m_Cats[i].Draw(gt, m_CatAnime[static_cast<size_t>(m_Cats[i].GetCatType())], 0, 0);
             // cat.Draw(m_Cam.GetTransform(), m_CatImage[0]);
         }
     }
@@ -332,7 +332,7 @@ void BattleScene::CreateUnitButtons() {
     constexpr int unit_img_width = 110;
     constexpr int margin_x = 10;
     constexpr int start_x = -(unit_img_width * 2 + margin_x * 2);
-    constexpr int start_y = -200;
+    constexpr int start_y = -220;
 
     int x = start_x;
     int y = start_y;
@@ -409,6 +409,7 @@ void BattleScene::CreateUnitButtons() {
         });
     }
 
+    constexpr float row_margin_y = 10.0f;
     for (int row = 0; row < 2; ++row) {
         for (int i = 0; i < 5; ++i) {
             const int idx = row * 5 + i;
@@ -417,6 +418,7 @@ void BattleScene::CreateUnitButtons() {
             x += m_CatButton[idx]->GetScaledSize().x + margin_x;
         }
         y -= m_CatButton[0]->GetScaledSize().y;
+        y -= row_margin_y;
         x = start_x;
     }
 }
