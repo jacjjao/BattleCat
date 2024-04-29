@@ -108,20 +108,48 @@ void CatBaseScene::Update() {
     //-----------------------------------------------------------
     static int basecatframe;
     basecatframe += 1;
-    basecatframe = basecatframe%3000;
-    switch (basecatframe%75) {
-        case 10:case 13:case 16:
-            m_BaseCat->MovePosition(0,-2);
-            break;
-        case 40:case 43:
-            m_BaseCat->MovePosition(0,3);
-            break;
+    basecatframe = basecatframe % 3000;
+    switch (basecatframe % 75) {
+    case 10:
+    case 13:
+    case 16:
+        m_BaseCat->MovePosition(0, -2);
+        break;
+    case 40:
+    case 43:
+        m_BaseCat->MovePosition(0, 3);
+        break;
     }
     m_BaseCat->GetChildren().at(0)->SetVisible(
-    (basecatframe % 140 == 134 || basecatframe % 140 == 135 || basecatframe%140 == 129 || basecatframe%140 == 130));
+        (basecatframe % 140 == 134 || basecatframe % 140 == 135 ||
+         basecatframe % 140 == 129 || basecatframe % 140 == 130));
     //----------------------------------------------------------------------
     for (const auto &btn : m_Buttons) {
         btn->Update();
     }
     m_Root.Update();
+
+
+    {//------just test.
+        static int a = 0;
+        static Util::Transform t;
+        static auto door = std::make_shared<GameObjectEx>();
+        door->SetDrawable(
+            std::make_shared<Util::Image>(RESOURCE_DIR "/cat_base/frame_up.png"));
+        door->SetScale(0.5f, 0.4f);
+        const float cooldown = 60.0f;
+
+        if (a > cooldown) {
+            a = 0;
+            t.translation.x = 0;
+        }
+
+        auto before = door->GetScaledSize() * glm::vec2(float(a++) / cooldown, 1);
+        auto after = door->GetScaledSize() * glm::vec2(float(a) / cooldown, 1);
+        t.scale = glm::vec2(float(a) / cooldown, 1) * door->GetScale();
+        t.translation.x += after.x / 2.0f - before.x / 2.0f;
+        door->Draw(t, 4.0f);
+    }
+
+
 }
