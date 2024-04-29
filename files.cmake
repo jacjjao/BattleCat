@@ -59,6 +59,7 @@ set(INCLUDE_FILES
     Workholic.hpp
     StageSelectScene.hpp
     LoadingRectangle.hpp
+    RandomGenerator.hpp
 )
 
 set(TEST_FILES

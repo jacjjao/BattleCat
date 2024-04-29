@@ -55,26 +55,32 @@ void Cat::Draw(Util::Transform trans, Animation &anime) {
         }
     }
 
+    const auto DrawImg = [this](AnimatedGameObject &img, Util::Transform& t) {
+        const auto y = img.GetBottomRightPos().y;
+        t.translation.y += (m_TargetY - y);
+        img.GetDrawable()->Draw(t, 1.0f);
+    };
+
     if (m_Type != CatType::CAT_TOWER) {
         switch (state) {
-        case EntityState::WALK:
-            anime.walk->GetDrawable()->Draw(trans, 1.0f);
+        case EntityState::WALK: 
+            DrawImg(*anime.walk, trans);
             break;
-
-        case EntityState::ATTACK:
-            anime.attack->GetDrawable()->Draw(trans, 1.0f);
+        
+        case EntityState::ATTACK: 
+            DrawImg(*anime.attack, trans);
             break;
-
-        case EntityState::IDLE:
+        
+        case EntityState::IDLE: 
             if (anime.attack->IsPlaying()) {
-                anime.attack->GetDrawable()->Draw(trans, 1.0f);
+                DrawImg(*anime.attack, trans);
             } else {
-                anime.idle->GetDrawable()->Draw(trans, 1.0f);
+                DrawImg(*anime.idle, trans);
             }
             break;
-
+        
         case EntityState::HITBACK:
-            anime.knockback->Draw(trans, 1.0f);
+            DrawImg(*anime.knockback, trans);
             break;
         }
     } else {
@@ -150,6 +156,10 @@ void Cat::ResetState() {
 
 void Cat::Move(const float dx) {
     m_PosX += dx;
+}
+
+void Cat::SetY(float low, float high) {
+    m_TargetY = s_Random.generate(low, high);
 }
 
 void Cat::Attack() {

@@ -3,6 +3,7 @@
 
 #include "EnemyAttr.hpp"
 #include "Entity.hpp"
+#include "RandomGenerator.hpp"
 #include <array>
 
 enum class CatType : size_t {
@@ -23,7 +24,7 @@ public:
         std::unique_ptr<AnimatedGameObject> walk;
         std::unique_ptr<AnimatedGameObject> attack;
         std::unique_ptr<AnimatedGameObject> idle;
-        std::unique_ptr<Util::Image> knockback;
+        std::unique_ptr<AnimatedGameObject> knockback;
     };
 
     Cat(CatType type, int level);
@@ -47,7 +48,11 @@ public:
 
     void Move(float dx);
 
+    void SetY(float low, float high);
+
 private:
+    inline static RandomFloatGenerator s_Random;
+
     void Attack();
     void CoolDownComplete();
     void OnHitBack() override;
@@ -58,6 +63,8 @@ private:
     CatType m_Type;
     bool m_OnAttack = false;
     EntityState m_PrevDrawState = EntityState::HITBACK;
+
+    float m_TargetY = 0.0f;
 
     double hb_vel_y = 0.0; // hitback velocity - y axis
     double hb_dy = 0.0;
@@ -220,7 +227,7 @@ namespace CatAnime {
             RESOURCE_DIR "/cats/000/Animation/idle.png"
         });
 
-        auto knockback = std::make_unique<Util::Image>(RESOURCE_DIR "/cats/000/Animation/knockback.png");
+        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/000/Animation/knockback.png"});
 
         Cat::Animation a;
         a.walk = std::move(walk);
@@ -251,7 +258,7 @@ namespace CatAnime {
             RESOURCE_DIR "/cats/001/Animation/idle.png"
         });
 
-        auto knockback = std::make_unique<Util::Image>(RESOURCE_DIR "/cats/001/Animation/knockback.png");
+        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/001/Animation/knockback.png"});
 
         Cat::Animation a;
         a.walk = std::move(walk);
@@ -283,7 +290,7 @@ namespace CatAnime {
             RESOURCE_DIR "/cats/002/Animation/idle.png"
         });
 
-        auto knockback = std::make_unique<Util::Image>(RESOURCE_DIR "/cats/002/Animation/knockback.png");
+        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/002/Animation/knockback.png"});
 
         Cat::Animation a;
         a.walk = std::move(walk);
@@ -317,7 +324,7 @@ namespace CatAnime {
             RESOURCE_DIR "/cats/003/Animation/idle.png"
         });
 
-        auto knockback = std::make_unique<Util::Image>(RESOURCE_DIR "/cats/003/Animation/idle.png");
+        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/003/Animation/idle.png"});
 
         Cat::Animation a;
         a.walk = std::move(walk);
