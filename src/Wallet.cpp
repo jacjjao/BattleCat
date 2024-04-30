@@ -16,11 +16,11 @@ void Wallet::Draw() {
     Util::Transform tmp;
     tmp.translation = glm::vec2(590, 300);
     m_dollar->Draw(tmp, 5.0f);
-    glm::vec2 rightmost_pos = m_wallet.Display(m_MaxMoney,glm::vec2(560,300),5.0f,30);
+    glm::vec2 rightmost_pos = NumberSystem::Display(m_MaxMoney,glm::vec2(560,300),5.0f,30,NumberSystem::YellowNumber);
     tmp.translation = glm::vec2(rightmost_pos.x - 30, 300);
     m_slash->Draw(tmp, 5.0f);
-    m_wallet.Display(static_cast<int>(m_CurMoney),
-                     glm::vec2(rightmost_pos.x - 60, 300), 5.0f,30);
+    NumberSystem::Display(static_cast<int>(m_CurMoney),
+                     glm::vec2(rightmost_pos.x - 60, 300), 5.0f,30,NumberSystem::YellowNumber);
 }
 
 bool Wallet::CanDeploy(const int required) const {

@@ -28,7 +28,7 @@ public:
     void SetZIndex(float index);
 
 protected:
-    bool UpdateClickEvent();
+    bool UpdateClickEvent(bool work = true);
     void UpdateHoverBorder();
 
 private:

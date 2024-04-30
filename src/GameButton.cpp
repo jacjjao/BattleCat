@@ -2,10 +2,10 @@
 #include "Util/Input.hpp"
 #include "Utility.hpp"
 #include "Util/BGM.hpp"
+#include "Sound.hpp"
 
 GameButton::GameButton(const std::string& btn_path) {
     SetDrawable(std::make_shared<Util::Image>(btn_path));
-
     SetZIndex(0.0f);
 }
 
@@ -62,9 +62,13 @@ void GameButton::SetZIndex(const float index) {
     }
 }
 
-bool GameButton::UpdateClickEvent() {
+bool GameButton::UpdateClickEvent(const bool work) {
     if (!IsMouseHovering() ||
         !Util::Input::IsKeyDown(Util::Keycode::MOUSE_LB)) {
+        return false;
+    }
+    if(!work){
+        Sounds::Blocked->Play();
         return false;
     }
     for (const auto &callback : m_ButtonEvents) {

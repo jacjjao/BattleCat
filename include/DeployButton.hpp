@@ -33,8 +33,6 @@ private:
     static inline std::optional<LoadingRectangles> s_Renderer;
 
     Timer m_Timer;
-    NumberSystem m_Cost = NumberSystem({RESOURCE_DIR"/scene/yellowbit/0.png",RESOURCE_DIR"/scene/yellowbit/1.png",RESOURCE_DIR"/scene/yellowbit/2.png",RESOURCE_DIR"/scene/yellowbit/3.png",RESOURCE_DIR"/scene/yellowbit/4.png",RESOURCE_DIR"/scene/yellowbit/5.png",
-        RESOURCE_DIR"/scene/yellowbit/6.png",RESOURCE_DIR"/scene/yellowbit/7.png",RESOURCE_DIR"/scene/yellowbit/8.png",RESOURCE_DIR"/scene/yellowbit/9.png"});
     unsigned short int n_Cost{};
 };
 
