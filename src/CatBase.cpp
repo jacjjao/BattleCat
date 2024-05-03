@@ -88,7 +88,7 @@ CatBaseScene::CatBaseScene(App &app)
 
 
 /* !!! for debug, will remove !!! */
-    /*
+
     auto stage_select_btn = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/StartButton.png",
         std::initializer_list<std::string>(
@@ -100,15 +100,15 @@ CatBaseScene::CatBaseScene(App &app)
     });
     m_Buttons.push_back(stage_select_btn);
     m_Root.AddChild(stage_select_btn);
-    */
+
 }
 
 void CatBaseScene::Update() {
     FrameScene::Update();
     //-----------------------------------------------------------
     static int basecatframe;
-    basecatframe += 1;
-    basecatframe = basecatframe % 3000;
+    basecatframe++;
+    if(basecatframe >= 3000) basecatframe=0;
     switch (basecatframe % 75) {
     case 10:
     case 13:
@@ -130,7 +130,7 @@ void CatBaseScene::Update() {
     m_Root.Update();
 
 
-    {//------just test.
+    /*{//------just test.
         static int a = 0;
         static Util::Transform t;
         static auto door = std::make_shared<GameObjectEx>();
@@ -149,7 +149,7 @@ void CatBaseScene::Update() {
         t.scale = glm::vec2(float(a) / cooldown, 1) * door->GetScale();
         t.translation.x += after.x / 2.0f - before.x / 2.0f;
         door->Draw(t, 4.0f);
-    }
+    }*/
 
 
 }

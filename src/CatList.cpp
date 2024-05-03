@@ -5,6 +5,7 @@
 #include "Util/Image.hpp"
 #include "Sound.hpp"
 #include "EquipList.hpp"
+#include "NumberSystem.hpp"
 
 UnitCard::UnitCard(unsigned int unitnum, const float zIndex) {
     const int UnitNumLength = 3;
@@ -77,6 +78,10 @@ void UnitCard::SetVisible(bool b){
     GameObjectEx::SetVisible(b);
     m_udi1->SetVisible(!m_form && b);
     m_udi2->SetVisible(m_form && b);
+}
+
+void UnitCard::Addlvl() {
+    m_lvl++;
 }
 
 bool UnitCard::IsMouseHovering(){

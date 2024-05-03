@@ -38,6 +38,20 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     m_Buttons.push_back(m_TransFormbtn);
     m_Root.AddChild(m_TransFormbtn);
     //---------------------------------------------------------------------------------
+    auto upgrade_btn = std::make_shared<GameButton> (
+        RESOURCE_DIR "/buttons/UpgradeButton.png",
+        std::initializer_list<std::string>(
+            {RESOURCE_DIR "/buttons/hover_purple.png",
+             RESOURCE_DIR "/buttons/hover_yellow.png"}));
+    upgrade_btn->SetZIndex(3.0f);
+    upgrade_btn->SetPosition(-415.0f,-140.0f);
+    upgrade_btn->AddButtonEvent([this]{
+        Sounds::UsingItem->Play();
+        m_catlist.at(m_currentunit)->Addlvl();
+    });
+    m_Buttons.push_back(upgrade_btn);
+    m_Root.AddChild(upgrade_btn);
+    //---------------------------------------------------------------------------------
     SetBaseText(RESOURCE_DIR"/upgrade/basetext_upgrade.png");
     UpdateCatList(112.0f);
 };
