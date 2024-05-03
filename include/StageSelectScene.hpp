@@ -3,6 +3,7 @@
 
 #include "FrameScene.hpp"
 #include "Util/Image.hpp"
+#include "StageList.hpp"
 
 class StageSelectScene : public FrameScene
 {
@@ -13,6 +14,7 @@ public:
 
 private:
     App &m_App;
+    StageList m_Stages;
 };
 
 #endif // STAGE_SELECT_SCENE_HPP

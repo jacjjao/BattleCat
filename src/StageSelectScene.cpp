@@ -5,5 +5,6 @@ StageSelectScene::StageSelectScene(App &app)
 
 void StageSelectScene::Update() {
     FrameScene::Update();
-    
+    m_Stages.Update();
+    m_Stages.Draw();
 }
