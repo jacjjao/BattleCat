@@ -25,6 +25,8 @@ set(SRC_FILES
     StageSelectScene.cpp
     FrameScene.cpp
     LoadingRectangle.cpp
+    StageList.cpp
+    StageCard.cpp
 )
 
 set(INCLUDE_FILES
@@ -60,6 +62,8 @@ set(INCLUDE_FILES
     StageSelectScene.hpp
     LoadingRectangle.hpp
     RandomGenerator.hpp
+    StageList.hpp
+    StageCard.hpp
 )
 
 set(TEST_FILES

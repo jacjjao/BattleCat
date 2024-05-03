@@ -12,7 +12,6 @@ public:
     void Update() override;
 
 private:
-    Util::Image m_Background;
     App &m_App;
 };
 
