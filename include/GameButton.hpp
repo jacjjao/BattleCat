@@ -32,7 +32,7 @@ protected:
     void UpdateHoverBorder();
 
 private:
-    static inline std::unique_ptr<Util::SFX> s_ClickSound = nullptr;
+    //static inline std::unique_ptr<Util::SFX> s_ClickSound = nullptr;
 
     std::vector<std::function<void()>> m_ButtonEvents;
 

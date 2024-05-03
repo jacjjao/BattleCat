@@ -24,6 +24,8 @@ public:
 
     void SetVisible(bool b);
 
+    void Addlvl();
+
     //void SetScale(float x, float y);
     [[nodiscard]]
     unsigned int GetUnitNum() const{ return m_UnitNum;};
@@ -55,6 +57,7 @@ private:
     bool m_minify = false;
     unsigned int m_UnitNum = 0;
     bool m_form = false;
+    unsigned int m_lvl = 1;
 };
 //--------------------------------------------------------------------------------------
 class CatList{
