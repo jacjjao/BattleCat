@@ -17,10 +17,7 @@ GameButton::GameButton(const std::string& btn_path,
     border->SetLooping(true);
     border->SetInterval(67);
     SetHoverBorder(border);
-    if (!s_ClickSound) {
-        s_ClickSound = std::make_unique<Util::SFX>(RESOURCE_DIR "/sounds/click.mp3");
-    }
-    SetClickSound([]{s_ClickSound->Play();});
+    AddButtonEvent([]{Sounds::ButtonClick->Play();});
 
     SetZIndex(0.0f);
 }
