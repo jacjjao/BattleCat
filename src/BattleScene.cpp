@@ -28,7 +28,7 @@ BattleScene::BattleScene(App &app)
              RESOURCE_DIR "/buttons/button_back_purple.png"}));
     m_ReturnButton->SetPosition(-500, 300);
     m_ReturnButton->AddButtonEvent(
-        [this] { m_App.SwitchScene(App::SceneType::CAT_BASE);
+        [this] { m_App.SwitchScene(App::SceneType::STAGE_SELECT_SCENE);
     });
     m_Root.AddChild(m_ReturnButton);
 

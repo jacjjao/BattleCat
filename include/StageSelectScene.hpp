@@ -10,7 +10,6 @@ class StageSelectScene : public FrameScene
 {
 public:
     explicit StageSelectScene(App &app);
-    void UpdateStageList();
 
     void Update() override;
 
@@ -18,6 +17,9 @@ private:
     App &m_App;
 
     StageList m_Stages;
+
+    std::unique_ptr<GameButton> m_BattleBtn;
+    std::unique_ptr<GameButton> m_ReturnBtn;
 };
 
 #endif // STAGE_SELECT_SCENE_HPP
