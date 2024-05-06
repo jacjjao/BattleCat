@@ -15,6 +15,7 @@ StageSelectScene::StageSelectScene(App &app)
     m_BattleBtn->AddButtonEvent([this] {
         m_App.SwitchToBattleScene(StageFactory::CreateStage(Stages::LEVEL1));
     });
+    m_Root.AddChild(m_BattleBtn);
 
     m_ReturnBtn = std::make_unique<GameButton>(
         RESOURCE_DIR "/buttons/button_back_ipad.png",
@@ -29,6 +30,7 @@ StageSelectScene::StageSelectScene(App &app)
         m_App.SwitchScene(App::SceneType::CAT_BASE);
         m_App.SwitchBGM(App::BGMType::CAT_BASE);
     });
+    m_Root.AddChild(m_ReturnBtn);
 }
 
 void StageSelectScene::Update() {
@@ -37,8 +39,7 @@ void StageSelectScene::Update() {
     m_Stages.Draw();
 
     m_BattleBtn->Update();
-    m_BattleBtn->Draw();
-
     m_ReturnBtn->Update();
-    m_ReturnBtn->Draw();
+
+    m_Root.Update();
 }
