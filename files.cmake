@@ -22,11 +22,11 @@ set(SRC_FILES
     BattleBackground.cpp
     CatList.cpp
     Workholic.cpp
-    StageSelectScene.cpp
+    StageCard.cpp
+    StageList.cpp
     FrameScene.cpp
     LoadingRectangle.cpp
-    StageList.cpp
-    StageCard.cpp
+    StageSelectScene.cpp
 )
 
 set(INCLUDE_FILES
@@ -59,11 +59,11 @@ set(INCLUDE_FILES
     Sound.hpp
     BattleBackground.hpp
     Workholic.hpp
-    StageSelectScene.hpp
+    StageCard.hpp
+    StageList.hpp
     LoadingRectangle.hpp
     RandomGenerator.hpp
-    StageList.hpp
-    StageCard.hpp
+    StageSelectScene.hpp
 )
 
 set(TEST_FILES

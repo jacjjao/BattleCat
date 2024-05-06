@@ -18,8 +18,8 @@ private:
 
     StageList m_Stages;
 
-    std::unique_ptr<GameButton> m_BattleBtn;
-    std::unique_ptr<GameButton> m_ReturnBtn;
+    std::shared_ptr<GameButton> m_BattleBtn;
+    std::shared_ptr<GameButton> m_ReturnBtn;
 };
 
 #endif // STAGE_SELECT_SCENE_HPP
