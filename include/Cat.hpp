@@ -70,7 +70,7 @@ private:
     double hb_dy = 0.0;
     int land = 0;
 };
-
+//--------------------------------------------------------------------------
 namespace BaseCatStats {
 
     inline const EntityStats CatTower = [] {
@@ -191,7 +191,7 @@ namespace BaseCatStats {
                  BaseCatStats::CrazedGrossCat};
 
 } // BaseCatStats
-
+//-----------------------------------------------------------------------------
 namespace CatAnime {
 
 // clang-format off
