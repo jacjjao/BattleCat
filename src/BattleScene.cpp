@@ -20,6 +20,7 @@ BattleScene::BattleScene(App &app)
     m_CatAnime.push_back(CatAnime::Cow());
     m_CatAnime.push_back(CatAnime::Bird());
     m_CatAnime.push_back(CatAnime::Fish());
+    m_CatAnime.push_back(CatAnime::Lizard());
 
     m_EnemyImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
