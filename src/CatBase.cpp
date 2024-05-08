@@ -38,8 +38,8 @@ CatBaseScene::CatBaseScene(App &app)
     start_button->SetZIndex(3);
     start_button->SetPosition(-375.0f,150.0f);
     start_button->AddButtonEvent([this] {
-        m_App.SwitchScene(App::SceneType::STAGE_SELECT_SCENE);
-        //m_App.SwitchToBattleScene(StageFactory::CreateStage(Stages::LEVEL1));
+        // m_App.SwitchScene(App::SceneType::STAGE_SELECT_SCENE);
+        m_App.SwitchToBattleScene(StageFactory::CreateStage(Stages::LEVEL1));
     });
     m_Buttons.push_back(start_button);
     m_Root.AddChild(start_button);
