@@ -21,6 +21,7 @@ BattleScene::BattleScene(App &app)
     m_CatAnime.push_back(CatAnime::Bird());
     m_CatAnime.push_back(CatAnime::Fish());
     m_CatAnime.push_back(CatAnime::Lizard());
+    m_CatAnime.push_back(CatAnime::Titan());
 
     m_EnemyAnime = GenEnemyAnime();
 
@@ -508,7 +509,7 @@ void BattleScene::CreateUnitButtons() {
             }
         });
     }
-    /*
+    
     {
         m_CatButton[8] = std::make_shared<DeployButton>(
             RESOURCE_DIR "/img/uni/f/uni008_f00.png");
@@ -526,7 +527,7 @@ void BattleScene::CreateUnitButtons() {
             }
         });
     }
-    */
+    
     constexpr float row_margin_y = 10.0f;
     for (int row = 0; row < 2; ++row) {
         for (int i = 0; i < 5; ++i) {
