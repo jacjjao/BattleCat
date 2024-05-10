@@ -41,6 +41,8 @@ public:
 
     void DealDamage(Entity &e) override;
 
+    void GetHit(int damage, const Entity &attacker) override;
+
     [[nodiscard]]
     EnemyType GetEnemyType() const;
 
