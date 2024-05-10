@@ -68,7 +68,7 @@ Stage StageFactory::CreateLevel1() {
         test.towerHealthPercent = 1.0;
         test.SetTimeOutDur(5.0);
         test.limit = EnemyDispatcher::s_Infinite;
-        test.type = EnemyType::THOSE_GUYS;
+        test.type = EnemyType::HIPPOE;
         stage.dispatchers.push_back(test);
     }
 

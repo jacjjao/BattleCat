@@ -548,5 +548,6 @@ std::vector<Enemy::Animation> GenEnemyAnime() {
     mp[static_cast<size_t>(EnemyType::DOGE)] = EnemyAnime::Doge();
     mp[static_cast<size_t>(EnemyType::SNACHE)] = EnemyAnime::Snache();
     mp[static_cast<size_t>(EnemyType::THOSE_GUYS)] = EnemyAnime::ThoseGuys();
+    mp[static_cast<size_t>(EnemyType::HIPPOE)] = EnemyAnime::Hippoe();
     return mp;
 }

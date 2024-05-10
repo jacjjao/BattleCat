@@ -12,6 +12,7 @@ enum class EnemyType : size_t {
     DOGE,
     SNACHE,
     THOSE_GUYS,
+    HIPPOE,
     ENEMY_TYPE_COUNT
 };
 static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
@@ -337,7 +338,8 @@ namespace EnemyStats {
 
     inline const std::array<EntityStats,
                             static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT)>
-        Stats = {EnemyStats::EnemyTower, EnemyStats::Doge, EnemyStats::Snache, EnemyStats::ThoseGuys};
+        Stats = {EnemyStats::EnemyTower, EnemyStats::Doge, EnemyStats::Snache,
+                 EnemyStats::ThoseGuys, EnemyStats::Hippoe};
 
 }
 
@@ -455,26 +457,26 @@ namespace EnemyAnime{
 
         inline Enemy::Animation Hippoe() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/walk0.png",
-            RESOURCE_DIR "/cats/000/Animation/walk1.png"
+            RESOURCE_DIR "/enemys/003/Animation/walk0.png",
+            RESOURCE_DIR "/enemys/003/Animation/walk1.png"
         });
         walk->SetInterval(300); // ms
         walk->SetLooping(true);
 
         auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/attack_prev0.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_prev1.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_post.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_post.png" // for padding
+            RESOURCE_DIR "/enemys/003/Animation/attack0.png",
+            RESOURCE_DIR "/enemys/003/Animation/attack1.png",
+            RESOURCE_DIR "/enemys/003/Animation/attack2.png",
+            RESOURCE_DIR "/enemys/003/Animation/attack2.png" // for padding
         });
         attack->SetInterval(EnemyStats::Hippoe.atk_prep_time * 1000.0 / 3.0);
         attack->SetLooping(false);
 
         auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/idle.png"
+            RESOURCE_DIR "/enemys/003/Animation/idle.png"
         });
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/000/Animation/knockback.png"});
+        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/enemys/003/Animation/knockback.png"});
 
         Enemy::Animation a;
         a.walk = std::move(walk);
