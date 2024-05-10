@@ -325,7 +325,7 @@ namespace CatAnime {
 
     inline Cat::Animation Tower() {
         auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/stages/ec000_tw.png"
+            RESOURCE_DIR "/cats/nyankocastle.png"
         });
 
         Cat::Animation a;
