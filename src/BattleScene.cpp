@@ -17,6 +17,12 @@ BattleScene::BattleScene(App &app)
     m_CatAnime.push_back(CatAnime::Tank());
     m_CatAnime.push_back(CatAnime::Axe());
     m_CatAnime.push_back(CatAnime::Gross());
+    m_CatAnime.push_back(CatAnime::Cow());
+    m_CatAnime.push_back(CatAnime::Bird());
+    m_CatAnime.push_back(CatAnime::Fish());
+    m_CatAnime.push_back(CatAnime::Lizard());
+
+    m_EnemyAnime = GenEnemyAnime();
 
     m_EnemyImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
@@ -28,7 +34,7 @@ BattleScene::BattleScene(App &app)
              RESOURCE_DIR "/buttons/button_back_purple.png"}));
     m_ReturnButton->SetPosition(-500, 300);
     m_ReturnButton->AddButtonEvent(
-        [this] { m_App.SwitchScene(App::SceneType::STAGE_SELECT_SCENE);
+        [this] { m_App.SwitchScene(App::SceneType::CAT_BASE);
     });
     m_Root.AddChild(m_ReturnButton);
 
@@ -238,9 +244,9 @@ void BattleScene::Draw() {
                 gt, m_CatAnime[static_cast<size_t>(m_Cats[i].GetCatType())]);
         }
     }
-    for (const auto &enemy : m_Enemies) {
+    for (auto &enemy : m_Enemies) {
         enemy.Draw(m_Cam.GetTransform(),
-                   m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
+                   m_EnemyAnime[static_cast<size_t>(enemy.GetEnemyType())]);
     }
     m_Wallet->Draw();
     m_Work->Draw();
@@ -325,6 +331,9 @@ void BattleScene::AddEnemy(const EnemyType type, const float modifier) {
         return;
     }
     auto& e = m_Enemies.emplace_back(type);
+    constexpr float y_low = -145.0f;
+    constexpr float y_high = -125.0f;
+    e.SetY(y_low, y_high);
     e.SetStatsModifier(modifier);
     e.SetPosX(s_EnemiesTowerPosX);
     LOG_DEBUG("Add Enemy at time {}", m_TotalTime);
@@ -427,6 +436,97 @@ void BattleScene::CreateUnitButtons() {
         });
     }
 
+    {
+        m_CatButton[4] = std::make_shared<DeployButton>(
+            RESOURCE_DIR "/img/uni/f/uni004_f00.png");
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(CatType::COW_CAT)]
+                .cost;
+        m_CatButton[4]->SetCost(cost);
+        m_CatButton[4]->AddButtonEvent([this, cost] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(CatType::COW_CAT, 10);
+                m_Wallet->Spend(cost);
+                m_CatButton[4]->StartCoolDown();
+                Sounds::Deploy->Play();
+            } else {
+                Sounds::Blocked->Play();
+            }
+        });
+    }
+
+    {
+        m_CatButton[5] = std::make_shared<DeployButton>(
+            RESOURCE_DIR "/img/uni/f/uni005_f00.png");
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(CatType::BIRD_CAT)].cost;
+        m_CatButton[5]->SetCost(cost);
+        m_CatButton[5]->AddButtonEvent([this, cost] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(CatType::BIRD_CAT, 10);
+                m_Wallet->Spend(cost);
+                m_CatButton[5]->StartCoolDown();
+                Sounds::Deploy->Play();
+            } else {
+                Sounds::Blocked->Play();
+            }
+        });
+    }
+
+    {
+        m_CatButton[6] = std::make_shared<DeployButton>(
+            RESOURCE_DIR "/img/uni/f/uni006_f00.png");
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(CatType::FISH_CAT)].cost;
+        m_CatButton[6]->SetCost(cost);
+        m_CatButton[6]->AddButtonEvent([this, cost] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(CatType::FISH_CAT, 10);
+                m_Wallet->Spend(cost);
+                m_CatButton[6]->StartCoolDown();
+                Sounds::Deploy->Play();
+            } else {
+                Sounds::Blocked->Play();
+            }
+        });
+    }
+
+    {
+        m_CatButton[7] = std::make_shared<DeployButton>(
+            RESOURCE_DIR "/img/uni/f/uni007_f00.png");
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(CatType::LIZARD_CAT)].cost;
+        m_CatButton[7]->SetCost(cost);
+        m_CatButton[7]->AddButtonEvent([this, cost] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(CatType::LIZARD_CAT, 10);
+                m_Wallet->Spend(cost);
+                m_CatButton[7]->StartCoolDown();
+                Sounds::Deploy->Play();
+            } else {
+                Sounds::Blocked->Play();
+            }
+        });
+    }
+    /*
+    {
+        m_CatButton[8] = std::make_shared<DeployButton>(
+            RESOURCE_DIR "/img/uni/f/uni008_f00.png");
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(CatType::TITAN_CAT)].cost;
+        m_CatButton[8]->SetCost(cost);
+        m_CatButton[8]->AddButtonEvent([this, cost] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(CatType::TITAN_CAT, 10);
+                m_Wallet->Spend(cost);
+                m_CatButton[8]->StartCoolDown();
+                Sounds::Deploy->Play();
+            } else {
+                Sounds::Blocked->Play();
+            }
+        });
+    }
+    */
     constexpr float row_margin_y = 10.0f;
     for (int row = 0; row < 2; ++row) {
         for (int i = 0; i < 5; ++i) {
@@ -439,4 +539,16 @@ void BattleScene::CreateUnitButtons() {
         y -= row_margin_y;
         x = start_x;
     }
+}
+
+std::vector<Enemy::Animation> GenEnemyAnime() {
+    std::vector<Enemy::Animation> mp(
+        static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT));
+    mp[static_cast<size_t>(EnemyType::ENEMY_TOWER)] = EnemyAnime::Tower();
+    mp[static_cast<size_t>(EnemyType::DOGE)] = EnemyAnime::Doge();
+    mp[static_cast<size_t>(EnemyType::SNACHE)] = EnemyAnime::Snache();
+    mp[static_cast<size_t>(EnemyType::THOSE_GUYS)] = EnemyAnime::ThoseGuys();
+    mp[static_cast<size_t>(EnemyType::HIPPOE)] = EnemyAnime::Hippoe();
+    mp[static_cast<size_t>(EnemyType::PIGGE)] = EnemyAnime::Pigge();
+    return mp;
 }

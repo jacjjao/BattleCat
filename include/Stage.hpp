@@ -7,6 +7,8 @@
 
 class EnemyDispatcher {
 public:
+    explicit EnemyDispatcher();
+
     std::optional<std::tuple<EnemyType, float, bool>>
     Update(double tower_health_percent, double total_time, double dt);
 
