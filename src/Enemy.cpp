@@ -188,6 +188,18 @@ void Enemy::LoadResource() {
         m_Anime = EnemyAnime::Doge();
         break;
 
+    case EnemyType::SNACHE:
+        m_Anime = EnemyAnime::Snache();
+        break;
+
+    case EnemyType::THOSE_GUYS:
+        m_Anime = EnemyAnime::ThoseGuys();
+        break;
+
+    case EnemyType::HIPPOE:
+        m_Anime = EnemyAnime::Hippoe();
+        break;
+
     case EnemyType::JackiePeng:
         m_Anime = EnemyAnime::JackiePeng();
         break;    
@@ -237,6 +249,90 @@ void EnemyAnimeResource::Init() {
         doge.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/enemys/000/Animation/knockback.png"});
+    }
+
+    {
+        auto &snache = s_anime[static_cast<size_t>(EnemyType::SNACHE)];
+
+        snache.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/001/Animation/idle.png"});
+
+        snache.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/001/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/001/Animation/walk1.png"});
+
+        snache.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/001/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/001/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/001/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/001/Animation/attack3.png",
+                RESOURCE_DIR "/enemys/001/Animation/attack3.png" // for padding
+            });
+
+        snache.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/001/Animation/knockback.png"});
+    }
+
+    {
+        auto &those = s_anime[static_cast<size_t>(EnemyType::THOSE_GUYS)];
+
+        those.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/002/Animation/idle.png"});
+
+        those.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/002/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/002/Animation/walk1.png",
+                RESOURCE_DIR "/enemys/002/Animation/walk2.png",
+                RESOURCE_DIR "/enemys/002/Animation/walk3.png",
+                RESOURCE_DIR "/enemys/002/Animation/walk4.png",
+                RESOURCE_DIR "/enemys/002/Animation/walk5.png"});
+
+        those.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/002/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/002/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/002/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/002/Animation/attack3.png",
+                RESOURCE_DIR "/enemys/002/Animation/attack4.png",
+                RESOURCE_DIR "/enemys/002/Animation/attack5.png",
+                RESOURCE_DIR "/enemys/002/Animation/attack6.png",
+                RESOURCE_DIR "/enemys/002/Animation/attack7.png",
+                RESOURCE_DIR "/enemys/002/Animation/attack7.png" // for padding
+            });
+
+        those.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{RESOURCE_DIR "/enemys/002/Animation/knockback.png"});
+    }
+
+    {
+        auto &hippoe = s_anime[static_cast<size_t>(EnemyType::HIPPOE)];
+
+        hippoe.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/003/Animation/idle.png"});
+
+        hippoe.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/003/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/003/Animation/walk1.png"});
+
+        hippoe.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/003/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/003/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/003/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/003/Animation/attack2.png" // for padding
+            });
+
+        hippoe.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/003/Animation/knockback.png"});
     }
 
     { 
