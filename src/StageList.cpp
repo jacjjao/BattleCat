@@ -2,12 +2,17 @@
 #include "Util/Input.hpp"
 #include "config.hpp"
 #include <cassert>
+#include <sstream>
+#include <iostream>
 
 StageList::StageList() {
-    m_Cards.reserve(STAGE_COUNT);
+    m_Cards.reserve(STAGE_COUNT + 1);
     for (int i = 0; i < STAGE_COUNT; ++i) {
-        m_Cards.emplace_back("");
+        std::stringstream img;
+        img << RESOURCE_DIR"/stages/stagetitles/stagetitle" << i+1 << ".png";
+        m_Cards.emplace_back(img.str());
     }
+    m_Cards.emplace_back(RESOURCE_DIR"/stages/stagetitles/stagetitletest.png");
     m_MinCursorX = -StageCard::GetImgSize().x / 2.0f - CARD_MARGIN;
     m_MaxCursorX = (StageCard::GetImgSize().x + CARD_MARGIN) *
                        static_cast<float>(m_Cards.size() - 1) +
@@ -48,6 +53,7 @@ void StageList::Update() {
 
 void StageList::Draw() {
     constexpr int half_win_width = static_cast<float>(WINDOW_WIDTH) / 2.0f;
+    const int setY = 250;
 
     int cur_stage = std::round(m_CursorX / (StageCard::GetImgSize().x + CARD_MARGIN));
     if (cur_stage < 0) {
@@ -62,7 +68,7 @@ void StageList::Draw() {
         float scale = (1.0 - std::abs(dx) / (StageCard::GetImgSize().x / 2.0f)) * 0.5f + 1.0f;
         m_Cards[cur_stage].SetScale(scale, scale);
     }
-    m_Cards[cur_stage].Draw(dx, 0);
+    m_Cards[cur_stage].Draw(dx, setY);
 
     // previous
     {
@@ -74,7 +80,7 @@ void StageList::Draw() {
             if (x + m_Cards[i].GetScaledSize().x / 2.0f < -half_win_width) {
                 break;
             }
-            m_Cards[i].Draw(x, 0);
+            m_Cards[i].Draw(x, setY);
         }
     }
 
@@ -88,7 +94,7 @@ void StageList::Draw() {
             if (x - m_Cards[i].GetScaledSize().x / 2.0f > half_win_width) {
                 break;
             }
-            m_Cards[i].Draw(x, 0);
+            m_Cards[i].Draw(x, setY);
         }
     }
 

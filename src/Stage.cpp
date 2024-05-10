@@ -51,6 +51,8 @@ Stage StageFactory::CreateStage(Stages which) {
         return CreateLevel9();
     case Stages::LEVEL10:
         return CreateLevel10();
+    case Stages::TEST:
+        return CreateLevelTEST();
     
     default:
         throw std::invalid_argument("Invalid Stages enum");
@@ -231,3 +233,20 @@ Stage StageFactory::CreateLevel10(){
 
     return stage;
 }
+
+Stage StageFactory::CreateLevelTEST(){
+    Stage stage;
+    stage.dispatchers.reserve(2);
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 5.0;
+        ed.towerHealthPercent = 1.0;
+        ed.SetTimeOutDur(10.0);
+        ed.limit = EnemyDispatcher::s_Infinite;
+        stage.dispatchers.push_back(ed);
+    }
+
+    return stage;
+}
+

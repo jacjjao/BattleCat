@@ -1,14 +1,14 @@
 #include "StageCard.hpp"
 
-StageCard::StageCard(std::string title)
-    : m_Title(std::move(title)),
-      m_Scale(1.0f, 1.0f) {}
+StageCard::StageCard(const std::string &titlepath) : m_Title(titlepath)
+      ,m_Scale(1.0f, 1.0f){}
 
 void StageCard::Draw(const float x, const float y) {
     Util::Transform t;
     t.scale = m_Scale;
     t.translation = glm::vec2(x, y);
-    s_CardImg->Draw(t, 10.0f);
+    s_CardImg->Draw(t, 1.8f);
+    m_Title.Draw(t,1.9f);
 }
 
 void StageCard::SetScale(const float x, const float y) {

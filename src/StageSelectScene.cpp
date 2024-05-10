@@ -5,13 +5,18 @@
 
 StageSelectScene::StageSelectScene(App &app)
     : m_App(app) {
+    auto background = std::make_shared<GameObjectEx>
+        (std::make_unique<Util::Image>(RESOURCE_DIR"/img/img030_tw.png"),0);
+    background->SetScale(1.2f,1.2f);
+    m_Root.AddChild(background);
+//-----------------------------------------------------------
     m_BattleBtn = std::make_unique<GameButton>(
-        RESOURCE_DIR "/buttons/StartButton.png",
+        RESOURCE_DIR "/buttons/StartButton2.png",
         std::initializer_list<std::string>(
-            {RESOURCE_DIR "/buttons/hover_purple.png",
-             RESOURCE_DIR "/buttons/hover_yellow.png"}));
+            {RESOURCE_DIR "/buttons/hover_purple2.png",
+             RESOURCE_DIR "/buttons/hover_yellow2.png"}));
     m_BattleBtn->SetZIndex(5);
-    m_BattleBtn->SetPosition(0.0f, -200.0f);
+    m_BattleBtn->SetPosition(400.0f, -170.0f);
     m_BattleBtn->AddButtonEvent([this] {
         m_App.SwitchToBattleScene(StageFactory::CreateStage(static_cast<Stages>(m_Stages.GetCurStage())));
     });

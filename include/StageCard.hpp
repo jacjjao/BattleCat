@@ -6,7 +6,7 @@
 
 class StageCard {
 public:
-    explicit StageCard(std::string title);
+    explicit StageCard(const std::string &titlepath);
 
     void Draw(float x, float y);
 
@@ -19,7 +19,8 @@ public:
 private:
     static inline const std::unique_ptr<Util::Image> s_CardImg = std::make_unique<Util::Image>(RESOURCE_DIR "/stages/stagecard.png");
 
-    std::string m_Title;
+    //std::string m_Title;
+    Util::Image m_Title;
 
     glm::vec2 m_Scale;
 };

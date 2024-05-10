@@ -42,7 +42,8 @@ enum class Stages {
     LEVEL7,
     LEVEL8,
     LEVEL9,
-    LEVEL10
+    LEVEL10,
+    TEST
 
 };
 
@@ -61,6 +62,7 @@ private:
     static Stage CreateLevel8();
     static Stage CreateLevel9();
     static Stage CreateLevel10();
+    static Stage CreateLevelTEST();
 
 };
 
