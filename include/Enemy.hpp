@@ -341,28 +341,35 @@ namespace EnemyStats {
 
 //----------------------------------------------------------------------
 namespace EnemyAnime{
+    inline Enemy::Animation Tower() {
+        Enemy::Animation a;
+        a.idle = std::make_unique<AnimatedGameObject>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/stages/ec045_tw.png"});
+        return a;
+    }
+
     inline Enemy::Animation Doge() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/walk0.png",
-            RESOURCE_DIR "/cats/000/Animation/walk1.png"
+            RESOURCE_DIR "/enemys/000/Animation/walk0.png",
+            RESOURCE_DIR "/enemys/000/Animation/walk1.png"
         });
         walk->SetInterval(300); // ms
         walk->SetLooping(true);
 
         auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/attack_prev0.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_prev1.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_post.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_post.png" // for padding
+            RESOURCE_DIR "/enemys/000/Animation/attack0.png",
+            RESOURCE_DIR "/enemys/000/Animation/attack1.png",
+            RESOURCE_DIR "/enemys/000/Animation/attack1.png" // for padding
         });
-        attack->SetInterval(EnemyStats::Doge.atk_prep_time * 1000.0 / 3.0);
+        attack->SetInterval(EnemyStats::Doge.atk_prep_time * 1000.0 / 2.0);
         attack->SetLooping(false);
 
         auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/idle.png"
+            RESOURCE_DIR "/enemys/000/Animation/idle.png"
         });
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/000/Animation/knockback.png"});
+        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/enemys/000/Animation/knockback.png"});
 
         Enemy::Animation a;
         a.walk = std::move(walk);
@@ -778,13 +785,3 @@ namespace EnemyAnime{
 
 }
 #endif //ENEMY_HPP
-
-namespace EnemyAnimation {
-
-    // clang-format off
-    Enemy::Animation Tower();
-
-    Enemy::Animation Doge();
-
-    // clang-format on
-}

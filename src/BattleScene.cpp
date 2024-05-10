@@ -543,7 +543,7 @@ void BattleScene::CreateUnitButtons() {
 
 std::unordered_map<EnemyType, Enemy::Animation> GenEnemyAnime() {
     std::unordered_map<EnemyType, Enemy::Animation> mp;
-    mp[EnemyType::ENEMY_TOWER] = EnemyAnimation::Tower();
-    mp[EnemyType::DOGE] = EnemyAnimation::Doge();
+    mp[EnemyType::ENEMY_TOWER] = EnemyAnime::Tower();
+    mp[EnemyType::DOGE] = EnemyAnime::Doge();
     return mp;
 }
