@@ -184,6 +184,10 @@ void Enemy::LoadResource() {
         m_Anime = EnemyAnime::Tower();
         break;
 
+    case EnemyType::DOGE:
+        m_Anime = EnemyAnime::Doge();
+        break;
+
     case EnemyType::JackiePeng:
         m_Anime = EnemyAnime::JackiePeng();
         break;    
@@ -209,6 +213,30 @@ void EnemyAnimeResource::Init() {
         tower.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{RESOURCE_DIR
                                                "/stages/ec045_tw.png"});
+    }
+
+    { 
+        auto &doge = s_anime[static_cast<size_t>(EnemyType::DOGE)];
+
+        doge.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/000/Animation/idle.png"});
+
+        doge.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/000/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/000/Animation/walk1.png"});
+
+        doge.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/000/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/000/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/000/Animation/attack1.png" // for padding
+            });
+
+        doge.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/000/Animation/knockback.png"});
     }
 
     { 
