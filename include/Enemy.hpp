@@ -4,6 +4,7 @@
 #include "EnemyAttr.hpp"
 #include "EntityStats.hpp"
 #include "Entity.hpp"
+#include "RandomGenerator.hpp"
 #include <array>
 
 enum class EnemyType : size_t {
@@ -26,7 +27,7 @@ public:
 
     void StartAttack();
 
-    void Draw(Util::Transform trans, Util::Image &image) const;
+    void Draw(Util::Transform trans, Animation &anime);
 
     void UpdateTimer(double dt);
 
@@ -41,12 +42,25 @@ public:
 
     void SetStatsModifier(float modifier);
 
+    void SetY(float low, float high);
+
 private:
     void Attack();
     void CoolDownComplete();
+    void OnHitBack() override;
+
+    inline static RandomFloatGenerator s_Random;
 
     [[nodiscard]]
     HitBox ToWorldSpace(HitBox hitbox) const override;
+
+    EntityState m_PrevDrawState;
+
+    float m_TargetY = 0.0f;
+
+    double hb_vel_y = 0.0; // hitback velocity - y axis
+    double hb_dy = 0.0;
+    int land = 0;
 
     EnemyType m_Type;
     bool m_OnAttack = false;
@@ -764,3 +778,13 @@ namespace EnemyAnime{
 
 }
 #endif //ENEMY_HPP
+
+namespace EnemyAnimation {
+
+    // clang-format off
+    Enemy::Animation Tower();
+
+    Enemy::Animation Doge();
+
+    // clang-format on
+}
