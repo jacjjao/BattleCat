@@ -23,8 +23,6 @@ BattleScene::BattleScene(App &app)
     m_CatAnime.push_back(CatAnime::Lizard());
     m_CatAnime.push_back(CatAnime::Titan());
 
-    m_EnemyAnime = GenEnemyAnime();
-
     m_EnemyImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
@@ -539,20 +537,4 @@ void BattleScene::CreateUnitButtons() {
         y -= row_margin_y;
         x = start_x;
     }
-}
-
-std::vector<Enemy::Animation> GenEnemyAnime() {
-    std::vector<Enemy::Animation> mp(
-        static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT));
-    /*
-    mp[static_cast<size_t>(EnemyType::ENEMY_TOWER)] = EnemyAnime::Tower();
-    mp[static_cast<size_t>(EnemyType::DOGE)] = EnemyAnime::Doge();
-    // mp[static_cast<size_t>(EnemyType::SNACHE)] = EnemyAnime::Snache();
-    // mp[static_cast<size_t>(EnemyType::THOSE_GUYS)] = EnemyAnime::ThoseGuys();
-    // mp[static_cast<size_t>(EnemyType::HIPPOE)] = EnemyAnime::Hippoe();
-    // mp[static_cast<size_t>(EnemyType::PIGGE)] = EnemyAnime::Pigge();
-    mp[static_cast<size_t>(EnemyType::JackiePeng)] = EnemyAnime::JackiePeng();
-    return mp;
-    */
-    return mp;
 }
