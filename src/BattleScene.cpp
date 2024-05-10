@@ -12,20 +12,6 @@ BattleScene::BattleScene(App &app)
     m_Cats.reserve(s_MaxEntityCount); // to prevent reallocation
     m_Enemies.reserve(s_MaxEntityCount);
 
-    m_CatAnime.push_back(CatAnime::Tower());
-    m_CatAnime.push_back(CatAnime::Cat());
-    m_CatAnime.push_back(CatAnime::Tank());
-    m_CatAnime.push_back(CatAnime::Axe());
-    m_CatAnime.push_back(CatAnime::Gross());
-    m_CatAnime.push_back(CatAnime::Cow());
-    m_CatAnime.push_back(CatAnime::Bird());
-    m_CatAnime.push_back(CatAnime::Fish());
-    m_CatAnime.push_back(CatAnime::Lizard());
-    m_CatAnime.push_back(CatAnime::Titan());
-
-    m_EnemyImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
-    m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
-
     m_ReturnButton = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/button_back_ipad.png",
         std::initializer_list<std::string>(
@@ -234,13 +220,13 @@ void BattleScene::Draw() {
     DeployButton::DrawStates();
     {   
         auto t = m_Cam.GetTransform();
-        m_Cats[0].Draw(t, m_CatAnime[static_cast<size_t>(m_Cats[0].GetCatType())]);
+        m_Cats[0].Draw(t);
         t.translation.y += m_CatY;
         for (size_t i = 1; i < m_Cats.size(); ++i) {
             auto gt = m_Cam.GetTransform();
             gt.translation.y += m_CatY;
             m_Cats[i].Draw(
-                gt, m_CatAnime[static_cast<size_t>(m_Cats[i].GetCatType())]);
+                gt);
         }
     }
     for (auto &enemy : m_Enemies) {

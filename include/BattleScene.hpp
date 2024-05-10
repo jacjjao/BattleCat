@@ -46,9 +46,6 @@ private:
     void AddEnemy(EnemyType type, float modifier);
     void CreateUnitButtons();
 
-    std::vector<Cat::Animation> m_CatAnime;
-    std::vector<Util::Image> m_EnemyImage;
-
     std::vector<Cat> m_Cats;
     std::vector<Enemy> m_Enemies;
     std::vector<DamageInfo> m_DmgInfos;

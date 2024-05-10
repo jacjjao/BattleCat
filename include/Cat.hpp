@@ -4,6 +4,7 @@
 #include "EnemyAttr.hpp"
 #include "Entity.hpp"
 #include "RandomGenerator.hpp"
+#include "SharedAnimation.hpp"
 #include <array>
 
 enum class CatType : size_t {
@@ -26,17 +27,17 @@ public:
     friend class CatFactory;
 
     struct Animation {
-        std::unique_ptr<AnimatedGameObject> walk;
-        std::unique_ptr<AnimatedGameObject> attack;
-        std::unique_ptr<AnimatedGameObject> idle;
-        std::unique_ptr<AnimatedGameObject> knockback;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> walk;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> attack;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> idle;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> knockback;
     };
 
     Cat(CatType type, int level);
 
     void StartAttack();
 
-    void Draw(Util::Transform trans, Animation &anime);
+    void Draw(Util::Transform trans);
 
     void UpdateTimer(double dt);
 
@@ -61,6 +62,7 @@ private:
     void Attack();
     void CoolDownComplete();
     void OnHitBack() override;
+    void LoadResource();
 
     [[nodiscard]]
     HitBox ToWorldSpace(HitBox hitbox) const override;
@@ -74,7 +76,29 @@ private:
     double hb_vel_y = 0.0; // hitback velocity - y axis
     double hb_dy = 0.0;
     int land = 0;
+
+    Animation m_Anime;
 };
+
+class CatAnimeResource {
+    struct UtilAnime {
+        std::unique_ptr<SharedRc::Animation> walk;
+        std::unique_ptr<SharedRc::Animation> attack;
+        std::unique_ptr<SharedRc::Animation> idle;
+        std::unique_ptr<SharedRc::Animation> knockback;
+    };
+
+public:
+    static void Init();
+
+    static const Cat::Animation Get(CatType type);
+
+private:
+    static inline bool s_init = false;
+
+    static inline std::vector<UtilAnime> s_anime;
+};
+
 //--------------------------------------------------------------------------
 namespace BaseCatStats {
 
@@ -324,46 +348,21 @@ namespace CatAnime {
 // clang-format off
 
     inline Cat::Animation Tower() {
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/stages/ec000_tw.png"
-        });
-
-        Cat::Animation a;
-        a.idle = std::move(idle);
-        return a;
+        return CatAnimeResource::Get(CatType::CAT_TOWER);
     }
 
     inline Cat::Animation Cat() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/walk0.png",
-            RESOURCE_DIR "/cats/000/Animation/walk1.png"
-        });
-        walk->SetInterval(300); // ms
-        walk->SetLooping(true);
+        auto cat = CatAnimeResource::Get(CatType::CAT);
 
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/attack_prev0.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_prev1.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_post.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_post.png" // for padding
-        });
-        attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 3.0);
-        attack->SetLooping(false);
+        cat.walk->SetInterval(300); // ms
+        cat.walk->SetLooping(true);
+
+        cat.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 3.0);
+        cat.attack->SetLooping(false);
         
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/idle.png"
-        });
-
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/000/Animation/knockback.png"});
-
-        Cat::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        return cat;
     }
-
+    /*
     inline Cat::Animation Tank() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
             RESOURCE_DIR "/cats/001/Animation/walk0.png",
@@ -642,7 +641,7 @@ namespace CatAnime {
         a.knockback = std::move(knockback);
         return a;
     }
-
+    */
 // clang-format on
 
 } // namespace CatAnime
