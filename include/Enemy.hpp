@@ -5,6 +5,7 @@
 #include "EntityStats.hpp"
 #include "Entity.hpp"
 #include "RandomGenerator.hpp"
+#include "SharedAnimation.hpp"
 #include <array>
 
 enum class EnemyType : size_t {
@@ -22,10 +23,10 @@ static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
 class Enemy : public Entity {
 public:
     struct Animation {
-        std::unique_ptr<AnimatedGameObject> walk;
-        std::unique_ptr<AnimatedGameObject> attack;
-        std::unique_ptr<AnimatedGameObject> idle;
-        std::unique_ptr<AnimatedGameObject> knockback;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> walk;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> attack;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> idle;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> knockback;
     };
 
     explicit Enemy(EnemyType type);
@@ -76,17 +77,17 @@ private:
 };
 
 class EnemyAnimeResource {
-public:
     struct UtilAnime {
-        std::shared_ptr<Util::Animation> walk;
-        std::shared_ptr<Util::Animation> attack;
-        std::shared_ptr<Util::Animation> idle;
-        std::shared_ptr<Util::Animation> knockback;
+        std::unique_ptr<SharedRc::Animation> walk;
+        std::unique_ptr<SharedRc::Animation> attack;
+        std::unique_ptr<SharedRc::Animation> idle;
+        std::unique_ptr<SharedRc::Animation> knockback;
     };
 
+public:
     static void Init();
 
-    static const UtilAnime& Get(EnemyType type);
+    static const Enemy::Animation Get(EnemyType type);
 
 private:
     static inline bool s_init = false;
@@ -373,13 +374,9 @@ namespace EnemyStats {
 //----------------------------------------------------------------------
 namespace EnemyAnime{
     inline Enemy::Animation Tower() {
-        Enemy::Animation a;
-        a.idle = std::make_unique<AnimatedGameObject>(
-            std::initializer_list<std::string>{
-                RESOURCE_DIR "/stages/ec045_tw.png"});
-        return a;
+        return EnemyAnimeResource::Get(EnemyType::ENEMY_TOWER);
     }
-
+    /*
     inline Enemy::Animation Doge() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
             RESOURCE_DIR "/enemys/000/Animation/walk0.png",
@@ -548,31 +545,19 @@ namespace EnemyAnime{
         a.knockback = std::move(knockback);
         return a;
     }
-
+    */
     inline Enemy::Animation JackiePeng() {
-        auto walk = std::make_unique<AnimatedGameObject>(EnemyAnimeResource::Get(EnemyType::JackiePeng).walk);
-        walk->SetInterval(150); // ms
-        walk->SetLooping(true);
+        auto a = EnemyAnimeResource::Get(EnemyType::JackiePeng);
 
-        auto attack = std::make_unique<AnimatedGameObject>(
-            EnemyAnimeResource::Get(EnemyType::JackiePeng).attack);
-        attack->SetInterval(EnemyStats::JackiePeng.atk_prep_time * 1000.0 / 3.0);
-        attack->SetLooping(false);
+        a.walk->SetInterval(130); // ms
+        a.walk->SetLooping(true);
 
-        auto idle = std::make_unique<AnimatedGameObject>(
-            EnemyAnimeResource::Get(EnemyType::JackiePeng).idle);
+        a.attack->SetInterval(EnemyStats::JackiePeng.atk_prep_time * 1000.0 / 3.0);
+        a.attack->SetLooping(false);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(
-            EnemyAnimeResource::Get(EnemyType::JackiePeng).knockback);
-
-        Enemy::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
         return a;
     }
-
+    /*
     inline Enemy::Animation Gory() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
             RESOURCE_DIR "/cats/000/Animation/walk0.png",
@@ -758,6 +743,6 @@ namespace EnemyAnime{
         a.knockback = std::move(knockback);
         return a;
     }
-
+    */
 }
 #endif //ENEMY_HPP

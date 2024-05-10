@@ -7,6 +7,7 @@ Enemy::Enemy(const EnemyType type)
     : m_Type(type) {
     SetStats(EnemyStats::Stats[static_cast<size_t>(type)]);
     LoadResource();
+    m_Anime.walk->Play();
 }
 
 void Enemy::StartAttack() {
@@ -53,7 +54,7 @@ void Enemy::Draw(Util::Transform trans) {
         }
     }
 
-    const auto DrawImg = [this](AnimatedGameObject &img, Util::Transform &t) {
+    const auto DrawImg = [this](SharedRc::SharedAnimatedGameObject &img, Util::Transform &t) {
         const auto y = img.GetBottomRightPos().y;
         t.translation.y += (m_TargetY - y);
         img.GetDrawable()->Draw(t, 1.0f);
@@ -82,7 +83,7 @@ void Enemy::Draw(Util::Transform trans) {
             break;
         }
     } else {
-        m_Anime.idle->Draw(trans, z, 0);
+        m_Anime.idle->Draw(trans, z);
     }
 }
 
@@ -195,10 +196,25 @@ void Enemy::LoadResource() {
 void EnemyAnimeResource::Init() {
     s_anime.resize(static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT));
     
+    {
+        auto& tower = s_anime[static_cast<size_t>(EnemyType::ENEMY_TOWER)];
+        tower.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{RESOURCE_DIR "/stages/ec045_tw.png"});
+        tower.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{RESOURCE_DIR
+                                               "/stages/ec045_tw.png"});
+        tower.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{RESOURCE_DIR
+                                               "/stages/ec045_tw.png"});
+        tower.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{RESOURCE_DIR
+                                               "/stages/ec045_tw.png"});
+    }
+
     { 
         auto& jackie_peng =
             s_anime[static_cast<size_t>(EnemyType::JackiePeng)];
-        jackie_peng.walk = std::make_shared<Util::Animation>(
+        jackie_peng.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/enemys/005/Animation/walk/walk0.png",
                 RESOURCE_DIR "/enemys/005/Animation/walk/walk1.png",
@@ -212,10 +228,9 @@ void EnemyAnimeResource::Init() {
                 RESOURCE_DIR "/enemys/005/Animation/walk/walk9.png",
                 RESOURCE_DIR "/enemys/005/Animation/walk/walk10.png",
                 RESOURCE_DIR "/enemys/005/Animation/walk/walk11.png",
-            },
-            false, 100);
+            });
         
-        jackie_peng.attack = std::make_shared<Util::Animation>(
+        jackie_peng.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/enemys/005/Animation/attack/attack0.png",
                 RESOURCE_DIR "/enemys/005/Animation/attack/attack1.png",
@@ -226,27 +241,35 @@ void EnemyAnimeResource::Init() {
                 RESOURCE_DIR "/enemys/005/Animation/attack/attack6.png",
                 RESOURCE_DIR "/enemys/005/Animation/attack/attack7.png",
                 RESOURCE_DIR "/enemys/005/Animation/attack/attack8.png",
-                RESOURCE_DIR
-                "/enemys/005/Animation/attack/attack8.png" // for padding
-            },
-            false, 100);
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack8.png" // for padding
+            });
 
-        jackie_peng.idle = std::make_shared<Util::Animation>(
+        jackie_peng.idle = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/005/Animation/idle.png"},
-            false, 100);
+                RESOURCE_DIR "/enemys/005/Animation/idle.png"});
 
-        jackie_peng.knockback = std::make_shared<Util::Animation>(
+        jackie_peng.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/005/Animation/hitback.png"},
-            false, 100);
+                RESOURCE_DIR "/enemys/005/Animation/hitback.png"});
     }
 }
 
-const EnemyAnimeResource::UtilAnime& EnemyAnimeResource::Get(const EnemyType type) {
+const Enemy::Animation EnemyAnimeResource::Get(const EnemyType type) {
     if (!s_init) {
         Init();
         s_init = true;
     }
-    return s_anime[static_cast<size_t>(type)];
+    const auto &anime = s_anime[static_cast<size_t>(type)];
+
+    Enemy::Animation obj; 
+    obj.idle =
+        std::make_unique<SharedRc::SharedAnimatedGameObject>(*(anime.idle));
+    obj.attack =
+        std::make_unique<SharedRc::SharedAnimatedGameObject>(*(anime.attack));
+    obj.walk =
+        std::make_unique<SharedRc::SharedAnimatedGameObject>(*(anime.walk));
+    obj.knockback = std::make_unique<SharedRc::SharedAnimatedGameObject>(
+        *(anime.knockback));
+
+    return obj;
 }

@@ -87,7 +87,7 @@ Stage StageFactory::CreateLevel1() {
         EnemyDispatcher test;
         test.initAppearTime = EnemyDispatcher::s_Infinite;
         test.towerHealthPercent = 1.0;
-        test.SetTimeOutDur(2.0);
+        test.SetTimeOutDur(3.0);
         test.limit = EnemyDispatcher::s_Infinite;
         test.type = EnemyType::JackiePeng;
         stage.dispatchers.push_back(test);
