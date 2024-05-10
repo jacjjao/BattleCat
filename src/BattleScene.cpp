@@ -12,21 +12,6 @@ BattleScene::BattleScene(App &app)
     m_Cats.reserve(s_MaxEntityCount); // to prevent reallocation
     m_Enemies.reserve(s_MaxEntityCount);
 
-    m_CatAnime.push_back(CatAnime::Tower());
-    m_CatAnime.push_back(CatAnime::Cat());
-    m_CatAnime.push_back(CatAnime::Tank());
-    m_CatAnime.push_back(CatAnime::Axe());
-    m_CatAnime.push_back(CatAnime::Gross());
-    m_CatAnime.push_back(CatAnime::Cow());
-    m_CatAnime.push_back(CatAnime::Bird());
-    m_CatAnime.push_back(CatAnime::Fish());
-    m_CatAnime.push_back(CatAnime::Lizard());
-
-    m_EnemyAnime = GenEnemyAnime();
-
-    m_EnemyImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
-    m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
-
     m_ReturnButton = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/button_back_ipad.png",
         std::initializer_list<std::string>(
@@ -235,18 +220,17 @@ void BattleScene::Draw() {
     DeployButton::DrawStates();
     {   
         auto t = m_Cam.GetTransform();
-        m_Cats[0].Draw(t, m_CatAnime[static_cast<size_t>(m_Cats[0].GetCatType())]);
+        m_Cats[0].Draw(t);
         t.translation.y += m_CatY;
         for (size_t i = 1; i < m_Cats.size(); ++i) {
             auto gt = m_Cam.GetTransform();
             gt.translation.y += m_CatY;
             m_Cats[i].Draw(
-                gt, m_CatAnime[static_cast<size_t>(m_Cats[i].GetCatType())]);
+                gt);
         }
     }
     for (auto &enemy : m_Enemies) {
-        enemy.Draw(m_Cam.GetTransform(),
-                   m_EnemyAnime[static_cast<size_t>(enemy.GetEnemyType())]);
+        enemy.Draw(m_Cam.GetTransform());
     }
     m_Wallet->Draw();
     m_Work->Draw();
@@ -508,7 +492,7 @@ void BattleScene::CreateUnitButtons() {
             }
         });
     }
-    /*
+    
     {
         m_CatButton[8] = std::make_shared<DeployButton>(
             RESOURCE_DIR "/img/uni/f/uni008_f00.png");
@@ -526,7 +510,7 @@ void BattleScene::CreateUnitButtons() {
             }
         });
     }
-    */
+    
     constexpr float row_margin_y = 10.0f;
     for (int row = 0; row < 2; ++row) {
         for (int i = 0; i < 5; ++i) {
@@ -539,16 +523,4 @@ void BattleScene::CreateUnitButtons() {
         y -= row_margin_y;
         x = start_x;
     }
-}
-
-std::vector<Enemy::Animation> GenEnemyAnime() {
-    std::vector<Enemy::Animation> mp(
-        static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT));
-    mp[static_cast<size_t>(EnemyType::ENEMY_TOWER)] = EnemyAnime::Tower();
-    mp[static_cast<size_t>(EnemyType::DOGE)] = EnemyAnime::Doge();
-    mp[static_cast<size_t>(EnemyType::SNACHE)] = EnemyAnime::Snache();
-    mp[static_cast<size_t>(EnemyType::THOSE_GUYS)] = EnemyAnime::ThoseGuys();
-    mp[static_cast<size_t>(EnemyType::HIPPOE)] = EnemyAnime::Hippoe();
-    mp[static_cast<size_t>(EnemyType::PIGGE)] = EnemyAnime::Pigge();
-    return mp;
 }

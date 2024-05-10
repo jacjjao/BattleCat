@@ -21,8 +21,6 @@ struct DamageInfo {
     Entity *victim;
 };
 
-std::vector<Enemy::Animation> GenEnemyAnime();
-
 class BattleScene : public Scene {
 public:
     explicit BattleScene(App &app);
@@ -48,9 +46,6 @@ private:
     void AddEnemy(EnemyType type, float modifier);
     void CreateUnitButtons();
 
-    std::vector<Cat::Animation> m_CatAnime;
-    std::vector<Util::Image> m_EnemyImage;
-
     std::vector<Cat> m_Cats;
     std::vector<Enemy> m_Enemies;
     std::vector<DamageInfo> m_DmgInfos;
@@ -75,8 +70,6 @@ private:
     App &m_App;
 
     std::optional<Workholic> m_Work;
-
-    std::vector<Enemy::Animation> m_EnemyAnime;
 
     // for knockback effect when boss appear
     bool m_OnBossAppear = false;
