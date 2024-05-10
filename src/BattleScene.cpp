@@ -246,7 +246,7 @@ void BattleScene::Draw() {
     }
     for (auto &enemy : m_Enemies) {
         enemy.Draw(m_Cam.GetTransform(),
-                   m_EnemyAnime[enemy.GetEnemyType()]);
+                   m_EnemyAnime[static_cast<size_t>(enemy.GetEnemyType())]);
     }
     m_Wallet->Draw();
     m_Work->Draw();
@@ -541,9 +541,12 @@ void BattleScene::CreateUnitButtons() {
     }
 }
 
-std::unordered_map<EnemyType, Enemy::Animation> GenEnemyAnime() {
-    std::unordered_map<EnemyType, Enemy::Animation> mp;
-    mp[EnemyType::ENEMY_TOWER] = EnemyAnime::Tower();
-    mp[EnemyType::DOGE] = EnemyAnime::Doge();
+std::vector<Enemy::Animation> GenEnemyAnime() {
+    std::vector<Enemy::Animation> mp(
+        static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT));
+    mp[static_cast<size_t>(EnemyType::ENEMY_TOWER)] = EnemyAnime::Tower();
+    mp[static_cast<size_t>(EnemyType::DOGE)] = EnemyAnime::Doge();
+    mp[static_cast<size_t>(EnemyType::SNACHE)] = EnemyAnime::Snache();
+    mp[static_cast<size_t>(EnemyType::THOSE_GUYS)] = EnemyAnime::ThoseGuys();
     return mp;
 }
