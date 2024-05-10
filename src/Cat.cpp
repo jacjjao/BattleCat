@@ -10,6 +10,7 @@ Cat::Cat(const CatType type, const int level)
     m_Health += (level - m_Stats.base_level) * m_Stats.health_diff;
     m_Stats.damage += (level - m_Stats.base_level) * m_Stats.damage_diff;
     LoadResource();
+    m_Anime.walk->Play();
 }
 
 void Cat::StartAttack() {
@@ -199,6 +200,13 @@ void Cat::LoadResource() {
     case CatType::CAT:
         m_Anime = CatAnime::Cat();
         break;
+
+    case CatType::TANK_CAT:
+        m_Anime = CatAnime::Tank();
+        break;
+
+    default:
+        throw std::runtime_error{"Unavailable cat resource"};
     }
 }
 
@@ -243,6 +251,31 @@ void CatAnimeResource::Init() {
         cat.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/000/Animation/knockback.png"});
+    }
+
+    {
+        auto &tank = s_anime[static_cast<size_t>(CatType::TANK_CAT)];
+
+        tank.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{RESOURCE_DIR
+                                               "/cats/001/Animation/idle.png"});
+
+        tank.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/001/Animation/walk0.png",
+                RESOURCE_DIR "/cats/001/Animation/walk1.png"});
+
+        tank.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/001/Animation/attack0.png",
+                RESOURCE_DIR "/cats/001/Animation/attack1.png",
+                RESOURCE_DIR "/cats/001/Animation/attack2.png",
+                RESOURCE_DIR "/cats/001/Animation/attack2.png" // for padding
+            });
+
+        tank.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/001/Animation/knockback.png"});
     }
 }
 
