@@ -386,41 +386,19 @@ namespace CatAnime {
 
         return axe;
     }
-    /*
+    
     inline Cat::Animation Gross() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/003/Animation/walk0.png",
-            RESOURCE_DIR "/cats/003/Animation/walk1.png",
-            RESOURCE_DIR "/cats/003/Animation/walk2.png",
-            RESOURCE_DIR "/cats/003/Animation/walk3.png",
-            RESOURCE_DIR "/cats/003/Animation/walk4.png"
-        });
-        walk->SetInterval(200); // ms
-        walk->SetLooping(true);
+        auto gross = CatAnimeResource::Get(CatType::CRAZED_GROSS_CAT);
 
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/003/Animation/attack0.png",
-            RESOURCE_DIR "/cats/003/Animation/attack1.png",
-            RESOURCE_DIR "/cats/003/Animation/attack2.png",
-            RESOURCE_DIR "/cats/003/Animation/attack2.png" // for padding
-        });
-        attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 3.0);
-        attack->SetLooping(false);
+        gross.walk->SetInterval(200); // ms
+        gross.walk->SetLooping(true);
+
+        gross.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 3.0);
+        gross.attack->SetLooping(false);
         
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/003/Animation/idle.png"
-        });
-
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/003/Animation/idle.png"});
-
-        Cat::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        return gross;
     }
-
+    /*
     inline Cat::Animation Cow() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
             RESOURCE_DIR "/cats/004/Animation/walk0.png",
