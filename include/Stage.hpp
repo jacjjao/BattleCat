@@ -35,7 +35,18 @@ public:
 };
 
 enum class Stages {
-    LEVEL1
+    LEVEL1,
+    LEVEL2,
+    LEVEL3,
+    LEVEL4,
+    LEVEL5,
+    LEVEL6,
+    LEVEL7,
+    LEVEL8,
+    LEVEL9,
+    LEVEL10,
+    TEST
+
 };
 
 class StageFactory {
@@ -44,6 +55,17 @@ public:
 
 private:
     static Stage CreateLevel1();
+    static Stage CreateLevel2();
+    static Stage CreateLevel3();
+    static Stage CreateLevel4();
+    static Stage CreateLevel5();
+    static Stage CreateLevel6();
+    static Stage CreateLevel7();
+    static Stage CreateLevel8();
+    static Stage CreateLevel9();
+    static Stage CreateLevel10();
+    static Stage CreateLevelTEST();
+
 };
 
 #endif // STAGE_HPP

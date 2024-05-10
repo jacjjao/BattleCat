@@ -16,10 +16,22 @@ void FrameScene::AddXP(const unsigned int xp) {
     }
 }
 
+void FrameScene::CostXP(const unsigned int xp) {
+    if (m_XP >= xp) {
+        m_XP -= xp;
+    }
+}
+
 void FrameScene::AddCatfood(unsigned int Catfood) {
     m_Catfood += Catfood;
     if(m_Catfood > 9999999){
         m_Catfood = 9999999;
+    }
+}
+
+void FrameScene::CostCatfood(unsigned int Catfood) {
+    if (m_Catfood >= Catfood) {
+        m_Catfood -= Catfood;
     }
 }
 

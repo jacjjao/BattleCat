@@ -22,9 +22,11 @@ public:
 
     static unsigned int GetXP(){ return m_XP; };
     static void AddXP(unsigned int xp);
+    static void CostXP(unsigned int xp);
 
     static unsigned int GetCatfood(){ return m_Catfood; };
     static void AddCatfood(unsigned int Catfood);
+    static void CostCatfood(unsigned int Catfood);
 
     virtual void Update() override;
 
