@@ -449,47 +449,19 @@ namespace CatAnime {
         
         return lizard;
     }
-    /*
+    
     inline Cat::Animation Titan() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/008/Animation/walk0.png",
-            RESOURCE_DIR "/cats/008/Animation/walk1.png",
-            RESOURCE_DIR "/cats/008/Animation/walk2.png",
-            RESOURCE_DIR "/cats/008/Animation/walk3.png",
-            RESOURCE_DIR "/cats/008/Animation/walk4.png",
-            RESOURCE_DIR "/cats/008/Animation/walk5.png",
-            RESOURCE_DIR "/cats/008/Animation/walk6.png",
-        });
-        walk->SetInterval(200); // ms
-        walk->SetLooping(true);
-
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/008/Animation/attack0.png",
-            RESOURCE_DIR "/cats/008/Animation/attack1.png",
-            RESOURCE_DIR "/cats/008/Animation/attack2.png",
-            RESOURCE_DIR "/cats/008/Animation/attack3.png",
-            RESOURCE_DIR "/cats/008/Animation/attack4.png",
-            RESOURCE_DIR "/cats/008/Animation/attack5.png",
-            RESOURCE_DIR "/cats/008/Animation/attack6.png",
-            RESOURCE_DIR "/cats/008/Animation/attack6.png" // for padding
-        });
-        attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 5.0);
-        attack->SetLooping(false);
+        auto titan = CatAnimeResource::Get(CatType::TITAN_CAT);
         
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/008/Animation/idle.png",
-        });
+        titan.walk->SetInterval(200); // ms
+        titan.walk->SetLooping(true);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/008/Animation/hitback.png"});
-
-        Cat::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        titan.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 5.0);
+        titan.attack->SetLooping(false);
+        
+        return titan;
     }
-    */
+    
 // clang-format on
 
 } // namespace CatAnime

@@ -229,6 +229,10 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::Lizard();
         break;
 
+    case CatType::TITAN_CAT:
+        m_Anime = CatAnime::Titan();
+        break;
+
     default:
         throw std::runtime_error{"Unavailable cat resource"};
     }
@@ -470,6 +474,42 @@ void CatAnimeResource::Init() {
         lizard.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/007/Animation/attack0.png"});
+    }
+
+    {
+        auto &titan = s_anime[static_cast<size_t>(CatType::TITAN_CAT)];
+
+        titan.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/008/Animation/idle.png",
+            });
+
+        titan.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/008/Animation/walk0.png",
+                RESOURCE_DIR "/cats/008/Animation/walk1.png",
+                RESOURCE_DIR "/cats/008/Animation/walk2.png",
+                RESOURCE_DIR "/cats/008/Animation/walk3.png",
+                RESOURCE_DIR "/cats/008/Animation/walk4.png",
+                RESOURCE_DIR "/cats/008/Animation/walk5.png",
+                RESOURCE_DIR "/cats/008/Animation/walk6.png",
+            });
+
+        titan.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/008/Animation/attack0.png",
+                RESOURCE_DIR "/cats/008/Animation/attack1.png",
+                RESOURCE_DIR "/cats/008/Animation/attack2.png",
+                RESOURCE_DIR "/cats/008/Animation/attack3.png",
+                RESOURCE_DIR "/cats/008/Animation/attack4.png",
+                RESOURCE_DIR "/cats/008/Animation/attack5.png",
+                RESOURCE_DIR "/cats/008/Animation/attack6.png",
+                RESOURCE_DIR "/cats/008/Animation/attack6.png" // for padding
+            });
+
+        titan.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/008/Animation/hitback.png"});
     }
 }
 
