@@ -398,39 +398,19 @@ namespace CatAnime {
         
         return gross;
     }
-    /*
+    
     inline Cat::Animation Cow() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/004/Animation/walk0.png",
-            RESOURCE_DIR "/cats/004/Animation/walk1.png",
-            RESOURCE_DIR "/cats/004/Animation/walk2.png",
-            RESOURCE_DIR "/cats/004/Animation/walk3.png"
-        });
-        walk->SetInterval(200); // ms
-        walk->SetLooping(true);
+        auto cow = CatAnimeResource::Get(CatType::COW_CAT);
 
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/004/Animation/attack0.png",
-            RESOURCE_DIR "/cats/004/Animation/attack1.png",
-            RESOURCE_DIR "/cats/004/Animation/attack1.png" // for padding
-        });
-        attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 2.0);
-        attack->SetLooping(false);
-        
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/004/Animation/idle.png"
-        });
+        cow.walk->SetInterval(200); // ms
+        cow.walk->SetLooping(true);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/004/Animation/knockback.png"});
+        cow.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 2.0);
+        cow.attack->SetLooping(false);
 
-        Cat::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        return cow;
     }
-
+    /*
     inline Cat::Animation Bird() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
             RESOURCE_DIR "/cats/005/Animation/walk0.png",

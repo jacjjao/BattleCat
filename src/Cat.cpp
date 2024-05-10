@@ -213,6 +213,10 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::Gross();
         break;
 
+    case CatType::COW_CAT:
+        m_Anime = CatAnime::Cow();
+        break;
+
     default:
         throw std::runtime_error{"Unavailable cat resource"};
     }
@@ -336,6 +340,32 @@ void CatAnimeResource::Init() {
 
         gross.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{RESOURCE_DIR "/cats/003/Animation/idle.png"});
+    }
+
+    {
+        auto &cow = s_anime[static_cast<size_t>(CatType::COW_CAT)];
+
+        cow.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{RESOURCE_DIR
+                                               "/cats/004/Animation/idle.png"});
+
+        cow.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/004/Animation/walk0.png",
+                RESOURCE_DIR "/cats/004/Animation/walk1.png",
+                RESOURCE_DIR "/cats/004/Animation/walk2.png",
+                RESOURCE_DIR "/cats/004/Animation/walk3.png"});
+
+        cow.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/004/Animation/attack0.png",
+                RESOURCE_DIR "/cats/004/Animation/attack1.png",
+                RESOURCE_DIR "/cats/004/Animation/attack1.png" // for padding
+            });
+
+        cow.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/004/Animation/knockback.png"});
     }
 }
 
