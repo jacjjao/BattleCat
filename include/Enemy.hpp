@@ -14,6 +14,7 @@ enum class EnemyType : size_t {
     THOSE_GUYS,
     HIPPOE,
     PIGGE,
+    JackiePeng,
     ENEMY_TYPE_COUNT
 };
 static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
@@ -339,8 +340,9 @@ namespace EnemyStats {
 
     inline const std::array<EntityStats,
                             static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT)>
-        Stats = {EnemyStats::EnemyTower, EnemyStats::Doge, EnemyStats::Snache,
-                 EnemyStats::ThoseGuys, EnemyStats::Hippoe, EnemyStats::Pigge};
+        Stats = {EnemyStats::EnemyTower, EnemyStats::Doge,   EnemyStats::Snache,
+                 EnemyStats::ThoseGuys,  EnemyStats::Hippoe, EnemyStats::Pigge,
+                 EnemyStats::JackiePeng};
 
 }
 
@@ -524,27 +526,45 @@ namespace EnemyAnime{
     }
 
     inline Enemy::Animation JackiePeng() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/walk0.png",
-            RESOURCE_DIR "/cats/000/Animation/walk1.png"
-        });
-        walk->SetInterval(300); // ms
+        auto walk = std::make_unique<AnimatedGameObject>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk0.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk1.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk2.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk3.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk4.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk5.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk6.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk7.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk8.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk9.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk10.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk/walk11.png",
+            });
+        walk->SetInterval(150); // ms
         walk->SetLooping(true);
 
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/attack_prev0.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_prev1.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_post.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_post.png" // for padding
-        });
+        auto attack = std::make_unique<AnimatedGameObject>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack0.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack1.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack2.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack3.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack4.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack5.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack6.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack7.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack8.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack/attack8.png" // for padding
+            });
         attack->SetInterval(EnemyStats::JackiePeng.atk_prep_time * 1000.0 / 3.0);
         attack->SetLooping(false);
 
         auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/idle.png"
+            RESOURCE_DIR "/enemys/005/Animation/idle.png"
         });
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/000/Animation/knockback.png"});
+        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/enemys/005/Animation/hitback.png"});
 
         Enemy::Animation a;
         a.walk = std::move(walk);
