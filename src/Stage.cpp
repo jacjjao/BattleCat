@@ -87,9 +87,9 @@ Stage StageFactory::CreateLevel1() {
         EnemyDispatcher test;
         test.initAppearTime = EnemyDispatcher::s_Infinite;
         test.towerHealthPercent = 1.0;
-        test.SetTimeOutDur(3.0);
+        test.SetTimeOutDur(1.87);
         test.limit = EnemyDispatcher::s_Infinite;
-        test.type = EnemyType::HIPPOE;
+        test.type = EnemyType::PIGGE;
         stage.dispatchers.push_back(test);
     }
 

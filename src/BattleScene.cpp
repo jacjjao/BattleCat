@@ -544,6 +544,7 @@ void BattleScene::CreateUnitButtons() {
 std::vector<Enemy::Animation> GenEnemyAnime() {
     std::vector<Enemy::Animation> mp(
         static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT));
+    /*
     mp[static_cast<size_t>(EnemyType::ENEMY_TOWER)] = EnemyAnime::Tower();
     mp[static_cast<size_t>(EnemyType::DOGE)] = EnemyAnime::Doge();
     // mp[static_cast<size_t>(EnemyType::SNACHE)] = EnemyAnime::Snache();
@@ -551,5 +552,7 @@ std::vector<Enemy::Animation> GenEnemyAnime() {
     // mp[static_cast<size_t>(EnemyType::HIPPOE)] = EnemyAnime::Hippoe();
     // mp[static_cast<size_t>(EnemyType::PIGGE)] = EnemyAnime::Pigge();
     mp[static_cast<size_t>(EnemyType::JackiePeng)] = EnemyAnime::JackiePeng();
+    return mp;
+    */
     return mp;
 }

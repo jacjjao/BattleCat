@@ -200,6 +200,10 @@ void Enemy::LoadResource() {
         m_Anime = EnemyAnime::Hippoe();
         break;
 
+    case EnemyType::PIGGE:
+        m_Anime = EnemyAnime::Pigge();
+        break;
+
     case EnemyType::JackiePeng:
         m_Anime = EnemyAnime::JackiePeng();
         break;    
@@ -333,6 +337,35 @@ void EnemyAnimeResource::Init() {
         hippoe.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/enemys/003/Animation/knockback.png"});
+    }
+
+    {
+        auto &pigge = s_anime[static_cast<size_t>(EnemyType::PIGGE)];
+
+        pigge.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/004/Animation/idle.png"});
+
+        pigge.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/004/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/004/Animation/walk1.png",
+                RESOURCE_DIR "/enemys/004/Animation/walk3.png"});
+
+        pigge.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/004/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/004/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/004/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/004/Animation/attack3.png",
+                RESOURCE_DIR "/enemys/004/Animation/attack4.png",
+                RESOURCE_DIR "/enemys/004/Animation/attack5.png",
+                RESOURCE_DIR "/enemys/004/Animation/attack5.png" // for padding
+            });
+
+        pigge.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/enemys/004/Animation/attack0.png"});
     }
 
     { 

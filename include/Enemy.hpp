@@ -424,43 +424,19 @@ namespace EnemyAnime{
 
         return hippoe;
     }
-    /*
+    
     inline Enemy::Animation Pigge() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/004/Animation/walk0.png",
-            RESOURCE_DIR "/enemys/004/Animation/walk1.png",
-            RESOURCE_DIR "/enemys/004/Animation/walk3.png"
-        });
-        walk->SetInterval(300); // ms
-        walk->SetLooping(true);
+        auto pigge = EnemyAnimeResource::Get(EnemyType::PIGGE);
 
-        auto attack = std::make_unique<AnimatedGameObject>(
-            std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/004/Animation/attack0.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack1.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack2.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack3.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack4.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack5.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack5.png" // for padding
-            });
-        attack->SetInterval(EnemyStats::Pigge.atk_prep_time * 1000.0 / 3.0);
-        attack->SetLooping(false);
+        pigge.walk->SetInterval(300); // ms
+        pigge.walk->SetLooping(true);
 
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/004/Animation/idle.png"
-        });
+        pigge.attack->SetInterval(EnemyStats::Pigge.atk_prep_time * 1000.0 / 3.0);
+        pigge.attack->SetLooping(false);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/enemys/004/Animation/attack0.png"});
-
-        Enemy::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        return pigge;
     }
-    */
+    
     inline Enemy::Animation JackiePeng() {
         auto a = EnemyAnimeResource::Get(EnemyType::JackiePeng);
 
