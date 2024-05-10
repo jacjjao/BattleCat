@@ -21,6 +21,8 @@ struct DamageInfo {
     Entity *victim;
 };
 
+std::unordered_map<EnemyType, Enemy::Animation> GenEnemyAnime();
+
 class BattleScene : public Scene {
 public:
     explicit BattleScene(App &app);
@@ -73,6 +75,8 @@ private:
     App &m_App;
 
     std::optional<Workholic> m_Work;
+
+    std::unordered_map<EnemyType, Enemy::Animation> m_EnemyAnime;
 
     // for knockback effect when boss appear
     bool m_OnBossAppear = false;
