@@ -66,7 +66,7 @@ Stage StageFactory::CreateStage(Stages which) {
 Stage StageFactory::CreateLevel1() {
     Stage stage;
     stage.dispatchers.reserve(2);
-
+    /*
     {
         EnemyDispatcher ed;
         ed.initAppearTime = 0.0;
@@ -82,11 +82,12 @@ Stage StageFactory::CreateLevel1() {
         ed.limit = EnemyDispatcher::s_Infinite;
         stage.dispatchers.push_back(ed);
     }
+    */
     {
         EnemyDispatcher test;
         test.initAppearTime = EnemyDispatcher::s_Infinite;
         test.towerHealthPercent = 1.0;
-        test.SetTimeOutDur(5.0);
+        test.SetTimeOutDur(2.0);
         test.limit = EnemyDispatcher::s_Infinite;
         test.type = EnemyType::JackiePeng;
         stage.dispatchers.push_back(test);

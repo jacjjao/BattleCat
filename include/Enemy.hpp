@@ -32,7 +32,7 @@ public:
 
     void StartAttack();
 
-    void Draw(Util::Transform trans, Animation &anime);
+    void Draw(Util::Transform trans);
 
     void UpdateTimer(double dt);
 
@@ -54,6 +54,8 @@ private:
     void CoolDownComplete();
     void OnHitBack() override;
 
+    void LoadResource();
+
     inline static RandomFloatGenerator s_Random;
 
     [[nodiscard]]
@@ -69,7 +71,29 @@ private:
 
     EnemyType m_Type;
     bool m_OnAttack = false;
+
+    Animation m_Anime;
 };
+
+class EnemyAnimeResource {
+public:
+    struct UtilAnime {
+        std::shared_ptr<Util::Animation> walk;
+        std::shared_ptr<Util::Animation> attack;
+        std::shared_ptr<Util::Animation> idle;
+        std::shared_ptr<Util::Animation> knockback;
+    };
+
+    static void Init();
+
+    static const UtilAnime& Get(EnemyType type);
+
+private:
+    static inline bool s_init = false;
+
+    static inline std::vector<UtilAnime> s_anime;
+};
+
 //--------------------------------------------------------
 
 namespace EnemyStats {
@@ -526,45 +550,20 @@ namespace EnemyAnime{
     }
 
     inline Enemy::Animation JackiePeng() {
-        auto walk = std::make_unique<AnimatedGameObject>(
-            std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk0.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk1.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk2.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk3.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk4.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk5.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk6.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk7.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk8.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk9.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk10.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk11.png",
-            });
+        auto walk = std::make_unique<AnimatedGameObject>(EnemyAnimeResource::Get(EnemyType::JackiePeng).walk);
         walk->SetInterval(150); // ms
         walk->SetLooping(true);
 
         auto attack = std::make_unique<AnimatedGameObject>(
-            std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack0.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack1.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack2.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack3.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack4.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack5.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack6.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack7.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack8.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack8.png" // for padding
-            });
+            EnemyAnimeResource::Get(EnemyType::JackiePeng).attack);
         attack->SetInterval(EnemyStats::JackiePeng.atk_prep_time * 1000.0 / 3.0);
         attack->SetLooping(false);
 
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/005/Animation/idle.png"
-        });
+        auto idle = std::make_unique<AnimatedGameObject>(
+            EnemyAnimeResource::Get(EnemyType::JackiePeng).idle);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/enemys/005/Animation/hitback.png"});
+        auto knockback = std::make_unique<AnimatedGameObject>(
+            EnemyAnimeResource::Get(EnemyType::JackiePeng).knockback);
 
         Enemy::Animation a;
         a.walk = std::move(walk);
@@ -759,69 +758,6 @@ namespace EnemyAnime{
         a.knockback = std::move(knockback);
         return a;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 #endif //ENEMY_HPP

@@ -246,8 +246,7 @@ void BattleScene::Draw() {
         }
     }
     for (auto &enemy : m_Enemies) {
-        enemy.Draw(m_Cam.GetTransform(),
-                   m_EnemyAnime[static_cast<size_t>(enemy.GetEnemyType())]);
+        enemy.Draw(m_Cam.GetTransform());
     }
     m_Wallet->Draw();
     m_Work->Draw();
