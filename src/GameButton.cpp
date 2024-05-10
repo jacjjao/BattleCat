@@ -10,15 +10,16 @@ GameButton::GameButton(const std::string& btn_path) {
 }
 
 GameButton::GameButton(const std::string& btn_path,
-                       std::initializer_list<std::string> border_paths){
+                       std::initializer_list<std::string> border_paths,bool initsound) {
     SetDrawable(std::make_shared<Util::Image>(btn_path));
 
     auto border = std::make_shared<AnimatedGameObject>(border_paths);
     border->SetLooping(true);
     border->SetInterval(67);
     SetHoverBorder(border);
-    AddButtonEvent([]{Sounds::ButtonClick->Play();});
-
+    if (initsound) {
+        AddButtonEvent([] { Sounds::ButtonClick->Play(); });
+    }
     SetZIndex(0.0f);
 }
 

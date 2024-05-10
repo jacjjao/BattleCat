@@ -11,7 +11,7 @@ class GameButton : public GameObjectEx{
 public:
     explicit GameButton(const std::string& btn_path);
 
-    explicit GameButton(const std::string& btn_path,std::initializer_list<std::string> border_paths);
+    explicit GameButton(const std::string& btn_path,std::initializer_list<std::string> border_paths,bool initsound = true);
 
     virtual ~GameButton() override = default;
 
