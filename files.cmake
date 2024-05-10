@@ -27,6 +27,7 @@ set(SRC_FILES
     FrameScene.cpp
     LoadingRectangle.cpp
     StageSelectScene.cpp
+    SharedAnimation.cpp
 )
 
 set(INCLUDE_FILES
@@ -64,6 +65,7 @@ set(INCLUDE_FILES
     LoadingRectangle.hpp
     RandomGenerator.hpp
     StageSelectScene.hpp
+    SharedAnimation.hpp
 )
 
 set(TEST_FILES

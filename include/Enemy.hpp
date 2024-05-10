@@ -5,6 +5,7 @@
 #include "EntityStats.hpp"
 #include "Entity.hpp"
 #include "RandomGenerator.hpp"
+#include "SharedAnimation.hpp"
 #include <array>
 
 enum class EnemyType : size_t {
@@ -14,6 +15,7 @@ enum class EnemyType : size_t {
     THOSE_GUYS,
     HIPPOE,
     PIGGE,
+    JackiePeng,
     ENEMY_TYPE_COUNT
 };
 static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
@@ -21,17 +23,17 @@ static_assert(std::is_same_v<std::underlying_type_t<EnemyType>, size_t>);
 class Enemy : public Entity {
 public:
     struct Animation {
-        std::unique_ptr<AnimatedGameObject> walk;
-        std::unique_ptr<AnimatedGameObject> attack;
-        std::unique_ptr<AnimatedGameObject> idle;
-        std::unique_ptr<AnimatedGameObject> knockback;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> walk;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> attack;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> idle;
+        std::unique_ptr<SharedRc::SharedAnimatedGameObject> knockback;
     };
 
     explicit Enemy(EnemyType type);
 
     void StartAttack();
 
-    void Draw(Util::Transform trans, Animation &anime);
+    void Draw(Util::Transform trans);
 
     void UpdateTimer(double dt);
 
@@ -53,6 +55,8 @@ private:
     void CoolDownComplete();
     void OnHitBack() override;
 
+    void LoadResource();
+
     inline static RandomFloatGenerator s_Random;
 
     [[nodiscard]]
@@ -68,7 +72,29 @@ private:
 
     EnemyType m_Type;
     bool m_OnAttack = false;
+
+    Animation m_Anime;
 };
+
+class EnemyAnimeResource {
+    struct UtilAnime {
+        std::unique_ptr<SharedRc::Animation> walk;
+        std::unique_ptr<SharedRc::Animation> attack;
+        std::unique_ptr<SharedRc::Animation> idle;
+        std::unique_ptr<SharedRc::Animation> knockback;
+    };
+
+public:
+    static void Init();
+
+    static const Enemy::Animation Get(EnemyType type);
+
+private:
+    static inline bool s_init = false;
+
+    static inline std::vector<UtilAnime> s_anime;
+};
+
 //--------------------------------------------------------
 
 namespace EnemyStats {
@@ -339,221 +365,90 @@ namespace EnemyStats {
 
     inline const std::array<EntityStats,
                             static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT)>
-        Stats = {EnemyStats::EnemyTower, EnemyStats::Doge, EnemyStats::Snache,
-                 EnemyStats::ThoseGuys, EnemyStats::Hippoe, EnemyStats::Pigge};
+        Stats = {EnemyStats::EnemyTower, EnemyStats::Doge,   EnemyStats::Snache,
+                 EnemyStats::ThoseGuys,  EnemyStats::Hippoe, EnemyStats::Pigge,
+                 EnemyStats::JackiePeng};
 
 }
 
 //----------------------------------------------------------------------
 namespace EnemyAnime{
     inline Enemy::Animation Tower() {
-        Enemy::Animation a;
-        a.idle = std::make_unique<AnimatedGameObject>(
-            std::initializer_list<std::string>{
-                RESOURCE_DIR "/stages/ec045_tw.png"});
-        return a;
+        return EnemyAnimeResource::Get(EnemyType::ENEMY_TOWER);
     }
-
+    
     inline Enemy::Animation Doge() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/000/Animation/walk0.png",
-            RESOURCE_DIR "/enemys/000/Animation/walk1.png"
-        });
-        walk->SetInterval(300); // ms
-        walk->SetLooping(true);
+        auto doge = EnemyAnimeResource::Get(EnemyType::DOGE);
 
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/000/Animation/attack0.png",
-            RESOURCE_DIR "/enemys/000/Animation/attack1.png",
-            RESOURCE_DIR "/enemys/000/Animation/attack1.png" // for padding
-        });
-        attack->SetInterval(EnemyStats::Doge.atk_prep_time * 1000.0 / 2.0);
-        attack->SetLooping(false);
+        doge.walk->SetInterval(300); // ms
+        doge.walk->SetLooping(true);
 
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/000/Animation/idle.png"
-        });
+        doge.attack->SetInterval(EnemyStats::Doge.atk_prep_time * 1000.0 / 2.0);
+        doge.attack->SetLooping(false);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/enemys/000/Animation/knockback.png"});
-
-        Enemy::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        return doge;
     }
-
+    
     inline Enemy::Animation Snache() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/001/Animation/walk0.png",
-            RESOURCE_DIR "/enemys/001/Animation/walk1.png"
-        });
-        walk->SetInterval(300); // ms
-        walk->SetLooping(true);
+        auto snache = EnemyAnimeResource::Get(EnemyType::SNACHE);
 
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/001/Animation/attack0.png",
-            RESOURCE_DIR "/enemys/001/Animation/attack1.png",
-            RESOURCE_DIR "/enemys/001/Animation/attack2.png",
-            RESOURCE_DIR "/enemys/001/Animation/attack3.png",
-            RESOURCE_DIR "/enemys/001/Animation/attack3.png" // for padding
-        });
-        attack->SetInterval(EnemyStats::Snache.atk_prep_time * 1000.0 / 4.0);
-        attack->SetLooping(false);
+        snache.walk->SetInterval(300); // ms
+        snache.walk->SetLooping(true);
 
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/001/Animation/idle.png"
-        });
+        snache.attack->SetInterval(EnemyStats::Snache.atk_prep_time * 1000.0 / 4.0);
+        snache.attack->SetLooping(false);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/enemys/001/Animation/knockback.png"});
-
-        Enemy::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        return snache;
     }
-
+    
     inline Enemy::Animation ThoseGuys() {
-        auto walk = std::make_unique<AnimatedGameObject>(
-            std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/002/Animation/walk0.png",
-                RESOURCE_DIR "/enemys/002/Animation/walk1.png",
-                RESOURCE_DIR "/enemys/002/Animation/walk2.png",
-                RESOURCE_DIR "/enemys/002/Animation/walk3.png",
-                RESOURCE_DIR "/enemys/002/Animation/walk4.png",
-                RESOURCE_DIR "/enemys/002/Animation/walk5.png"});
-        walk->SetInterval(300); // ms
-        walk->SetLooping(true);
+        auto those = EnemyAnimeResource::Get(EnemyType::THOSE_GUYS);
 
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/002/Animation/attack0.png",
-                RESOURCE_DIR "/enemys/002/Animation/attack1.png",
-                RESOURCE_DIR "/enemys/002/Animation/attack2.png",
-                RESOURCE_DIR "/enemys/002/Animation/attack3.png",
-                RESOURCE_DIR "/enemys/002/Animation/attack4.png",
-                RESOURCE_DIR "/enemys/002/Animation/attack5.png",
-                RESOURCE_DIR "/enemys/002/Animation/attack6.png",
-                RESOURCE_DIR "/enemys/002/Animation/attack7.png",
-                RESOURCE_DIR "/enemys/002/Animation/attack7.png" // for padding
-        });
-        attack->SetInterval(EnemyStats::ThoseGuys.atk_prep_time * 1000.0 / 7.0);
-        attack->SetLooping(false);
+        those.walk->SetInterval(50); // ms
+        those.walk->SetLooping(true);
 
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/002/Animation/idle.png"
-        });
+        those.attack->SetInterval(EnemyStats::ThoseGuys.atk_prep_time * 1000.0 / 4.0);
+        those.attack->SetLooping(false);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/enemys/002/Animation/knockback.png"});
-
-        Enemy::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        return those;
     }
-
+    
     inline Enemy::Animation Hippoe() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/003/Animation/walk0.png",
-            RESOURCE_DIR "/enemys/003/Animation/walk1.png"
-        });
-        walk->SetInterval(300); // ms
-        walk->SetLooping(true);
+        auto hippoe = EnemyAnimeResource::Get(EnemyType::HIPPOE);
 
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/003/Animation/attack0.png",
-            RESOURCE_DIR "/enemys/003/Animation/attack1.png",
-            RESOURCE_DIR "/enemys/003/Animation/attack2.png",
-            RESOURCE_DIR "/enemys/003/Animation/attack2.png" // for padding
-        });
-        attack->SetInterval(EnemyStats::Hippoe.atk_prep_time * 1000.0 / 3.0);
-        attack->SetLooping(false);
+        hippoe.walk->SetInterval(300); // ms
+        hippoe.walk->SetLooping(true);
 
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/003/Animation/idle.png"
-        });
+        hippoe.attack->SetInterval(EnemyStats::Hippoe.atk_prep_time * 1000.0 / 2.0);
+        hippoe.attack->SetLooping(false);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/enemys/003/Animation/knockback.png"});
-
-        Enemy::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        return hippoe;
     }
-
+    
     inline Enemy::Animation Pigge() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/004/Animation/walk0.png",
-            RESOURCE_DIR "/enemys/004/Animation/walk1.png",
-            RESOURCE_DIR "/enemys/004/Animation/walk3.png"
-        });
-        walk->SetInterval(300); // ms
-        walk->SetLooping(true);
+        auto pigge = EnemyAnimeResource::Get(EnemyType::PIGGE);
 
-        auto attack = std::make_unique<AnimatedGameObject>(
-            std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/004/Animation/attack0.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack1.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack2.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack3.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack4.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack5.png",
-                RESOURCE_DIR "/enemys/004/Animation/attack5.png" // for padding
-            });
-        attack->SetInterval(EnemyStats::Pigge.atk_prep_time * 1000.0 / 3.0);
-        attack->SetLooping(false);
+        pigge.walk->SetInterval(300); // ms
+        pigge.walk->SetLooping(true);
 
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/enemys/004/Animation/idle.png"
-        });
+        pigge.attack->SetInterval(EnemyStats::Pigge.atk_prep_time * 1000.0 / 3.0);
+        pigge.attack->SetLooping(false);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/enemys/004/Animation/attack0.png"});
-
-        Enemy::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        return pigge;
     }
-
+    
     inline Enemy::Animation JackiePeng() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/walk0.png",
-            RESOURCE_DIR "/cats/000/Animation/walk1.png"
-        });
-        walk->SetInterval(300); // ms
-        walk->SetLooping(true);
+        auto a = EnemyAnimeResource::Get(EnemyType::JackiePeng);
 
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/attack_prev0.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_prev1.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_post.png",
-            RESOURCE_DIR "/cats/000/Animation/attack_post.png" // for padding
-        });
-        attack->SetInterval(EnemyStats::JackiePeng.atk_prep_time * 1000.0 / 3.0);
-        attack->SetLooping(false);
+        a.walk->SetInterval(130); // ms
+        a.walk->SetLooping(true);
 
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/000/Animation/idle.png"
-        });
+        a.attack->SetInterval(EnemyStats::JackiePeng.atk_prep_time * 1000.0 / 3.0);
+        a.attack->SetLooping(false);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/000/Animation/knockback.png"});
-
-        Enemy::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
         return a;
     }
-
+    /*
     inline Enemy::Animation Gory() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
             RESOURCE_DIR "/cats/000/Animation/walk0.png",
@@ -739,69 +634,6 @@ namespace EnemyAnime{
         a.knockback = std::move(knockback);
         return a;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    */
 }
 #endif //ENEMY_HPP

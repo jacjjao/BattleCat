@@ -5,6 +5,11 @@ AnimatedGameObject::AnimatedGameObject(std::initializer_list<std::string> Animat
     SetDrawable(m_Anime);
 }
 
+AnimatedGameObject::AnimatedGameObject(std::shared_ptr<Util::Animation> anime) : 
+    m_Anime(std::move(anime)) {
+    SetDrawable(m_Anime);
+}
+
 void AnimatedGameObject::SetLooping(const bool looping) {
     m_Anime->SetLooping(looping);
 }

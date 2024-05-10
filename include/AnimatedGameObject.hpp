@@ -14,6 +14,8 @@ class AnimatedGameObject : public GameObjectEx {
 public:
     AnimatedGameObject(std::initializer_list<std::string> AnimationPaths);
 
+    explicit AnimatedGameObject(std::shared_ptr<Util::Animation> anime);
+
     void SetLooping(bool looping);
 
     void SetInterval(int interval);
