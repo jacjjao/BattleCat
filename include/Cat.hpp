@@ -410,44 +410,22 @@ namespace CatAnime {
 
         return cow;
     }
-    /*
+    
     inline Cat::Animation Bird() {
-        auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/005/Animation/walk0.png",
-            RESOURCE_DIR "/cats/005/Animation/walk1.png",
-            RESOURCE_DIR "/cats/005/Animation/walk2.png"
-        });
-        walk->SetInterval(200); // ms
-        walk->SetLooping(true);
+        auto bird = CatAnimeResource::Get(CatType::BIRD_CAT);
 
-        auto attack = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/005/Animation/attack0.png",
-            RESOURCE_DIR "/cats/005/Animation/attack1.png",
-            RESOURCE_DIR "/cats/005/Animation/attack2.png",
-            RESOURCE_DIR "/cats/005/Animation/attack3.png",
-            RESOURCE_DIR "/cats/005/Animation/attack3.png" // for padding
-        });
-        attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 4.0);
-        attack->SetLooping(false);
+        bird.walk->SetInterval(200); // ms
+        bird.walk->SetLooping(true);
+
+        bird.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 4.0);
+        bird.attack->SetLooping(false);
         
-        auto idle = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
-            RESOURCE_DIR "/cats/005/Animation/walk0.png",
-            RESOURCE_DIR "/cats/005/Animation/walk1.png",
-            RESOURCE_DIR "/cats/005/Animation/walk2.png"
-        });
-        walk->SetInterval(200); // ms
-        walk->SetLooping(true);
+        bird.walk->SetInterval(200); // ms
+        bird.walk->SetLooping(true);
 
-        auto knockback = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{RESOURCE_DIR "/cats/005/Animation/knockback.png"});
-
-        Cat::Animation a;
-        a.walk = std::move(walk);
-        a.attack = std::move(attack);
-        a.idle = std::move(idle);
-        a.knockback = std::move(knockback);
-        return a;
+        return bird;
     }
-
+    /*
     inline Cat::Animation Fish() {
         auto walk = std::make_unique<AnimatedGameObject>(std::initializer_list<std::string>{
             RESOURCE_DIR "/cats/006/Animation/idle.png",
