@@ -22,6 +22,8 @@ BattleScene::BattleScene(App &app)
     m_CatAnime.push_back(CatAnime::Fish());
     m_CatAnime.push_back(CatAnime::Lizard());
 
+    m_EnemyAnime = GenEnemyAnime();
+
     m_EnemyImage.emplace_back(RESOURCE_DIR "/stages/ec000_tw.png");
     m_EnemyImage.emplace_back(RESOURCE_DIR "/enemys/000/enemy_icon_000.png");
 
@@ -242,9 +244,9 @@ void BattleScene::Draw() {
                 gt, m_CatAnime[static_cast<size_t>(m_Cats[i].GetCatType())]);
         }
     }
-    for (const auto &enemy : m_Enemies) {
+    for (auto &enemy : m_Enemies) {
         enemy.Draw(m_Cam.GetTransform(),
-                   m_EnemyImage[static_cast<size_t>(enemy.GetEnemyType())]);
+                   m_EnemyAnime[enemy.GetEnemyType()]);
     }
     m_Wallet->Draw();
     m_Work->Draw();
@@ -329,6 +331,9 @@ void BattleScene::AddEnemy(const EnemyType type, const float modifier) {
         return;
     }
     auto& e = m_Enemies.emplace_back(type);
+    constexpr float y_low = -145.0f;
+    constexpr float y_high = -125.0f;
+    e.SetY(y_low, y_high);
     e.SetStatsModifier(modifier);
     e.SetPosX(s_EnemiesTowerPosX);
     LOG_DEBUG("Add Enemy at time {}", m_TotalTime);
@@ -534,4 +539,11 @@ void BattleScene::CreateUnitButtons() {
         y -= row_margin_y;
         x = start_x;
     }
+}
+
+std::unordered_map<EnemyType, Enemy::Animation> GenEnemyAnime() {
+    std::unordered_map<EnemyType, Enemy::Animation> mp;
+    mp[EnemyType::ENEMY_TOWER] = EnemyAnimation::Tower();
+    mp[EnemyType::DOGE] = EnemyAnimation::Doge();
+    return mp;
 }
