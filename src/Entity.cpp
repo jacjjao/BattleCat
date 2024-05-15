@@ -1,5 +1,9 @@
 #include "Entity.hpp"
 #include "DebugUtil/BattleLog.hpp"
+#include "Sound.hpp"
+#include "RandomGenerator.hpp"
+#include "Enemy.hpp"
+#include "Cat.hpp"
 //#include "Scene.hpp"
 
 void Entity::SetStats(const EntityStats &stats) {
@@ -11,7 +15,7 @@ void Entity::SetStats(const EntityStats &stats) {
     m_KnockBackHealth = m_Stats.health / m_Stats.kb;
 }
 
-void Entity::GetHit(int damage, const Entity &attacker) {
+/*void Entity::GetHit(int damage, const Entity &attacker) {
     const auto attr = attacker.GetAttr();
     if (attr && std::find(m_Stats.strong.cbegin(), m_Stats.strong.cend(),
                           *attr) != m_Stats.strong.cend()) {
@@ -31,7 +35,7 @@ void Entity::GetHit(int damage, const Entity &attacker) {
     printBattleLog("{} deals damage {} to {}! {} have {}hp left!",
                    attacker.GetName(), damage, GetName(), GetName(), m_Health);
 #endif // ENABLE_BATTLE_LOG
-}
+}*/
 
 HitBox Entity::GetHitBox() const {
     return ToWorldSpace(m_Stats.hit_box);

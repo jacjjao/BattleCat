@@ -360,6 +360,9 @@ void BattleScene::CreateUnitButtons() {
                 Sounds::Blocked->Play();
             }
         });
+        m_CatButton[0]->AddButtonEvent([this]{
+            Sounds::Scrolling->Play();
+        });
     }
 
     // tank cat
@@ -380,6 +383,9 @@ void BattleScene::CreateUnitButtons() {
                 Sounds::Blocked->Play();
             }
         });
+        m_CatButton[1]->AddButtonEvent([this]{
+            Sounds::Scrolling->Play();
+        });
     }
 
     {
@@ -398,6 +404,9 @@ void BattleScene::CreateUnitButtons() {
             else{
                 Sounds::Blocked->Play();
             }
+        });
+        m_CatButton[2]->AddButtonEvent([this]{
+            Sounds::Scrolling->Play();
         });
     }
 
@@ -418,6 +427,9 @@ void BattleScene::CreateUnitButtons() {
                 Sounds::Blocked->Play();
             }
         });
+        m_CatButton[3]->AddButtonEvent([this]{
+            Sounds::Scrolling->Play();
+        });
     }
 
     {
@@ -437,6 +449,9 @@ void BattleScene::CreateUnitButtons() {
                 Sounds::Blocked->Play();
             }
         });
+        m_CatButton[4]->AddButtonEvent([this]{
+            Sounds::Scrolling->Play();
+        });
     }
 
     {
@@ -454,6 +469,9 @@ void BattleScene::CreateUnitButtons() {
             } else {
                 Sounds::Blocked->Play();
             }
+        });
+        m_CatButton[5]->AddButtonEvent([this]{
+            Sounds::Scrolling->Play();
         });
     }
 
@@ -473,6 +491,9 @@ void BattleScene::CreateUnitButtons() {
                 Sounds::Blocked->Play();
             }
         });
+        m_CatButton[6]->AddButtonEvent([this]{
+            Sounds::Scrolling->Play();
+        });
     }
 
     {
@@ -490,6 +511,9 @@ void BattleScene::CreateUnitButtons() {
             } else {
                 Sounds::Blocked->Play();
             }
+        });
+        m_CatButton[7]->AddButtonEvent([this]{
+            Sounds::Scrolling->Play();
         });
     }
     

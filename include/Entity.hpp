@@ -11,7 +11,7 @@ class Entity {
 public:
     virtual ~Entity() = default;
 
-    void GetHit(int damage, const Entity &attacker);
+    virtual void GetHit(int damage, const Entity &attacker) = 0;
 
     [[nodiscard]]
     HitBox GetHitBox() const; // when attacking
@@ -69,6 +69,8 @@ protected:
     int m_TotalDamage = 0;
     double m_Health = 0;
     double m_FullHealth = 0;
+
+    int m_Type;
 
     std::shared_ptr<AnimatedGameObject> m_attack;
     std::shared_ptr<AnimatedGameObject> m_walk;

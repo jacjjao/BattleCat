@@ -1,7 +1,7 @@
 #include "Cat.hpp"
 #include "DebugUtil/BattleLog.hpp"
 #include "Sound.hpp"
-#include <random>
+//#include <random>
 
 Cat::Cat(const CatType type, const int level)
     : m_Type(type) {
@@ -133,10 +133,36 @@ void Cat::DealDamage(Entity &e) {
         damage = static_cast<int>(d);
     }
     e.GetHit(damage, *this);
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::bernoulli_distribution dis(0.5);
-    dis(gen) ? Sounds::Attack1->Play() : Sounds::Attack2->Play();
+}
+
+void Cat::GetHit(int damage, const Entity &attacker) {
+    const auto attr = attacker.GetAttr();
+    if (attr && std::find(m_Stats.strong.cbegin(), m_Stats.strong.cend(),
+                          *attr) != m_Stats.strong.cend()) {
+        auto d = static_cast<double>(damage);
+        d *= 0.5;
+        damage = static_cast<int>(d);
+    }
+    m_Health -= damage;
+    m_TotalDamage += damage;
+    if (m_TotalDamage >= m_KnockBackHealth) {
+        SetState(EntityState::HITBACK);
+        m_TotalDamage %= m_KnockBackHealth;
+        OnHitBack();
+    }
+
+    if(GetCatType() == CatType::CAT_TOWER){
+        Sounds::AttackCastle->Play();
+    }
+    else {
+        RandomFloatGenerator a;
+        (a.generate(0.0f, 1.0f) < 0.5f) ? Sounds::Attack1->Play() : Sounds::Attack2->Play();
+    }
+
+#ifdef ENABLE_BATTLE_LOG
+    printBattleLog("{} deals damage {} to {}! {} have {}hp left!",
+                   attacker.GetName(), damage, GetName(), GetName(), m_Health);
+#endif // ENABLE_BATTLE_LOG
 }
 
 CatType Cat::GetCatType() const {
@@ -245,16 +271,16 @@ void CatAnimeResource::Init() {
         auto &tower = s_anime[static_cast<size_t>(CatType::CAT_TOWER)];
         tower.idle = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{RESOURCE_DIR
-                                               "/stages/ec000_tw.png"});
+                                               "/cats/nyankocastle.png"});
         tower.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{RESOURCE_DIR
-                                               "/stages/ec000_tw.png"});
+                                               "/cats/nyankocastle.png"});
         tower.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{RESOURCE_DIR
-                                               "/stages/ec000_tw.png"});
+                                               "/cats/nyankocastle.png"});
         tower.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{RESOURCE_DIR
-                                               "/stages/ec000_tw.png"});
+                                               "/cats/nyankocastle.png"});
     }
 
     {

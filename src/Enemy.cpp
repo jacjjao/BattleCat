@@ -1,6 +1,6 @@
 #include "Enemy.hpp"
 #include "DebugUtil/BattleLog.hpp"
-#include <random>
+//#include <random>
 #include "Sound.hpp"
 
 Enemy::Enemy(const EnemyType type)
@@ -122,11 +122,29 @@ void Enemy::Walk(const float dt) {
 
 void Enemy::DealDamage(Entity &e) {
     e.GetHit(m_Stats.damage, *this);
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::bernoulli_distribution dis(0.5);
-    //Sounds::Attack1->Play();
-    dis(gen) ? Sounds::Attack1->Play() : Sounds::Attack2->Play();
+}
+
+void Enemy::GetHit(int damage, const Entity &attacker) {
+    m_Health -= damage;
+    m_TotalDamage += damage;
+    if (m_TotalDamage >= m_KnockBackHealth) {
+        SetState(EntityState::HITBACK);
+        m_TotalDamage %= m_KnockBackHealth;
+        OnHitBack();
+    }
+
+    if(GetEnemyType() == EnemyType::ENEMY_TOWER){
+        Sounds::AttackCastle->Play();
+    }
+    else {
+        RandomFloatGenerator a;
+        (a.generate(0.0f, 1.0f) < 0.5f) ? Sounds::Attack1->Play() : Sounds::Attack2->Play();
+    }
+
+#ifdef ENABLE_BATTLE_LOG
+    printBattleLog("{} deals damage {} to {}! {} have {}hp left!",
+                   attacker.GetName(), damage, GetName(), GetName(), m_Health);
+#endif // ENABLE_BATTLE_LOG
 }
 
 EnemyType Enemy::GetEnemyType() const {
