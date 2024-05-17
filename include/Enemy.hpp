@@ -149,11 +149,11 @@ namespace EnemyStats {
         stats.speed = 48;
         stats.single_target = true;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 1.00;
+        stats.atk_cool_down = 0.96;
         stats.recharge_time = 2000;
         stats.cost = 150;
-        stats.det_box = {-58, 0};
-        stats.hit_box = {-58, 0};
+        stats.det_box = {-69, 0};
+        stats.hit_box = {-69, 0};
         stats.attr = EnemyAttr::WHITE;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "Snache";
