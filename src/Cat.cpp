@@ -275,6 +275,10 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::Bondage();
         break;
 
+    case CatType::DOM_CAT:
+        m_Anime = CatAnime::Dom();
+        break;
+
     default:
         throw std::runtime_error{"Unavailable cat resource"};
     }
@@ -707,6 +711,42 @@ void CatAnimeResource::Init() {
         bondage.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/012/Animation/hitback.png"});
+    }
+
+    {
+        auto &dom = s_anime[static_cast<size_t>(CatType::DOM_CAT)];
+
+        dom.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/013/Animation/idle.png",
+            });
+
+        dom.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/013/Animation/walk0.png",
+                RESOURCE_DIR "/cats/013/Animation/walk1.png",
+                RESOURCE_DIR "/cats/013/Animation/walk2.png",
+                RESOURCE_DIR "/cats/013/Animation/walk3.png",
+                RESOURCE_DIR "/cats/013/Animation/walk4.png",
+                RESOURCE_DIR "/cats/013/Animation/walk5.png",
+                RESOURCE_DIR "/cats/013/Animation/walk6.png",
+                RESOURCE_DIR "/cats/013/Animation/walk7.png"});
+
+        dom.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/013/Animation/attack0.png",
+                RESOURCE_DIR "/cats/013/Animation/attack1.png",
+                RESOURCE_DIR "/cats/013/Animation/attack2.png",
+                RESOURCE_DIR "/cats/013/Animation/attack3.png",
+                RESOURCE_DIR "/cats/013/Animation/attack4.png",
+                RESOURCE_DIR "/cats/013/Animation/attack5.png",
+                RESOURCE_DIR "/cats/013/Animation/attack6.png",
+                RESOURCE_DIR "/cats/013/Animation/attack6.png" // for padding
+            });
+
+        dom.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/013/Animation/hitback.png"});
     }
 }
 
