@@ -534,6 +534,24 @@ void BattleScene::CreateUnitButtons() {
             }
         });
     }
+
+    {
+        m_CatButton[9] = std::make_shared<DeployButton>(
+            RESOURCE_DIR "/img/uni/f/uni008_f00.png");
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(CatType::ACTRESS_CAT)].cost;
+        m_CatButton[9]->SetCost(cost);
+        m_CatButton[9]->AddButtonEvent([this, cost] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(CatType::ACTRESS_CAT, 10);
+                m_Wallet->Spend(cost);
+                m_CatButton[9]->StartCoolDown();
+                Sounds::Deploy->Play();
+            } else {
+                Sounds::Blocked->Play();
+            }
+        });
+    }
     
     constexpr float row_margin_y = 10.0f;
     for (int row = 0; row < 2; ++row) {

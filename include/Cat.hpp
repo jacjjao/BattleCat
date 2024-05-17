@@ -18,6 +18,8 @@ enum class CatType : size_t {
     FISH_CAT,
     LIZARD_CAT,
     TITAN_CAT,
+    ACTRESS_CAT,
+    KUNG_FU_CAT,
     CAT_TYPE_COUNT
 };
 static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
@@ -335,13 +337,62 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats ActressCat = []() {
+        EntityStats stats;
+        stats.health = 250;
+        stats.damage = 20;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 100;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 0.96;
+        stats.recharge_time = 2000;
+        stats.cost = 10;
+        stats.det_box = {-140, 140};
+        stats.hit_box = {-140, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 100;
+        stats.damage_diff = 100;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "ActressCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats KongFuCat = []() {
+        EntityStats stats;
+        stats.health = 250;
+        stats.damage = 20;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 100;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 0.96;
+        stats.recharge_time = 2000;
+        stats.cost = 10;
+        stats.det_box = {-140, 140};
+        stats.hit_box = {-140, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 100;
+        stats.damage_diff = 100;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "KongFuCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
                  BaseCatStats::TankCat,        BaseCatStats::AxeCat,
                  BaseCatStats::CrazedGrossCat, BaseCatStats::CowCat,
                  BaseCatStats::BirdCat,        BaseCatStats::FishCat,
-                 BaseCatStats::LizardCat,      BaseCatStats::TitanCat};
+                 BaseCatStats::LizardCat,      BaseCatStats::TitanCat,
+                 BaseCatStats::ActressCat,     BaseCatStats::KongFuCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -371,7 +422,7 @@ namespace CatAnime {
         tank.walk->SetInterval(300); // ms
         tank.walk->SetLooping(true);
 
-        tank.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 3.0);
+        tank.attack->SetInterval(BaseCatStats::TankCat.atk_prep_time * 1000.0 / 3.0);
         tank.attack->SetLooping(false);
         
         return tank;
@@ -383,7 +434,7 @@ namespace CatAnime {
         axe.walk->SetInterval(300); // ms
         axe.walk->SetLooping(true);
 
-        axe.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 4.0);
+        axe.attack->SetInterval(BaseCatStats::AxeCat.atk_prep_time * 1000.0 / 4.0);
         axe.attack->SetLooping(false);
 
         return axe;
@@ -395,7 +446,7 @@ namespace CatAnime {
         gross.walk->SetInterval(200); // ms
         gross.walk->SetLooping(true);
 
-        gross.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 3.0);
+        gross.attack->SetInterval(BaseCatStats::CrazedGrossCat.atk_prep_time * 1000.0 / 3.0);
         gross.attack->SetLooping(false);
         
         return gross;
@@ -407,7 +458,7 @@ namespace CatAnime {
         cow.walk->SetInterval(200); // ms
         cow.walk->SetLooping(true);
 
-        cow.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 2.0);
+        cow.attack->SetInterval(BaseCatStats::CowCat.atk_prep_time * 1000.0 / 2.0);
         cow.attack->SetLooping(false);
 
         return cow;
@@ -419,7 +470,7 @@ namespace CatAnime {
         bird.walk->SetInterval(200); // ms
         bird.walk->SetLooping(true);
 
-        bird.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 4.0);
+        bird.attack->SetInterval(BaseCatStats::BirdCat.atk_prep_time * 1000.0 / 4.0);
         bird.attack->SetLooping(false);
         
         bird.walk->SetInterval(200); // ms
@@ -434,7 +485,7 @@ namespace CatAnime {
         fish.walk->SetInterval(200); // ms
         fish.walk->SetLooping(true);
 
-        fish.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 3.0);
+        fish.attack->SetInterval(BaseCatStats::FishCat.atk_prep_time * 1000.0 / 3.0);
         fish.attack->SetLooping(false);
         
         return fish;
@@ -446,7 +497,7 @@ namespace CatAnime {
         lizard.walk->SetInterval(200); // ms
         lizard.walk->SetLooping(true);
 
-        lizard.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 5.0);
+        lizard.attack->SetInterval(BaseCatStats::LizardCat.atk_prep_time * 1000.0 / 5.0);
         lizard.attack->SetLooping(false);
         
         return lizard;
@@ -458,10 +509,22 @@ namespace CatAnime {
         titan.walk->SetInterval(200); // ms
         titan.walk->SetLooping(true);
 
-        titan.attack->SetInterval(BaseCatStats::Cat.atk_prep_time * 1000.0 / 5.0);
+        titan.attack->SetInterval(BaseCatStats::TitanCat.atk_prep_time * 1000.0 / 5.0);
         titan.attack->SetLooping(false);
         
         return titan;
+    }
+
+    inline Cat::Animation Actress() {
+        auto actress = CatAnimeResource::Get(CatType::ACTRESS_CAT);
+        
+        actress.walk->SetInterval(200); // ms
+        actress.walk->SetLooping(true);
+
+        actress.attack->SetInterval(BaseCatStats::ActressCat.atk_prep_time * 1000.0 / 6.0);
+        actress.attack->SetLooping(false);
+        
+        return actress;
     }
     
 // clang-format on
