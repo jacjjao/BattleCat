@@ -106,7 +106,7 @@ Stage StageFactory::CreateLevel2(){
         ed.towerHealthPercent = 1.0;
         ed.SetTimeOutDur(10.0);
         ed.limit = EnemyDispatcher::s_Infinite;
-        ed.type = EnemyType::HIPPOE;
+        ed.type = EnemyType::JackiePeng;
         stage.dispatchers.push_back(ed);
     }
 
