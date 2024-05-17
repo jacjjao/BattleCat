@@ -226,6 +226,30 @@ void Enemy::LoadResource() {
         m_Anime = EnemyAnime::JackiePeng();
         break;    
 
+    case EnemyType::GORY:
+        m_Anime = EnemyAnime::Gory();
+        break;
+
+    case EnemyType::BAABAA:
+        m_Anime = EnemyAnime::BaaBaa();
+        break;
+
+    case EnemyType::SIRSEAL:
+        m_Anime = EnemyAnime::SirSeal();
+        break;
+
+    case EnemyType::LEBOIN:
+        m_Anime = EnemyAnime::Leboin();
+        break;
+
+    case EnemyType::KANGROO:
+        m_Anime = EnemyAnime::KangRoo();
+        break;
+
+    case EnemyType::ONEHORN:
+        m_Anime = EnemyAnime::OneHorn();
+        break;
+
     default:
         throw std::runtime_error{"Resource does not available"};
     }

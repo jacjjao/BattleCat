@@ -358,8 +358,8 @@ namespace EnemyStats {
         stats.kb = 1;
         stats.speed = 18;
         stats.single_target = false;
-        stats.atk_prep_time = 0.26;
-        stats.atk_cool_down = 0;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 0.27;
         stats.recharge_time = 2000;
         stats.cost = 20000;
         stats.det_box = {-58, 0};
@@ -375,7 +375,9 @@ namespace EnemyStats {
                             static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT)>
         Stats = {EnemyStats::EnemyTower, EnemyStats::Doge,   EnemyStats::Snache,
                  EnemyStats::ThoseGuys,  EnemyStats::Hippoe, EnemyStats::Pigge,
-                 EnemyStats::JackiePeng};
+                 EnemyStats::JackiePeng, EnemyStats::Gory,   EnemyStats::BaaBaa,
+            EnemyStats::SirSeal,    EnemyStats::Leboin, EnemyStats::KangRoo,
+            EnemyStats::OneHorn};
 
 }
 
@@ -523,7 +525,7 @@ namespace EnemyAnime{
         a.walk->SetInterval(130); // ms
         a.walk->SetLooping(true);
 
-        a.attack->SetInterval(EnemyStats::OneHorn.atk_prep_time * 1000.0 / 3.0);
+        a.attack->SetInterval(EnemyStats::OneHorn.atk_prep_time * 1000.0 / 4.0);
         a.attack->SetLooping(false);
 
         return a;
