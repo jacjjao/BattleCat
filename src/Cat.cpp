@@ -283,6 +283,10 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::CatInBox();
         break;
 
+    case CatType::SKIRT_CAT:
+        m_Anime = CatAnime::Skirt();
+        break;
+
     default:
         throw std::runtime_error{"Unavailable cat resource"};
     }
@@ -794,6 +798,39 @@ void CatAnimeResource::Init() {
         box.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/014/Animation/hitback.png"});
+    }
+
+    {
+        auto &skirt = s_anime[static_cast<size_t>(CatType::SKIRT_CAT)];
+
+        skirt.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/015/Animation/idle.png",
+            });
+
+        skirt.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/015/Animation/walk0.png",
+                RESOURCE_DIR "/cats/015/Animation/walk1.png",
+                RESOURCE_DIR "/cats/015/Animation/walk2.png",
+                RESOURCE_DIR "/cats/015/Animation/walk3.png",
+                RESOURCE_DIR "/cats/015/Animation/walk4.png",
+                RESOURCE_DIR "/cats/015/Animation/walk5.png",
+                RESOURCE_DIR "/cats/015/Animation/walk6.png"});
+
+        skirt.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/015/Animation/attack0.png",
+                RESOURCE_DIR "/cats/015/Animation/attack1.png",
+                RESOURCE_DIR "/cats/015/Animation/attack2.png",
+                RESOURCE_DIR "/cats/015/Animation/attack3.png",
+                RESOURCE_DIR "/cats/015/Animation/attack4.png",
+                RESOURCE_DIR "/cats/015/Animation/attack4.png" // for padding
+            });
+
+        skirt.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/015/Animation/hitback.png"});
     }
 }
 
