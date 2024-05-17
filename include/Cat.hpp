@@ -361,7 +361,7 @@ namespace BaseCatStats {
         return stats;
     }();
 
-    inline EntityStats KongFuCat = []() {
+    inline EntityStats KungFuCat = []() {
         EntityStats stats;
         stats.health = 250;
         stats.damage = 20;
@@ -380,7 +380,7 @@ namespace BaseCatStats {
         stats.health_diff = 100;
         stats.damage_diff = 100;
 #ifdef ENABLE_BATTLE_LOG
-        stats.name = "KongFuCat";
+        stats.name = "KungFuCat";
 #endif
         return stats;
     }();
@@ -392,7 +392,7 @@ namespace BaseCatStats {
                  BaseCatStats::CrazedGrossCat, BaseCatStats::CowCat,
                  BaseCatStats::BirdCat,        BaseCatStats::FishCat,
                  BaseCatStats::LizardCat,      BaseCatStats::TitanCat,
-                 BaseCatStats::ActressCat,     BaseCatStats::KongFuCat};
+                 BaseCatStats::ActressCat,     BaseCatStats::KungFuCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -527,6 +527,18 @@ namespace CatAnime {
         return actress;
     }
     
+    inline Cat::Animation KungFu() {
+        auto kung_fu = CatAnimeResource::Get(CatType::KUNG_FU_CAT);
+        
+        kung_fu.walk->SetInterval(200); // ms
+        kung_fu.walk->SetLooping(true);
+
+        kung_fu.attack->SetInterval(BaseCatStats::KungFuCat.atk_prep_time * 1000.0 / 4.0);
+        kung_fu.attack->SetLooping(false);
+        
+        return kung_fu;
+    }
+
 // clang-format on
 
 } // namespace CatAnime
