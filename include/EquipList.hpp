@@ -9,6 +9,7 @@
 #include "GameButton.hpp"
 #include "Cat.hpp"
 //#include "CatList.hpp"
+#include "App.hpp"
 
 #include <sstream>
 #include <iostream>
@@ -21,15 +22,17 @@ public:
 
     void Transform();
     void SetPos(float x,float y);
-    void SetUnit(unsigned int unitnum);
 
     [[nodiscard]]
     CatType GetCatType() const{
-        return static_cast<CatType>(m_UnitNum + 1);
+        return static_cast<CatType>(m_UnitNum + 1 + m_form * MAXUNITS);
     };
 
     [[nodiscard]]
     unsigned int GetUnitLVL() const{return m_UnitLVL;};
+
+    [[nodiscard]]
+    unsigned int GetUnitNum() const{return m_UnitNum;};
 
     std::weak_ptr<UnitCard> m_UnitCard;
 
@@ -47,11 +50,12 @@ private:
     Util::Transform m_DragTrans;
     unsigned int m_UnitNum = 0;
     unsigned int m_UnitLVL = 1;
-    bool m_form;
+    bool m_form;//false -> 1st form , true -> 2nd form.
 
 };
 
 //-------------------------------------------------------------------------------
+
 class EquipList{
 friend class EquipScene;
 public:
@@ -61,14 +65,14 @@ public:
         return m_equiplist;
     };
 
+    static inline unsigned short Size = 0;
+
 private:
     static inline std::vector<std::shared_ptr<EquipCard>> m_equiplist = []()->std::vector<std::shared_ptr<EquipCard>>{
         std::vector<std::shared_ptr<EquipCard>> eq_list;
         eq_list.reserve(MAXEQUIP);
         return eq_list;
     }();
-
-    static inline unsigned short Size = 0;
 };
 
 

@@ -17,7 +17,7 @@ EquipCard::EquipCard(unsigned int unitnum, const float zIndex, bool form) {
 }
 
 void EquipCard::Transform() {
-    //false -> 1 form , true -> 2 form.
+    //false -> 1st form , true -> 2nd form.
     m_curruni = !m_form ? m_uni2:m_uni1;
     m_form = !m_form;
 }

@@ -121,14 +121,14 @@ void EquipScene::Update() {
     m_Root.Update();
 
     //test
-    {
+    /*{
         bool k1 = Util::Input::IsKeyDown(Util::Keycode::KP_1);
         auto equipget = EquipList::GetEquipList();
         if(k1){
             printf("Unit: %d\n",static_cast<int>(equipget.at(0)->GetCatType()));
         }
 
-    }
+    }*/
 }
 
 void EquipScene::AddEquip(std::shared_ptr<UnitCard>& unit) {
