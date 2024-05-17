@@ -101,3 +101,8 @@ void StageList::Draw() {
     m_Cards[cur_stage].SetScale(1.0f, 1.0f);
     m_cur_stage = cur_stage;
 }
+
+void StageList::Reset() {
+    m_CursorX = m_cur_stage = 0;
+    m_PrevMouse = Util::Input::GetCursorPosition();
+}
