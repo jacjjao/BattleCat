@@ -20,6 +20,7 @@ enum class CatType : size_t {
     TITAN_CAT,
     ACTRESS_CAT,
     KUNG_FU_CAT,
+    MR_CAT,
     CAT_TYPE_COUNT
 };
 static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
@@ -385,6 +386,30 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats MrCat = []() {
+        EntityStats stats;
+        stats.health = 250;
+        stats.damage = 20;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 100;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.07;
+        stats.atk_cool_down = 0.53;
+        stats.recharge_time = 2000;
+        stats.cost = 10;
+        stats.det_box = {-140, 140};
+        stats.hit_box = {-140, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 100;
+        stats.damage_diff = 100;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "Mr.";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -392,7 +417,8 @@ namespace BaseCatStats {
                  BaseCatStats::CrazedGrossCat, BaseCatStats::CowCat,
                  BaseCatStats::BirdCat,        BaseCatStats::FishCat,
                  BaseCatStats::LizardCat,      BaseCatStats::TitanCat,
-                 BaseCatStats::ActressCat,     BaseCatStats::KungFuCat};
+                 BaseCatStats::ActressCat,     BaseCatStats::KungFuCat,
+                 BaseCatStats::MrCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -534,6 +560,18 @@ namespace CatAnime {
         kung_fu.walk->SetLooping(true);
 
         kung_fu.attack->SetInterval(BaseCatStats::KungFuCat.atk_prep_time * 1000.0 / 4.0);
+        kung_fu.attack->SetLooping(false);
+        
+        return kung_fu;
+    }
+
+    inline Cat::Animation Mr() {
+        auto kung_fu = CatAnimeResource::Get(CatType::MR_CAT);
+        
+        kung_fu.walk->SetInterval(15); // ms
+        kung_fu.walk->SetLooping(true);
+
+        kung_fu.attack->SetInterval(BaseCatStats::MrCat.atk_cool_down * 1000.0 / 8.0);
         kung_fu.attack->SetLooping(false);
         
         return kung_fu;
