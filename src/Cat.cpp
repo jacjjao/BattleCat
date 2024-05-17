@@ -287,6 +287,10 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::Skirt();
         break;
 
+    case CatType::MONEKO:
+        m_Anime = CatAnime::Moneko();
+        break;
+
     default:
         throw std::runtime_error{"Unavailable cat resource"};
     }
@@ -831,6 +835,54 @@ void CatAnimeResource::Init() {
         skirt.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/015/Animation/hitback.png"});
+    }
+
+    {
+        auto &moneko = s_anime[static_cast<size_t>(CatType::MONEKO)];
+
+        moneko.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/016/Animation/idle.png",
+            });
+
+        moneko.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/016/Animation/walk0.png",
+                RESOURCE_DIR "/cats/016/Animation/walk1.png",
+                RESOURCE_DIR "/cats/016/Animation/walk2.png",
+                RESOURCE_DIR "/cats/016/Animation/walk3.png",
+                RESOURCE_DIR "/cats/016/Animation/walk4.png",
+                RESOURCE_DIR "/cats/016/Animation/walk5.png",
+                RESOURCE_DIR "/cats/016/Animation/walk6.png",
+                RESOURCE_DIR "/cats/016/Animation/walk7.png",
+                RESOURCE_DIR "/cats/016/Animation/walk8.png",
+                RESOURCE_DIR "/cats/016/Animation/walk9.png"});
+
+        moneko.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/016/Animation/attack0.png",
+                RESOURCE_DIR "/cats/016/Animation/attack1.png",
+                RESOURCE_DIR "/cats/016/Animation/attack2.png",
+                RESOURCE_DIR "/cats/016/Animation/attack3.png",
+                RESOURCE_DIR "/cats/016/Animation/attack4.png",
+                RESOURCE_DIR "/cats/016/Animation/attack5.png",
+                RESOURCE_DIR "/cats/016/Animation/attack6.png",
+                RESOURCE_DIR "/cats/016/Animation/attack7.png",
+                RESOURCE_DIR "/cats/016/Animation/attack8.png",
+                RESOURCE_DIR "/cats/016/Animation/attack9.png",
+                RESOURCE_DIR "/cats/016/Animation/attack10.png",
+                RESOURCE_DIR "/cats/016/Animation/attack11.png",
+                RESOURCE_DIR "/cats/016/Animation/attack12.png",
+                RESOURCE_DIR "/cats/016/Animation/attack13.png",
+                RESOURCE_DIR "/cats/016/Animation/attack14.png",
+                RESOURCE_DIR "/cats/016/Animation/attack15.png",
+                RESOURCE_DIR "/cats/016/Animation/attack16.png",
+                RESOURCE_DIR "/cats/016/Animation/attack16.png" // for padding
+            });
+
+        moneko.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/016/Animation/hitback.png"});
     }
 }
 

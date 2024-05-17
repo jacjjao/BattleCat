@@ -539,11 +539,11 @@ void BattleScene::CreateUnitButtons() {
         m_CatButton[9] = std::make_shared<DeployButton>(
             RESOURCE_DIR "/img/uni/f/uni008_f00.png");
         const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::SKIRT_CAT)].cost;
+            BaseCatStats::Stats[static_cast<size_t>(CatType::MONEKO)].cost;
         m_CatButton[9]->SetCost(cost);
         m_CatButton[9]->AddButtonEvent([this, cost] {
             if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::SKIRT_CAT, 10);
+                AddCat(CatType::MONEKO, 10);
                 m_Wallet->Spend(cost);
                 m_CatButton[9]->StartCoolDown();
                 Sounds::Deploy->Play();
