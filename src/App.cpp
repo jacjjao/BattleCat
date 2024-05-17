@@ -29,6 +29,7 @@ void App::Start() {
 
     m_BGMs.push_back(std::make_unique<Util::BGM>(RESOURCE_DIR "/bgm/start.mp3"));
     m_BGMs.push_back(std::make_unique<Util::BGM>(RESOURCE_DIR "/bgm/base.mp3"));
+    m_BGMs.push_back(std::make_unique<Util::BGM>(RESOURCE_DIR "/bgm/battle.mp3"));
     SwitchBGM(BGMType::MENU);
 }
 

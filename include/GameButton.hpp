@@ -38,6 +38,8 @@ private:
 
     std::shared_ptr<AnimatedGameObject> m_HoverBorder = nullptr;
 
+    bool hovering = false;
+
     [[nodiscard]]
     bool IsMouseHovering() const;
 

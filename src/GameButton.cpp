@@ -66,6 +66,7 @@ bool GameButton::UpdateClickEvent(const bool work) {
         return false;
     }
     if(!work){
+        Sounds::Scrolling->Play();
         Sounds::Blocked->Play();
         return false;
     }
@@ -82,9 +83,14 @@ void GameButton::UpdateHoverBorder() {
     if (IsMouseHovering()) {
         m_HoverBorder->SetVisible(true);
         m_HoverBorder->Play();
+        if(!hovering){
+            Sounds::Scrolling->Play();
+        }
+        hovering = true;
     } else {
         m_HoverBorder->SetVisible(false);
         m_HoverBorder->Pause();
+        hovering = false;
     }
 }
 

@@ -19,7 +19,9 @@ BattleScene::BattleScene(App &app)
              RESOURCE_DIR "/buttons/button_back_purple.png"}));
     m_ReturnButton->SetPosition(-500, 300);
     m_ReturnButton->AddButtonEvent(
-        [this] { m_App.SwitchScene(App::SceneType::CAT_BASE);
+        [this] {
+            m_App.SwitchScene(App::SceneType::CAT_BASE);
+            m_App.SwitchBGM(App::BGMType::CAT_BASE);
     });
     m_Root.AddChild(m_ReturnButton);
 
@@ -62,6 +64,7 @@ void BattleScene::Update() {
             for (size_t i = 1; i < m_Cats.size(); ++i) {
                 m_Cats[i].ResetState();
             }
+            Sounds::BossWave->Play();
         }
     }
 
@@ -123,12 +126,14 @@ void BattleScene::Update() {
         GameOver(true);
         Sounds::Victory->Play();
         m_App.SwitchScene(App::SceneType::CAT_BASE);
+        m_App.SwitchBGM(App::BGMType::CAT_BASE);
     }
     if (m_CatTower->IsDead())
     {
         GameOver(false);
         Sounds::Defeat->Play();
         m_App.SwitchScene(App::SceneType::CAT_BASE);
+        m_App.SwitchBGM(App::BGMType::CAT_BASE);
     }
 
     const auto IsDead = [](auto &e) -> bool {
@@ -381,219 +386,4 @@ void BattleScene::CreateUnitButtons() {
         y -= row_margin_y;
         x = start_x;
     }
-    // Everything is hard-coded for now just for midterm demonstration
-    // later in development, we will pass some data to construct the buttons
-    
-    // cat
-    /*{
-        m_CatButton[0] = std::make_shared<DeployButton>(
-            RESOURCE_DIR "/img/uni/f/uni000_f00.png");
-        const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::CAT)].cost;
-        m_CatButton[0]->SetCost(cost);
-        m_CatButton[0]->AddButtonEvent([this, cost] {
-            if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::CAT, 10);
-                m_Wallet->Spend(cost);
-                m_CatButton[0]->StartCoolDown();
-                Sounds::Deploy->Play();
-            }
-            else{
-                Sounds::Blocked->Play();
-            }
-        });
-        m_CatButton[0]->AddButtonEvent([this]{
-            Sounds::Scrolling->Play();
-        });
-    }
-
-    // tank cat
-    {
-        m_CatButton[1] = std::make_shared<DeployButton>(
-            RESOURCE_DIR "/img/uni/f/uni001_f00.png");
-        const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::TANK_CAT)].cost;
-        m_CatButton[1]->SetCost(cost);
-        m_CatButton[1]->AddButtonEvent([this, cost] {
-            if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::TANK_CAT, 10);
-                m_Wallet->Spend(cost);
-                m_CatButton[1]->StartCoolDown();
-                Sounds::Deploy->Play();
-            }
-            else{
-                Sounds::Blocked->Play();
-            }
-        });
-        m_CatButton[1]->AddButtonEvent([this]{
-            Sounds::Scrolling->Play();
-        });
-    }
-
-    {
-        m_CatButton[2] = std::make_shared<DeployButton>(
-            RESOURCE_DIR "/img/uni/f/uni002_f00.png");
-        const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::AXE_CAT)].cost;
-        m_CatButton[2]->SetCost(cost);
-        m_CatButton[2]->AddButtonEvent([this, cost] {
-            if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::AXE_CAT, 10);
-                m_Wallet->Spend(cost);
-                m_CatButton[2]->StartCoolDown();
-                Sounds::Deploy->Play();
-            }
-            else{
-                Sounds::Blocked->Play();
-            }
-        });
-        m_CatButton[2]->AddButtonEvent([this]{
-            Sounds::Scrolling->Play();
-        });
-    }
-
-    {
-        m_CatButton[3] = std::make_shared<DeployButton>(
-            RESOURCE_DIR "/img/uni/f/uni003_f00.png");
-        const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::CRAZED_GROSS_CAT)].cost;
-        m_CatButton[3]->SetCost(cost);
-        m_CatButton[3]->AddButtonEvent([this, cost] {
-            if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::CRAZED_GROSS_CAT, 10);
-                m_Wallet->Spend(cost);
-                m_CatButton[3]->StartCoolDown();
-                Sounds::Deploy->Play();
-            }
-            else{
-                Sounds::Blocked->Play();
-            }
-        });
-        m_CatButton[3]->AddButtonEvent([this]{
-            Sounds::Scrolling->Play();
-        });
-    }
-
-    {
-        m_CatButton[4] = std::make_shared<DeployButton>(
-            RESOURCE_DIR "/img/uni/f/uni004_f00.png");
-        const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::COW_CAT)]
-                .cost;
-        m_CatButton[4]->SetCost(cost);
-        m_CatButton[4]->AddButtonEvent([this, cost] {
-            if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::COW_CAT, 10);
-                m_Wallet->Spend(cost);
-                m_CatButton[4]->StartCoolDown();
-                Sounds::Deploy->Play();
-            } else {
-                Sounds::Blocked->Play();
-            }
-        });
-        m_CatButton[4]->AddButtonEvent([this]{
-            Sounds::Scrolling->Play();
-        });
-    }
-
-    {
-        m_CatButton[5] = std::make_shared<DeployButton>(
-            RESOURCE_DIR "/img/uni/f/uni005_f00.png");
-        const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::BIRD_CAT)].cost;
-        m_CatButton[5]->SetCost(cost);
-        m_CatButton[5]->AddButtonEvent([this, cost] {
-            if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::BIRD_CAT, 10);
-                m_Wallet->Spend(cost);
-                m_CatButton[5]->StartCoolDown();
-                Sounds::Deploy->Play();
-            } else {
-                Sounds::Blocked->Play();
-            }
-        });
-        m_CatButton[5]->AddButtonEvent([this]{
-            Sounds::Scrolling->Play();
-        });
-    }
-
-    {
-        m_CatButton[6] = std::make_shared<DeployButton>(
-            RESOURCE_DIR "/img/uni/f/uni006_f00.png");
-        const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::FISH_CAT)].cost;
-        m_CatButton[6]->SetCost(cost);
-        m_CatButton[6]->AddButtonEvent([this, cost] {
-            if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::FISH_CAT, 10);
-                m_Wallet->Spend(cost);
-                m_CatButton[6]->StartCoolDown();
-                Sounds::Deploy->Play();
-            } else {
-                Sounds::Blocked->Play();
-            }
-        });
-        m_CatButton[6]->AddButtonEvent([this]{
-            Sounds::Scrolling->Play();
-        });
-    }
-
-    {
-        m_CatButton[7] = std::make_shared<DeployButton>(
-            RESOURCE_DIR "/img/uni/f/uni007_f00.png");
-        const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::LIZARD_CAT)].cost;
-        m_CatButton[7]->SetCost(cost);
-        m_CatButton[7]->AddButtonEvent([this, cost] {
-            if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::LIZARD_CAT, 10);
-                m_Wallet->Spend(cost);
-                m_CatButton[7]->StartCoolDown();
-                Sounds::Deploy->Play();
-            } else {
-                Sounds::Blocked->Play();
-            }
-        });
-        m_CatButton[7]->AddButtonEvent([this]{
-            Sounds::Scrolling->Play();
-        });
-    }
-    
-    {
-        m_CatButton[8] = std::make_shared<DeployButton>(
-            RESOURCE_DIR "/img/uni/f/uni008_f00.png");
-        const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::TITAN_CAT)].cost;
-        m_CatButton[8]->SetCost(cost);
-        m_CatButton[8]->AddButtonEvent([this, cost] {
-            if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::TITAN_CAT, 10);
-                m_Wallet->Spend(cost);
-                m_CatButton[8]->StartCoolDown();
-                Sounds::Deploy->Play();
-            } else {
-                Sounds::Blocked->Play();
-            }
-        });
-    }
-
-    {
-        m_CatButton[9] = std::make_shared<DeployButton>(
-            RESOURCE_DIR "/img/uni/f/uni008_f00.png");
-        const auto cost =
-            BaseCatStats::Stats[static_cast<size_t>(CatType::MONEKO)].cost;
-        m_CatButton[9]->SetCost(cost);
-        m_CatButton[9]->AddButtonEvent([this, cost] {
-            if (m_Wallet->CanDeploy(cost)) {
-                AddCat(CatType::MONEKO, 10);
-                m_Wallet->Spend(cost);
-                m_CatButton[9]->StartCoolDown();
-                Sounds::Deploy->Play();
-            } else {
-                Sounds::Blocked->Play();
-            }
-        });
-    }*/
-    
-
 }
