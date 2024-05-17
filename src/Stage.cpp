@@ -89,7 +89,7 @@ Stage StageFactory::CreateLevel1() {
         test.towerHealthPercent = 1.0;
         test.SetTimeOutDur(1.87);
         test.limit = EnemyDispatcher::s_Infinite;
-        test.type = EnemyType::PIGGE;
+        test.type = EnemyType::ONEHORN;
         stage.dispatchers.push_back(test);
     }
 
