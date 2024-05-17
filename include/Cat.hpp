@@ -89,6 +89,8 @@ private:
     int land = 0;
 
     Animation m_Anime;
+    std::unique_ptr<SharedRc::SharedAnimatedGameObject> m_HitParticle;
+
 };
 
 class CatAnimeResource {
@@ -103,6 +105,8 @@ public:
     static void Init();
 
     static const Cat::Animation Get(CatType type);
+
+    static inline std::unique_ptr<SharedRc::Animation> s_HitParticle;
 
 private:
     static inline bool s_init = false;

@@ -65,22 +65,22 @@ void Cat::Draw(Util::Transform trans) {
 
     if (m_Type != CatType::CAT_TOWER) {
         switch (state) {
-        case EntityState::WALK: 
+        case EntityState::WALK:
             DrawImg(*m_Anime.walk, trans);
             break;
-        
-        case EntityState::ATTACK: 
+
+        case EntityState::ATTACK:
             DrawImg(*m_Anime.attack, trans);
             break;
-        
-        case EntityState::IDLE: 
+
+        case EntityState::IDLE:
             if (m_Anime.attack->IsPlaying()) {
                 DrawImg(*m_Anime.attack, trans);
             } else {
                 DrawImg(*m_Anime.idle, trans);
             }
             break;
-        
+
         case EntityState::HITBACK:
             DrawImg(*m_Anime.knockback, trans);
             break;
@@ -88,6 +88,14 @@ void Cat::Draw(Util::Transform trans) {
     } else {
         m_Anime.idle->Draw(trans, z);
     }
+
+    if(m_HitParticle->IsPlaying()){
+        m_HitParticle->Draw(trans,z+1);
+    }
+    else{
+        m_HitParticle->Reset();
+    }
+
 }
 
 void Cat::UpdateTimer(const double dt) {
@@ -158,6 +166,8 @@ void Cat::GetHit(int damage, const Entity &attacker) {
         RandomFloatGenerator a;
         (a.generate(0.0f, 1.0f) < 0.5f) ? Sounds::Attack1->Play() : Sounds::Attack2->Play();
     }
+
+    m_HitParticle->Play();
 
 #ifdef ENABLE_BATTLE_LOG
     printBattleLog("{} deals damage {} to {}! {} have {}hp left!",
@@ -294,10 +304,28 @@ void Cat::LoadResource() {
     default:
         throw std::runtime_error{"Unavailable cat resource"};
     }
+
+    m_HitParticle = std::make_unique<SharedRc::SharedAnimatedGameObject>(*(CatAnimeResource::s_HitParticle));
+    m_HitParticle->SetInterval(67);
+    m_HitParticle->SetLooping(false);
 }
 
 void CatAnimeResource::Init() {
     s_anime.resize(static_cast<size_t>(CatType::CAT_TYPE_COUNT));
+
+    s_HitParticle = std::make_unique<SharedRc::Animation>(std::initializer_list<std::string>{
+        RESOURCE_DIR"/img/hit/hit0.png",
+        RESOURCE_DIR"/img/hit/hit1.png",
+        RESOURCE_DIR"/img/hit/hit2.png",
+        RESOURCE_DIR"/img/hit/hit3.png",
+        RESOURCE_DIR"/img/hit/hit4.png",
+        RESOURCE_DIR"/img/hit/hit5.png",
+        RESOURCE_DIR"/img/hit/hit6.png",
+        RESOURCE_DIR"/img/hit/hit7.png",
+        RESOURCE_DIR"/img/hit/hit8.png",
+        RESOURCE_DIR"/img/hit/hit9.png",
+        RESOURCE_DIR"/img/hit/hit10.png"
+    });
 
     {
         auto &tower = s_anime[static_cast<size_t>(CatType::CAT_TOWER)];
