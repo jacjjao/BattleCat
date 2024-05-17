@@ -9,6 +9,7 @@
 #include "GameButton.hpp"
 #include "Cat.hpp"
 //#include "CatList.hpp"
+#include "App.hpp"
 
 #include <sstream>
 #include <iostream>
@@ -21,11 +22,10 @@ public:
 
     void Transform();
     void SetPos(float x,float y);
-    void SetUnit(unsigned int unitnum);
 
     [[nodiscard]]
     CatType GetCatType() const{
-        return static_cast<CatType>(m_UnitNum + 1);
+        return static_cast<CatType>(m_UnitNum + 1 + m_form * MAXUNITS);
     };
 
     [[nodiscard]]
@@ -47,11 +47,12 @@ private:
     Util::Transform m_DragTrans;
     unsigned int m_UnitNum = 0;
     unsigned int m_UnitLVL = 1;
-    bool m_form;
+    bool m_form;//false -> 1st form , true -> 2nd form.
 
 };
 
 //-------------------------------------------------------------------------------
+
 class EquipList{
 friend class EquipScene;
 public:

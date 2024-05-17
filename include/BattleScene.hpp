@@ -6,6 +6,7 @@
 #include "Scene.hpp"
 #include "Cat.hpp"
 #include "Enemy.hpp"
+#include "EquipList.hpp"
 #include "GameButton.hpp"
 #include "Util/Root.hpp"
 #include "Stage.hpp"

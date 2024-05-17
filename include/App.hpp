@@ -9,6 +9,7 @@
 #define MAXUNITS 24
 
 class BattleScene;
+class EquipList;
 
 class App {
 public:
