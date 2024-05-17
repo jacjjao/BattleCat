@@ -13,6 +13,8 @@ public:
 
     void Update() override;
 
+    void Enter() override;
+
 private:
     App &m_App;
 
