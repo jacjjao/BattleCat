@@ -191,7 +191,7 @@ namespace EnemyStats {
         stats.speed = 24;
         stats.single_target = false;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 2.00;
+        stats.atk_cool_down = 1.96;
         stats.recharge_time = 2000;
         stats.cost = 2000;
         stats.det_box = {-58, 0};
