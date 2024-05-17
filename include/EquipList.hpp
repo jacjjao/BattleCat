@@ -31,6 +31,9 @@ public:
     [[nodiscard]]
     unsigned int GetUnitLVL() const{return m_UnitLVL;};
 
+    [[nodiscard]]
+    unsigned int GetUnitNum() const{return m_UnitNum;};
+
     std::weak_ptr<UnitCard> m_UnitCard;
 
 private:
@@ -62,14 +65,14 @@ public:
         return m_equiplist;
     };
 
+    static inline unsigned short Size = 0;
+
 private:
     static inline std::vector<std::shared_ptr<EquipCard>> m_equiplist = []()->std::vector<std::shared_ptr<EquipCard>>{
         std::vector<std::shared_ptr<EquipCard>> eq_list;
         eq_list.reserve(MAXEQUIP);
         return eq_list;
     }();
-
-    static inline unsigned short Size = 0;
 };
 
 

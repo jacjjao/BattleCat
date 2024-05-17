@@ -336,14 +336,56 @@ void BattleScene::CreateUnitButtons() {
     m_CatButton.resize(10);
     for (int i = 0; i < 10; ++i) {
         m_CatButton[i] =
-            std::make_shared<DeployButton>(RESOURCE_DIR "/img/uni/f/uni_f.png");
+            std::make_shared<DeployButton>(RESOURCE_DIR "/img/uni/uni.png");
     }
 
+    auto equiplist = EquipList::GetEquipList();
+
+    for (int i = 0; i < EquipList::Size ; ++i) {
+        auto unitnum = equiplist.at(i)->GetUnitNum();
+        auto cat_type = equiplist.at(i)->GetCatType();
+
+        std::stringstream uni_img;
+        uni_img << RESOURCE_DIR"/img/uni/f/" << "uni" << std::string(3 - std::to_string(unitnum).length(), '0') << unitnum << "_f00.png";
+        m_CatButton[i] = std::make_shared<DeployButton>(uni_img.str());
+
+        const auto cost =
+            BaseCatStats::Stats[static_cast<size_t>(cat_type)].cost;
+        m_CatButton[i]->SetCost(cost);
+
+        m_CatButton[i]->AddButtonEvent([this, cost, cat_type, i] {
+            if (m_Wallet->CanDeploy(cost)) {
+                AddCat(cat_type, 10);
+                m_Wallet->Spend(cost);
+                m_CatButton[i]->StartCoolDown();
+                Sounds::Deploy->Play();
+            }
+            else{
+                Sounds::Blocked->Play();
+            }
+        });
+        m_CatButton[i]->AddButtonEvent([this]{
+            Sounds::Scrolling->Play();
+        });
+    }
+
+    constexpr float row_margin_y = 10.0f;
+    for (int row = 0; row < 2; ++row) {
+        for (int i = 0; i < 5; ++i) {
+            const int idx = row * 5 + i;
+            m_CatButton[idx]->SetPosition(x, y);
+            m_CatButton[idx]->SetCoolDownTime(2.0);
+            x += m_CatButton[idx]->GetScaledSize().x + margin_x;
+        }
+        y -= m_CatButton[0]->GetScaledSize().y;
+        y -= row_margin_y;
+        x = start_x;
+    }
     // Everything is hard-coded for now just for midterm demonstration
     // later in development, we will pass some data to construct the buttons
     
     // cat
-    {
+    /*{
         m_CatButton[0] = std::make_shared<DeployButton>(
             RESOURCE_DIR "/img/uni/f/uni000_f00.png");
         const auto cost =
@@ -551,18 +593,7 @@ void BattleScene::CreateUnitButtons() {
                 Sounds::Blocked->Play();
             }
         });
-    }
+    }*/
     
-    constexpr float row_margin_y = 10.0f;
-    for (int row = 0; row < 2; ++row) {
-        for (int i = 0; i < 5; ++i) {
-            const int idx = row * 5 + i;
-            m_CatButton[idx]->SetPosition(x, y);
-            m_CatButton[idx]->SetCoolDownTime(2.0);
-            x += m_CatButton[idx]->GetScaledSize().x + margin_x;
-        }
-        y -= m_CatButton[0]->GetScaledSize().y;
-        y -= row_margin_y;
-        x = start_x;
-    }
+
 }
