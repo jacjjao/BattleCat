@@ -8,6 +8,7 @@ Cat::Cat(const CatType type, const int level)
     SetStats(BaseCatStats::Stats[static_cast<size_t>(type)]);
     assert(level >= m_Stats.base_level);
     m_Health += (level - m_Stats.base_level) * m_Stats.health_diff;
+    m_KnockBackHealth = m_Health / m_Stats.kb;
     m_Stats.damage += (level - m_Stats.base_level) * m_Stats.damage_diff;
     LoadResource();
     m_Anime.walk->Play();
