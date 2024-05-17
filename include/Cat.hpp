@@ -651,7 +651,7 @@ namespace CatAnime {
         lizard.walk->SetInterval(200); // ms
         lizard.walk->SetLooping(true);
 
-        lizard.attack->SetInterval(BaseCatStats::LizardCat.atk_prep_time * 1000.0 / 5.0);
+        lizard.attack->SetInterval(BaseCatStats::LizardCat.atk_prep_time * 1000.0 / 3.0);
         lizard.attack->SetLooping(false);
         
         return lizard;
@@ -663,7 +663,7 @@ namespace CatAnime {
         titan.walk->SetInterval(200); // ms
         titan.walk->SetLooping(true);
 
-        titan.attack->SetInterval(BaseCatStats::TitanCat.atk_prep_time * 1000.0 / 5.0);
+        titan.attack->SetInterval(BaseCatStats::TitanCat.atk_prep_time * 1000.0 / 3.0);
         titan.attack->SetLooping(false);
         
         return titan;
