@@ -154,10 +154,10 @@ namespace BaseCatStats {
     inline const EntityStats TankCat = [] {
         EntityStats stats;
         stats.health = 250;
-        stats.damage = 20;
+        stats.damage = 1;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 30;
+        stats.speed = 100;
         stats.single_target = false;
         stats.atk_prep_time = 0.27;
         stats.atk_cool_down = 0.96;
@@ -168,7 +168,7 @@ namespace BaseCatStats {
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.damage_diff = 0;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "TankCat";
 #endif

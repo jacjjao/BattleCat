@@ -121,14 +121,14 @@ namespace EnemyStats {
 
     inline const EntityStats Doge = [] { // tmp
         EntityStats stats;
-        stats.health = 100;
-        stats.damage = 20;
+        stats.health = 90;
+        stats.damage = 8;
         stats.range = 140;
         stats.kb = 3;
         stats.speed = 30;
         stats.single_target = true;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
+        stats.atk_cool_down = 1.3;
         stats.recharge_time = 2000;
         stats.cost = 75;
         stats.det_box = {-58, 0};
