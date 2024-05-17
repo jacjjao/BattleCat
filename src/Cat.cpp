@@ -284,8 +284,8 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::CatInBox();
         break;
 
-    case CatType::SKIRT_CAT:
-        m_Anime = CatAnime::Skirt();
+    case CatType::PANTIES_CAT:
+        m_Anime = CatAnime::Panties();
         break;
 
     case CatType::MONEKO:
@@ -806,7 +806,7 @@ void CatAnimeResource::Init() {
     }
 
     {
-        auto &skirt = s_anime[static_cast<size_t>(CatType::SKIRT_CAT)];
+        auto &skirt = s_anime[static_cast<size_t>(CatType::PANTIES_CAT)];
 
         skirt.idle = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{

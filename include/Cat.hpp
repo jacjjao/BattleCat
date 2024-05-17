@@ -24,7 +24,7 @@ enum class CatType : size_t {
     BONDAGE_CAT,
     DOM_CAT,
     CATS_IN_A_BOX,
-    SKIRT_CAT,
+    PANTIES_CAT,
     MONEKO,
     CAT_TYPE_COUNT
 };
@@ -370,22 +370,22 @@ namespace BaseCatStats {
 
     inline EntityStats KungFuCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 2250;
+        stats.damage = 2750;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
-        stats.single_target = true;
-        stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.kb = 1;
+        stats.speed = 54;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.37;
+        stats.atk_cool_down = 6.63;
+        stats.recharge_time = 19870;
+        stats.cost = 2250;
+        stats.det_box = {-160, 140};
+        stats.hit_box = {-160, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 450;
+        stats.damage_diff = 550;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "KungFuCat";
 #endif
@@ -394,22 +394,22 @@ namespace BaseCatStats {
 
     inline EntityStats MrCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1250;
+        stats.damage = 88;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
-        stats.single_target = true;
+        stats.kb = 5;
+        stats.speed = 186;
+        stats.single_target = false;
         stats.atk_prep_time = 0.07;
         stats.atk_cool_down = 0.53;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.recharge_time = 7200;
+        stats.cost = 825;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 250;
+        stats.damage_diff = 18;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "Mr.";
 #endif
@@ -418,22 +418,22 @@ namespace BaseCatStats {
 
     inline EntityStats BondageCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1750;
+        stats.damage = 250;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
+        stats.kb = 1;
+        stats.speed = 30;
         stats.single_target = true;
         stats.atk_prep_time = 0.2;
         stats.atk_cool_down = 1.3;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.recharge_time = 5870;
+        stats.cost = 1035;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 350;
+        stats.damage_diff = 50;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "BondageCat";
 #endif
@@ -442,22 +442,22 @@ namespace BaseCatStats {
 
     inline EntityStats DomCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1750;
+        stats.damage = 330;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
+        stats.kb = 1;
+        stats.speed = 30;
         stats.single_target = true;
         stats.atk_prep_time = 0.2;
-        stats.atk_cool_down = 0.57;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.atk_cool_down = 1.3;
+        stats.recharge_time = 5870;
+        stats.cost = 1440;
+        stats.det_box = {-70, 140};
+        stats.hit_box = {-70, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 350;
+        stats.damage_diff = 66;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "DomCat";
 #endif
@@ -466,70 +466,70 @@ namespace BaseCatStats {
 
     inline EntityStats CatInBox = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 2000;
+        stats.damage = 750;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
-        stats.single_target = true;
+        stats.speed = 210;
+        stats.single_target = false;
         stats.atk_prep_time = 0.27;
         stats.atk_cool_down = 3.1;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.recharge_time = 6530;
+        stats.cost = 1125;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 400;
+        stats.damage_diff = 150;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "CatInBox";
 #endif
         return stats;
     }();
 
-    inline EntityStats SkirtCat = []() {
+    inline EntityStats PantiesCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1000;
+        stats.damage = 250;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
+        stats.speed = 60;
         stats.single_target = true;
         stats.atk_prep_time = 0.2;
-        stats.atk_cool_down = 0.2;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.atk_cool_down = 3.97;
+        stats.recharge_time = 2200;
+        stats.cost = 525;
+        stats.det_box = {-210, 140};
+        stats.hit_box = {-210, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 200;
+        stats.damage_diff = 50;
 #ifdef ENABLE_BATTLE_LOG
-        stats.name = "SkirtCat";
+        stats.name = "PantiesCat";
 #endif
         return stats;
     }();
 
     inline EntityStats Moneko = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1500;
+        stats.damage = 1000;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
+        stats.kb = 4;
+        stats.speed = 30;
         stats.single_target = true;
         stats.atk_prep_time = 0.93;
         stats.atk_cool_down = 3.3;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.recharge_time = 57800;
+        stats.cost = 148;
+        stats.det_box = {-20, 140};
+        stats.hit_box = {-20, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 300;
+        stats.damage_diff = 200;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "Moneko";
 #endif
@@ -546,7 +546,7 @@ namespace BaseCatStats {
                  BaseCatStats::ActressCat,     BaseCatStats::KungFuCat,
                  BaseCatStats::MrCat,          BaseCatStats::BondageCat,
                  BaseCatStats::DomCat,         BaseCatStats::CatInBox,
-                 BaseCatStats::SkirtCat,       BaseCatStats::Moneko};
+                 BaseCatStats::PantiesCat,       BaseCatStats::Moneko};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -741,13 +741,13 @@ namespace CatAnime {
         return dom;
     }
 
-    inline Cat::Animation Skirt() {
-        auto dom = CatAnimeResource::Get(CatType::SKIRT_CAT);
+    inline Cat::Animation Panties() {
+        auto dom = CatAnimeResource::Get(CatType::PANTIES_CAT);
         
         dom.walk->SetInterval(100); // ms
         dom.walk->SetLooping(true);
 
-        dom.attack->SetInterval(BaseCatStats::SkirtCat.atk_prep_time * 1000.0 / 3.0);
+        dom.attack->SetInterval(BaseCatStats::PantiesCat.atk_prep_time * 1000.0 / 3.0);
         dom.attack->SetLooping(false);
         
         return dom;
