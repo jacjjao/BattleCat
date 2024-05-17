@@ -271,6 +271,10 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::Mr();
         break;
 
+    case CatType::BONDAGE_CAT:
+        m_Anime = CatAnime::Bondage();
+        break;
+
     default:
         throw std::runtime_error{"Unavailable cat resource"};
     }
@@ -662,6 +666,47 @@ void CatAnimeResource::Init() {
         mr.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/011/Animation/hitback.png"});
+    }
+
+    {
+        auto &bondage = s_anime[static_cast<size_t>(CatType::BONDAGE_CAT)];
+
+        bondage.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/012/Animation/idle.png",
+            });
+
+        bondage.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/012/Animation/walk0.png",
+                RESOURCE_DIR "/cats/012/Animation/walk1.png",
+                RESOURCE_DIR "/cats/012/Animation/walk2.png",
+                RESOURCE_DIR "/cats/012/Animation/walk3.png",
+                RESOURCE_DIR "/cats/012/Animation/walk4.png",
+                RESOURCE_DIR "/cats/012/Animation/walk5.png",
+                RESOURCE_DIR "/cats/012/Animation/walk6.png",
+                RESOURCE_DIR "/cats/012/Animation/walk7.png",
+                RESOURCE_DIR "/cats/012/Animation/walk8.png"});
+
+        bondage.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/012/Animation/attack0.png",
+                RESOURCE_DIR "/cats/012/Animation/attack1.png",
+                RESOURCE_DIR "/cats/012/Animation/attack2.png",
+                RESOURCE_DIR "/cats/012/Animation/attack3.png",
+                RESOURCE_DIR "/cats/012/Animation/attack4.png",
+                RESOURCE_DIR "/cats/012/Animation/attack5.png",
+                RESOURCE_DIR "/cats/012/Animation/attack6.png",
+                RESOURCE_DIR "/cats/012/Animation/attack7.png",
+                RESOURCE_DIR "/cats/012/Animation/attack8.png",
+                RESOURCE_DIR "/cats/012/Animation/attack9.png",
+                RESOURCE_DIR "/cats/012/Animation/attack10.png",
+                RESOURCE_DIR "/cats/012/Animation/attack10.png" // for padding
+            });
+
+        bondage.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/012/Animation/hitback.png"});
     }
 }
 
