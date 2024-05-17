@@ -7,6 +7,7 @@
 #include "Util/Image.hpp"
 #include "Draggable.hpp"
 #include "GameButton.hpp"
+#include "Cat.hpp"
 //#include "CatList.hpp"
 
 #include <sstream>
@@ -22,7 +23,12 @@ public:
     void SetPos(float x,float y);
 
     [[nodiscard]]
-    unsigned int GetUnitNum() const{ return m_UnitNum;};
+    CatType GetCatType() const{
+        return static_cast<CatType>(m_UnitNum + 1);
+    };
+
+    [[nodiscard]]
+    unsigned int GetUnitLVL() const{return m_UnitLVL;};
 
     std::weak_ptr<UnitCard> m_UnitCard;
 
@@ -39,6 +45,7 @@ private:
     short m_FrameTimer = 0;
     Util::Transform m_DragTrans;
     unsigned int m_UnitNum = 0;
+    unsigned int m_UnitLVL = 1;
     bool m_form;
 
 };

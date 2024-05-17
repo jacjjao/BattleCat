@@ -519,7 +519,7 @@ namespace EnemyAnime{
 
     inline Enemy::Animation OneHorn() {
         auto a = EnemyAnimeResource::Get(EnemyType::ONEHORN);
-        
+
         a.walk->SetInterval(130); // ms
         a.walk->SetLooping(true);
 

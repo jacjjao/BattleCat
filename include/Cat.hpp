@@ -20,6 +20,7 @@ enum class CatType : size_t {
     TITAN_CAT,
     CAT_TYPE_COUNT
 };
+
 static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
 
 class Cat : public Entity {
