@@ -18,7 +18,8 @@ enum class CatType : size_t {
     FISH_CAT,
     LIZARD_CAT,
     TITAN_CAT,
-    CAT_TYPE_COUNT
+    CAT_TYPE_COUNT,
+    NONE,
 };
 
 static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);

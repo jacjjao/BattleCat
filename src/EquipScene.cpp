@@ -15,6 +15,9 @@ EquipScene::EquipScene(App &app) : m_App(app){
     for(auto &cat : m_catlist){
         m_Root.AddChild(cat);
     }
+//-------------------------------------------------
+    //Equip must non-empty,init one cat.
+    EquipScene::AddEquip(m_catlist.at(0));
 //------------------------------------------------------------------------
     //Set border.
     m_border = std::make_shared<AnimatedGameObject>
@@ -51,6 +54,9 @@ EquipScene::EquipScene(App &app) : m_App(app){
     back_button->SetPosition(float(app_w)/-2.0f + back_button->GetScaledSize().x/2.0f + 60,
                              float(app_h)/-2.0f + back_button->GetScaledSize().y/2.0f);
     back_button->AddButtonEvent([this] {
+        if(EquipList::Size < 1){
+            return;
+        }
         m_state = SceneState::EXIT;
         m_App.SwitchScene(App::SceneType::CAT_BASE);
     });
@@ -103,7 +109,7 @@ void EquipScene::Update() {
         }
     }
 //--------------------------------------------------------
-    for(unsigned short int i=0;i < short(EquipList::m_equiplist.size());i++) {
+    for(unsigned short int i=0 ; i < EquipList::Size ; i++) {
         auto &eq = EquipList::m_equiplist.at(i);
         eq->Drag();
         if(eq->GetCurrentState() == Draggable::DragState::PUT_OFF &&
@@ -113,25 +119,37 @@ void EquipScene::Update() {
     }
 //----------------------------------------------------------
     m_Root.Update();
+
+    //test
+    {
+        bool k1 = Util::Input::IsKeyDown(Util::Keycode::KP_1);
+        auto equipget = EquipList::GetEquipList();
+        if(k1){
+            printf("Unit: %d\n",static_cast<int>(equipget.at(0)->GetCatType()));
+        }
+
+    }
 }
 
 void EquipScene::AddEquip(std::shared_ptr<UnitCard>& unit) {
-    if(EquipList::m_equiplist.size() >= MAXEQUIP){
+    if(EquipList::Size >= MAXEQUIP){
         return;
     }
     auto &eq = EquipList::m_equiplist.emplace_back(std::make_unique<EquipCard>(unit->GetUnitNum(),1.89f,unit->Getform()));
     unit->m_EquipCard = eq;
     eq->m_UnitCard = unit;
+    EquipList::Size++;
     UpdateEquip();
 }
 
 void EquipScene::UpdateEquip(){
-    for(unsigned short i = 0; i < short(EquipList::m_equiplist.size());i++) {
+    for(unsigned short i = 0; i < EquipList::Size;i++) {
         EquipList::m_equiplist.at(i)->SetPos(-241.0f + float(i % 5) * 146.0f, 202.0f - (i / 5) * 94.0f);
     }
 }
 
 void EquipScene::RemoveEquip(int index) {
     EquipList::m_equiplist.erase( EquipList::m_equiplist.begin() + index);
+    EquipList::Size--;
     UpdateEquip();
 }

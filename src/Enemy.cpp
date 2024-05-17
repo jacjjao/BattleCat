@@ -391,32 +391,32 @@ void EnemyAnimeResource::Init() {
             s_anime[static_cast<size_t>(EnemyType::JackiePeng)];
         jackie_peng.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk0.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk1.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk2.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk3.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk4.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk5.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk6.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk7.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk8.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk9.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk10.png",
-                RESOURCE_DIR "/enemys/005/Animation/walk/walk11.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk1.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk2.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk3.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk4.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk5.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk6.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk7.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk8.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk9.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk10.png",
+                RESOURCE_DIR "/enemys/005/Animation/walk11.png",
             });
         
         jackie_peng.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack0.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack1.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack2.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack3.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack4.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack5.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack6.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack7.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack8.png",
-                RESOURCE_DIR "/enemys/005/Animation/attack/attack8.png" // for padding
+                RESOURCE_DIR "/enemys/005/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack3.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack4.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack5.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack6.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack7.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack8.png",
+                RESOURCE_DIR "/enemys/005/Animation/attack8.png" // for padding
             });
 
         jackie_peng.idle = std::make_unique<SharedRc::Animation>(
@@ -433,23 +433,23 @@ void EnemyAnimeResource::Init() {
             s_anime[static_cast<size_t>(EnemyType::GORY)];
         Gory.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/006/Animation/walk/walk0.png",
-                RESOURCE_DIR "/enemys/006/Animation/walk/walk1.png",
-                RESOURCE_DIR "/enemys/006/Animation/walk/walk2.png",
-                RESOURCE_DIR "/enemys/006/Animation/walk/walk3.png",
-                RESOURCE_DIR "/enemys/006/Animation/walk/walk4.png"
+                RESOURCE_DIR "/enemys/006/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/006/Animation/walk1.png",
+                RESOURCE_DIR "/enemys/006/Animation/walk2.png",
+                RESOURCE_DIR "/enemys/006/Animation/walk3.png",
+                RESOURCE_DIR "/enemys/006/Animation/walk4.png"
             });
 
         Gory.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/006/Animation/attack/attack0.png",
-                RESOURCE_DIR "/enemys/006/Animation/attack/attack1.png",
-                RESOURCE_DIR "/enemys/006/Animation/attack/attack2.png",
-                RESOURCE_DIR "/enemys/006/Animation/attack/attack3.png",
-                RESOURCE_DIR "/enemys/006/Animation/attack/attack4.png",
-                RESOURCE_DIR "/enemys/006/Animation/attack/attack5.png",
-                RESOURCE_DIR "/enemys/006/Animation/attack/attack6.png",
-                RESOURCE_DIR "/enemys/006/Animation/attack/attack6.png"// for padding
+                RESOURCE_DIR "/enemys/006/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/006/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/006/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/006/Animation/attack3.png",
+                RESOURCE_DIR "/enemys/006/Animation/attack4.png",
+                RESOURCE_DIR "/enemys/006/Animation/attack5.png",
+                RESOURCE_DIR "/enemys/006/Animation/attack6.png",
+                RESOURCE_DIR "/enemys/006/Animation/attack6.png"// for padding
             });
 
         Gory.idle = std::make_unique<SharedRc::Animation>(
@@ -466,27 +466,27 @@ void EnemyAnimeResource::Init() {
             s_anime[static_cast<size_t>(EnemyType::BAABAA)];
         BaaBaa.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/007/Animation/walk/walk0.png",
-                RESOURCE_DIR "/enemys/007/Animation/walk/walk1.png",
-                RESOURCE_DIR "/enemys/007/Animation/walk/walk2.png",
-                RESOURCE_DIR "/enemys/007/Animation/walk/walk3.png",
-                RESOURCE_DIR "/enemys/007/Animation/walk/walk4.png"
+                RESOURCE_DIR "/enemys/007/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/007/Animation/walk1.png",
+                RESOURCE_DIR "/enemys/007/Animation/walk2.png",
+                RESOURCE_DIR "/enemys/007/Animation/walk3.png",
+                RESOURCE_DIR "/enemys/007/Animation/walk4.png"
             });
 
         BaaBaa.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack0.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack1.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack2.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack3.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack4.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack5.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack6.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack7.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack8.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack9.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack10.png",
-                RESOURCE_DIR "/enemys/007/Animation/attack/attack10.png"// for padding
+                RESOURCE_DIR "/enemys/007/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack3.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack4.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack5.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack6.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack7.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack8.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack9.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack10.png",
+                RESOURCE_DIR "/enemys/007/Animation/attack10.png"// for padding
             });
 
         BaaBaa.idle = std::make_unique<SharedRc::Animation>(
@@ -503,22 +503,22 @@ void EnemyAnimeResource::Init() {
             s_anime[static_cast<size_t>(EnemyType::SIRSEAL)];
         SirSeal.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/008/Animation/walk/walk0.png",
-                RESOURCE_DIR "/enemys/008/Animation/walk/walk1.png",
-                RESOURCE_DIR "/enemys/008/Animation/walk/walk2.png",
-                RESOURCE_DIR "/enemys/008/Animation/walk/walk3.png",
-                RESOURCE_DIR "/enemys/008/Animation/walk/walk4.png"
+                RESOURCE_DIR "/enemys/008/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/008/Animation/walk1.png",
+                RESOURCE_DIR "/enemys/008/Animation/walk2.png",
+                RESOURCE_DIR "/enemys/008/Animation/walk3.png",
+                RESOURCE_DIR "/enemys/008/Animation/walk4.png"
             });
 
         SirSeal.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/008/Animation/attack/attack0.png",
-                RESOURCE_DIR "/enemys/008/Animation/attack/attack1.png",
-                RESOURCE_DIR "/enemys/008/Animation/attack/attack2.png",
-                RESOURCE_DIR "/enemys/008/Animation/attack/attack3.png",
-                RESOURCE_DIR "/enemys/008/Animation/attack/attack4.png",
-                RESOURCE_DIR "/enemys/008/Animation/attack/attack5.png",
-                RESOURCE_DIR "/enemys/008/Animation/attack/attack5.png"// for padding
+                RESOURCE_DIR "/enemys/008/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/008/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/008/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/008/Animation/attack3.png",
+                RESOURCE_DIR "/enemys/008/Animation/attack4.png",
+                RESOURCE_DIR "/enemys/008/Animation/attack5.png",
+                RESOURCE_DIR "/enemys/008/Animation/attack5.png"// for padding
             });
 
         SirSeal.idle = std::make_unique<SharedRc::Animation>(
@@ -535,20 +535,20 @@ void EnemyAnimeResource::Init() {
             s_anime[static_cast<size_t>(EnemyType::LEBOIN)];
         Leboin.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/009/Animation/walk/walk0.png",
-                RESOURCE_DIR "/enemys/009/Animation/walk/walk1.png",
-                RESOURCE_DIR "/enemys/009/Animation/walk/walk2.png",
-                RESOURCE_DIR "/enemys/009/Animation/walk/walk3.png"
+                RESOURCE_DIR "/enemys/009/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/009/Animation/walk1.png",
+                RESOURCE_DIR "/enemys/009/Animation/walk2.png",
+                RESOURCE_DIR "/enemys/009/Animation/walk3.png"
             });
 
         Leboin.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/009/Animation/attack/attack0.png",
-                RESOURCE_DIR "/enemys/009/Animation/attack/attack1.png",
-                RESOURCE_DIR "/enemys/009/Animation/attack/attack2.png",
-                RESOURCE_DIR "/enemys/009/Animation/attack/attack3.png",
-                RESOURCE_DIR "/enemys/009/Animation/attack/attack4.png",
-                RESOURCE_DIR "/enemys/009/Animation/attack/attack4.png"// for padding
+                RESOURCE_DIR "/enemys/009/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/009/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/009/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/009/Animation/attack3.png",
+                RESOURCE_DIR "/enemys/009/Animation/attack4.png",
+                RESOURCE_DIR "/enemys/009/Animation/attack4.png"// for padding
             });
 
         Leboin.idle = std::make_unique<SharedRc::Animation>(
@@ -565,24 +565,24 @@ void EnemyAnimeResource::Init() {
             s_anime[static_cast<size_t>(EnemyType::KANGROO)];
         KangRoo.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/010/Animation/walk/walk0.png",
-                RESOURCE_DIR "/enemys/010/Animation/walk/walk1.png",
-                RESOURCE_DIR "/enemys/010/Animation/walk/walk2.png",
-                RESOURCE_DIR "/enemys/010/Animation/walk/walk3.png",
-                RESOURCE_DIR "/enemys/010/Animation/walk/walk4.png",
-                RESOURCE_DIR "/enemys/010/Animation/walk/walk5.png",
-                RESOURCE_DIR "/enemys/010/Animation/walk/walk6.png"
+                RESOURCE_DIR "/enemys/010/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/010/Animation/walk1.png",
+                RESOURCE_DIR "/enemys/010/Animation/walk2.png",
+                RESOURCE_DIR "/enemys/010/Animation/walk3.png",
+                RESOURCE_DIR "/enemys/010/Animation/walk4.png",
+                RESOURCE_DIR "/enemys/010/Animation/walk5.png",
+                RESOURCE_DIR "/enemys/010/Animation/walk6.png"
             });
 
         KangRoo.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/010/Animation/attack/attack0.png",
-                RESOURCE_DIR "/enemys/010/Animation/attack/attack1.png",
-                RESOURCE_DIR "/enemys/010/Animation/attack/attack2.png",
-                RESOURCE_DIR "/enemys/010/Animation/attack/attack3.png",
-                RESOURCE_DIR "/enemys/010/Animation/attack/attack4.png",
-                RESOURCE_DIR "/enemys/010/Animation/attack/attack5.png",
-                RESOURCE_DIR "/enemys/010/Animation/attack/attack5.png"// for padding
+                RESOURCE_DIR "/enemys/010/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/010/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/010/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/010/Animation/attack3.png",
+                RESOURCE_DIR "/enemys/010/Animation/attack4.png",
+                RESOURCE_DIR "/enemys/010/Animation/attack5.png",
+                RESOURCE_DIR "/enemys/010/Animation/attack5.png"// for padding
             });
 
         KangRoo.idle = std::make_unique<SharedRc::Animation>(
@@ -599,25 +599,25 @@ void EnemyAnimeResource::Init() {
             s_anime[static_cast<size_t>(EnemyType::ONEHORN)];
         OneHorn.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/011/Animation/walk/walk0.png",
-                RESOURCE_DIR "/enemys/011/Animation/walk/walk1.png",
-                RESOURCE_DIR "/enemys/011/Animation/walk/walk2.png",
-                RESOURCE_DIR "/enemys/011/Animation/walk/walk3.png",
-                RESOURCE_DIR "/enemys/011/Animation/walk/walk4.png",
-                RESOURCE_DIR "/enemys/011/Animation/walk/walk5.png",
-                RESOURCE_DIR "/enemys/011/Animation/walk/walk6.png",
-                RESOURCE_DIR "/enemys/011/Animation/walk/walk7.png",
-                RESOURCE_DIR "/enemys/011/Animation/walk/8.png"
+                RESOURCE_DIR "/enemys/011/Animation/walk0.png",
+                RESOURCE_DIR "/enemys/011/Animation/walk1.png",
+                RESOURCE_DIR "/enemys/011/Animation/walk2.png",
+                RESOURCE_DIR "/enemys/011/Animation/walk3.png",
+                RESOURCE_DIR "/enemys/011/Animation/walk4.png",
+                RESOURCE_DIR "/enemys/011/Animation/walk5.png",
+                RESOURCE_DIR "/enemys/011/Animation/walk6.png",
+                RESOURCE_DIR "/enemys/011/Animation/walk7.png",
+                RESOURCE_DIR "/enemys/011/Animation/walk8.png"
             });
 
         OneHorn.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/enemys/011/Animation/attack/attack0.png",
-                RESOURCE_DIR "/enemys/011/Animation/attack/attack1.png",
-                RESOURCE_DIR "/enemys/011/Animation/attack/attack2.png",
-                RESOURCE_DIR "/enemys/011/Animation/attack/attack3.png",
-                RESOURCE_DIR "/enemys/011/Animation/attack/attack4.png",
-                RESOURCE_DIR "/enemys/011/Animation/attack/attack4.png"// for padding
+                RESOURCE_DIR "/enemys/011/Animation/attack0.png",
+                RESOURCE_DIR "/enemys/011/Animation/attack1.png",
+                RESOURCE_DIR "/enemys/011/Animation/attack2.png",
+                RESOURCE_DIR "/enemys/011/Animation/attack3.png",
+                RESOURCE_DIR "/enemys/011/Animation/attack4.png",
+                RESOURCE_DIR "/enemys/011/Animation/attack4.png"// for padding
             });
 
         OneHorn.idle = std::make_unique<SharedRc::Animation>(

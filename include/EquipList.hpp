@@ -21,6 +21,7 @@ public:
 
     void Transform();
     void SetPos(float x,float y);
+    void SetUnit(unsigned int unitnum);
 
     [[nodiscard]]
     CatType GetCatType() const{
@@ -66,6 +67,8 @@ private:
         eq_list.reserve(MAXEQUIP);
         return eq_list;
     }();
+
+    static inline unsigned short Size = 0;
 };
 
 
