@@ -48,3 +48,7 @@ void StageSelectScene::Update() {
 
     m_Root.Update();
 }
+
+void StageSelectScene::Enter() {
+    m_Stages.Reset();
+}

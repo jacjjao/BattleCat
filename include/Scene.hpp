@@ -14,6 +14,7 @@ class Scene{
 public:
     virtual ~Scene() = default;
     virtual void Update() = 0;
+    virtual void Enter(){};
     static inline const unsigned int app_w = Core::Context::GetInstance()->GetWindowWidth();
     static inline const unsigned int app_h = Core::Context::GetInstance()->GetWindowHeight();
 protected:
@@ -25,9 +26,6 @@ protected:
     };
     Util::Root m_Root;
     SceneState m_state = SceneState::EXIT;
-
-    virtual void Enter(){};
-    virtual void Exit(){};
 };
 
 #endif //BATTLECAT_SCENE_HPP

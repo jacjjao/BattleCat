@@ -15,6 +15,8 @@ public:
     [[nodiscard]]
     int GetCurStage() const{return m_cur_stage;};
 
+    void Reset();
+
 private:
     static constexpr int STAGE_COUNT = 10;
     static constexpr float CARD_MARGIN = 20.0f;

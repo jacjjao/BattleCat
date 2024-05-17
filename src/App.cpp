@@ -61,6 +61,7 @@ void App::SwitchScene(const SceneType type) {
         throw std::invalid_argument("Invalid SceneType");
     }
     m_CurScene = m_Scenes[index].get();
+    m_CurScene->Enter();
 }
 
 void App::SwitchToBattleScene(Stage stage) {
