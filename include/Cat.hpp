@@ -26,8 +26,9 @@ enum class CatType : size_t {
     CATS_IN_A_BOX,
     SKIRT_CAT,
     MONEKO,
-    CAT_TYPE_COUNT
+    CAT_TYPE_COUN
 };
+
 static_assert(std::is_same_v<std::underlying_type_t<CatType>, size_t>);
 
 class Cat : public Entity {
