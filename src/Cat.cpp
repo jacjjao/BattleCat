@@ -8,6 +8,7 @@ Cat::Cat(const CatType type, const int level)
     SetStats(BaseCatStats::Stats[static_cast<size_t>(type)]);
     assert(level >= m_Stats.base_level);
     m_Health += (level - m_Stats.base_level) * m_Stats.health_diff;
+    m_KnockBackHealth = m_Health / m_Stats.kb;
     m_Stats.damage += (level - m_Stats.base_level) * m_Stats.damage_diff;
     LoadResource();
     m_Anime.walk->Play();
@@ -283,8 +284,8 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::CatInBox();
         break;
 
-    case CatType::SKIRT_CAT:
-        m_Anime = CatAnime::Skirt();
+    case CatType::PANTIES_CAT:
+        m_Anime = CatAnime::Panties();
         break;
 
     case CatType::MONEKO:
@@ -805,7 +806,7 @@ void CatAnimeResource::Init() {
     }
 
     {
-        auto &skirt = s_anime[static_cast<size_t>(CatType::SKIRT_CAT)];
+        auto &skirt = s_anime[static_cast<size_t>(CatType::PANTIES_CAT)];
 
         skirt.idle = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
