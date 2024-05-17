@@ -346,22 +346,22 @@ namespace BaseCatStats {
 
     inline EntityStats ActressCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1000;
+        stats.damage = 250;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
-        stats.single_target = true;
-        stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.speed = 60;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.23;
+        stats.atk_cool_down = 4.0;
+        stats.recharge_time = 2200;
+        stats.cost = 900;
+        stats.det_box = {-210, 140};
+        stats.hit_box = {-210, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 200;
+        stats.damage_diff = 50;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "ActressCat";
 #endif
