@@ -318,6 +318,10 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::Samurai();
         break;
 
+    case CatType::SUMO_CAT:
+        m_Anime = CatAnime::Sumo();
+        break;
+
     default:
         throw std::runtime_error{"Unavailable cat resource"};
     }
@@ -1046,14 +1050,14 @@ void CatAnimeResource::Init() {
     }
 
     {
-        auto &zombie = s_anime[static_cast<size_t>(CatType::SAMURAI_CAT)];
+        auto &samurai = s_anime[static_cast<size_t>(CatType::SAMURAI_CAT)];
 
-        zombie.idle = std::make_unique<SharedRc::Animation>(
+        samurai.idle = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/020/Animation/idle.png",
             });
 
-        zombie.walk = std::make_unique<SharedRc::Animation>(
+        samurai.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/020/Animation/walk0.png",
                 RESOURCE_DIR "/cats/020/Animation/walk1.png",
@@ -1064,7 +1068,7 @@ void CatAnimeResource::Init() {
                 RESOURCE_DIR "/cats/020/Animation/walk6.png",
                 RESOURCE_DIR "/cats/020/Animation/walk7.png"});
 
-        zombie.attack = std::make_unique<SharedRc::Animation>(
+        samurai.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/020/Animation/attack0.png",
                 RESOURCE_DIR "/cats/020/Animation/attack1.png",
@@ -1078,9 +1082,46 @@ void CatAnimeResource::Init() {
                 RESOURCE_DIR "/cats/020/Animation/attack8.png" // for padding
             });
 
-        zombie.knockback = std::make_unique<SharedRc::Animation>(
+        samurai.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/020/Animation/hitback.png"});
+    }
+
+    {
+        auto &sumo = s_anime[static_cast<size_t>(CatType::SUMO_CAT)];
+
+        sumo.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/021/Animation/idle.png",
+            });
+
+        sumo.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/021/Animation/walk0.png",
+                RESOURCE_DIR "/cats/021/Animation/walk1.png",
+                RESOURCE_DIR "/cats/021/Animation/walk2.png",
+                RESOURCE_DIR "/cats/021/Animation/walk3.png",
+                RESOURCE_DIR "/cats/021/Animation/walk4.png",
+                RESOURCE_DIR "/cats/021/Animation/walk5.png"});
+
+        sumo.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/021/Animation/attack0.png",
+                RESOURCE_DIR "/cats/021/Animation/attack1.png",
+                RESOURCE_DIR "/cats/021/Animation/attack2.png",
+                RESOURCE_DIR "/cats/021/Animation/attack3.png",
+                RESOURCE_DIR "/cats/021/Animation/attack4.png",
+                RESOURCE_DIR "/cats/021/Animation/attack5.png",
+                RESOURCE_DIR "/cats/021/Animation/attack6.png",
+                RESOURCE_DIR "/cats/021/Animation/attack7.png",
+                RESOURCE_DIR "/cats/021/Animation/attack8.png",
+                RESOURCE_DIR "/cats/021/Animation/attack9.png",
+                RESOURCE_DIR "/cats/021/Animation/attack9.png" // for padding
+            });
+
+        sumo.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/021/Animation/hitback.png"});
     }
 }
 
