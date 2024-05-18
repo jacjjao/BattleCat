@@ -1,9 +1,9 @@
 #include "Entity.hpp"
 #include "DebugUtil/BattleLog.hpp"
 #include "Sound.hpp"
-#include "RandomGenerator.hpp"
-#include "Enemy.hpp"
-#include "Cat.hpp"
+//#include "RandomGenerator.hpp"
+//#include "Enemy.hpp"
+//#include "Cat.hpp"
 //#include "Scene.hpp"
 
 void Entity::SetStats(const EntityStats &stats) {

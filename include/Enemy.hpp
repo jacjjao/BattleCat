@@ -82,6 +82,7 @@ private:
     bool m_OnAttack = false;
 
     Animation m_Anime;
+    std::unique_ptr<SharedRc::SharedAnimatedGameObject> m_HitParticle;
 };
 
 class EnemyAnimeResource {
@@ -96,6 +97,8 @@ public:
     static void Init();
 
     static const Enemy::Animation Get(EnemyType type);
+
+    static inline std::unique_ptr<SharedRc::Animation> s_HitParticle;
 
 private:
     static inline bool s_init = false;

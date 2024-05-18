@@ -19,6 +19,7 @@ StageSelectScene::StageSelectScene(App &app)
     m_BattleBtn->SetPosition(400.0f, -170.0f);
     m_BattleBtn->AddButtonEvent([this] {
         m_App.SwitchToBattleScene(StageFactory::CreateStage(static_cast<Stages>(m_Stages.GetCurStage())));
+        m_App.SwitchBGM(App::BGMType::BATTLE);
     });
     m_Root.AddChild(m_BattleBtn);
 //--------------------------------------------------------------------------------
@@ -33,7 +34,7 @@ StageSelectScene::StageSelectScene(App &app)
         float(app_h) / -2.0f + m_ReturnBtn->GetScaledSize().y / 2.0f);
     m_ReturnBtn->AddButtonEvent([this] {
         m_App.SwitchScene(App::SceneType::CAT_BASE);
-        m_App.SwitchBGM(App::BGMType::CAT_BASE);
+        //m_App.SwitchBGM(App::BGMType::CAT_BASE);
     });
     m_Root.AddChild(m_ReturnBtn);
 }

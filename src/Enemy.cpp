@@ -85,6 +85,14 @@ void Enemy::Draw(Util::Transform trans) {
     } else {
         m_Anime.idle->Draw(trans, z);
     }
+
+    if(m_HitParticle->IsPlaying()){
+        m_HitParticle->Draw(trans,z+1);
+    }
+    else{
+        m_HitParticle->Reset();
+    }
+
 }
 
 void Enemy::UpdateTimer(const double dt) {
@@ -140,6 +148,8 @@ void Enemy::GetHit(int damage, const Entity &attacker) {
         RandomFloatGenerator a;
         (a.generate(0.0f, 1.0f) < 0.5f) ? Sounds::Attack1->Play() : Sounds::Attack2->Play();
     }
+
+    m_HitParticle->Play();
 
 #ifdef ENABLE_BATTLE_LOG
     printBattleLog("{} deals damage {} to {}! {} have {}hp left!",
@@ -253,10 +263,28 @@ void Enemy::LoadResource() {
     default:
         throw std::runtime_error{"Resource does not available"};
     }
+
+    m_HitParticle = std::make_unique<SharedRc::SharedAnimatedGameObject>(*(EnemyAnimeResource::s_HitParticle));
+    m_HitParticle->SetInterval(67);
+    m_HitParticle->SetLooping(false);
 }
 
 void EnemyAnimeResource::Init() {
     s_anime.resize(static_cast<size_t>(EnemyType::ENEMY_TYPE_COUNT));
+
+    s_HitParticle = std::make_unique<SharedRc::Animation>(std::initializer_list<std::string>{
+        RESOURCE_DIR"/img/hit/hit0.png",
+        RESOURCE_DIR"/img/hit/hit1.png",
+        RESOURCE_DIR"/img/hit/hit2.png",
+        RESOURCE_DIR"/img/hit/hit3.png",
+        RESOURCE_DIR"/img/hit/hit4.png",
+        RESOURCE_DIR"/img/hit/hit5.png",
+        RESOURCE_DIR"/img/hit/hit6.png",
+        RESOURCE_DIR"/img/hit/hit7.png",
+        RESOURCE_DIR"/img/hit/hit8.png",
+        RESOURCE_DIR"/img/hit/hit9.png",
+        RESOURCE_DIR"/img/hit/hit10.png"
+    });
     
     {
         auto& tower = s_anime[static_cast<size_t>(EnemyType::ENEMY_TOWER)];

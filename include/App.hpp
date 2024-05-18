@@ -31,7 +31,8 @@ public:
 
     enum class BGMType : size_t {
         MENU = 0,
-        CAT_BASE
+        CAT_BASE,
+        BATTLE
     };
     static_assert(std::is_same_v<std::underlying_type_t<BGMType>, size_t>); // Do not change the underlying type
 
