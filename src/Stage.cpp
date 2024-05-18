@@ -243,14 +243,116 @@ Stage StageFactory::CreateLevel10(){
 
 Stage StageFactory::CreateLevelTEST(){
     Stage stage;
-    stage.dispatchers.reserve(2);
+    stage.dispatchers.reserve(12);
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 0.0;
+        ed.towerHealthPercent = 1.0;
+        ed.SetTimeOutDur(5.0);
+        ed.limit = EnemyDispatcher::s_Infinite;
+        ed.type = EnemyType::DOGE;
+        stage.dispatchers.push_back(ed);
+    }
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 0.0;
+        ed.towerHealthPercent = 1.0;
+        ed.SetTimeOutDur(5.0);
+        ed.limit = EnemyDispatcher::s_Infinite;
+        ed.type = EnemyType::SNACHE;
+        stage.dispatchers.push_back(ed);
+    }
 
     {
         EnemyDispatcher ed;
         ed.initAppearTime = 5.0;
         ed.towerHealthPercent = 1.0;
-        ed.SetTimeOutDur(10.0);
+        ed.SetTimeOutDur(15.0);
         ed.limit = EnemyDispatcher::s_Infinite;
+        ed.type = EnemyType::HIPPOE;
+        stage.dispatchers.push_back(ed);
+    }
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 5.0;
+        ed.towerHealthPercent = 1.0;
+        ed.SetTimeOutDur(15.0);
+        ed.limit = EnemyDispatcher::s_Infinite;
+        ed.type = EnemyType::PIGGE;
+        stage.dispatchers.push_back(ed);
+    }
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 5.0;
+        ed.towerHealthPercent = 1.0;
+        ed.SetTimeOutDur(15.0);
+        ed.limit = EnemyDispatcher::s_Infinite;
+        ed.type = EnemyType::JackiePeng;
+        stage.dispatchers.push_back(ed);
+    }
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 20.0;
+        ed.towerHealthPercent = 1.0;
+        ed.SetTimeOutDur(30.0);
+        ed.limit = EnemyDispatcher::s_Infinite;
+        ed.type = EnemyType::GORY;
+        stage.dispatchers.push_back(ed);
+    }
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 10.0;
+        ed.towerHealthPercent = 1.0;
+        ed.SetTimeOutDur(20.0);
+        ed.limit = EnemyDispatcher::s_Infinite;
+        ed.type = EnemyType::BAABAA;
+        stage.dispatchers.push_back(ed);
+    }
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 10.0;
+        ed.towerHealthPercent = 1.0;
+        ed.SetTimeOutDur(30.0);
+        ed.limit = EnemyDispatcher::s_Infinite;
+        ed.type = EnemyType::SIRSEAL;
+        stage.dispatchers.push_back(ed);
+    }
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 0.0;
+        ed.towerHealthPercent = 0.99;
+        ed.SetTimeOutDur(60.0);
+        ed.limit = 1;
+        ed.type = EnemyType::LEBOIN;
+        ed.knockCats = true;
+        stage.dispatchers.push_back(ed);
+    }
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 0.0;
+        ed.towerHealthPercent = 0.99;
+        ed.SetTimeOutDur(60.0);
+        ed.limit = 10;
+        ed.type = EnemyType::KANGROO;
+        stage.dispatchers.push_back(ed);
+    }
+
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 0.0;
+        ed.towerHealthPercent = 0.99;
+        ed.SetTimeOutDur(60.0);
+        ed.limit = 10;
+        ed.type = EnemyType::ONEHORN;
         stage.dispatchers.push_back(ed);
     }
 
