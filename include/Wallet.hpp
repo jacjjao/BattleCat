@@ -26,10 +26,10 @@ public:
 
 private:
     static constexpr std::array<int, 9> s_MoneyMax = {
-        0, 500,  1000,  2500,  5000, 8000,  10000,  12000, 16500
+        0, 1000,  2000,  4000, 5000, 8000,  10000,  12000, 16500
     };
     static constexpr std::array<float, 9> s_DeltaMoney = {
-        0, 100, 150, 200, 250, 300, 350, 400, 500
+        0, 100, 150, 200, 250, 300, 350, 400, 600
     };
 
     float m_MoneyDelta = 50.0;
