@@ -297,6 +297,7 @@ namespace BaseCatStats {
         stats.base_level = 1;
         stats.health_diff = 350;
         stats.damage_diff = 90;
+        stats.strong = {EnemyAttr::RED};
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "FishCat";
 #endif
@@ -441,6 +442,7 @@ namespace BaseCatStats {
         stats.base_level = 1;
         stats.health_diff = 350;
         stats.damage_diff = 50;
+        stats.strong = {EnemyAttr::RED};
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "BondageCat";
 #endif
@@ -465,6 +467,7 @@ namespace BaseCatStats {
         stats.base_level = 1;
         stats.health_diff = 350;
         stats.damage_diff = 66;
+        stats.strong = {EnemyAttr::RED};
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "DomCat";
 #endif
@@ -585,6 +588,7 @@ namespace BaseCatStats {
         stats.base_level = 1;
         stats.health_diff = 120;
         stats.damage_diff = 14;
+        stats.strong = {EnemyAttr::RED};
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "NinjaCat";
 #endif
@@ -609,6 +613,7 @@ namespace BaseCatStats {
         stats.base_level = 1;
         stats.health_diff = 350;
         stats.damage_diff = 100;
+        stats.strong = {EnemyAttr::RED};
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "ZombieCat";
 #endif
