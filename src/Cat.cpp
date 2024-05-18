@@ -306,6 +306,10 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::Tricycle();
         break;
 
+    case CatType::NINJA:
+        m_Anime = CatAnime::Ninja();
+        break;
+
     default:
         throw std::runtime_error{"Unavailable cat resource"};
     }
@@ -919,7 +923,7 @@ void CatAnimeResource::Init() {
     }
 
     {
-        auto &cycle = s_anime[static_cast<size_t>(CatType::MONEKO)];
+        auto &cycle = s_anime[static_cast<size_t>(CatType::TRICYCLE_CAT)];
 
         cycle.idle = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
@@ -956,6 +960,40 @@ void CatAnimeResource::Init() {
         cycle.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/017/Animation/hitback.png"});
+    }
+
+    {
+        auto &ninja = s_anime[static_cast<size_t>(CatType::NINJA)];
+
+        ninja.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/018/Animation/idle.png",
+            });
+
+        ninja.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/018/Animation/walk0.png",
+                RESOURCE_DIR "/cats/018/Animation/walk1.png",
+                RESOURCE_DIR "/cats/018/Animation/walk2.png",
+                RESOURCE_DIR "/cats/018/Animation/walk3.png",
+                RESOURCE_DIR "/cats/018/Animation/walk4.png"});
+
+        ninja.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/018/Animation/attack0.png",
+                RESOURCE_DIR "/cats/018/Animation/attack1.png",
+                RESOURCE_DIR "/cats/018/Animation/attack2.png",
+                RESOURCE_DIR "/cats/018/Animation/attack3.png",
+                RESOURCE_DIR "/cats/018/Animation/attack4.png",
+                RESOURCE_DIR "/cats/018/Animation/attack5.png",
+                RESOURCE_DIR "/cats/018/Animation/attack6.png",
+                RESOURCE_DIR "/cats/018/Animation/attack7.png",
+                RESOURCE_DIR "/cats/018/Animation/attack7.png" // for padding
+            });
+
+        ninja.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/018/Animation/hitback.png"});
     }
 }
 

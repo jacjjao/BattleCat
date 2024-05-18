@@ -27,6 +27,7 @@ enum class CatType : size_t {
     PANTIES_CAT,
     MONEKO,
     TRICYCLE_CAT,
+    NINJA,
     CAT_TYPE_COUNT
 };
 
@@ -565,6 +566,30 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats NinjaCat = []() {
+        EntityStats stats;
+        stats.health = 600;
+        stats.damage = 70;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 78;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.2;
+        stats.atk_cool_down = 0.5;
+        stats.recharge_time = 2000;
+        stats.cost = 300;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 120;
+        stats.damage_diff = 14;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "NinjaCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -576,7 +601,7 @@ namespace BaseCatStats {
                  BaseCatStats::MrCat,          BaseCatStats::BondageCat,
                  BaseCatStats::DomCat,         BaseCatStats::CatInBox,
                  BaseCatStats::PantiesCat,     BaseCatStats::Moneko,
-                 BaseCatStats::TricycleCat};
+                 BaseCatStats::TricycleCat,    BaseCatStats::NinjaCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -796,12 +821,24 @@ namespace CatAnime {
     }
 
     inline Cat::Animation Tricycle() {
-        auto cycle = CatAnimeResource::Get(CatType::MONEKO);
+        auto cycle = CatAnimeResource::Get(CatType::TRICYCLE_CAT);
         
         cycle.walk->SetInterval(100); // ms
         cycle.walk->SetLooping(true);
 
         cycle.attack->SetInterval(BaseCatStats::TricycleCat.atk_prep_time * 1000.0 / 8.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Ninja() {
+        auto cycle = CatAnimeResource::Get(CatType::NINJA);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::NinjaCat.atk_prep_time * 1000.0 / 3.0);
         cycle.attack->SetLooping(false);
         
         return cycle;
