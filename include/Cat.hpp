@@ -27,7 +27,8 @@ enum class CatType : size_t {
     PANTIES_CAT,
     MONEKO,
     TRICYCLE_CAT,
-    NINJA,
+    NINJA_CAT,
+    ZOMBIE_CAT,
     CAT_TYPE_COUNT
 };
 
@@ -590,6 +591,30 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats ZombieCat = []() {
+        EntityStats stats;
+        stats.health = 1750;
+        stats.damage = 500;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 48;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.53;
+        stats.atk_cool_down = 1.44;
+        stats.recharge_time = 4530;
+        stats.cost = 1125;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 350;
+        stats.damage_diff = 100;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "ZombieCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -601,7 +626,8 @@ namespace BaseCatStats {
                  BaseCatStats::MrCat,          BaseCatStats::BondageCat,
                  BaseCatStats::DomCat,         BaseCatStats::CatInBox,
                  BaseCatStats::PantiesCat,     BaseCatStats::Moneko,
-                 BaseCatStats::TricycleCat,    BaseCatStats::NinjaCat};
+                 BaseCatStats::TricycleCat,    BaseCatStats::NinjaCat,
+                 BaseCatStats::ZombieCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -833,12 +859,24 @@ namespace CatAnime {
     }
 
     inline Cat::Animation Ninja() {
-        auto cycle = CatAnimeResource::Get(CatType::NINJA);
+        auto cycle = CatAnimeResource::Get(CatType::NINJA_CAT);
         
         cycle.walk->SetInterval(100); // ms
         cycle.walk->SetLooping(true);
 
         cycle.attack->SetInterval(BaseCatStats::NinjaCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Zombie() {
+        auto cycle = CatAnimeResource::Get(CatType::ZOMBIE_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::ZombieCat.atk_prep_time * 1000.0 / 7.0);
         cycle.attack->SetLooping(false);
         
         return cycle;

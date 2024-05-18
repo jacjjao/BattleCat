@@ -306,8 +306,12 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::Tricycle();
         break;
 
-    case CatType::NINJA:
+    case CatType::NINJA_CAT:
         m_Anime = CatAnime::Ninja();
+        break;
+
+    case CatType::ZOMBIE_CAT:
+        m_Anime = CatAnime::Zombie();
         break;
 
     default:
@@ -963,7 +967,7 @@ void CatAnimeResource::Init() {
     }
 
     {
-        auto &ninja = s_anime[static_cast<size_t>(CatType::NINJA)];
+        auto &ninja = s_anime[static_cast<size_t>(CatType::NINJA_CAT)];
 
         ninja.idle = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
@@ -994,6 +998,47 @@ void CatAnimeResource::Init() {
         ninja.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/018/Animation/hitback.png"});
+    }
+
+    {
+        auto &zombie = s_anime[static_cast<size_t>(CatType::ZOMBIE_CAT)];
+
+        zombie.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/019/Animation/idle.png",
+            });
+
+        zombie.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/019/Animation/walk0.png",
+                RESOURCE_DIR "/cats/019/Animation/walk1.png",
+                RESOURCE_DIR "/cats/019/Animation/walk2.png",
+                RESOURCE_DIR "/cats/019/Animation/walk3.png",
+                RESOURCE_DIR "/cats/019/Animation/walk4.png",
+                RESOURCE_DIR "/cats/019/Animation/walk5.png",
+                RESOURCE_DIR "/cats/019/Animation/walk6.png",
+                RESOURCE_DIR "/cats/019/Animation/walk7.png",
+                RESOURCE_DIR "/cats/019/Animation/walk8.png",
+                RESOURCE_DIR "/cats/019/Animation/walk9.png",
+                RESOURCE_DIR "/cats/019/Animation/walk10.png"});
+
+        zombie.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/019/Animation/attack0.png",
+                RESOURCE_DIR "/cats/019/Animation/attack1.png",
+                RESOURCE_DIR "/cats/019/Animation/attack2.png",
+                RESOURCE_DIR "/cats/019/Animation/attack3.png",
+                RESOURCE_DIR "/cats/019/Animation/attack4.png",
+                RESOURCE_DIR "/cats/019/Animation/attack5.png",
+                RESOURCE_DIR "/cats/019/Animation/attack6.png",
+                RESOURCE_DIR "/cats/019/Animation/attack7.png",
+                RESOURCE_DIR "/cats/019/Animation/attack8.png",
+                RESOURCE_DIR "/cats/019/Animation/attack8.png" // for padding
+            });
+
+        zombie.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/019/Animation/hitback.png"});
     }
 }
 
