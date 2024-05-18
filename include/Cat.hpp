@@ -29,6 +29,7 @@ enum class CatType : size_t {
     TRICYCLE_CAT,
     NINJA_CAT,
     ZOMBIE_CAT,
+    SAMURAI_CAT,
     CAT_TYPE_COUNT
 };
 
@@ -620,6 +621,30 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats SamuraiCat = []() {
+        EntityStats stats;
+        stats.health = 1350;
+        stats.damage = 325;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 42;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.6;
+        stats.atk_cool_down = 1.3;
+        stats.recharge_time = 2000;
+        stats.cost = 525;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 270;
+        stats.damage_diff = 65;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "SamuraiCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -632,7 +657,7 @@ namespace BaseCatStats {
                  BaseCatStats::DomCat,         BaseCatStats::CatInBox,
                  BaseCatStats::PantiesCat,     BaseCatStats::Moneko,
                  BaseCatStats::TricycleCat,    BaseCatStats::NinjaCat,
-                 BaseCatStats::ZombieCat};
+                 BaseCatStats::ZombieCat,      BaseCatStats::SamuraiCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -882,6 +907,18 @@ namespace CatAnime {
         cycle.walk->SetLooping(true);
 
         cycle.attack->SetInterval(BaseCatStats::ZombieCat.atk_prep_time * 1000.0 / 7.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Samurai() {
+        auto cycle = CatAnimeResource::Get(CatType::SAMURAI_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::SamuraiCat.atk_prep_time * 1000.0 / 7.0);
         cycle.attack->SetLooping(false);
         
         return cycle;
