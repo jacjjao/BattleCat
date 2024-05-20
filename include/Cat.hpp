@@ -793,6 +793,31 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats BraveCat = []() {
+        EntityStats stats;
+        stats.health = 1400;
+        stats.damage = 174;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 72;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 0.63;
+        stats.recharge_time = 2000;
+        stats.cost = 300;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 100;
+        stats.damage_diff = 12;
+        stats.strong = {EnemyAttr::RED};
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "BraveCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -808,7 +833,7 @@ namespace BaseCatStats {
                  BaseCatStats::ZombieCat,      BaseCatStats::SamuraiCat,
                  BaseCatStats::SumoCat,        BaseCatStats::BoogieCat,
                  BaseCatStats::SkirtCat,       BaseCatStats::MachoCat,
-                 BaseCatStats::WallCat};
+                 BaseCatStats::WallCat,        BaseCatStats::BraveCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -1129,7 +1154,19 @@ namespace CatAnime {
         cycle.walk->SetInterval(100); // ms
         cycle.walk->SetLooping(true);
 
-        cycle.attack->SetInterval(BaseCatStats::MachoCat.atk_prep_time * 1000.0 / 4.0);
+        cycle.attack->SetInterval(BaseCatStats::WallCat.atk_prep_time * 1000.0 / 4.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Brave() {
+        auto cycle = CatAnimeResource::Get(CatType::BRAVE_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::BraveCat.atk_prep_time * 1000.0 / 4.0);
         cycle.attack->SetLooping(false);
         
         return cycle;
