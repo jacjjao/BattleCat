@@ -697,6 +697,30 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats BoogieCat = []() {
+        EntityStats stats;
+        stats.health = 500;
+        stats.damage = 50;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 36;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.47;
+        stats.atk_cool_down = 1.0;
+        stats.recharge_time = 2000;
+        stats.cost = 75;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 100;
+        stats.damage_diff = 10;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "BoogieCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -710,7 +734,7 @@ namespace BaseCatStats {
                  BaseCatStats::PantiesCat,     BaseCatStats::Moneko,
                  BaseCatStats::TricycleCat,    BaseCatStats::NinjaCat,
                  BaseCatStats::ZombieCat,      BaseCatStats::SamuraiCat,
-                 BaseCatStats::SumoCat};
+                 BaseCatStats::SumoCat,        BaseCatStats::BoogieCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -984,6 +1008,18 @@ namespace CatAnime {
         cycle.walk->SetLooping(true);
 
         cycle.attack->SetInterval(BaseCatStats::SumoCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Boogie() {
+        auto cycle = CatAnimeResource::Get(CatType::BOOGIE_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::BoogieCat.atk_prep_time * 1000.0 / 3.0);
         cycle.attack->SetLooping(false);
         
         return cycle;

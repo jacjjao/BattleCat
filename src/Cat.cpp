@@ -322,6 +322,10 @@ void Cat::LoadResource() {
         m_Anime = CatAnime::Sumo();
         break;
 
+    case CatType::BOOGIE_CAT:
+        m_Anime = CatAnime::Boogie();
+        break;
+
     default:
         throw std::runtime_error{"Unavailable cat resource"};
     }
@@ -1122,6 +1126,39 @@ void CatAnimeResource::Init() {
         sumo.knockback = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/021/Animation/hitback.png"});
+    }
+
+    {
+        auto &boogie = s_anime[static_cast<size_t>(CatType::BOOGIE_CAT)];
+
+        boogie.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/022/Animation/idle.png",
+            });
+
+        boogie.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/022/Animation/walk0.png",
+                RESOURCE_DIR "/cats/022/Animation/walk1.png",
+                RESOURCE_DIR "/cats/022/Animation/walk2.png",
+                RESOURCE_DIR "/cats/022/Animation/walk3.png"});
+
+        boogie.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/022/Animation/attack0.png",
+                RESOURCE_DIR "/cats/022/Animation/attack1.png",
+                RESOURCE_DIR "/cats/022/Animation/attack2.png",
+                RESOURCE_DIR "/cats/022/Animation/attack3.png",
+                RESOURCE_DIR "/cats/022/Animation/attack4.png",
+                RESOURCE_DIR "/cats/022/Animation/attack5.png",
+                RESOURCE_DIR "/cats/022/Animation/attack6.png",
+                RESOURCE_DIR "/cats/022/Animation/attack7.png",
+                RESOURCE_DIR "/cats/022/Animation/attack7.png" // for padding
+            });
+
+        boogie.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/022/Animation/hitback.png"});
     }
 }
 
