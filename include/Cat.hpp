@@ -842,6 +842,30 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats GiraffeCat = []() {
+        EntityStats stats;
+        stats.health = 3500;
+        stats.damage = 90;
+        stats.range = 140;
+        stats.kb = 5;
+        stats.speed = 180;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.2;
+        stats.atk_cool_down = 0.13;
+        stats.recharge_time = 2000;
+        stats.cost = 750;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 250;
+        stats.damage_diff = 6;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "GiraffeCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -858,7 +882,7 @@ namespace BaseCatStats {
                  BaseCatStats::SumoCat,        BaseCatStats::BoogieCat,
                  BaseCatStats::SkirtCat,       BaseCatStats::MachoCat,
                  BaseCatStats::WallCat,        BaseCatStats::BraveCat,
-                 BaseCatStats::SexyLegsCat};
+                 BaseCatStats::SexyLegsCat,    BaseCatStats::GiraffeCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -1204,6 +1228,18 @@ namespace CatAnime {
         cycle.walk->SetLooping(true);
 
         cycle.attack->SetInterval(BaseCatStats::SexyLegsCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation GiraffeCat() {
+        auto cycle = CatAnimeResource::Get(CatType::GIRAFFE_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::GiraffeCat.atk_prep_time * 1000.0 / 3.0);
         cycle.attack->SetLooping(false);
         
         return cycle;
