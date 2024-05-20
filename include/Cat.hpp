@@ -769,6 +769,30 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats WallCat = []() {
+        EntityStats stats;
+        stats.health = 2800;
+        stats.damage = 14;
+        stats.range = 140;
+        stats.kb = 1;
+        stats.speed = 48;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 1.0;
+        stats.recharge_time = 2000;
+        stats.cost = 150;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 200;
+        stats.damage_diff = 1;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "WallCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -783,7 +807,8 @@ namespace BaseCatStats {
                  BaseCatStats::TricycleCat,    BaseCatStats::NinjaCat,
                  BaseCatStats::ZombieCat,      BaseCatStats::SamuraiCat,
                  BaseCatStats::SumoCat,        BaseCatStats::BoogieCat,
-                 BaseCatStats::SkirtCat,       BaseCatStats::MachoCat};
+                 BaseCatStats::SkirtCat,       BaseCatStats::MachoCat,
+                 BaseCatStats::WallCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -1088,6 +1113,18 @@ namespace CatAnime {
 
     inline Cat::Animation Macho() {
         auto cycle = CatAnimeResource::Get(CatType::MACHO_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::MachoCat.atk_prep_time * 1000.0 / 4.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Wall() {
+        auto cycle = CatAnimeResource::Get(CatType::WALL_CAT);
         
         cycle.walk->SetInterval(100); // ms
         cycle.walk->SetLooping(true);
