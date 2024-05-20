@@ -818,6 +818,30 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats SexyLegsCat = []() {
+        EntityStats stats;
+        stats.health = 2800;
+        stats.damage = 700;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 60;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.2;
+        stats.atk_cool_down = 3.97;
+        stats.recharge_time = 2200;
+        stats.cost = 600;
+        stats.det_box = {-105, 140};
+        stats.hit_box = {-105, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 200;
+        stats.damage_diff = 50;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "SexyLegsCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -833,7 +857,8 @@ namespace BaseCatStats {
                  BaseCatStats::ZombieCat,      BaseCatStats::SamuraiCat,
                  BaseCatStats::SumoCat,        BaseCatStats::BoogieCat,
                  BaseCatStats::SkirtCat,       BaseCatStats::MachoCat,
-                 BaseCatStats::WallCat,        BaseCatStats::BraveCat};
+                 BaseCatStats::WallCat,        BaseCatStats::BraveCat,
+                 BaseCatStats::SexyLegsCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -1167,6 +1192,18 @@ namespace CatAnime {
         cycle.walk->SetLooping(true);
 
         cycle.attack->SetInterval(BaseCatStats::BraveCat.atk_prep_time * 1000.0 / 4.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation SexyLegs() {
+        auto cycle = CatAnimeResource::Get(CatType::SEXY_LEGS_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::SexyLegsCat.atk_prep_time * 1000.0 / 3.0);
         cycle.attack->SetLooping(false);
         
         return cycle;
