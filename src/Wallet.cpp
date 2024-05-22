@@ -19,17 +19,26 @@ void Wallet::Draw() {
     glm::vec2 rightmost_pos = NumberSystem::Display(m_MaxMoney,glm::vec2(560,300),5.0f,30,NumberSystem::YellowNumber);
     tmp.translation = glm::vec2(rightmost_pos.x - 30, 300);
     m_slash->Draw(tmp, 5.0f);
-    NumberSystem::Display(static_cast<int>(m_CurMoney),
-                     glm::vec2(rightmost_pos.x - 60, 300), 5.0f,30,NumberSystem::YellowNumber);
+    if (m_InfMoney) {
+        NumberSystem::Display(static_cast<int>(999999999),
+                              glm::vec2(rightmost_pos.x - 60, 300), 5.0f, 30,
+                              NumberSystem::YellowNumber);
+    } else {
+        NumberSystem::Display(static_cast<int>(m_CurMoney),
+                              glm::vec2(rightmost_pos.x - 60, 300), 5.0f, 30,
+                              NumberSystem::YellowNumber);
+    }
 }
 
 bool Wallet::CanDeploy(const int required) const {
-    return static_cast<float>(required) <= m_CurMoney;
+    return m_InfMoney || static_cast<float>(required) <= m_CurMoney;
 }
 
 void Wallet::Spend(const int money) {
     assert(CanDeploy(money));
-    m_CurMoney -= static_cast<float>(money);
+    if (!m_InfMoney) {
+        m_CurMoney -= static_cast<float>(money);
+    }
 }
 
 void Wallet::SetWalletDelta(const float delta) {
@@ -40,5 +49,9 @@ void Wallet::SetWalletDelta(const float delta) {
 void Wallet::LevelUp(const int level) {
     m_MaxMoney = s_MoneyMax[level];
     m_MoneyDelta = s_DeltaMoney[level];
+}
+
+void Wallet::SetInfMoney(const bool enable) {
+    m_InfMoney = enable;
 }
 
