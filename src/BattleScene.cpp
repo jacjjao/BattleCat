@@ -32,15 +32,6 @@ BattleScene::BattleScene(App &app)
 }
 
 void BattleScene::Update() {
-    static bool inf_money = false;
-    static bool space_pressed = false;
-    space_pressed = space_pressed || Util::Input::IsKeyDown(Util::Keycode::SPACE);
-    if (space_pressed && Util::Input::IsKeyUp(Util::Keycode::SPACE)) {
-        space_pressed = false;
-        inf_money = !inf_money;
-        m_Wallet->SetInfMoney(inf_money);
-    }
-
     m_Cam.Update();
     m_Background->ConstraintCam(m_Cam);
 
