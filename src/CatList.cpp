@@ -80,8 +80,13 @@ void UnitCard::SetVisible(bool b){
     m_udi2->SetVisible(m_form && b);
 }
 
-void UnitCard::Addlvl() {
-    m_lvl++;
+bool UnitCard::Addlvl() {
+    const unsigned short int MAXlvl = 30;
+    if(m_lvl < MAXlvl){
+        m_lvl++;
+        return true;
+    }
+    return false;
 }
 
 bool UnitCard::IsMouseHovering(){
@@ -121,6 +126,30 @@ void CatList::UpdateCatList(const float y) const {
         else{
             unit->SetVisible(false);
         }
+    }
+}
+
+void CatList::DrawNumber() const{
+    for(int i=m_currentunit-2; i<=m_currentunit+2; i++) {
+        if (i < 0 || i > short(m_catlist.size()) ){
+            continue;
+        }
+
+        auto &unit = m_catlist.at(i);
+        { //lvl number
+            unsigned short number = unit->Getlvl();
+            glm::vec2 rightmost_pos = unit->GetTransform().translation;
+            //glm::vec2 rightmost_pos = glm::vec2(0,0);
+            float z = unit->GetZIndex() + 1.0f;
+            NumberSystem::Display(number,rightmost_pos,z,30,NumberSystem::YellowNumber);
+        }
+        /*{ // dollars number
+            unsigned short number = unit->Getlvl();
+            glm::vec2 rightmost_pos = unit->GetTransform().translation;
+            float z = unit->GetZIndex() + 0.01f;
+            NumberSystem::Display(number,rightmost_pos,z,30,NumberSystem::YellowNumber);
+        }*/
+
     }
 }
 

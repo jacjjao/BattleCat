@@ -24,7 +24,7 @@ public:
 
     void SetVisible(bool b);
 
-    void Addlvl();
+    bool Addlvl();
 
     //void SetScale(float x, float y);
     [[nodiscard]]
@@ -32,6 +32,9 @@ public:
 
     [[nodiscard]]
     bool Getform() const{ return m_form;};
+
+    [[nodiscard]]
+    unsigned short int Getlvl() const{ return m_lvl;};
 
     [[nodiscard]]
     bool Inuse() const {
@@ -57,7 +60,8 @@ private:
     bool m_minify = false;
     unsigned int m_UnitNum = 0;
     bool m_form = false;
-    unsigned int m_lvl = 1;
+    unsigned short int m_lvl = 1;
+    Util::Transform m_NumTrans;
 };
 //--------------------------------------------------------------------------------------
 class CatList{
@@ -79,6 +83,7 @@ private:
 protected:
     unsigned short int m_currentunit = 0;
     void UpdateCatList(float y) const;
+    void DrawNumber() const;
     static inline std::vector<std::shared_ptr<UnitCard>> m_catlist = Init();
     std::shared_ptr<GameButton> m_TransFormbtn = std::make_shared<GameButton>(RESOURCE_DIR"/buttons/transform.png");
 };

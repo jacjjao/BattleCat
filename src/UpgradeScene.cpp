@@ -46,8 +46,15 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     upgrade_btn->SetZIndex(3.0f);
     upgrade_btn->SetPosition(-415.0f,-140.0f);
     upgrade_btn->AddButtonEvent([this]{
-        Sounds::UsingItem->Play();
-        m_catlist.at(m_currentunit)->Addlvl();
+        auto &currentunit = m_catlist.at(m_currentunit);
+        unsigned int requireXP = 1000*(currentunit->Getlvl() + 1);
+        if(m_XP >= requireXP && currentunit->Addlvl()){
+            Sounds::UsingItem->Play();
+            m_XP -= requireXP;
+        }
+        else{
+            Sounds::Blocked->Play();
+        }
     });
     m_Buttons.push_back(upgrade_btn);
     m_Root.AddChild(upgrade_btn);
@@ -76,4 +83,5 @@ void UpgradeScene::Update(){
         btn->Update();
     }
     m_Root.Update();
+    DrawNumber();
 };
