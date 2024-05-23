@@ -119,6 +119,7 @@ void EquipScene::Update() {
     }
 //----------------------------------------------------------
     m_Root.Update();
+    DrawNumber();
 
     //test
     /*{
