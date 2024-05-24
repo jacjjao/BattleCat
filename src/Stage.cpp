@@ -76,21 +76,11 @@ Stage StageFactory::CreateLevel1() {
     }
     {
         EnemyDispatcher ed;
-        ed.initAppearTime = 5.0;
+        ed.initAppearTime = 20.0;
         ed.towerHealthPercent = 1.0;
-        ed.SetTimeOutDur(10.0);
+        ed.SetTimeOutDur(8.0);
         ed.limit = EnemyDispatcher::s_Infinite;
         stage.dispatchers.push_back(ed);
-    }
-    
-    {
-        EnemyDispatcher test;
-        test.initAppearTime = EnemyDispatcher::s_Infinite;
-        test.towerHealthPercent = 1.0;
-        test.SetTimeOutDur(1.87);
-        test.limit = EnemyDispatcher::s_Infinite;
-        test.type = EnemyType::ONEHORN;
-        stage.dispatchers.push_back(test);
     }
 
     return stage;
@@ -102,11 +92,19 @@ Stage StageFactory::CreateLevel2(){
 
     {
         EnemyDispatcher ed;
-        ed.initAppearTime = 5.0;
+        ed.initAppearTime = 0.0;
+        ed.towerHealthPercent = 1.0;
+        ed.SetTimeOutDur(6.5);
+        ed.limit = EnemyDispatcher::s_Infinite;
+        stage.dispatchers.push_back(ed);
+    }
+    {
+        EnemyDispatcher ed;
+        ed.initAppearTime = 20.0;
         ed.towerHealthPercent = 1.0;
         ed.SetTimeOutDur(10.0);
         ed.limit = EnemyDispatcher::s_Infinite;
-        ed.type = EnemyType::BAABAA;
+        ed.type = EnemyType::SNACHE;
         stage.dispatchers.push_back(ed);
     }
 
