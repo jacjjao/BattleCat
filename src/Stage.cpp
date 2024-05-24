@@ -63,6 +63,7 @@ Stage StageFactory::CreateStage(Stages which) {
     }
 }
 
+// https://mygamatoto.com/stageinfo/300000/Korea
 Stage StageFactory::CreateLevel1() {
     Stage stage;
     stage.dispatchers.reserve(2);
@@ -86,6 +87,7 @@ Stage StageFactory::CreateLevel1() {
     return stage;
 }
 
+// https://mygamatoto.com/stageinfo/300002/China
 Stage StageFactory::CreateLevel2(){
     Stage stage;
     stage.dispatchers.reserve(2);
@@ -111,6 +113,7 @@ Stage StageFactory::CreateLevel2(){
     return stage;
 }
 
+// https://mygamatoto.com/stageinfo/300005/Philippines
 Stage StageFactory::CreateLevel3(){
     Stage stage;
     stage.dispatchers.reserve(2);
@@ -145,6 +148,7 @@ Stage StageFactory::CreateLevel3(){
     return stage;
 }
 
+// https://mygamatoto.com/stageinfo/300012/Dubai
 Stage StageFactory::CreateLevel4(){
     Stage stage;
     stage.dispatchers.reserve(2);
@@ -215,6 +219,7 @@ Stage StageFactory::CreateLevel4(){
     return stage;
 }
 
+// https://mygamatoto.com/stageinfo/300014/Kenya
 Stage StageFactory::CreateLevel5(){
     Stage stage;
     stage.dispatchers.reserve(2);
@@ -294,6 +299,7 @@ Stage StageFactory::CreateLevel5(){
     return stage;
 }
 
+// https://mygamatoto.com/stageinfo/300015/Madagascar
 Stage StageFactory::CreateLevel6(){
     Stage stage;
     stage.dispatchers.reserve(2);
@@ -356,6 +362,7 @@ Stage StageFactory::CreateLevel6(){
     return stage;
 }
 
+// https://mygamatoto.com/stageinfo/300016/South%20Africa
 Stage StageFactory::CreateLevel7(){
     Stage stage;
     stage.dispatchers.reserve(2);
@@ -435,6 +442,7 @@ Stage StageFactory::CreateLevel7(){
     return stage;
 }
 
+// https://mygamatoto.com/stageinfo/300020/Turkey
 Stage StageFactory::CreateLevel8(){
     Stage stage;
     stage.dispatchers.reserve(2);
@@ -514,6 +522,7 @@ Stage StageFactory::CreateLevel8(){
     return stage;
 }
 
+// https://mygamatoto.com/stageinfo/300023/Italy
 Stage StageFactory::CreateLevel9(){
     Stage stage;
     stage.dispatchers.reserve(2);
@@ -594,6 +603,7 @@ Stage StageFactory::CreateLevel9(){
     return stage;
 }
 
+// https://mygamatoto.com/stageinfo/300046/Hawaii
 Stage StageFactory::CreateLevel10(){
     Stage stage;
     stage.dispatchers.reserve(2);
