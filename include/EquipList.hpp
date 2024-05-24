@@ -22,6 +22,7 @@ public:
 
     void Transform();
     void SetPos(float x,float y);
+    void Setlvl(unsigned short lvl) {m_UnitLVL = lvl;};
 
     [[nodiscard]]
     CatType GetCatType() const{

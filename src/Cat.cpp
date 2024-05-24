@@ -351,8 +351,65 @@ void Cat::LoadResource() {
         break;
 
     case CatType::UFO_CAT:
-        m_Anime = CatAnime::UFOCat();
+        m_Anime = CatAnime::UfoCat();
         break;
+
+    case CatType::WHALE_CAT:
+        m_Anime = CatAnime::WhaleCat();
+        break;
+
+    case CatType::DRAGON_CAT:
+        m_Anime = CatAnime::DragonCat();
+        break;
+
+    case CatType::MYTHICAL_TITAN_CAT:
+        m_Anime = CatAnime::MythicalTitanCat();
+        break;
+
+    case CatType::MOTHER_CAT:
+        m_Anime = CatAnime::MotherCat();
+        break;
+
+    case CatType::DRUNKEN_MASTER_CAT:
+        m_Anime = CatAnime::DrunkenMasterCat();
+        break;
+
+    case CatType::SUPER_MR_CAT:
+        m_Anime = CatAnime::SuperMrCat();
+        break;
+
+    case CatType::BONDAGE_CATNEO:
+        m_Anime = CatAnime::BondageCatneo();
+        break;
+
+    case CatType::EXECUTIONER:
+        m_Anime = CatAnime::Executioner();
+        break;
+
+    case CatType::CAT_GANG:
+        m_Anime = CatAnime::CatGang();
+        break;
+
+    case CatType::LEAF_CAT:
+        m_Anime = CatAnime::LeafCat();
+        break;
+
+    case CatType::MISS_MONEKO:
+        m_Anime = CatAnime::MissMoneko();
+        break;
+
+    case CatType::BIKER_CAT:
+        m_Anime = CatAnime::BikerCat();
+        break;
+
+    case CatType::NINJA_FROG_CAT:
+        m_Anime = CatAnime::NinjaFrogCat();
+        break;
+
+    case CatType::DEVIL_CAT:
+        m_Anime = CatAnime::DevilCat();
+        break;
+
 
     default:
         throw std::runtime_error{"Unavailable cat resource"};
@@ -1351,7 +1408,7 @@ void CatAnimeResource::Init() {
 
         giraffe.idle = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/cats/028/idle.png",
+                RESOURCE_DIR "/cats/028/idle.png"
             });
 
         giraffe.walk = std::make_unique<SharedRc::Animation>(
@@ -1375,43 +1432,609 @@ void CatAnimeResource::Init() {
             std::initializer_list<std::string>{
                 RESOURCE_DIR "/cats/028/hitback.png"});
     }
-
+    //-------------------------------------------------------------------
     {
-        auto &ufo = s_anime[static_cast<size_t>(CatType::UFO_CAT)];
+        auto &ufocat = s_anime[static_cast<size_t>(CatType::UFO_CAT)];
 
-        ufo.idle = std::make_unique<SharedRc::Animation>(
+        ufocat.idle = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/cats/029/Animation/idle0.png",
-                RESOURCE_DIR "/cats/029/Animation/idle1.png",
-                RESOURCE_DIR "/cats/029/Animation/idle2.png",
-                RESOURCE_DIR "/cats/029/Animation/idle3.png",
+                RESOURCE_DIR"/cats/029/Animation/idle0.png",
+                RESOURCE_DIR"/cats/029/Animation/idle1.png",
+                RESOURCE_DIR"/cats/029/Animation/idle2.png",
+                RESOURCE_DIR"/cats/029/Animation/idle3.png"
             });
 
-        ufo.walk = std::make_unique<SharedRc::Animation>(
+        ufocat.walk = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/cats/029/Animation/walk0.png",
-                RESOURCE_DIR "/cats/029/Animation/walk1.png",
-                RESOURCE_DIR "/cats/029/Animation/walk2.png",
-                RESOURCE_DIR "/cats/029/Animation/walk3.png"});
+                RESOURCE_DIR"/cats/029/Animation/walk0.png",
+                RESOURCE_DIR"/cats/029/Animation/walk1.png",
+                RESOURCE_DIR"/cats/029/Animation/walk2.png",
+                RESOURCE_DIR"/cats/029/Animation/walk3.png"});
 
-        ufo.attack = std::make_unique<SharedRc::Animation>(
+        ufocat.attack = std::make_unique<SharedRc::Animation>(
             std::initializer_list<std::string>{
-                RESOURCE_DIR "/cats/029/Animation/attack0.png",
-                RESOURCE_DIR "/cats/029/Animation/attack1.png",
-                RESOURCE_DIR "/cats/029/Animation/attack2.png",
-                RESOURCE_DIR "/cats/029/Animation/attack3.png",
-                RESOURCE_DIR "/cats/029/Animation/attack5.png",
-                RESOURCE_DIR "/cats/029/Animation/attack6.png",
-                RESOURCE_DIR "/cats/029/Animation/attack7.png",
-                RESOURCE_DIR "/cats/029/Animation/attack8.png",
-                RESOURCE_DIR "/cats/029/Animation/attack9.png",
-                RESOURCE_DIR "/cats/029/Animation/attack10.png",
-                RESOURCE_DIR "/cats/029/Animation/attack10.png" // for padding
+                RESOURCE_DIR"/cats/029/Animation/attack0.png",
+                RESOURCE_DIR"/cats/029/Animation/attack1.png",
+                RESOURCE_DIR"/cats/029/Animation/attack2.png",
+                RESOURCE_DIR"/cats/029/Animation/attack3.png",
+                RESOURCE_DIR"/cats/029/Animation/attack4.png",
+                RESOURCE_DIR"/cats/029/Animation/attack5.png",
+                RESOURCE_DIR"/cats/029/Animation/attack6.png",
+                RESOURCE_DIR"/cats/029/Animation/attack7.png",
+                RESOURCE_DIR"/cats/029/Animation/attack8.png",
+                RESOURCE_DIR"/cats/029/Animation/attack9.png",
+                RESOURCE_DIR"/cats/029/Animation/attack10.png",
+                RESOURCE_DIR"/cats/029/Animation/attack10.png"
+                // for padding
             });
 
-        ufo.knockback = std::make_unique<SharedRc::Animation>(
-            std::initializer_list<std::string>{RESOURCE_DIR
-                                               "/cats/029/Animation/hitback.png"});
+        ufocat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR "/cats/029/Animation/hitback.png"});
+    }
+    {
+        auto &whalecat = s_anime[static_cast<size_t>(CatType::WHALE_CAT)];
+
+        whalecat.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/030/Animation/idle.png"
+            });
+
+        whalecat.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/030/Animation/walk0.png",
+                RESOURCE_DIR"/cats/030/Animation/walk1.png",
+                RESOURCE_DIR"/cats/030/Animation/walk2.png",
+                RESOURCE_DIR"/cats/030/Animation/walk3.png",
+                RESOURCE_DIR"/cats/030/Animation/walk4.png",
+                RESOURCE_DIR"/cats/030/Animation/walk5.png",
+                RESOURCE_DIR"/cats/030/Animation/walk6.png",
+                RESOURCE_DIR"/cats/030/Animation/walk7.png"
+            });
+
+        whalecat.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/030/Animation/attack0.png",
+                RESOURCE_DIR"/cats/030/Animation/attack1.png",
+                RESOURCE_DIR"/cats/030/Animation/attack2.png",
+                RESOURCE_DIR"/cats/030/Animation/attack3.png",
+                RESOURCE_DIR"/cats/030/Animation/attack4.png",
+                RESOURCE_DIR"/cats/030/Animation/attack5.png",
+                RESOURCE_DIR"/cats/030/Animation/attack5.png"// for padding
+            });
+
+        whalecat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/030/Animation/hitback.png"});
+    }
+    {
+        auto &dragoncat = s_anime[static_cast<size_t>(CatType::DRAGON_CAT)];
+
+        dragoncat.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/031/Animation/idle.png"
+            });
+
+        dragoncat.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/031/Animation/walk0.png",
+                RESOURCE_DIR"/cats/031/Animation/walk1.png",
+                RESOURCE_DIR"/cats/031/Animation/walk2.png",
+                RESOURCE_DIR"/cats/031/Animation/walk3.png",
+                RESOURCE_DIR"/cats/031/Animation/walk4.png"});
+
+        dragoncat.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/031/Animation/attack0.png",
+                RESOURCE_DIR"/cats/031/Animation/attack1.png",
+                RESOURCE_DIR"/cats/031/Animation/attack2.png",
+                RESOURCE_DIR"/cats/031/Animation/attack3.png",
+                RESOURCE_DIR"/cats/031/Animation/attack4.png",
+                RESOURCE_DIR"/cats/031/Animation/attack5.png",
+                RESOURCE_DIR"/cats/031/Animation/attack5.png"// for padding
+            });
+
+        dragoncat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/031/Animation/hitback.png"});
+    }
+    {
+        auto &mythical_titan_cat = s_anime[static_cast<size_t>(CatType::MYTHICAL_TITAN_CAT)];
+
+        mythical_titan_cat.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/032/Animation/idle.png"
+            });
+
+        mythical_titan_cat.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/032/Animation/walk0.png",
+                RESOURCE_DIR"/cats/032/Animation/walk1.png",
+                RESOURCE_DIR"/cats/032/Animation/walk2.png",
+                RESOURCE_DIR"/cats/032/Animation/walk3.png",
+                RESOURCE_DIR"/cats/032/Animation/walk4.png",
+                RESOURCE_DIR"/cats/032/Animation/walk5.png",
+                RESOURCE_DIR"/cats/032/Animation/walk6.png"
+                });
+
+        mythical_titan_cat.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/032/Animation/attack0.png",
+                RESOURCE_DIR"/cats/032/Animation/attack1.png",
+                RESOURCE_DIR"/cats/032/Animation/attack2.png",
+                RESOURCE_DIR"/cats/032/Animation/attack3.png",
+                RESOURCE_DIR"/cats/032/Animation/attack4.png",
+                RESOURCE_DIR"/cats/032/Animation/attack5.png",
+                RESOURCE_DIR"/cats/032/Animation/attack5.png"// for padding
+            });
+
+        mythical_titan_cat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/032/Animation/hitback.png"});
+    }
+    {
+        auto &mother_cat = s_anime[static_cast<size_t>(CatType::MOTHER_CAT)];
+
+        mother_cat.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/033/Animation/idle.png"
+            });
+
+        mother_cat.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/033/Animation/walk0.png",
+                RESOURCE_DIR"/cats/033/Animation/walk1.png",
+                RESOURCE_DIR"/cats/033/Animation/walk2.png",
+                RESOURCE_DIR"/cats/033/Animation/walk3.png",
+                RESOURCE_DIR"/cats/033/Animation/walk4.png",
+                RESOURCE_DIR"/cats/033/Animation/walk5.png",
+                RESOURCE_DIR"/cats/033/Animation/walk6.png",
+                RESOURCE_DIR"/cats/033/Animation/walk7.png",
+                RESOURCE_DIR"/cats/033/Animation/walk8.png",
+                RESOURCE_DIR"/cats/033/Animation/walk9.png"});
+
+        mother_cat.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/033/Animation/attack0.png",
+                RESOURCE_DIR"/cats/033/Animation/attack1.png",
+                RESOURCE_DIR"/cats/033/Animation/attack2.png",
+                RESOURCE_DIR"/cats/033/Animation/attack3.png",
+                RESOURCE_DIR"/cats/033/Animation/attack4.png",
+                RESOURCE_DIR"/cats/033/Animation/attack5.png",
+                RESOURCE_DIR"/cats/033/Animation/attack6.png",
+                RESOURCE_DIR"/cats/033/Animation/attack7.png",
+                RESOURCE_DIR"/cats/033/Animation/attack8.png",
+                RESOURCE_DIR"/cats/033/Animation/attack9.png",
+                RESOURCE_DIR"/cats/033/Animation/attack10.png",
+                RESOURCE_DIR"/cats/033/Animation/attack11.png",
+                RESOURCE_DIR"/cats/033/Animation/attack12.png",
+                RESOURCE_DIR"/cats/033/Animation/attack13.png",
+                RESOURCE_DIR"/cats/033/Animation/attack14.png",
+                RESOURCE_DIR"/cats/033/Animation/attack14.png"
+                // for padding
+            });
+
+        mother_cat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/033/Animation/hitback.png"});
+    }
+    {
+        auto &drunken_master_cat = s_anime[static_cast<size_t>(CatType::DRUNKEN_MASTER_CAT)];
+
+        drunken_master_cat.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/034/Animation/idle0.png",
+                RESOURCE_DIR"/cats/034/Animation/idle1.png",
+                RESOURCE_DIR"/cats/034/Animation/idle2.png",
+                RESOURCE_DIR"/cats/034/Animation/idle3.png",
+                RESOURCE_DIR"/cats/034/Animation/idle4.png",
+                RESOURCE_DIR"/cats/034/Animation/idle5.png"
+            });
+
+        drunken_master_cat.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/034/Animation/walk0.png",
+                RESOURCE_DIR"/cats/034/Animation/walk1.png",
+                RESOURCE_DIR"/cats/034/Animation/walk2.png",
+                RESOURCE_DIR"/cats/034/Animation/walk3.png",
+                RESOURCE_DIR"/cats/034/Animation/walk4.png",
+                RESOURCE_DIR"/cats/034/Animation/walk5.png",
+                RESOURCE_DIR"/cats/034/Animation/walk6.png",
+                RESOURCE_DIR"/cats/034/Animation/walk7.png",
+                RESOURCE_DIR"/cats/034/Animation/walk8.png",
+                RESOURCE_DIR"/cats/034/Animation/walk9.png",
+                RESOURCE_DIR"/cats/034/Animation/walk10.png",
+                RESOURCE_DIR"/cats/034/Animation/walk11.png",
+                RESOURCE_DIR"/cats/034/Animation/walk12.png"
+            });
+
+        drunken_master_cat.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/034/Animation/attack0.png",
+                RESOURCE_DIR"/cats/034/Animation/attack1.png",
+                RESOURCE_DIR"/cats/034/Animation/attack2.png",
+                RESOURCE_DIR"/cats/034/Animation/attack3.png",
+                RESOURCE_DIR"/cats/034/Animation/attack4.png",
+                RESOURCE_DIR"/cats/034/Animation/attack5.png",
+                RESOURCE_DIR"/cats/034/Animation/attack6.png",
+                RESOURCE_DIR"/cats/034/Animation/attack7.png",
+                RESOURCE_DIR"/cats/034/Animation/attack8.png",
+                RESOURCE_DIR"/cats/034/Animation/attack9.png",
+                RESOURCE_DIR"/cats/034/Animation/attack10.png",
+                RESOURCE_DIR"/cats/034/Animation/attack11.png",
+                RESOURCE_DIR"/cats/034/Animation/attack12.png",
+                RESOURCE_DIR"/cats/034/Animation/attack13.png",
+                RESOURCE_DIR"/cats/034/Animation/attack14.png",
+                RESOURCE_DIR"/cats/034/Animation/attack15.png",
+                RESOURCE_DIR"/cats/034/Animation/attack16.png",
+                RESOURCE_DIR"/cats/034/Animation/attack17.png",
+                RESOURCE_DIR"/cats/034/Animation/attack17.png"// for padding
+            });
+
+        drunken_master_cat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/034/Animation/hitback.png"});
+    }
+    {
+        auto &super_mr_cat = s_anime[static_cast<size_t>(CatType::SUPER_MR_CAT)];
+
+        super_mr_cat.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/035/Animation/idle.png"
+            });
+
+        super_mr_cat.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/035/Animation/walk0.png",
+                RESOURCE_DIR"/cats/035/Animation/walk1.png",
+                RESOURCE_DIR"/cats/035/Animation/walk2.png",
+                RESOURCE_DIR"/cats/035/Animation/walk3.png"});
+
+        super_mr_cat.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/035/Animation/attack0.png",
+                RESOURCE_DIR"/cats/035/Animation/attack1.png",
+                RESOURCE_DIR"/cats/035/Animation/attack2.png",
+                RESOURCE_DIR"/cats/035/Animation/attack3.png",
+                RESOURCE_DIR"/cats/035/Animation/attack4.png",
+                RESOURCE_DIR"/cats/035/Animation/attack5.png",
+                RESOURCE_DIR"/cats/035/Animation/attack6.png",
+                RESOURCE_DIR"/cats/035/Animation/attack7.png",
+                RESOURCE_DIR"/cats/035/Animation/attack8.png",
+                RESOURCE_DIR"/cats/035/Animation/attack8.png"// for padding
+            });
+
+        super_mr_cat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/035/Animation/hitback.png",});
+    }
+    {
+        auto &boddage_catneo = s_anime[static_cast<size_t>(CatType::BONDAGE_CATNEO)];
+
+        boddage_catneo.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/036/Animation/idle.png",
+            });
+
+        boddage_catneo.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/036/Animation/walk0.png",
+                RESOURCE_DIR"/cats/036/Animation/walk1.png",
+                RESOURCE_DIR"/cats/036/Animation/walk2.png",
+                RESOURCE_DIR"/cats/036/Animation/walk3.png",
+                RESOURCE_DIR"/cats/036/Animation/walk4.png",
+                RESOURCE_DIR"/cats/036/Animation/walk5.png",
+                RESOURCE_DIR"/cats/036/Animation/walk6.png",
+                RESOURCE_DIR"/cats/036/Animation/walk7.png"});
+
+        boddage_catneo.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/036/Animation/attack0.png",
+                RESOURCE_DIR"/cats/036/Animation/attack1.png",
+                RESOURCE_DIR"/cats/036/Animation/attack2.png",
+                RESOURCE_DIR"/cats/036/Animation/attack3.png",
+                RESOURCE_DIR"/cats/036/Animation/attack4.png",
+                RESOURCE_DIR"/cats/036/Animation/attack4.png"// for padding
+            });
+
+        boddage_catneo.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/036/Animation/hitback.png",});
+    }
+    {
+        auto &executioner = s_anime[static_cast<size_t>(CatType::EXECUTIONER)];
+
+        executioner.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/037/Animation/idle.png"
+            });
+
+        executioner.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/037/Animation/walk0.png",
+                RESOURCE_DIR"/cats/037/Animation/walk1.png",
+                RESOURCE_DIR"/cats/037/Animation/walk2.png",
+                RESOURCE_DIR"/cats/037/Animation/walk3.png",
+                RESOURCE_DIR"/cats/037/Animation/walk4.png",
+                RESOURCE_DIR"/cats/037/Animation/walk5.png",
+                RESOURCE_DIR"/cats/037/Animation/walk6.png",
+                RESOURCE_DIR"/cats/037/Animation/walk7.png",
+                RESOURCE_DIR"/cats/037/Animation/walk8.png",
+                RESOURCE_DIR"/cats/037/Animation/walk9.png",
+                RESOURCE_DIR"/cats/037/Animation/walk10.png",
+                RESOURCE_DIR"/cats/037/Animation/walk11.png"});
+
+        executioner.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/037/Animation/attack0.png",
+                RESOURCE_DIR"/cats/037/Animation/attack1.png",
+                RESOURCE_DIR"/cats/037/Animation/attack2.png",
+                RESOURCE_DIR"/cats/037/Animation/attack3.png",
+                RESOURCE_DIR"/cats/037/Animation/attack4.png",
+                RESOURCE_DIR"/cats/037/Animation/attack5.png",
+                RESOURCE_DIR"/cats/037/Animation/attack6.png",
+                RESOURCE_DIR"/cats/037/Animation/attack7.png",
+                RESOURCE_DIR"/cats/037/Animation/attack8.png",
+                RESOURCE_DIR"/cats/037/Animation/attack8.png"// for padding
+            });
+
+        executioner.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/037/Animation/hitback.png"});
+    }
+    {
+        auto &cat_gang = s_anime[static_cast<size_t>(CatType::CAT_GANG)];
+
+        cat_gang.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/038/Animation/idle.png"
+            });
+
+        cat_gang.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/038/Animation/walk0.png",
+                RESOURCE_DIR"/cats/038/Animation/walk1.png",
+                RESOURCE_DIR"/cats/038/Animation/walk2.png",
+                RESOURCE_DIR"/cats/038/Animation/walk3.png",
+                RESOURCE_DIR"/cats/038/Animation/walk4.png",
+                RESOURCE_DIR"/cats/038/Animation/walk5.png",
+                RESOURCE_DIR"/cats/038/Animation/walk6.png",
+                RESOURCE_DIR"/cats/038/Animation/walk7.png",
+                RESOURCE_DIR"/cats/038/Animation/walk8.png"});
+
+        cat_gang.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/038/Animation/attack0.png",
+                RESOURCE_DIR"/cats/038/Animation/attack1.png",
+                RESOURCE_DIR"/cats/038/Animation/attack2.png",
+                RESOURCE_DIR"/cats/038/Animation/attack3.png",
+                RESOURCE_DIR"/cats/038/Animation/attack4.png",
+                RESOURCE_DIR"/cats/038/Animation/attack5.png",
+                RESOURCE_DIR"/cats/038/Animation/attack6.png",
+                RESOURCE_DIR"/cats/038/Animation/attack7.png",
+                RESOURCE_DIR"/cats/038/Animation/attack8.png",
+                RESOURCE_DIR"/cats/038/Animation/attack9.png",
+                RESOURCE_DIR"/cats/038/Animation/attack10.png",
+                RESOURCE_DIR"/cats/038/Animation/attack11.png",
+                RESOURCE_DIR"/cats/038/Animation/attack12.png",
+                RESOURCE_DIR"/cats/038/Animation/attack13.png",
+                RESOURCE_DIR"/cats/038/Animation/attack14.png",
+                RESOURCE_DIR"/cats/038/Animation/attack15.png",
+                RESOURCE_DIR"/cats/038/Animation/attack16.png",
+                RESOURCE_DIR"/cats/038/Animation/attack17.png",
+                RESOURCE_DIR"/cats/038/Animation/attack17.png"// for padding
+            });
+
+        cat_gang.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/038/Animation/hitback.png"});
+    }
+    {
+        auto &leaf_cat = s_anime[static_cast<size_t>(CatType::LEAF_CAT)];
+
+        leaf_cat.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/039/Animation/idle.png"
+            });
+
+        leaf_cat.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/039/Animation/walk0.png",
+                RESOURCE_DIR"/cats/039/Animation/walk1.png",
+                RESOURCE_DIR"/cats/039/Animation/walk2.png",
+                RESOURCE_DIR"/cats/039/Animation/walk3.png",
+                RESOURCE_DIR"/cats/039/Animation/walk4.png",
+                RESOURCE_DIR"/cats/039/Animation/walk5.png"});
+
+        leaf_cat.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/039/Animation/attack0.png",
+                RESOURCE_DIR"/cats/039/Animation/attack1.png",
+                RESOURCE_DIR"/cats/039/Animation/attack2.png",
+                RESOURCE_DIR"/cats/039/Animation/attack3.png",
+                RESOURCE_DIR"/cats/039/Animation/attack4.png",
+                RESOURCE_DIR"/cats/039/Animation/attack5.png",
+                RESOURCE_DIR"/cats/039/Animation/attack5.png"// for padding
+            });
+
+        leaf_cat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/039/Animation/hitback.png"});
+    }
+    {
+        auto &miss_moneko = s_anime[static_cast<size_t>(CatType::MISS_MONEKO)];
+
+        miss_moneko.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/040/Animation/idle.png"
+            });
+
+        miss_moneko.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/040/Animation/walk0.png",
+                RESOURCE_DIR"/cats/040/Animation/walk1.png",
+                RESOURCE_DIR"/cats/040/Animation/walk10.png",
+                RESOURCE_DIR"/cats/040/Animation/walk2.png",
+                RESOURCE_DIR"/cats/040/Animation/walk3.png",
+                RESOURCE_DIR"/cats/040/Animation/walk4.png",
+                RESOURCE_DIR"/cats/040/Animation/walk5.png",
+                RESOURCE_DIR"/cats/040/Animation/walk6.png",
+                RESOURCE_DIR"/cats/040/Animation/walk7.png",
+                RESOURCE_DIR"/cats/040/Animation/walk8.png",
+                RESOURCE_DIR"/cats/040/Animation/walk9.png"
+            });
+
+        miss_moneko.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/040/Animation/attack0.png",
+                RESOURCE_DIR"/cats/040/Animation/attack1.png",
+                RESOURCE_DIR"/cats/040/Animation/attack2.png",
+                RESOURCE_DIR"/cats/040/Animation/attack3.png",
+                RESOURCE_DIR"/cats/040/Animation/attack4.png",
+                RESOURCE_DIR"/cats/040/Animation/attack5.png",
+                RESOURCE_DIR"/cats/040/Animation/attack6.png",
+                RESOURCE_DIR"/cats/040/Animation/attack7.png",
+                RESOURCE_DIR"/cats/040/Animation/attack8.png",
+                RESOURCE_DIR"/cats/040/Animation/attack9.png",
+                RESOURCE_DIR"/cats/040/Animation/attack10.png",
+                RESOURCE_DIR"/cats/040/Animation/attack11.png",
+                RESOURCE_DIR"/cats/040/Animation/attack12.png",
+                RESOURCE_DIR"/cats/040/Animation/attack13.png",
+                RESOURCE_DIR"/cats/040/Animation/attack14.png",
+                RESOURCE_DIR"/cats/040/Animation/attack15.png",
+                RESOURCE_DIR"/cats/040/Animation/attack16.png",
+                RESOURCE_DIR"/cats/040/Animation/attack17.png",
+                RESOURCE_DIR"/cats/040/Animation/attack18.png",
+                RESOURCE_DIR"/cats/040/Animation/attack19.png",
+                RESOURCE_DIR"/cats/040/Animation/attack20.png",
+                RESOURCE_DIR"/cats/040/Animation/attack20.png" // for padding
+            });
+
+        miss_moneko.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/040/Animation/hitback.png"});
+    }
+    //---------------------------------
+    {
+        auto &biker_cat = s_anime[static_cast<size_t>(CatType::BIKER_CAT)];
+
+        biker_cat.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/041/Animation/idle.png"
+            });
+
+        biker_cat.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/041/Animation/walk0.png",
+                RESOURCE_DIR"/cats/041/Animation/walk1.png",
+                RESOURCE_DIR"/cats/041/Animation/walk2.png",
+                RESOURCE_DIR"/cats/041/Animation/walk3.png",
+                RESOURCE_DIR"/cats/041/Animation/walk4.png",
+                RESOURCE_DIR"/cats/041/Animation/walk5.png"
+            });
+
+        biker_cat.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/041/Animation/attack0.png",
+                RESOURCE_DIR"/cats/041/Animation/attack1.png",
+                RESOURCE_DIR"/cats/041/Animation/attack2.png",
+                RESOURCE_DIR"/cats/041/Animation/attack3.png",
+                RESOURCE_DIR"/cats/041/Animation/attack4.png",
+                RESOURCE_DIR"/cats/041/Animation/attack5.png",
+                RESOURCE_DIR"/cats/041/Animation/attack6.png",
+                RESOURCE_DIR"/cats/041/Animation/attack7.png",
+                RESOURCE_DIR"/cats/041/Animation/attack8.png",
+                RESOURCE_DIR"/cats/041/Animation/attack9.png",
+                RESOURCE_DIR"/cats/041/Animation/attack10.png",
+                RESOURCE_DIR"/cats/041/Animation/attack11.png",
+                RESOURCE_DIR"/cats/041/Animation/attack12.png",
+                RESOURCE_DIR"/cats/041/Animation/attack13.png",
+                RESOURCE_DIR"/cats/041/Animation/attack14.png",
+                RESOURCE_DIR"/cats/041/Animation/attack15.png",
+                RESOURCE_DIR"/cats/041/Animation/attack16.png",
+                RESOURCE_DIR"/cats/041/Animation/attack17.png",
+                RESOURCE_DIR"/cats/041/Animation/attack18.png",
+                RESOURCE_DIR"/cats/041/Animation/attack18.png"
+                 // for padding
+            });
+
+        biker_cat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/041/Animation/hitback.png"});
+    }
+    {
+        auto &ninja_frog_cat = s_anime[static_cast<size_t>(CatType::NINJA_FROG_CAT)];
+
+        ninja_frog_cat.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/042/Animation/idle.png"
+            });
+
+        ninja_frog_cat.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/042/Animation/walk0.png",
+                RESOURCE_DIR"/cats/042/Animation/walk1.png",
+                RESOURCE_DIR"/cats/042/Animation/walk2.png",
+                RESOURCE_DIR"/cats/042/Animation/walk3.png",
+                RESOURCE_DIR"/cats/042/Animation/walk4.png"
+            });
+
+        ninja_frog_cat.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/042/Animation/attack0.png",
+                RESOURCE_DIR"/cats/042/Animation/attack1.png",
+                RESOURCE_DIR"/cats/042/Animation/attack2.png",
+                RESOURCE_DIR"/cats/042/Animation/attack3.png",
+                RESOURCE_DIR"/cats/042/Animation/attack4.png",
+                RESOURCE_DIR"/cats/042/Animation/attack5.png",
+                RESOURCE_DIR"/cats/042/Animation/attack6.png",
+                RESOURCE_DIR"/cats/042/Animation/attack6.png"
+                // for padding
+            });
+
+        ninja_frog_cat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/042/Animation/hitback.png"});
+    }
+    {
+        auto &devil_cat = s_anime[static_cast<size_t>(CatType::DEVIL_CAT)];
+
+        devil_cat.idle = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/043/Animation/idle.png"
+            });
+
+        devil_cat.walk = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/043/Animation/walk0.png",
+                RESOURCE_DIR"/cats/043/Animation/walk1.png",
+                RESOURCE_DIR"/cats/043/Animation/walk2.png",
+                RESOURCE_DIR"/cats/043/Animation/walk3.png",
+                RESOURCE_DIR"/cats/043/Animation/walk4.png"
+            });
+
+        devil_cat.attack = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/043/Animation/attack0.png",
+                RESOURCE_DIR"/cats/043/Animation/attack1.png",
+                RESOURCE_DIR"/cats/043/Animation/attack2.png",
+                RESOURCE_DIR"/cats/043/Animation/attack3.png",
+                RESOURCE_DIR"/cats/043/Animation/attack4.png",
+                RESOURCE_DIR"/cats/043/Animation/attack5.png",
+                RESOURCE_DIR"/cats/043/Animation/attack6.png",
+                RESOURCE_DIR"/cats/043/Animation/attack7.png",
+                RESOURCE_DIR"/cats/043/Animation/attack8.png",
+                RESOURCE_DIR"/cats/043/Animation/attack9.png",
+                RESOURCE_DIR"/cats/043/Animation/attack10.png",
+                RESOURCE_DIR"/cats/043/Animation/attack11.png",
+                RESOURCE_DIR"/cats/043/Animation/attack12.png",
+                RESOURCE_DIR"/cats/043/Animation/attack12.png"
+                // for padding
+            });
+
+        devil_cat.knockback = std::make_unique<SharedRc::Animation>(
+            std::initializer_list<std::string>{
+                RESOURCE_DIR"/cats/043/Animation/hitback.png"});
     }
 }
 

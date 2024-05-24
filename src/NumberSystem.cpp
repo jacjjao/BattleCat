@@ -25,22 +25,23 @@ std::array<Util::Image,10> NumberSystem::YellowNumber =
     {Util::Image(RESOURCE_DIR"/scene/yellownumber/0.png"),Util::Image(RESOURCE_DIR"/scene/yellownumber/1.png"),Util::Image(RESOURCE_DIR"/scene/yellownumber/2.png"),Util::Image(RESOURCE_DIR"/scene/yellownumber/3.png"),Util::Image(RESOURCE_DIR"/scene/yellownumber/4.png"),
      Util::Image(RESOURCE_DIR"/scene/yellownumber/5.png"),Util::Image(RESOURCE_DIR"/scene/yellownumber/6.png"),Util::Image(RESOURCE_DIR"/scene/yellownumber/7.png"),Util::Image(RESOURCE_DIR"/scene/yellownumber/8.png"),Util::Image(RESOURCE_DIR"/scene/yellownumber/9.png")};
 
-glm::vec2 NumberSystem::Display(unsigned int number, glm::vec2 rightmost_pos, const float zIndex,const float xOffset,std::array<Util::Image,10>& font) {
+glm::vec2 NumberSystem::Display(unsigned int number, glm::vec2 rightmost_pos, const float zIndex,const float xOffset,std::array<Util::Image,10>& font,glm::vec2 scale) {
     //constexpr int xOffset = 30;
-    const auto drawDigit = [&font, xOffset, &rightmost_pos](float z, unsigned int digit) {
+    const auto drawDigit = [&font, xOffset, &rightmost_pos](float z, unsigned int digit,glm::vec2 scale) {
         Util::Transform t;
         t.translation = rightmost_pos;
+        t.scale = scale;
         font[digit].Draw(t, z);
         rightmost_pos.x -= xOffset;
     };
 
     if (number == 0) {
-        drawDigit(zIndex, 0);
+        drawDigit(zIndex, 0,scale);
         return rightmost_pos;
     }
 
     for (; number > 0; number /= 10) {
-        drawDigit(zIndex, number % 10);
+        drawDigit(zIndex, number % 10,scale);
     }
     glm::vec2 result = glm::vec2(rightmost_pos.x + xOffset, rightmost_pos.y);
     return result;

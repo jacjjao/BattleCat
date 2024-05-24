@@ -1,4 +1,5 @@
 #include "FrameScene.hpp"
+#include "Util/Input.hpp"
 
 void FrameScene::SetBaseText(const std::string &basetext) {
     m_BaseText = std::make_shared<GameObjectEx>();
@@ -16,10 +17,12 @@ void FrameScene::AddXP(const unsigned int xp) {
     }
 }
 
-void FrameScene::CostXP(const unsigned int xp) {
+bool FrameScene::CostXP(const unsigned int xp) {
     if (m_XP >= xp) {
         m_XP -= xp;
+        return true;
     }
+    return false;
 }
 
 void FrameScene::AddCatfood(unsigned int Catfood) {
@@ -29,13 +32,19 @@ void FrameScene::AddCatfood(unsigned int Catfood) {
     }
 }
 
-void FrameScene::CostCatfood(unsigned int Catfood) {
+bool FrameScene::CostCatfood(unsigned int Catfood) {
     if (m_Catfood >= Catfood) {
         m_Catfood -= Catfood;
+        return true;
     }
+    return false;
 }
 
 void FrameScene::Update() {
     NumberSystem::Display(m_XP,glm::vec2(float(app_w)/2.0f - 72,float(app_h)/2.0f - 26.5),2.0f,30,NumberSystem::YellowNumber);
     NumberSystem::Display(m_Catfood,glm::vec2(float(app_w)/2.0f - 72,float(app_h)/-2.0f + 26.5),2.0f,30,NumberSystem::YellowNumber);
+    if(Util::Input::IsKeyDown(Util::Keycode::SPACE)){
+        m_XP = 9999999;
+        m_Catfood = 9999999;
+    }
 }

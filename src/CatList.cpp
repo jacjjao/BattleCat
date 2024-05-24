@@ -45,6 +45,14 @@ void UnitCard::Dragging() {
         m_FrameTimer--;
     }
     Draw(m_DragTrans,m_ZIndex+0.3f);
+    {
+        unsigned short number = Getlvl();
+        glm::vec2 scale = m_DragTrans.scale;
+        glm::vec2 rightmost_pos = m_DragTrans.translation + glm::vec2(130*scale.x,-5*scale.y);
+        float z = m_ZIndex+ 1.3f;
+        unsigned short xoffer = 30 * scale.x;
+        NumberSystem::Display(number, rightmost_pos, z,xoffer ,NumberSystem::YellowNumber,scale);
+    }
     Util::Transform tmp = m_DragTrans;
     tmp.translation += m_udi1->GetPosition() - this->GetPosition();
 }
@@ -84,6 +92,7 @@ bool UnitCard::Addlvl() {
     const unsigned short int MAXlvl = 30;
     if(m_lvl < MAXlvl){
         m_lvl++;
+        m_EquipCard.lock()->Setlvl(m_lvl);
         return true;
     }
     return false;
@@ -131,17 +140,23 @@ void CatList::UpdateCatList(const float y) const {
 
 void CatList::DrawNumber() const{
     for(int i=m_currentunit-2; i<=m_currentunit+2; i++) {
-        if (i < 0 || i > short(m_catlist.size()) ){
+        if (i < 0 || i >= short(m_catlist.size()) ){
             continue;
         }
 
         auto &unit = m_catlist.at(i);
         { //lvl number
             unsigned short number = unit->Getlvl();
-            glm::vec2 rightmost_pos = unit->GetTransform().translation;
-            //glm::vec2 rightmost_pos = glm::vec2(0,0);
             float z = unit->GetZIndex() + 1.0f;
-            NumberSystem::Display(number,rightmost_pos,z,30,NumberSystem::YellowNumber);
+            glm::vec2 scale;
+            if(i==m_currentunit) {
+                scale = {1.2f,1.2f};
+            }
+            else{
+                scale = {0.8f,0.8f};
+            }
+            glm::vec2 rightmost_pos = unit->GetTransform().translation + glm::vec2(130*scale.x,-5*scale.y);
+            NumberSystem::Display(number,rightmost_pos,z,30*scale.x,NumberSystem::YellowNumber,scale);
         }
         /*{ // dollars number
             unsigned short number = unit->Getlvl();

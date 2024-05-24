@@ -18,7 +18,7 @@ namespace NumberSystem{
 
     extern std::array<Util::Image,10> YellowNumber;
 
-    glm::vec2 Display(unsigned int number,glm::vec2 rightmost_pos,float zIndex,float xOffset,std::array<Util::Image,10>& font);
+    glm::vec2 Display(unsigned int number,glm::vec2 rightmost_pos,float zIndex,float xOffset,std::array<Util::Image,10>& font,glm::vec2 scale = {1,1});
 }
 
 #endif // BATTLECAT_NUMBERSYSTEM_HPP

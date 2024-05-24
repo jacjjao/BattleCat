@@ -22,11 +22,11 @@ public:
 
     static unsigned int GetXP(){ return m_XP; };
     static void AddXP(unsigned int xp);
-    static void CostXP(unsigned int xp);
+    static bool CostXP(unsigned int xp);
 
     static unsigned int GetCatfood(){ return m_Catfood; };
     static void AddCatfood(unsigned int Catfood);
-    static void CostCatfood(unsigned int Catfood);
+    static bool CostCatfood(unsigned int Catfood);
 
     virtual void Update() override;
 
@@ -79,8 +79,8 @@ private:
     std::shared_ptr<GameObjectEx> m_BaseText;
 
 protected:
-    static inline unsigned int m_XP = 99999999;
-    static inline unsigned int m_Catfood = 9999999;
+    static inline unsigned int m_XP = 0;
+    static inline unsigned int m_Catfood = 0;
 };
 
 #endif // BATTLECAT_FRAMESCENE_HPP
