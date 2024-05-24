@@ -866,6 +866,30 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats UFOCat = []() {
+        EntityStats stats;
+        stats.health = 2100;
+        stats.damage = 1154;
+        stats.range = 140;
+        stats.kb = 4;
+        stats.speed = 60;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.6;
+        stats.atk_cool_down = 1.3;
+        stats.recharge_time = 2000;
+        stats.cost = 975;
+        stats.det_box = {-30, 140};
+        stats.hit_box = {-30, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 150;
+        stats.damage_diff = 82;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "UFOCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -882,7 +906,8 @@ namespace BaseCatStats {
                  BaseCatStats::SumoCat,        BaseCatStats::BoogieCat,
                  BaseCatStats::SkirtCat,       BaseCatStats::MachoCat,
                  BaseCatStats::WallCat,        BaseCatStats::BraveCat,
-                 BaseCatStats::SexyLegsCat,    BaseCatStats::GiraffeCat};
+                 BaseCatStats::SexyLegsCat,    BaseCatStats::GiraffeCat,
+                 BaseCatStats::UFOCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -1243,6 +1268,21 @@ namespace CatAnime {
         cycle.attack->SetLooping(false);
         
         return cycle;
+    }
+
+    inline Cat::Animation UFOCat() {
+        auto ufo = CatAnimeResource::Get(CatType::UFO_CAT);
+        
+        ufo.idle->SetInterval(100);
+        ufo.idle->SetLooping(true);
+
+        ufo.walk->SetInterval(100); // ms
+        ufo.walk->SetLooping(true);
+
+        ufo.attack->SetInterval(BaseCatStats::UFOCat.atk_prep_time * 1000.0 / 6.0);
+        ufo.attack->SetLooping(false);
+        
+        return ufo;
     }
 
 // clang-format on
