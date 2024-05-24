@@ -112,7 +112,7 @@ namespace EnemyStats {
 
     inline const EntityStats EnemyTower = [] {
         EntityStats stats;
-        stats.health = 1000;
+        stats.health = 10000;
         stats.kb = 1;
         stats.single_target = true;
         stats.attr = std::nullopt;
@@ -124,14 +124,14 @@ namespace EnemyStats {
 
     inline const EntityStats Doge = [] { // tmp
         EntityStats stats;
-        stats.health = 100;
-        stats.damage = 20;
+        stats.health = 90;
+        stats.damage = 8;
         stats.range = 140;
         stats.kb = 3;
         stats.speed = 30;
         stats.single_target = true;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
+        stats.atk_cool_down = 1.3;
         stats.recharge_time = 2000;
         stats.cost = 75;
         stats.det_box = {-58, 0};
@@ -152,11 +152,11 @@ namespace EnemyStats {
         stats.speed = 48;
         stats.single_target = true;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 1.00;
+        stats.atk_cool_down = 0.96;
         stats.recharge_time = 2000;
         stats.cost = 150;
-        stats.det_box = {-58, 0};
-        stats.hit_box = {-58, 0};
+        stats.det_box = {-69, 0};
+        stats.hit_box = {-69, 0};
         stats.attr = EnemyAttr::WHITE;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "Snache";
@@ -194,7 +194,7 @@ namespace EnemyStats {
         stats.speed = 24;
         stats.single_target = false;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 2.00;
+        stats.atk_cool_down = 1.96;
         stats.recharge_time = 2000;
         stats.cost = 2000;
         stats.det_box = {-58, 0};
@@ -236,7 +236,7 @@ namespace EnemyStats {
         stats.speed = 60;
         stats.single_target = true;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.33;
+        stats.atk_cool_down = 0.53;
         stats.recharge_time = 2000;
         stats.cost = 1500;
         stats.det_box = {-58, 0};
@@ -257,7 +257,7 @@ namespace EnemyStats {
         stats.speed = 90;
         stats.single_target = false;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.067;
+        stats.atk_cool_down = 0.27;
         stats.recharge_time = 2000;
         stats.cost = 2500;
         stats.det_box = {-58, 0};
@@ -277,8 +277,8 @@ namespace EnemyStats {
         stats.kb = 3;
         stats.speed = 42;
         stats.single_target = true;
-        stats.atk_prep_time = 0.46;
-        stats.atk_cool_down = 1.33;
+        stats.atk_prep_time = 0.47;
+        stats.atk_cool_down = 1.3;
         stats.recharge_time = 2000;
         stats.cost = 1000;
         stats.det_box = {-58, 0};

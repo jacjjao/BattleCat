@@ -22,7 +22,7 @@ public:
 
 private:
     static constexpr std::array<int, 9> s_LevelSpend = {
-        0, 0, 200, 400, 800, 1600, 3200, 5000, 6400
+        0, 0, 200, 400, 800, 1600, 3000, 4000, 5000
     };
 
     int m_Level = 1;

@@ -357,6 +357,8 @@ void BattleScene::CreateUnitButtons() {
         const auto cost =
             BaseCatStats::Stats[static_cast<size_t>(cat_type)].cost;
         m_CatButton[i]->SetCost(cost);
+        m_CatButton[i]->SetCoolDownTime(
+            BaseCatStats::Stats[static_cast<size_t>(cat_type)].recharge_time);
 
         m_CatButton[i]->AddButtonEvent([this, cost, cat_type, i] {
             if (m_Wallet->CanDeploy(cost)) {
@@ -379,7 +381,6 @@ void BattleScene::CreateUnitButtons() {
         for (int i = 0; i < 5; ++i) {
             const int idx = row * 5 + i;
             m_CatButton[idx]->SetPosition(x, y);
-            m_CatButton[idx]->SetCoolDownTime(2.0);
             x += m_CatButton[idx]->GetScaledSize().x + margin_x;
         }
         y -= m_CatButton[0]->GetScaledSize().y;

@@ -24,8 +24,40 @@ enum class CatType : size_t {
     BONDAGE_CAT,
     DOM_CAT,
     CATS_IN_A_BOX,
-    SKIRT_CAT,
+    PANTIES_CAT,
     MONEKO,
+    TRICYCLE_CAT,
+    NINJA_CAT,
+    ZOMBIE_CAT,
+    SAMURAI_CAT,
+    SUMO_CAT,
+    BOOGIE_CAT,
+    SKIRT_CAT,
+    /* Evolved */
+    MACHO_CAT,
+    WALL_CAT,
+    BRAVE_CAT,
+    SEXY_LEGS_CAT,
+    GIRAFFE_CAT,
+    UFO_CAT,
+    WHALE_CAT,
+    DRAGON_CAT,
+    MYTHICAL_TITAN_CAT,
+    MOTHER_CAT,
+    DRUNKEN_MASTER_CAT,
+    SUPER_MR_CAT,
+    BONDAGE_CATNEO,
+    EXECUTIONER,
+    CAT_GANG,
+    LEAF_CAT,
+    MISS_MONEKO,
+    BIKER_CAT,
+    NINJA_FROG_CAT,
+    DEVIL_CAT,
+    KNIGHT_CAT,
+    MADAME_SUMO_CAT,
+    SAMBA_CAT,
+    TIGHTS_CAT,
     CAT_TYPE_COUNT
 };
 
@@ -133,22 +165,22 @@ namespace BaseCatStats {
 
     inline const EntityStats Cat = [] {
         EntityStats stats;
-        stats.health = 10;
+        stats.health = 250;
         stats.damage = 20;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
+        stats.speed = 60;
         stats.single_target = true;
-        stats.atk_prep_time = 0.54;
-        stats.atk_cool_down = 0.96;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 1.0;
         stats.recharge_time = 2000;
         stats.cost = 75;
         stats.det_box = {0, 46};
         stats.hit_box = {0, 46};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 50;
+        stats.damage_diff = 4;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "Cat";
 #endif
@@ -157,11 +189,11 @@ namespace BaseCatStats {
 
     inline const EntityStats TankCat = [] {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1000;
+        stats.damage = 5;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 30;
+        stats.kb = 1;
+        stats.speed = 48;
         stats.single_target = false;
         stats.atk_prep_time = 0.27;
         stats.atk_cool_down = 0.96;
@@ -171,8 +203,8 @@ namespace BaseCatStats {
         stats.hit_box = {0, 10};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 200;
+        stats.damage_diff = 1;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "TankCat";
 #endif
@@ -181,14 +213,14 @@ namespace BaseCatStats {
 
     inline const EntityStats AxeCat = [] {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 100;
+        stats.health = 500;
+        stats.damage = 62;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
+        stats.speed = 72;
         stats.single_target = true;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
+        stats.atk_cool_down = 0.63;
         stats.recharge_time = 2000;
         stats.cost = 300;
         stats.det_box = {0, 140};
@@ -196,7 +228,7 @@ namespace BaseCatStats {
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.damage_diff = 12;
         stats.strong = {EnemyAttr::RED};
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "AxeCat";
@@ -206,22 +238,22 @@ namespace BaseCatStats {
 
     inline EntityStats CrazedGrossCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1000;
+        stats.damage = 250;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
+        stats.speed = 60;
         stats.single_target = true;
         stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
-        stats.recharge_time = 2000;
-        stats.cost = 400;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.atk_cool_down = 4.0;
+        stats.recharge_time = 2200;
+        stats.cost = 600;
+        stats.det_box = {-210, 140};
+        stats.hit_box = {-210, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 200;
+        stats.damage_diff = 50;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "CrazedGrossCat";
 #endif
@@ -230,22 +262,22 @@ namespace BaseCatStats {
 
     inline EntityStats CowCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1250;
+        stats.damage = 32;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
+        stats.kb = 5;
+        stats.speed = 180;
         stats.single_target = true;
-        stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
+        stats.atk_prep_time = 0.2;
+        stats.atk_cool_down = 0.13;
         stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.cost = 750;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 250;
+        stats.damage_diff = 6;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "CowCat";
 #endif
@@ -254,22 +286,22 @@ namespace BaseCatStats {
 
     inline EntityStats BirdCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 750;
+        stats.damage = 350;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
-        stats.single_target = true;
-        stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
+        stats.kb = 4;
+        stats.speed = 60;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.33;
+        stats.atk_cool_down = 1.3;
         stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.cost = 975;
+        stats.det_box = {-30, 140};
+        stats.hit_box = {-30, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 250;
+        stats.damage_diff = 70;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "BirdCat";
 #endif
@@ -278,22 +310,23 @@ namespace BaseCatStats {
 
     inline EntityStats FishCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1750;
+        stats.damage = 450;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
+        stats.speed = 60;
         stats.single_target = true;
-        stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.atk_prep_time = 0.33;
+        stats.atk_cool_down = 1.44;
+        stats.recharge_time = 4200;
+        stats.cost = 1200;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 350;
+        stats.damage_diff = 90;
+        stats.strong = {EnemyAttr::RED};
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "FishCat";
 #endif
@@ -302,22 +335,22 @@ namespace BaseCatStats {
 
     inline EntityStats LizardCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 2000;
+        stats.damage = 875;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
+        stats.speed = 60;
         stats.single_target = true;
-        stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.atk_prep_time = 0.33;
+        stats.atk_cool_down = 4.0;
+        stats.recharge_time = 10200;
+        stats.cost = 1500;
+        stats.det_box = {-260, 140};
+        stats.hit_box = {-260, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 400;
+        stats.damage_diff = 175;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "LizardCat";
 #endif
@@ -326,22 +359,22 @@ namespace BaseCatStats {
 
     inline EntityStats TitanCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
-        stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
-        stats.single_target = true;
-        stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.health = 2500;
+        stats.damage = 700;
+        stats.range = 150;
+        stats.kb = 1;
+        stats.speed = 48;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.6;
+        stats.atk_cool_down = 1.63;
+        stats.recharge_time = 18200;
+        stats.cost = 1950;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 500;
+        stats.damage_diff = 140;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "TitanCat";
 #endif
@@ -350,22 +383,22 @@ namespace BaseCatStats {
 
     inline EntityStats ActressCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1000;
+        stats.damage = 250;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
-        stats.single_target = true;
-        stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.speed = 60;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.23;
+        stats.atk_cool_down = 4.0;
+        stats.recharge_time = 2200;
+        stats.cost = 900;
+        stats.det_box = {-210, 140};
+        stats.hit_box = {-210, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 200;
+        stats.damage_diff = 50;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "ActressCat";
 #endif
@@ -374,22 +407,22 @@ namespace BaseCatStats {
 
     inline EntityStats KungFuCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 2250;
+        stats.damage = 2750;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
-        stats.single_target = true;
-        stats.atk_prep_time = 0.27;
-        stats.atk_cool_down = 0.96;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.kb = 1;
+        stats.speed = 54;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.37;
+        stats.atk_cool_down = 6.63;
+        stats.recharge_time = 19870;
+        stats.cost = 2250;
+        stats.det_box = {-160, 140};
+        stats.hit_box = {-160, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 450;
+        stats.damage_diff = 550;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "KungFuCat";
 #endif
@@ -398,22 +431,22 @@ namespace BaseCatStats {
 
     inline EntityStats MrCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1250;
+        stats.damage = 88;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
-        stats.single_target = true;
+        stats.kb = 5;
+        stats.speed = 186;
+        stats.single_target = false;
         stats.atk_prep_time = 0.07;
         stats.atk_cool_down = 0.53;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.recharge_time = 7200;
+        stats.cost = 825;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 250;
+        stats.damage_diff = 18;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "Mr.";
 #endif
@@ -422,22 +455,23 @@ namespace BaseCatStats {
 
     inline EntityStats BondageCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1750;
+        stats.damage = 250;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
+        stats.kb = 1;
+        stats.speed = 30;
         stats.single_target = true;
         stats.atk_prep_time = 0.2;
         stats.atk_cool_down = 1.3;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.recharge_time = 5870;
+        stats.cost = 1035;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 350;
+        stats.damage_diff = 50;
+        stats.strong = {EnemyAttr::RED};
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "BondageCat";
 #endif
@@ -446,22 +480,23 @@ namespace BaseCatStats {
 
     inline EntityStats DomCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1750;
+        stats.damage = 330;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
+        stats.kb = 1;
+        stats.speed = 30;
         stats.single_target = true;
         stats.atk_prep_time = 0.2;
-        stats.atk_cool_down = 0.57;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.atk_cool_down = 1.3;
+        stats.recharge_time = 5870;
+        stats.cost = 1440;
+        stats.det_box = {-70, 140};
+        stats.hit_box = {-70, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 350;
+        stats.damage_diff = 66;
+        stats.strong = {EnemyAttr::RED};
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "DomCat";
 #endif
@@ -470,72 +505,363 @@ namespace BaseCatStats {
 
     inline EntityStats CatInBox = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 2000;
+        stats.damage = 750;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
-        stats.single_target = true;
+        stats.speed = 210;
+        stats.single_target = false;
         stats.atk_prep_time = 0.27;
         stats.atk_cool_down = 3.1;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.recharge_time = 6530;
+        stats.cost = 1125;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 400;
+        stats.damage_diff = 150;
 #ifdef ENABLE_BATTLE_LOG
         stats.name = "CatInBox";
 #endif
         return stats;
     }();
 
-    inline EntityStats SkirtCat = []() {
+    inline EntityStats PantiesCat = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1000;
+        stats.damage = 250;
         stats.range = 140;
         stats.kb = 3;
-        stats.speed = 100;
+        stats.speed = 60;
         stats.single_target = true;
         stats.atk_prep_time = 0.2;
-        stats.atk_cool_down = 0.2;
-        stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.atk_cool_down = 3.97;
+        stats.recharge_time = 2200;
+        stats.cost = 525;
+        stats.det_box = {-210, 140};
+        stats.hit_box = {-210, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
-        stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.health_diff = 200;
+        stats.damage_diff = 50;
 #ifdef ENABLE_BATTLE_LOG
-        stats.name = "SkirtCat";
+        stats.name = "PantiesCat";
 #endif
         return stats;
     }();
 
     inline EntityStats Moneko = []() {
         EntityStats stats;
-        stats.health = 250;
-        stats.damage = 20;
+        stats.health = 1500;
+        stats.damage = 1000;
         stats.range = 140;
-        stats.kb = 3;
-        stats.speed = 100;
+        stats.kb = 4;
+        stats.speed = 30;
         stats.single_target = true;
         stats.atk_prep_time = 0.93;
         stats.atk_cool_down = 3.3;
+        stats.recharge_time = 57800;
+        stats.cost = 148;
+        stats.det_box = {-20, 140};
+        stats.hit_box = {-20, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 300;
+        stats.damage_diff = 200;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "Moneko";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats TricycleCat = []() {
+        EntityStats stats;
+        stats.health = 1000;
+        stats.damage = 450;
+        stats.range = 140;
+        stats.kb = 4;
+        stats.speed = 60;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.67;
+        stats.atk_cool_down = 1.3;
         stats.recharge_time = 2000;
-        stats.cost = 10;
-        stats.det_box = {-140, 140};
-        stats.hit_box = {-140, 140};
+        stats.cost = 1050;
+        stats.det_box = {-30, 140};
+        stats.hit_box = {-30, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 200;
+        stats.damage_diff = 90;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "TricycleCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats NinjaCat = []() {
+        EntityStats stats;
+        stats.health = 600;
+        stats.damage = 70;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 78;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.2;
+        stats.atk_cool_down = 0.5;
+        stats.recharge_time = 2000;
+        stats.cost = 300;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 120;
+        stats.damage_diff = 14;
+        stats.strong = {EnemyAttr::RED};
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "NinjaCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats ZombieCat = []() {
+        EntityStats stats;
+        stats.health = 1750;
+        stats.damage = 500;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 48;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.53;
+        stats.atk_cool_down = 1.44;
+        stats.recharge_time = 4530;
+        stats.cost = 1125;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 350;
+        stats.damage_diff = 100;
+        stats.strong = {EnemyAttr::RED};
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "ZombieCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats SamuraiCat = []() {
+        EntityStats stats;
+        stats.health = 1350;
+        stats.damage = 325;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 42;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.6;
+        stats.atk_cool_down = 1.3;
+        stats.recharge_time = 2000;
+        stats.cost = 525;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 270;
+        stats.damage_diff = 65;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "SamuraiCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats SumoCat = []() {
+        EntityStats stats;
+        stats.health = 1500;
+        stats.damage = 22;
+        stats.range = 140;
+        stats.kb = 1;
+        stats.speed = 48;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.4;
+        stats.atk_cool_down = 0.73;
+        stats.recharge_time = 2000;
+        stats.cost = 300;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 300;
+        stats.damage_diff = 4;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "SumoCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats BoogieCat = []() {
+        EntityStats stats;
+        stats.health = 500;
+        stats.damage = 50;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 36;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.47;
+        stats.atk_cool_down = 1.0;
+        stats.recharge_time = 2000;
+        stats.cost = 75;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 100;
-        stats.damage_diff = 100;
+        stats.damage_diff = 10;
 #ifdef ENABLE_BATTLE_LOG
-        stats.name = "Moneko";
+        stats.name = "BoogieCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats SkirtCat = []() {
+        EntityStats stats;
+        stats.health = 1000;
+        stats.damage = 250;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 60;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.2;
+        stats.atk_cool_down = 3.97;
+        stats.recharge_time = 2200;
+        stats.cost = 525;
+        stats.det_box = {-70, 140};
+        stats.hit_box = {-70, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 200;
+        stats.damage_diff = 50;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "SkirtCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats MachoCat = []() {
+        EntityStats stats;
+        stats.health = 700;
+        stats.damage = 56;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 60;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 1.0;
+        stats.recharge_time = 2000;
+        stats.cost = 75;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 50;
+        stats.damage_diff = 4;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "MachoCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats WallCat = []() {
+        EntityStats stats;
+        stats.health = 2800;
+        stats.damage = 14;
+        stats.range = 140;
+        stats.kb = 1;
+        stats.speed = 48;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 1.0;
+        stats.recharge_time = 2000;
+        stats.cost = 150;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 200;
+        stats.damage_diff = 1;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "WallCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats BraveCat = []() {
+        EntityStats stats;
+        stats.health = 1400;
+        stats.damage = 174;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 72;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 0.63;
+        stats.recharge_time = 2000;
+        stats.cost = 300;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 100;
+        stats.damage_diff = 12;
+        stats.strong = {EnemyAttr::RED};
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "BraveCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats SexyLegsCat = []() {
+        EntityStats stats;
+        stats.health = 2800;
+        stats.damage = 700;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 60;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.2;
+        stats.atk_cool_down = 3.97;
+        stats.recharge_time = 2200;
+        stats.cost = 600;
+        stats.det_box = {-105, 140};
+        stats.hit_box = {-105, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 200;
+        stats.damage_diff = 50;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "SexyLegsCat";
+#endif
+        return stats;
+    }();
+
+    inline EntityStats GiraffeCat = []() {
+        EntityStats stats;
+        stats.health = 3500;
+        stats.damage = 90;
+        stats.range = 140;
+        stats.kb = 5;
+        stats.speed = 180;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.2;
+        stats.atk_cool_down = 0.13;
+        stats.recharge_time = 2000;
+        stats.cost = 750;
+        stats.det_box = {0, 140};
+        stats.hit_box = {0, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 250;
+        stats.damage_diff = 6;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "GiraffeCat";
 #endif
         return stats;
     }();
@@ -550,7 +876,13 @@ namespace BaseCatStats {
                  BaseCatStats::ActressCat,     BaseCatStats::KungFuCat,
                  BaseCatStats::MrCat,          BaseCatStats::BondageCat,
                  BaseCatStats::DomCat,         BaseCatStats::CatInBox,
-                 BaseCatStats::SkirtCat,       BaseCatStats::Moneko};
+                 BaseCatStats::PantiesCat,     BaseCatStats::Moneko,
+                 BaseCatStats::TricycleCat,    BaseCatStats::NinjaCat,
+                 BaseCatStats::ZombieCat,      BaseCatStats::SamuraiCat,
+                 BaseCatStats::SumoCat,        BaseCatStats::BoogieCat,
+                 BaseCatStats::SkirtCat,       BaseCatStats::MachoCat,
+                 BaseCatStats::WallCat,        BaseCatStats::BraveCat,
+                 BaseCatStats::SexyLegsCat,    BaseCatStats::GiraffeCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -655,7 +987,7 @@ namespace CatAnime {
         lizard.walk->SetInterval(200); // ms
         lizard.walk->SetLooping(true);
 
-        lizard.attack->SetInterval(BaseCatStats::LizardCat.atk_prep_time * 1000.0 / 5.0);
+        lizard.attack->SetInterval(BaseCatStats::LizardCat.atk_prep_time * 1000.0 / 3.0);
         lizard.attack->SetLooping(false);
         
         return lizard;
@@ -667,7 +999,7 @@ namespace CatAnime {
         titan.walk->SetInterval(200); // ms
         titan.walk->SetLooping(true);
 
-        titan.attack->SetInterval(BaseCatStats::TitanCat.atk_prep_time * 1000.0 / 5.0);
+        titan.attack->SetInterval(BaseCatStats::TitanCat.atk_prep_time * 1000.0 / 3.0);
         titan.attack->SetLooping(false);
         
         return titan;
@@ -745,13 +1077,13 @@ namespace CatAnime {
         return dom;
     }
 
-    inline Cat::Animation Skirt() {
-        auto dom = CatAnimeResource::Get(CatType::SKIRT_CAT);
+    inline Cat::Animation Panties() {
+        auto dom = CatAnimeResource::Get(CatType::PANTIES_CAT);
         
         dom.walk->SetInterval(100); // ms
         dom.walk->SetLooping(true);
 
-        dom.attack->SetInterval(BaseCatStats::SkirtCat.atk_prep_time * 1000.0 / 3.0);
+        dom.attack->SetInterval(BaseCatStats::PantiesCat.atk_prep_time * 1000.0 / 3.0);
         dom.attack->SetLooping(false);
         
         return dom;
@@ -767,6 +1099,150 @@ namespace CatAnime {
         dom.attack->SetLooping(false);
         
         return dom;
+    }
+
+    inline Cat::Animation Tricycle() {
+        auto cycle = CatAnimeResource::Get(CatType::TRICYCLE_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::TricycleCat.atk_prep_time * 1000.0 / 8.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Ninja() {
+        auto cycle = CatAnimeResource::Get(CatType::NINJA_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::NinjaCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Zombie() {
+        auto cycle = CatAnimeResource::Get(CatType::ZOMBIE_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::ZombieCat.atk_prep_time * 1000.0 / 7.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Samurai() {
+        auto cycle = CatAnimeResource::Get(CatType::SAMURAI_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::SamuraiCat.atk_prep_time * 1000.0 / 7.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Sumo() {
+        auto cycle = CatAnimeResource::Get(CatType::SUMO_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::SumoCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Boogie() {
+        auto cycle = CatAnimeResource::Get(CatType::BOOGIE_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::BoogieCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Skirt() {
+        auto cycle = CatAnimeResource::Get(CatType::SKIRT_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::SkirtCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Macho() {
+        auto cycle = CatAnimeResource::Get(CatType::MACHO_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::MachoCat.atk_prep_time * 1000.0 / 4.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Wall() {
+        auto cycle = CatAnimeResource::Get(CatType::WALL_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::WallCat.atk_prep_time * 1000.0 / 4.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation Brave() {
+        auto cycle = CatAnimeResource::Get(CatType::BRAVE_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::BraveCat.atk_prep_time * 1000.0 / 4.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation SexyLegs() {
+        auto cycle = CatAnimeResource::Get(CatType::SEXY_LEGS_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::SexyLegsCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
+    }
+
+    inline Cat::Animation GiraffeCat() {
+        auto cycle = CatAnimeResource::Get(CatType::GIRAFFE_CAT);
+        
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::GiraffeCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+        
+        return cycle;
     }
 
 // clang-format on

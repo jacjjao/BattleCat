@@ -8,7 +8,7 @@ void DeployButton::Update(const double dt) {
 }
 
 void DeployButton::SetCoolDownTime(const double time) {
-    m_Timer.SetTimeOutDur(time);
+    m_Timer.SetTimeOutDur(time / 1000.0);
 }
 
 void DeployButton::SetCost(const int cost) {
