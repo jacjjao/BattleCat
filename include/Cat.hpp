@@ -248,8 +248,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 4.0;
         stats.recharge_time = 2200;
         stats.cost = 600;
-        stats.det_box = {-210, 140};
-        stats.hit_box = {-210, 140};
+        stats.det_box = {-70, 140};
+        stats.hit_box = {-70, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 200;
@@ -296,8 +296,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 1.3;
         stats.recharge_time = 2000;
         stats.cost = 975;
-        stats.det_box = {-30, 140};
-        stats.hit_box = {-30, 140};
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 250;
@@ -345,8 +345,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 4.0;
         stats.recharge_time = 10200;
         stats.cost = 1500;
-        stats.det_box = {-260, 140};
-        stats.hit_box = {-260, 140};
+        stats.det_box = {-87, 140};
+        stats.hit_box = {-87, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 400;
@@ -369,8 +369,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 1.63;
         stats.recharge_time = 18200;
         stats.cost = 1950;
-        stats.det_box = {-10, 140};
-        stats.hit_box = {-10, 140};
+        stats.det_box = {-3, 140};
+        stats.hit_box = {-3, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 500;
@@ -393,8 +393,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 4.0;
         stats.recharge_time = 2200;
         stats.cost = 900;
-        stats.det_box = {-210, 140};
-        stats.hit_box = {-210, 140};
+        stats.det_box = {-70, 140};
+        stats.hit_box = {-70, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 200;
@@ -417,8 +417,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 6.63;
         stats.recharge_time = 19870;
         stats.cost = 2250;
-        stats.det_box = {-160, 140};
-        stats.hit_box = {-160, 140};
+        stats.det_box = {-53, 140};
+        stats.hit_box = {-53, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 450;
@@ -490,8 +490,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 1.3;
         stats.recharge_time = 5870;
         stats.cost = 1440;
-        stats.det_box = {-70, 140};
-        stats.hit_box = {-70, 140};
+        stats.det_box = {-23, 140};
+        stats.hit_box = {-23, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 350;
@@ -539,8 +539,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 3.97;
         stats.recharge_time = 2200;
         stats.cost = 525;
-        stats.det_box = {-210, 140};
-        stats.hit_box = {-210, 140};
+        stats.det_box = {-70, 140};
+        stats.hit_box = {-70, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 200;
@@ -563,8 +563,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 3.3;
         stats.recharge_time = 57800;
         stats.cost = 148;
-        stats.det_box = {-20, 140};
-        stats.hit_box = {-20, 140};
+        stats.det_box = {-6, 140};
+        stats.hit_box = {-6, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 300;
@@ -587,8 +587,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 1.3;
         stats.recharge_time = 2000;
         stats.cost = 1050;
-        stats.det_box = {-30, 140};
-        stats.hit_box = {-30, 140};
+        stats.det_box = {-5, 140};
+        stats.hit_box = {-5, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 200;
@@ -611,8 +611,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 0.5;
         stats.recharge_time = 2000;
         stats.cost = 300;
-        stats.det_box = {-10, 140};
-        stats.hit_box = {-10, 140};
+        stats.det_box = {-3, 140};
+        stats.hit_box = {-3, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 120;
@@ -636,8 +636,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 1.44;
         stats.recharge_time = 4530;
         stats.cost = 1125;
-        stats.det_box = {-10, 140};
-        stats.hit_box = {-10, 140};
+        stats.det_box = {-3, 140};
+        stats.hit_box = {-3, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 350;
@@ -661,8 +661,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 1.3;
         stats.recharge_time = 2000;
         stats.cost = 525;
-        stats.det_box = {-10, 140};
-        stats.hit_box = {-10, 140};
+        stats.det_box = {-3, 140};
+        stats.hit_box = {-3, 140};
         stats.attr = std::nullopt;
         stats.base_level = 1;
         stats.health_diff = 270;
@@ -805,8 +805,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 0.63;
         stats.recharge_time = 2000;
         stats.cost = 300;
-        stats.det_box = {-10, 140};
-        stats.hit_box = {-10, 140};
+        stats.det_box = {-3, 140};
+        stats.hit_box = {-3, 140};
         stats.attr = std::nullopt;
         stats.base_level = 10;
         stats.health_diff = 100;
@@ -830,8 +830,8 @@ namespace BaseCatStats {
         stats.atk_cool_down = 3.97;
         stats.recharge_time = 2200;
         stats.cost = 600;
-        stats.det_box = {-105, 140};
-        stats.hit_box = {-105, 140};
+        stats.det_box = {-70, 140};
+        stats.hit_box = {-70, 140};
         stats.attr = std::nullopt;
         stats.base_level = 10;
         stats.health_diff = 200;
@@ -866,6 +866,30 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline EntityStats UFOCat = []() {
+        EntityStats stats;
+        stats.health = 2100;
+        stats.damage = 1154;
+        stats.range = 140;
+        stats.kb = 4;
+        stats.speed = 60;
+        stats.single_target = false;
+        stats.atk_prep_time = 0.6;
+        stats.atk_cool_down = 1.3;
+        stats.recharge_time = 2000;
+        stats.cost = 975;
+        stats.det_box = {-10, 140};
+        stats.hit_box = {-10, 140};
+        stats.attr = std::nullopt;
+        stats.base_level = 10;
+        stats.health_diff = 150;
+        stats.damage_diff = 82;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "UFOCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -882,7 +906,8 @@ namespace BaseCatStats {
                  BaseCatStats::SumoCat,        BaseCatStats::BoogieCat,
                  BaseCatStats::SkirtCat,       BaseCatStats::MachoCat,
                  BaseCatStats::WallCat,        BaseCatStats::BraveCat,
-                 BaseCatStats::SexyLegsCat,    BaseCatStats::GiraffeCat};
+                 BaseCatStats::SexyLegsCat,    BaseCatStats::GiraffeCat,
+                 BaseCatStats::UFOCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -1243,6 +1268,21 @@ namespace CatAnime {
         cycle.attack->SetLooping(false);
         
         return cycle;
+    }
+
+    inline Cat::Animation UFOCat() {
+        auto ufo = CatAnimeResource::Get(CatType::UFO_CAT);
+        
+        ufo.idle->SetInterval(100);
+        ufo.idle->SetLooping(true);
+
+        ufo.walk->SetInterval(100); // ms
+        ufo.walk->SetLooping(true);
+
+        ufo.attack->SetInterval(BaseCatStats::UFOCat.atk_prep_time * 1000.0 / 6.0);
+        ufo.attack->SetLooping(false);
+        
+        return ufo;
     }
 
 // clang-format on
