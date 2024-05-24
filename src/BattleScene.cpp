@@ -349,9 +349,14 @@ void BattleScene::CreateUnitButtons() {
     for (int i = 0; i < EquipList::Size ; ++i) {
         auto unitnum = equiplist.at(i)->GetUnitNum();
         auto cat_type = equiplist.at(i)->GetCatType();
-
+        auto cat_lvl = equiplist.at(i)->GetUnitLVL();
         std::stringstream uni_img;
-        uni_img << RESOURCE_DIR"/img/uni/f/" << "uni" << std::string(3 - std::to_string(unitnum).length(), '0') << unitnum << "_f00.png";
+        if(static_cast<int>(cat_type) <= 23){
+            uni_img << RESOURCE_DIR"/img/uni/f/" << "uni" << std::string(3 - std::to_string(unitnum).length(), '0') << unitnum << "_f00.png";
+        }
+        else{
+            uni_img << RESOURCE_DIR"/img/uni/c/" << "uni" << std::string(3 - std::to_string(unitnum).length(), '0') << unitnum << "_c00.png";
+        }
         m_CatButton[i] = std::make_shared<DeployButton>(uni_img.str());
 
         const auto cost =
@@ -360,9 +365,10 @@ void BattleScene::CreateUnitButtons() {
         m_CatButton[i]->SetCoolDownTime(
             BaseCatStats::Stats[static_cast<size_t>(cat_type)].recharge_time);
 
-        m_CatButton[i]->AddButtonEvent([this, cost, cat_type, i] {
+        m_CatButton[i]->AddButtonEvent([this, cost, cat_type, i,cat_lvl] {
             if (m_Wallet->CanDeploy(cost)) {
-                AddCat(cat_type, 10);
+                AddCat(cat_type, static_cast<int>(cat_lvl));
+                //printf("%d",static_cast<int>(cat_lvl));
                 m_Wallet->Spend(cost);
                 m_CatButton[i]->StartCoolDown();
                 Sounds::Deploy->Play();

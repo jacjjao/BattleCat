@@ -92,6 +92,7 @@ bool UnitCard::Addlvl() {
     const unsigned short int MAXlvl = 30;
     if(m_lvl < MAXlvl){
         m_lvl++;
+        m_EquipCard.lock()->Setlvl(m_lvl);
         return true;
     }
     return false;
@@ -139,7 +140,7 @@ void CatList::UpdateCatList(const float y) const {
 
 void CatList::DrawNumber() const{
     for(int i=m_currentunit-2; i<=m_currentunit+2; i++) {
-        if (i < 0 || i > short(m_catlist.size()) ){
+        if (i < 0 || i >= short(m_catlist.size()) ){
             continue;
         }
 

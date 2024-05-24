@@ -39,8 +39,8 @@ enum class CatType : size_t {
     BRAVE_CAT,
     SEXY_LEGS_CAT,
     GIRAFFE_CAT,
-    UFO_CAT,
-    WHALE_CAT,
+    UFO_CAT,//30
+    WHALE_CAT,//31
     DRAGON_CAT,
     MYTHICAL_TITAN_CAT,
     MOTHER_CAT,
@@ -865,6 +865,142 @@ namespace BaseCatStats {
 #endif
         return stats;
     }();
+    //All the following stats are as same as Cat temporary.
+    inline const EntityStats UfoCat = [] {
+        EntityStats stats;
+        stats.health = 250;
+        stats.damage = 20;
+        stats.range = 140;
+        stats.kb = 3;
+        stats.speed = 60;
+        stats.single_target = true;
+        stats.atk_prep_time = 0.27;
+        stats.atk_cool_down = 1.0;
+        stats.recharge_time = 2000;
+        stats.cost = 75;
+        stats.det_box = {0, 46};
+        stats.hit_box = {0, 46};
+        stats.attr = std::nullopt;
+        stats.base_level = 1;
+        stats.health_diff = 50;
+        stats.damage_diff = 4;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "UfoCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats WhaleCat = [] {
+        EntityStats stats = FishCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "WhaleCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats DragonCat = [] {
+        EntityStats stats = LizardCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "DragonCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats MythicalTitanCat = [] {
+        EntityStats stats = TitanCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "MythicalTitanCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats MotherCat = [] {
+        EntityStats stats = ActressCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "MotherCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats DrunkenMasterCat = [] {
+        EntityStats stats = KungFuCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "DrunkenMasterCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats SuperMrCat = [] {
+        EntityStats stats = MrCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "SuperMrCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats BondageCatneo = [] {
+        EntityStats stats = BondageCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "BondageCatneo";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats Executioner = [] {
+        EntityStats stats = DomCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "Executioner";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats CatGang = [] {
+        EntityStats stats = CatInBox;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "CatGang";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats LeafCat = [] {
+        EntityStats stats = PantiesCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "LeafCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats MissMoneko = [] {
+        EntityStats stats = Moneko;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "MissMoneko";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats BikerCat = [] {
+        EntityStats stats = TricycleCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "BikerCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats NinjaFrogCat = [] {
+        EntityStats stats = NinjaCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "NinjaFrogCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats DevilCat = [] {
+        EntityStats stats = ZombieCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "DevilCat";
+#endif
+        return stats;
+    }();
 
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
@@ -882,7 +1018,15 @@ namespace BaseCatStats {
                  BaseCatStats::SumoCat,        BaseCatStats::BoogieCat,
                  BaseCatStats::SkirtCat,       BaseCatStats::MachoCat,
                  BaseCatStats::WallCat,        BaseCatStats::BraveCat,
-                 BaseCatStats::SexyLegsCat,    BaseCatStats::GiraffeCat};
+                 BaseCatStats::SexyLegsCat,    BaseCatStats::GiraffeCat,
+                 BaseCatStats::UfoCat,         BaseCatStats::WhaleCat,
+                 BaseCatStats::DragonCat,      BaseCatStats::MythicalTitanCat,
+                 BaseCatStats::MotherCat,      BaseCatStats::DrunkenMasterCat,
+                 BaseCatStats::SuperMrCat,     BaseCatStats::BondageCatneo,
+                 BaseCatStats::Executioner,    BaseCatStats::CatGang,
+                 BaseCatStats::LeafCat,        BaseCatStats::MissMoneko,
+                 BaseCatStats::BikerCat,       BaseCatStats::NinjaFrogCat,
+                 BaseCatStats::DevilCat       };
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -1244,6 +1388,187 @@ namespace CatAnime {
         
         return cycle;
     }
+
+    inline Cat::Animation UfoCat() {
+        auto cycle = CatAnimeResource::Get(CatType::UFO_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::UfoCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation WhaleCat() {
+        auto cycle = CatAnimeResource::Get(CatType::WHALE_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::WhaleCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation DragonCat() {
+        auto cycle = CatAnimeResource::Get(CatType::DRAGON_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::DragonCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation MythicalTitanCat() {
+        auto cycle = CatAnimeResource::Get(CatType::MYTHICAL_TITAN_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::MythicalTitanCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation MotherCat() {
+        auto cycle = CatAnimeResource::Get(CatType::MOTHER_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::MotherCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation DrunkenMasterCat() {
+        auto cycle = CatAnimeResource::Get(CatType::DRUNKEN_MASTER_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::DrunkenMasterCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation SuperMrCat() {
+        auto cycle = CatAnimeResource::Get(CatType::SUPER_MR_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::SuperMrCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation BondageCatneo() {
+        auto cycle = CatAnimeResource::Get(CatType::BONDAGE_CATNEO);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::BondageCatneo.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation Executioner() {
+        auto cycle = CatAnimeResource::Get(CatType::EXECUTIONER);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::Executioner.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation CatGang() {
+        auto cycle = CatAnimeResource::Get(CatType::CAT_GANG);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::CatGang.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation LeafCat() {
+        auto cycle = CatAnimeResource::Get(CatType::LEAF_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::LeafCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation MissMoneko() {
+        auto cycle = CatAnimeResource::Get(CatType::MISS_MONEKO);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::MissMoneko.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation BikerCat() {
+        auto cycle = CatAnimeResource::Get(CatType::BIKER_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::BikerCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation NinjaFrogCat() {
+        auto cycle = CatAnimeResource::Get(CatType::NINJA_FROG_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::NinjaFrogCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation DevilCat() {
+        auto cycle = CatAnimeResource::Get(CatType::DEVIL_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::DevilCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
 
 // clang-format on
 

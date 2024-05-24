@@ -139,6 +139,7 @@ void EquipScene::AddEquip(std::shared_ptr<UnitCard>& unit) {
     auto &eq = EquipList::m_equiplist.emplace_back(std::make_unique<EquipCard>(unit->GetUnitNum(),1.89f,unit->Getform()));
     unit->m_EquipCard = eq;
     eq->m_UnitCard = unit;
+    eq->m_UnitLVL = unit->Getlvl();
     EquipList::Size++;
     UpdateEquip();
 }
