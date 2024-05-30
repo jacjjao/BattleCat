@@ -1,6 +1,7 @@
 #include "Wallet.hpp"
 #include "Util/Text.hpp"
 #include "Util/Input.hpp"
+#include "Util/Time.hpp"
 
 Wallet::Wallet(const int level)
     : m_Text(RESOURCE_DIR "/font/Inter.ttf", 40, "HI", Util::Color(255, 255, 0, 255)) {
@@ -10,12 +11,15 @@ Wallet::Wallet(const int level)
 }
 
 void Wallet::Update(const float dt) {
-    static bool space_pressed = false;
-    space_pressed =
-        space_pressed || Util::Input::IsKeyDown(Util::Keycode::SPACE);
-    if (space_pressed && Util::Input::IsKeyUp(Util::Keycode::SPACE)) {
-        space_pressed = false;
+    constexpr double time_reload = 0.1;
+    static double t = time_reload;
+
+    if (t > 0.0) {
+        t -= Util::Time::GetDeltaTime();
+    }
+    if (Util::Input::IsKeyPressed(Util::Keycode::SPACE) && t <= 0.0) {
         m_InfMoney = !m_InfMoney;
+        t = time_reload;
     }
 
     m_CurMoney = std::min(m_CurMoney + m_MoneyDelta * dt,static_cast<float>(m_MaxMoney));
