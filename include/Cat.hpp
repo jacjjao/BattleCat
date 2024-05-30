@@ -1002,6 +1002,38 @@ namespace BaseCatStats {
         return stats;
     }();
 
+    inline const EntityStats KnightCat = [] {
+        EntityStats stats = SamuraiCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "KnightCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats MadameSumoCat = [] {
+        EntityStats stats = SumoCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "MadameSumoCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats SambaCat = [] {
+        EntityStats stats = BondageCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "SambaCat";
+#endif
+        return stats;
+    }();
+
+    inline const EntityStats TightsCat = [] {
+        EntityStats stats = SkirtCat;
+#ifdef ENABLE_BATTLE_LOG
+        stats.name = "TightsCat";
+#endif
+        return stats;
+    }();
+
     inline const std::array<EntityStats,
                             static_cast<size_t>(CatType::CAT_TYPE_COUNT)>
         Stats = {BaseCatStats::CatTower,       BaseCatStats::Cat,
@@ -1026,7 +1058,9 @@ namespace BaseCatStats {
                  BaseCatStats::Executioner,    BaseCatStats::CatGang,
                  BaseCatStats::LeafCat,        BaseCatStats::MissMoneko,
                  BaseCatStats::BikerCat,       BaseCatStats::NinjaFrogCat,
-                 BaseCatStats::DevilCat       };
+                 BaseCatStats::DevilCat,       BaseCatStats::KnightCat,
+                 BaseCatStats::MadameSumoCat,  BaseCatStats::SambaCat,
+                 BaseCatStats::TightsCat};
 
 } // BaseCatStats
 //-----------------------------------------------------------------------------
@@ -1568,6 +1602,57 @@ namespace CatAnime {
 
         return cycle;
     }
+
+    inline Cat::Animation KnightCat() {
+        auto cycle = CatAnimeResource::Get(CatType::KNIGHT_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::KnightCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation MadameSumoCat() {
+        auto cycle = CatAnimeResource::Get(CatType::MADAME_SUMO_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::MadameSumoCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation SambaCat() {
+        auto cycle = CatAnimeResource::Get(CatType::SAMBA_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::SambaCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+    inline Cat::Animation TightsCat() {
+        auto cycle = CatAnimeResource::Get(CatType::TIGHTS_CAT);
+
+        cycle.walk->SetInterval(100); // ms
+        cycle.walk->SetLooping(true);
+
+        cycle.attack->SetInterval(BaseCatStats::TightsCat.atk_prep_time * 1000.0 / 3.0);
+        cycle.attack->SetLooping(false);
+
+        return cycle;
+    }
+
+
+
 
 
 // clang-format on
