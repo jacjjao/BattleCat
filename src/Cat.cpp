@@ -1472,7 +1472,6 @@ void CatAnimeResource::Init() {
                 RESOURCE_DIR"/cats/029/Animation/attack1.png",
                 RESOURCE_DIR"/cats/029/Animation/attack2.png",
                 RESOURCE_DIR"/cats/029/Animation/attack3.png",
-                RESOURCE_DIR"/cats/029/Animation/attack4.png",
                 RESOURCE_DIR"/cats/029/Animation/attack5.png",
                 RESOURCE_DIR"/cats/029/Animation/attack6.png",
                 RESOURCE_DIR"/cats/029/Animation/attack7.png",

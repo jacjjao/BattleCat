@@ -27,7 +27,9 @@ UnitCard::UnitCard(unsigned int unitnum, const float zIndex) {
     AddChild(m_udi2);
 
     m_udi2->SetVisible(false);
-
+    //m_dollar = 1000;
+    m_dollar = BaseCatStats::Stats[unitnum+1].cost;
+    //m_dollar = BaseCatStats::TankCat.cost;
     m_currudi = m_udi1;
 }
 
@@ -44,14 +46,21 @@ void UnitCard::Dragging() {
         m_DragTrans.scale += glm::vec2(0.1f,0.1f)*glm::vec2(m_minify ? -1:1);
         m_FrameTimer--;
     }
-    Draw(m_DragTrans,m_ZIndex+0.3f);
+    Draw(m_DragTrans,m_ZIndex+1.3f);
     {
         unsigned short number = Getlvl();
         glm::vec2 scale = m_DragTrans.scale;
         glm::vec2 rightmost_pos = m_DragTrans.translation + glm::vec2(130*scale.x,-5*scale.y);
-        float z = m_ZIndex+ 1.3f;
+        float z = m_ZIndex+ 1.4f;
         unsigned short xoffer = 30 * scale.x;
         NumberSystem::Display(number, rightmost_pos, z,xoffer ,NumberSystem::YellowNumber,scale);
+    }
+    { // dollars number
+        unsigned short number = GetCost();
+        glm::vec2 scale = m_DragTrans.scale;
+        glm::vec2 rightmost_pos = m_DragTrans.translation + glm::vec2(55*scale.x,-105*scale.y);;
+        float z = m_ZIndex+ 1.4f;
+        NumberSystem::Display(number,rightmost_pos,z,18*scale.x,NumberSystem::WhiteNumber,scale);
     }
     Util::Transform tmp = m_DragTrans;
     tmp.translation += m_udi1->GetPosition() - this->GetPosition();
@@ -90,12 +99,14 @@ void UnitCard::SetVisible(bool b){
 
 bool UnitCard::Addlvl() {
     const unsigned short int MAXlvl = 30;
-    if(m_lvl < MAXlvl){
-        m_lvl++;
-        m_EquipCard.lock()->Setlvl(m_lvl);
-        return true;
+    if(m_lvl >= MAXlvl) {
+        return false;
     }
-    return false;
+    m_lvl++;
+    if (Inuse()){
+        m_EquipCard.lock()->Setlvl(m_lvl);
+    }
+    return true;
 }
 
 bool UnitCard::IsMouseHovering(){
@@ -147,7 +158,7 @@ void CatList::DrawNumber() const{
         auto &unit = m_catlist.at(i);
         { //lvl number
             unsigned short number = unit->Getlvl();
-            float z = unit->GetZIndex() + 1.0f;
+            float z = unit->GetZIndex() + 0.1f;
             glm::vec2 scale;
             if(i==m_currentunit) {
                 scale = {1.2f,1.2f};
@@ -158,12 +169,19 @@ void CatList::DrawNumber() const{
             glm::vec2 rightmost_pos = unit->GetTransform().translation + glm::vec2(130*scale.x,-5*scale.y);
             NumberSystem::Display(number,rightmost_pos,z,30*scale.x,NumberSystem::YellowNumber,scale);
         }
-        /*{ // dollars number
-            unsigned short number = unit->Getlvl();
-            glm::vec2 rightmost_pos = unit->GetTransform().translation;
-            float z = unit->GetZIndex() + 0.01f;
-            NumberSystem::Display(number,rightmost_pos,z,30,NumberSystem::YellowNumber);
-        }*/
+        { // dollars number
+            unsigned short number = unit->GetCost();
+            float z = unit->GetZIndex() + 0.1f;
+            glm::vec2 scale;
+            if(i==m_currentunit) {
+                scale = {1.2f,1.2f};
+            }
+            else{
+                scale = {0.8f,0.8f};
+            }
+            glm::vec2 rightmost_pos = unit->GetTransform().translation + glm::vec2(55*scale.x,-105*scale.y);;
+            NumberSystem::Display(number,rightmost_pos,z,18*scale.x,NumberSystem::WhiteNumber,scale);
+        }
 
     }
 }

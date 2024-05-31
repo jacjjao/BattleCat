@@ -6,6 +6,7 @@
 #include "Util/Image.hpp"
 #include "Draggable.hpp"
 #include "GameButton.hpp"
+#include "Cat.hpp"
 //#include "EquipList.hpp"
 
 #include <sstream>
@@ -37,6 +38,9 @@ public:
     unsigned short int Getlvl() const{ return m_lvl;};
 
     [[nodiscard]]
+    unsigned short int GetCost() const{ return m_dollar;};
+
+    [[nodiscard]]
     bool Inuse() const {
         if(m_EquipCard.lock()) return true;
         return false;
@@ -61,6 +65,7 @@ private:
     unsigned int m_UnitNum = 0;
     bool m_form = false;
     unsigned short int m_lvl = 1;
+    unsigned short int m_dollar = 0;
     Util::Transform m_NumTrans;
 };
 //--------------------------------------------------------------------------------------
