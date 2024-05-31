@@ -6,7 +6,6 @@
 Cat::Cat(const CatType type, const int level)
     : m_Type(type) {
     SetStats(BaseCatStats::Stats[static_cast<size_t>(type)]);
-    assert(level >= m_Stats.base_level);
     m_Health += (level - m_Stats.base_level) * m_Stats.health_diff;
     m_KnockBackHealth = m_Health / m_Stats.kb;
     m_Stats.damage += (level - m_Stats.base_level) * m_Stats.damage_diff;
@@ -1472,7 +1471,6 @@ void CatAnimeResource::Init() {
                 RESOURCE_DIR"/cats/029/Animation/attack1.png",
                 RESOURCE_DIR"/cats/029/Animation/attack2.png",
                 RESOURCE_DIR"/cats/029/Animation/attack3.png",
-                RESOURCE_DIR"/cats/029/Animation/attack4.png",
                 RESOURCE_DIR"/cats/029/Animation/attack5.png",
                 RESOURCE_DIR"/cats/029/Animation/attack6.png",
                 RESOURCE_DIR"/cats/029/Animation/attack7.png",

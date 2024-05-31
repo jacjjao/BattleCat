@@ -760,7 +760,7 @@ namespace BaseCatStats {
         stats.det_box = {0, 140};
         stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
-        stats.base_level = 10;
+        stats.base_level = 1;
         stats.health_diff = 50;
         stats.damage_diff = 4;
 #ifdef ENABLE_BATTLE_LOG
@@ -784,7 +784,7 @@ namespace BaseCatStats {
         stats.det_box = {0, 140};
         stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
-        stats.base_level = 10;
+        stats.base_level = 1;
         stats.health_diff = 200;
         stats.damage_diff = 1;
 #ifdef ENABLE_BATTLE_LOG
@@ -808,7 +808,7 @@ namespace BaseCatStats {
         stats.det_box = {-3, 140};
         stats.hit_box = {-3, 140};
         stats.attr = std::nullopt;
-        stats.base_level = 10;
+        stats.base_level = 1;
         stats.health_diff = 100;
         stats.damage_diff = 12;
         stats.strong = {EnemyAttr::RED};
@@ -833,7 +833,7 @@ namespace BaseCatStats {
         stats.det_box = {-70, 140};
         stats.hit_box = {-70, 140};
         stats.attr = std::nullopt;
-        stats.base_level = 10;
+        stats.base_level = 1;
         stats.health_diff = 200;
         stats.damage_diff = 50;
 #ifdef ENABLE_BATTLE_LOG
@@ -857,7 +857,7 @@ namespace BaseCatStats {
         stats.det_box = {0, 140};
         stats.hit_box = {0, 140};
         stats.attr = std::nullopt;
-        stats.base_level = 10;
+        stats.base_level = 1;
         stats.health_diff = 250;
         stats.damage_diff = 6;
 #ifdef ENABLE_BATTLE_LOG
