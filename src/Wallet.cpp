@@ -14,9 +14,7 @@ void Wallet::Update(const float dt) {
     constexpr double time_reload = 0.1;
     static double t = time_reload;
 
-    if (t > 0.0) {
-        t -= Util::Time::GetDeltaTime();
-    }
+    t -= Util::Time::GetDeltaTime();
     if (Util::Input::IsKeyPressed(Util::Keycode::SPACE) && t <= 0.0) {
         m_InfMoney = !m_InfMoney;
         t = time_reload;
