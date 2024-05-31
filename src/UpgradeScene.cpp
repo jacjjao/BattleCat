@@ -39,10 +39,10 @@ UpgradeScene::UpgradeScene(App &app) : m_App(app){
     m_Root.AddChild(m_TransFormbtn);
     //---------------------------------------------------------------------------------
     auto upgrade_btn = std::make_shared<GameButton> (
-        RESOURCE_DIR "/buttons/UpgradeButton.png",
+        RESOURCE_DIR "/buttons/UpgradeButton2.png",
         std::initializer_list<std::string>(
-            {RESOURCE_DIR "/buttons/hover_purple.png",
-             RESOURCE_DIR "/buttons/hover_yellow.png"}),false);
+            {RESOURCE_DIR "/buttons/hover_purple2.png",
+             RESOURCE_DIR "/buttons/hover_yellow2.png"}),false);
     upgrade_btn->SetZIndex(3.0f);
     upgrade_btn->SetPosition(-415.0f,-140.0f);
     upgrade_btn->AddButtonEvent([this]{
