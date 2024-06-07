@@ -27,9 +27,7 @@ UnitCard::UnitCard(unsigned int unitnum, const float zIndex) {
     AddChild(m_udi2);
 
     m_udi2->SetVisible(false);
-    //m_dollar = 1000;
     m_dollar = BaseCatStats::Stats[unitnum+1].cost;
-    //m_dollar = BaseCatStats::TankCat.cost;
     m_currudi = m_udi1;
 }
 
@@ -66,7 +64,7 @@ void UnitCard::Dragging() {
     tmp.translation += m_udi1->GetPosition() - this->GetPosition();
 }
 
-void UnitCard::Put_OFF() {
+void UnitCard::Put_DOWN() {
     m_minify = false;
     SetVisible(true);
     m_FrameTimer = 0;

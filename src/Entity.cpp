@@ -74,7 +74,10 @@ std::optional<EnemyAttr> Entity::GetAttr() const {
 
 double Entity::GetHealthPercent() const {
     assert(m_Stats.health != 0.0);
-    return static_cast<double>(m_Health) / static_cast<double>(m_FullHealth);
+    if(m_Health <= 0){
+        return 0;
+    }
+    return m_Health / m_FullHealth;
 }
 
 void Entity::SetState(EntityState state) {
