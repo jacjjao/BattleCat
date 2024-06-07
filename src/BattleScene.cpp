@@ -11,7 +11,7 @@ BattleScene::BattleScene(App &app)
     : m_App(app) {
     m_Cats.reserve(s_MaxEntityCount); // to prevent reallocation
     m_Enemies.reserve(s_MaxEntityCount);
-
+    //------------------------------------------------
     m_ReturnButton = std::make_shared<GameButton>(
         RESOURCE_DIR "/buttons/button_back_ipad.png",
         std::initializer_list<std::string>(
@@ -24,38 +24,73 @@ BattleScene::BattleScene(App &app)
             m_App.SwitchBGM(App::BGMType::CAT_BASE);
     });
     m_Root.AddChild(m_ReturnButton);
-
+    //-----------------------------------------------
+    m_OKButton = std::make_shared<GameButton>(
+        RESOURCE_DIR "/buttons/OKbutton.png",
+        std::initializer_list<std::string>(
+            {RESOURCE_DIR "/buttons/hover_yellow.png",
+             RESOURCE_DIR "/buttons/hover_purple.png"}));
+    m_OKButton->SetPosition(0, -200);
+    m_OKButton->SetZIndex(5.0f);
+    m_OKButton->AddButtonEvent(
+        [this] {
+            m_App.SwitchScene(App::SceneType::CAT_BASE);
+            m_App.SwitchBGM(App::BGMType::CAT_BASE);
+        });
+    m_OKButton->SetVisible(false);
+    //--------------------------------------------
     m_Background.emplace(RESOURCE_DIR "/img/bg/bg_000.png");
     m_Background->SetScaleX(2.0f);
+    //--------------------------------------------
+    m_victory = std::make_shared<GameObjectEx>();
+    m_victory->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR "/scene/victory.png"));
+    m_victory->SetVisible(false);
+    m_victory->SetZIndex(100.0f);
+    m_Root.AddChild(m_victory);
+    //-----------------------------------------------------
+    m_defeat = std::make_shared<GameObjectEx>();
+    m_defeat->SetDrawable(std::make_shared<Util::Image>(RESOURCE_DIR "/scene/defeat.png"));
+    m_defeat->SetVisible(false);
+    m_defeat->SetZIndex(100.0f);
+    m_Root.AddChild(m_defeat);
 
     DeployButton::Init();
 }
 
 void BattleScene::Update() {
+    m_Root.Update();
+    if(IsGameOver){
+        Util::Transform t;
+        t.translation = glm::vec2(0,-200.0f);
+        m_OKButton->Draw(t,5.0f);
+        m_OKButton->Update();
+        Draw();
+        return;
+    }
+
     m_Cam.Update();
     m_Background->ConstraintCam(m_Cam);
 
     const auto dt = Util::Time::GetDeltaTime();
     m_TotalTime += dt;
-    
+
     for (auto &btn : m_CatButton) {
         btn->Update(dt);
     }
     m_ReturnButton->Update();
-    m_Root.Update();
 
     m_Wallet->Update(dt);
     m_Work->Update();
 
     static double velocity_y = 0.0;
-    
+
     const auto health_percent = m_EnemyTower->GetHealthPercent();
     for (auto &ed : m_Stage.dispatchers) {
         auto e = ed.Update(health_percent, m_TotalTime, dt);
         if (!e) {
             continue;
         }
-        auto& [type, modifier, knock] = *e;
+        auto &[type, modifier, knock] = *e;
         AddEnemy(type, modifier);
         if (knock && !m_OnBossAppear) {
             m_OnBossAppear = true;
@@ -121,19 +156,15 @@ void BattleScene::Update() {
         m_DmgInfos.clear();
     }
 
-    if (m_EnemyTower->IsDead())
-    {
+    if (m_EnemyTower->IsDead()) {
         GameOver(true);
         Sounds::Victory->Play();
-        m_App.SwitchScene(App::SceneType::CAT_BASE);
-        m_App.SwitchBGM(App::BGMType::CAT_BASE);
+        return;
     }
-    if (m_CatTower->IsDead())
-    {
+    if (m_CatTower->IsDead()) {
         GameOver(false);
         Sounds::Defeat->Play();
-        m_App.SwitchScene(App::SceneType::CAT_BASE);
-        m_App.SwitchBGM(App::BGMType::CAT_BASE);
+        return;
     }
 
     const auto IsDead = [](auto &e) -> bool {
@@ -161,6 +192,12 @@ void BattleScene::Update() {
 }
 
 void BattleScene::LoadStage(Stage &stage) {
+    m_victory->SetVisible(false);
+    m_defeat->SetVisible(false);
+    IsGameOver = false;
+    m_ReturnButton->SetVisible(true);
+    m_OKButton->SetVisible(false);
+
     m_Cats.clear();
     m_Enemies.clear();
 
@@ -188,10 +225,23 @@ void BattleScene::LoadStage(Stage &stage) {
 }
 
 void BattleScene::GameOver(const bool cat_won) {
+    IsGameOver = true;
+    m_OKButton->SetVisible(true);
+    m_ReturnButton->SetVisible(false);
+    m_App.PauseBGM();
     if (cat_won) {
         LOG_DEBUG("You Win!");
-    } else {
+        m_victory->SetVisible(true);
+        if (m_Enemies.size() > 1) {
+            m_Enemies.erase(m_Enemies.begin()+1, m_Enemies.end()); // Keep tower.
+        }
+    }
+    else {
         LOG_DEBUG("You Lose!");
+        m_defeat->SetVisible(true);
+        if(m_Cats.size() > 1){
+            m_Cats.erase(m_Cats.begin()+1,m_Cats.end());//Keep tower.
+        }
     }
 }
 
@@ -220,10 +270,18 @@ void BattleScene::EnemyStartAttack() {
     }
 }
 
+void BattleScene::Draw() {
+    if (!IsGameOver) {
+        DeployButton::DrawStates();
+        m_Wallet->Draw();
+        m_Work->Draw();
 
-void BattleScene::Draw() { 
-    DeployButton::DrawStates();
-    {   
+        for (auto &btn : m_CatButton) {
+            btn->Draw();
+        }
+    }
+
+    {
         auto t = m_Cam.GetTransform();
         m_Cats[0].Draw(t);
         t.translation.y += m_CatY;
@@ -237,14 +295,18 @@ void BattleScene::Draw() {
     for (auto &enemy : m_Enemies) {
         enemy.Draw(m_Cam.GetTransform());
     }
-    m_Wallet->Draw();
-    m_Work->Draw();
-
-    for (auto &btn : m_CatButton) {
-        btn->Draw();
-    }
 
     m_Background->Draw(m_Cam);
+    {
+        auto currHP = static_cast<unsigned int>(m_EnemyTower->GetFullHealth()*m_EnemyTower->GetHealthPercent());
+        glm::vec2 pos = glm::vec2(m_Cam.GetTransform().translation.x - 450.0f, 50);
+        NumberSystem::Display(currHP,pos, 3.0f, 14,NumberSystem::SmallNumber);
+    }
+    {
+        auto currHP = static_cast<unsigned int>(m_CatTower->GetFullHealth()*m_CatTower->GetHealthPercent());
+        glm::vec2 pos = glm::vec2(m_Cam.GetTransform().translation.x + 500.0f, 50);
+        NumberSystem::Display( currHP,pos,3.0f,14,NumberSystem::SmallNumber);
+    }
 }
 
 void BattleScene::CatAttack(Cat &cat) {
@@ -351,7 +413,7 @@ void BattleScene::CreateUnitButtons() {
         auto cat_type = equiplist.at(i)->GetCatType();
         auto cat_lvl = equiplist.at(i)->GetUnitLVL();
         std::stringstream uni_img;
-        if(static_cast<int>(cat_type) <= 23){
+        if(static_cast<int>(cat_type) <= 24){
             uni_img << RESOURCE_DIR"/img/uni/f/" << "uni" << std::string(3 - std::to_string(unitnum).length(), '0') << unitnum << "_f00.png";
         }
         else{

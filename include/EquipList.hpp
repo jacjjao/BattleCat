@@ -40,7 +40,7 @@ public:
 private:
     void Unpressed() override;
     void Dragging() override;
-    void Put_OFF() override;
+    void Put_DOWN() override;
     void PickUp() override;
     bool IsMouseHovering() override;
 

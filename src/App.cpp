@@ -71,13 +71,17 @@ void App::SwitchToBattleScene(Stage stage) {
 }
 
 void App::SwitchBGM(const BGMType type) {
-    if (m_CurBGM) {
-        m_CurBGM->Pause();
-    }
+    PauseBGM();
     const auto index = static_cast<size_t>(type);
     if (index >= m_BGMs.size()) {
         throw std::invalid_argument("Invalid BGMType");
     }
     m_CurBGM = m_BGMs[index].get();
     m_CurBGM->Play();
+}
+
+void App::PauseBGM(){
+    if (m_CurBGM) {
+        m_CurBGM->Pause();
+    }
 }

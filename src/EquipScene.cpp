@@ -97,7 +97,7 @@ void EquipScene::Update() {
     if(!CurrentUnit->Inuse()){
         CurrentUnit->Drag();
         if(PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
-            if(CurrentUnit->GetCurrentState() == Draggable::DragState::PUT_OFF){
+            if(CurrentUnit->GetCurrentState() == Draggable::DragState::PUT_DOWN){
                 AddEquip(CurrentUnit);
             }
             else{
@@ -112,7 +112,7 @@ void EquipScene::Update() {
     for(unsigned short int i=0 ; i < EquipList::Size ; i++) {
         auto &eq = EquipList::m_equiplist.at(i);
         eq->Drag();
-        if(eq->GetCurrentState() == Draggable::DragState::PUT_OFF &&
+        if(eq->GetCurrentState() == Draggable::DragState::PUT_DOWN &&
             !PosInRange(m_equip->GetTopLeftPos(),m_equip->GetBottomRightPos(),Util::Input::GetCursorPosition())){
             RemoveEquip(i);
         }

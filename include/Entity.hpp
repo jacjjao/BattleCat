@@ -43,6 +43,9 @@ public:
     [[nodiscard]]
     double GetHealthPercent() const;
 
+    [[nodiscard]]
+    double GetFullHealth() const{return m_FullHealth;};
+
 #ifdef ENABLE_BATTLE_LOG
     [[nodiscard]]
     std::string_view GetName() const {

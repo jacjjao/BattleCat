@@ -51,6 +51,8 @@ public:
 
     void SwitchBGM(BGMType type);
 
+    void PauseBGM();
+
 private:
     State m_CurrentState = State::START;
 

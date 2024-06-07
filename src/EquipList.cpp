@@ -36,7 +36,7 @@ void EquipCard::Dragging() {
     m_curruni->Draw(m_DragTrans,m_curruni->GetZIndex());
 }
 
-void EquipCard::Put_OFF() {
+void EquipCard::Put_DOWN() {
     m_FrameTimer = 0;
     m_DragTrans.scale = glm::vec2(1.0f, 1.0f);
 }

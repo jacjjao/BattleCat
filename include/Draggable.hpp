@@ -8,7 +8,7 @@ class Draggable{
 public:
     enum class DragState : size_t{
         UNPRESSED = 0,
-        PUT_OFF,
+        PUT_DOWN,
         DRAGGING,
         PICKUP,
     };
@@ -21,8 +21,8 @@ public:
                 Unpressed();
                 break;
             }
-            case DragState::PUT_OFF:{
-                Put_OFF();
+            case DragState::PUT_DOWN:{
+                Put_DOWN();
                 break;
             }
             case DragState::DRAGGING:{
@@ -42,7 +42,7 @@ public:
     };
 protected:
     virtual void Unpressed(){};
-    virtual void Put_OFF(){};
+    virtual void Put_DOWN(){};
     virtual void Dragging(){};
     virtual void PickUp(){};
 
@@ -57,7 +57,7 @@ private:
             return;
         }
         if(Patch::MouseLBUP() && m_DragState == DragState::DRAGGING){
-            m_DragState = DragState::PUT_OFF;
+            m_DragState = DragState::PUT_DOWN;
             return;
         }
         if(!Util::Input::IsKeyPressed(key)){

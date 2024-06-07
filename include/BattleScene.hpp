@@ -53,8 +53,12 @@ private:
 
     std::vector<std::shared_ptr<DeployButton>> m_CatButton;
     std::shared_ptr<GameButton> m_ReturnButton;
+    std::shared_ptr<GameButton> m_OKButton;
 
     std::optional<BattleBackground> m_Background;
+
+    std::shared_ptr<GameObjectEx> m_victory;
+    std::shared_ptr<GameObjectEx> m_defeat;
 
     Cat *m_CatTower = nullptr;
     Enemy *m_EnemyTower = nullptr;
@@ -74,6 +78,7 @@ private:
 
     // for knockback effect when boss appear
     bool m_OnBossAppear = false;
+    bool IsGameOver = false;
     double m_CatY = 0.0;
 };
 #endif //BATTLESCENE_HPP
